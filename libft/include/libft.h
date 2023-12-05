@@ -6,14 +6,14 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:04:41 by r-afonso          #+#    #+#             */
-/*   Updated: 2023/11/26 02:11:36 by r-afonso         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:25:22 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <bsd/string.h>
+// # include <bsd/string.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>

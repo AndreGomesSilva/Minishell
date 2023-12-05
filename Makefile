@@ -19,6 +19,11 @@ $(NAME): $(OBJS)
 	@$(MAKE) -C $(SRC_DIR_LIB) --no-print-directory
 	$(CC) $(OBJS) $(LIB) $(CFLAGS) $(INC) -o $(NAME)
 
+runTests:
+	@$(MAKE) -C $(SRC_DIR_LIB) --no-print-directory
+	g++ src/exemplo.c tests/exemplo_test.cpp -I/usr/local/include -L/usr/local/lib -lgtest -lgtest_main $(LIB) $(CFLAGS) $(INC) -o test
+	./test
+
 bonus: all
 
 clean:
@@ -28,6 +33,7 @@ clean:
 fclean: clean
 	$(MAKE) fclean -C $(SRC_DIR_LIB)
 	$(RM) $(NAME)
+	$(RM) test
 
 re: fclean all
 
