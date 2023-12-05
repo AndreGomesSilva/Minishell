@@ -18,11 +18,18 @@ $(NAME): $(OBJS)
 	@$(MAKE) -C $(SRC_DIR_LIB) --no-print-directory
 	$(CC) $(OBJS) $(LIB) $(CFLAGS) $(INC) -o $(NAME)
 
+<<<<<<< HEAD
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJS_DIR)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
+=======
+runTests:
+	@$(MAKE) -C $(SRC_DIR_LIB) --no-print-directory
+	g++ src/exemplo.c tests/exemplo_test.cpp -I/usr/local/include -L/usr/local/lib -lgtest -lgtest_main $(LIB) $(CFLAGS) $(INC) -o test
+	./test
+>>>>>>> ce84393ce51829fd6ed105de30d929dde356b876
 
 bonus: all
 
@@ -33,6 +40,7 @@ clean:
 fclean: clean
 	$(MAKE) fclean -C $(SRC_DIR_LIB)
 	$(RM) $(NAME)
+	$(RM) test
 
 re: fclean all
 

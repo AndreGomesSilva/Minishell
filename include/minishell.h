@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2023/11/30 18:12:12 by r-afonso         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:36:46 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 
+<<<<<<< HEAD
 typedef struct s_lst
 {
 	char			*token_name;
@@ -35,5 +36,8 @@ typedef struct s_aux
 
 void	create_main_node(t_lst **lst, char *cmd);
 int		list_len(t_lst **lst);
+=======
+int func_test(void);
+>>>>>>> ce84393ce51829fd6ed105de30d929dde356b876
 
 #endif //MINISHELL_MINISHELL_H
