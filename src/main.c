@@ -28,10 +28,17 @@ static void	print_lst(t_lst **lst)
 int	main(void)
 {
 	t_lst	*lst;
+	char	*cmd;
+
 	lst = NULL;
-	create_main_node(&lst, "ls");
-	create_main_node(&lst, "grep");
+	cmd = readline("> ");
+	create_main_node(&lst, cmd);
+	while (lst->token_name == NULL)
+	{
+		cmd = readline("> ");
+		create_main_node(&lst, cmd);
+	}
 	print_lst(&lst);
-	printf("Ola Mundo");
+	printf("%s", readline("> "));
 	return (0);
 }

@@ -16,6 +16,8 @@
 # include "../libft/include/libft.h"
 # include <unistd.h>
 # include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef struct s_lst
 {

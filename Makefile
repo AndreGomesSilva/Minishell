@@ -1,21 +1,21 @@
 NAME = minishell
-CC = cc
+CC = cc -g
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 INC = -I./include
+
 # file path #
 SRCS_DIR = src/
 NODE = handle_nodes
 
 OBJS_DIR = obj/
 SRC_DIR_LIB= ./libft
-LIB = ./libft/libft.a
+LIB = ./libft/libft.a -lreadline
 
 FILES = main \
 		$(NODE)/create_main_node \
 
-SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
-OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(notdir $(FILES))))
+OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 
 all: $(NAME)
 
@@ -23,11 +23,12 @@ $(NAME): $(OBJS)
 	@$(MAKE) -C $(SRC_DIR_LIB) --no-print-directory
 	$(CC) $(OBJS) $(LIB) $(CFLAGS) $(INC) -o $(NAME)
 
-$(OBJS): $(SRCS) | $(OBJS_DIR)
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c | $(OBJS_DIR)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR)$(NODE)
 
 runTests:
 	@$(MAKE) -C $(SRC_DIR_LIB) --no-print-directory
