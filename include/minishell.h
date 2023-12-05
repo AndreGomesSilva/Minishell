@@ -17,7 +17,6 @@
 # include <unistd.h>
 # include <stdio.h>
 
-<<<<<<< HEAD
 typedef struct s_lst
 {
 	char			*token_name;
@@ -30,14 +29,13 @@ typedef struct s_lst
 typedef struct s_aux
 {
 	int				max_priority;
-	struct t_lst	*target_priority;
+	struct s_lst	*target_priority;
 }	t_aux;
+
 
 
 void	create_main_node(t_lst **lst, char *cmd);
 int		list_len(t_lst **lst);
-=======
-int func_test(void);
->>>>>>> ce84393ce51829fd6ed105de30d929dde356b876
+int		func_test(void);
 
-#endif //MINISHELL_MINISHELL_H
+#endif

@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-void	print_lst(t_lst **lst)
+static void	print_lst(t_lst **lst)
 {
 	t_lst	*current;
 
@@ -21,21 +21,17 @@ void	print_lst(t_lst **lst)
 	while (current)
 	{
 		printf("%s\n", current->token_name);
-		current->next;
+		current = current->next;
 	}
 }
 
-
 int	main(void)
 {
-<<<<<<< HEAD
 	t_lst	*lst;
 	lst = NULL;
 	create_main_node(&lst, "ls");
 	create_main_node(&lst, "grep");
 	print_lst(&lst);
-=======
 	printf("Ola Mundo");
->>>>>>> ce84393ce51829fd6ed105de30d929dde356b876
 	return (0);
 }
