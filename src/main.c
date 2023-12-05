@@ -12,7 +12,26 @@
 
 #include "../include/minishell.h"
 
+void	print_lst(t_lst **lst)
+{
+	t_lst	*current;
+
+	current = *lst;
+	printf("number of nodes: %d\n", list_len(lst));
+	while (current)
+	{
+		printf("%s\n", current->token_name);
+		current->next;
+	}
+}
+
+
 int	main(void)
 {
+	t_lst	*lst;
+	lst = NULL;
+	create_main_node(&lst, "ls");
+	create_main_node(&lst, "grep");
+	print_lst(&lst);
 	return (0);
 }

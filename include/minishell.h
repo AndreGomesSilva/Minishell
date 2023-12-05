@@ -13,6 +13,27 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../libft/include/libft.h"
+# include <unistd.h>
 # include <stdio.h>
+
+typedef struct s_lst
+{
+	char			*token_name;
+	int				priority;
+	char			**args;
+	struct s_lst	*next;
+	struct s_lst	*previous;
+}	t_lst;
+
+typedef struct s_aux
+{
+	int				max_priority;
+	struct t_lst	*target_priority;
+}	t_aux;
+
+
+void	create_main_node(t_lst **lst, char *cmd);
+int		list_len(t_lst **lst);
 
 #endif //MINISHELL_MINISHELL_H
