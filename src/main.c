@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 14:48:23 by angomes-          #+#    #+#             */
-/*   Updated: 2023/12/04 19:47:49 by r-afonso         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:06:11 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,22 @@ static void	print_lst(t_lst **lst)
 	}
 }
 
+static void	handle_sign(int sig)
+{
+	// g_runtime = 0;
+}
 int	main(void)
 {
+	if(!handle_entry_validation(argc))
+		return (0);
 	t_lst	*lst;
 	lst = NULL;
 	create_main_node(&lst, "ls");
 	create_main_node(&lst, "grep");
-	print_lst(&lst);
-	printf("Ola Mundo");
-	return (0);
+	signal(SIGUSR1, handle_sign);
+
+
+	while(1)
+		;	
+	return(0);
 }
