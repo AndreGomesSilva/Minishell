@@ -7,6 +7,8 @@ INC = -I./include
 # file path #
 SRCS_DIR = src/
 NODE = handle_nodes
+MATRIX = handle_matrix
+LEXER = handle_lexer
 
 OBJS_DIR = obj/
 SRC_DIR_LIB= ./libft
@@ -14,6 +16,8 @@ LIB = ./libft/libft.a -lreadline
 
 FILES = main \
 		$(NODE)/create_main_node \
+		$(MATRIX)/free_matrix \
+		$(LEXER)/token_factory \
 
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 
@@ -29,6 +33,8 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c | $(OBJS_DIR)
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)$(NODE)
+	@mkdir -p $(OBJS_DIR)$(MATRIX)
+	@mkdir -p $(OBJS_DIR)$(LEXER)
 
 runTests:
 	@$(MAKE) -C $(SRC_DIR_LIB) --no-print-directory

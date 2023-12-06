@@ -28,17 +28,12 @@ static void	print_lst(t_lst **lst)
 int	main(void)
 {
 	t_lst	*lst;
-	char	*cmd;
+	char	**cmd;
 
 	lst = NULL;
-	cmd = readline("> ");
-	create_main_node(&lst, cmd);
-	while (lst->token_name == NULL)
-	{
-		cmd = readline("> ");
-		create_main_node(&lst, cmd);
-	}
+	cmd = ft_split(readline("> "), ' ');
+	token_factory(&lst, cmd);
 	print_lst(&lst);
-	printf("%s", readline("> "));
+	free_matrix(cmd);
 	return (0);
 }
