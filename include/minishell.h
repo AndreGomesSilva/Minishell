@@ -16,6 +16,8 @@
 # include "../libft/include/libft.h"
 # include <unistd.h>
 # include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <signal.h>
 
 typedef struct s_lst
@@ -38,5 +40,7 @@ typedef struct s_aux
 void	create_main_node(t_lst **lst, char *cmd);
 int		list_len(t_lst **lst);
 int		func_test(void);
+void	free_matrix(char **matrix);
+void	token_factory(t_lst **lst, char **matrix);
 
 #endif
