@@ -12,6 +12,8 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# define TRUE 1
+# define FALSE 0
 
 # include "../libft/include/libft.h"
 # include <unistd.h>
@@ -36,11 +38,18 @@ typedef struct s_aux
 }	t_aux;
 
 
-
+/// handle_nodes
 void	create_main_node(t_lst **lst, char *cmd);
 int		list_len(t_lst **lst);
+void	free_lst(t_lst **lst);
+
+/// test
 int		func_test(void);
+
+/// handle_matrix
 void	free_matrix(char **matrix);
+
+//	handle_lexer
 void	token_factory(t_lst **lst, char **matrix);
 
 #endif

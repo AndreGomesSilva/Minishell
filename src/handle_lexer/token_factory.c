@@ -6,14 +6,15 @@
 
 static void	create_token(t_lst **lst, char **matrix)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (matrix[i])
 	{
-		create_main_node(lst, matrix[i]);
+		create_main_node(lst, strdup(matrix[i]));
 		i++;
 	}
+	free_matrix(matrix);
 }
 
 void	token_factory(t_lst **lst, char **matrix)

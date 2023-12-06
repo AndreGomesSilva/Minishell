@@ -13,27 +13,40 @@ static void	print_lst(t_lst **lst)
 	}
 }
 
-static void	handle_sign(int sig)
+//static void	handle_sign(int sig)
+//{
+//	// g_runtime = 0;
+//}
+
+int	take_input(t_lst **lst)
 {
-	// g_runtime = 0;
+	char	**input_matrix;
+	char	*input;
+
+	input = readline("> ");
+	if (input)
+	{
+		input_matrix = ft_split(input, ' ');
+		token_factory(lst, input_matrix);
+		free(input);
+		return (TRUE);
+	}
+	return (FALSE);
 }
+
 int	main(void)
 {
-	if(!handle_entry_validation(argc))
-		return (0);
+//	if(!handle_entry_validation(argc))
+//		return (0);
 	t_lst	*lst;
-	char	**cmd;
 
 	lst = NULL;
-	create_main_node(&lst, "ls");
-	create_main_node(&lst, "grep");
-	signal(SIGUSR1, handle_sign);
-
-	cmd = ft_split(readline("> "), ' ');
-	token_factory(&lst, cmd);
+//	signal(SIGUSR1, handle_sign);
+	take_input(&lst);
 	print_lst(&lst);
-	free_matrix(cmd);
-	while(1)
-		;
+
+	free_lst(&lst);
+//	while(1)
+//		;
 	return (0);
 }
