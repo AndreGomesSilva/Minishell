@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2023/12/05 14:40:36 by r-afonso         ###   ########.fr       */
+/*   Updated: 2023/12/06 22:35:47 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int		func_test(void);
 /// handle_matrix
 void	free_matrix(char **matrix);
 
-//	handle_lexer
+///	handle_lexer
 void	token_factory(t_lst **lst, char **matrix);
+int	take_input(t_lst **lst);
 
 #endif

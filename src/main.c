@@ -13,47 +13,18 @@ static void	print_lst(t_lst **lst)
 	}
 }
 
-//static void	handle_sign(int sig)
-//{
-//	// g_runtime = 0;
-//}
-
-int	take_input(t_lst **lst)
+int	main(int argc, char **argv)
 {
-	char	**input_matrix;
-	char	*input;
-
-	input = readline("> ");
-	if (input)
-	{
-		input_matrix = ft_split(input, ' ');
-		add_history(input);
-		token_factory(lst, input_matrix);
-		free(input);
-		return (TRUE);
-	}
-	return (FALSE);
-}
-
-int	main(void)
-{
-//	if(!handle_entry_validation(argc))
-//		return (0);
 	t_lst	*lst;
-	int 	i;
-
+	(void) argv;
 	lst = NULL;
-	i = 0;
+	if(argc > 1)
+		return (0);
 //	signal(SIGUSR1, handle_sign);
-	while (i < 4)
-	{
+	while (1)
 		take_input(&lst);
-		i++;
-	}
 	print_lst(&lst);
 	clear_history();
 	free_lst(&lst);
-//	while(1)
-//		;
 	return (0);
 }
