@@ -39,7 +39,7 @@ $(OBJS_DIR):
 
 runTests:
 	@$(MAKE) -C $(SRC_DIR_LIB) --no-print-directory
-	g++ src/exemplo.c tests/exemplo_test.cpp -I/usr/local/include -L/usr/local/lib -lgtest -lgtest_main $(LIB) $(CFLAGS) $(INC) -o test
+	g++ src/exemplo.c tests/exemplo_test.cpp tests/main.cpp -I/usr/local/include -L/usr/local/lib -lgtest -lgtest_main $(LIB) $(CFLAGS) $(INC) -o test
 	./test
 
 bonus: all
