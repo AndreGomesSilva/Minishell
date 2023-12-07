@@ -27,6 +27,7 @@ int	take_input(t_lst **lst)
 	if (input)
 	{
 		input_matrix = ft_split(input, ' ');
+		add_history(input);
 		token_factory(lst, input_matrix);
 		free(input);
 		return (TRUE);
@@ -39,12 +40,18 @@ int	main(void)
 //	if(!handle_entry_validation(argc))
 //		return (0);
 	t_lst	*lst;
+	int 	i;
 
 	lst = NULL;
+	i = 0;
 //	signal(SIGUSR1, handle_sign);
-	take_input(&lst);
+	while (i < 4)
+	{
+		take_input(&lst);
+		i++;
+	}
 	print_lst(&lst);
-
+	clear_history();
 	free_lst(&lst);
 //	while(1)
 //		;
