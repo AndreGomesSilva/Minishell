@@ -6,21 +6,25 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2023/12/06 22:35:47 by r-afonso         ###   ########.fr       */
+/*   Updated: 2023/12/07 20:37:31 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# include <bits/types/siginfo_t.h>
+# include <stdbool.h>
+# include "../libft/include/libft.h"
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+
 # define TRUE 1
 # define FALSE 0
-
-# include "../libft/include/libft.h"
-# include <unistd.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
 
 typedef struct s_lst
 {
@@ -29,28 +33,28 @@ typedef struct s_lst
 	char			**args;
 	struct s_lst	*next;
 	struct s_lst	*previous;
-}	t_lst;
+}					t_lst;
 
-typedef struct s_aux
+typedef struct s_control
 {
-	int				max_priority;
-	struct s_lst	*target_priority;
-}	t_aux;
+	struct s_lst	*lst;
+}					t_control;
 
-
+extern t_control	*g_control;
 /// handle_nodes
-void	create_main_node(t_lst **lst, char *cmd);
-int		list_len(t_lst **lst);
-void	free_lst(t_lst **lst);
+void				create_main_node(t_lst	*lst, char *cmd);
+int					list_len(t_lst *lst);
+void				free_lst(t_lst *lst);
 
 /// test
-int		func_test(void);
+int					func_test(t_control *control);
 
 /// handle_matrix
-void	free_matrix(char **matrix);
+void				free_matrix(char **matrix);
 
 ///	handle_lexer
-void	token_factory(t_lst **lst, char **matrix);
-int	take_input(t_lst **lst);
-
+void				handle_token(t_lst *lst, char **matrix);
+int					take_input(t_lst *lst);
+void				handle_signal(void);
+void				handle_start(t_control *control);
 #endif
