@@ -1,6 +1,7 @@
 NAME = minishell
 CC = cc -g
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =
+# CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 INC = -I./include
 
@@ -9,16 +10,19 @@ SRCS_DIR = src/
 NODE = handle_nodes
 MATRIX = handle_matrix
 LEXER = handle_lexer
+SIGNAL = handle_signal
 
 OBJS_DIR = obj/
 SRC_DIR_LIB= ./libft
 LIB = ./libft/libft.a -lreadline
 
 FILES = main \
+		handle_start \
 		$(NODE)/create_main_node \
 		$(NODE)/free_lst \
 		$(MATRIX)/free_matrix \
 		$(LEXER)/token_factory \
+		$(SIGNAL)/handle_signal \
 
 OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 
@@ -36,6 +40,7 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)$(NODE)
 	@mkdir -p $(OBJS_DIR)$(MATRIX)
 	@mkdir -p $(OBJS_DIR)$(LEXER)
+	@mkdir -p $(OBJS_DIR)$(SIGNAL)
 
 runTests:
 	@$(MAKE) -C $(SRC_DIR_LIB) --no-print-directory

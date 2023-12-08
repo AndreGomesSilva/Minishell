@@ -40,11 +40,11 @@ typedef struct s_control
 	struct s_lst	*lst;
 }					t_control;
 
-extern t_control	*g_control;
+
 /// handle_nodes
-void				create_main_node(t_lst	*lst, char *cmd);
+void				create_node(t_control *control, char *cmd);
 int					list_len(t_lst *lst);
-void				free_lst(t_lst *lst);
+void				free_lst(t_control *control);
 
 /// test
 int					func_test(t_control *control);
@@ -53,8 +53,9 @@ int					func_test(t_control *control);
 void				free_matrix(char **matrix);
 
 ///	handle_lexer
-void				handle_token(t_lst *lst, char **matrix);
-int					take_input(t_lst *lst);
+void				handle_token(t_control *control, char **matrix);
+int					take_input(t_control *control);
 void				handle_signal(void);
-void				handle_start(t_control *control);
+void				handle_start(t_control **control);
+
 #endif

@@ -4,17 +4,17 @@
 
 #include "../../include/minishell.h"
 
-static void	create_token(t_lst *lst, char **matrix)
+static void	create_token(t_control *control, char **matrix)
 {
 	int	i;
 
 	i = 0;
 	while (matrix[i])
-		create_main_node(lst, ft_strdup(matrix[i++]));
+		create_node(control, ft_strdup(matrix[i++]));
 	free_matrix(matrix);
 }
 
-int	take_input(t_lst *lst)
+int	take_input(t_control *control)
 {
 	char	**input_matrix;
 	char	*input;
@@ -24,14 +24,14 @@ int	take_input(t_lst *lst)
 	{
 		input_matrix = ft_split(input, ' ');
 		add_history(input);
-		handle_token(lst, input_matrix);
+		handle_token(control, input_matrix);
 		free(input);
 		return (true);
 	}
 	return (false);
 }
 
-void	handle_token(t_lst *lst, char **matrix)
+void	handle_token(t_control *control, char **matrix)
 {
-	create_token(lst, matrix);
+	create_token(control, matrix);
 }

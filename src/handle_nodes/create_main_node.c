@@ -34,7 +34,7 @@ t_lst	*last_node(t_lst *lst)
 	return (temp_node);
 }
 
-void	create_main_node(t_lst	*lst, char *cmd)
+void	create_node(t_control *control, char *cmd)
 {
 	t_lst	*node;
 	t_lst	*temp_node;
@@ -42,14 +42,14 @@ void	create_main_node(t_lst	*lst, char *cmd)
 	node = ft_calloc(1, sizeof (t_lst));
 	node->token_name = cmd;
 	node->next = NULL;
-	if (!lst)
+	if (!control->lst)
 	{
 		node->previous = NULL;
-		lst = node;
+		control->lst = node;
 	}
 	else
 	{
-		temp_node = last_node(lst);
+		temp_node = last_node(control->lst);
 		temp_node->next = node;
 		node->previous = temp_node;
 	}

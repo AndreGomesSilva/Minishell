@@ -9,23 +9,25 @@ static void	print_lst(t_lst *current)
 		current = current->next;
 	}
 }
-extern t_control	*g_control;
+
+t_control	*g_control;
+
 int	main(int argc, char **argv)
 {
 	(void)argv;
 	g_control = NULL;
-	
-	handle_start(g_control);
-	if (argc > 1)
+	handle_start(&g_control);
+	if (argc > 1) {
 		return (0);
-	handle_signal();
+	}
+//	handle_signal();
 	while (1)
 	{
-		take_input(g_control->lst);
+		take_input(g_control);
 		print_lst(g_control->lst);
 	}
 	print_lst(g_control->lst);
 	clear_history();
-	free_lst(g_control->lst);
+	free_lst(g_control);
 	return (0);
 }

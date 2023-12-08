@@ -4,11 +4,13 @@
 
 #include "../../include/minishell.h"
 
-void	free_lst(t_lst *lst)
+void	free_lst(t_control *control)
 {
 	t_lst	*node;
 	t_lst	*temp_node;
+	t_lst	*lst;
 
+	lst = control->lst;
 	node = lst;
 	while (node)
 	{
