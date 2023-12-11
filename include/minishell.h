@@ -6,19 +6,17 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2023/12/07 20:37:31 by r-afonso         ###   ########.fr       */
+/*   Updated: 2023/12/11 18:15:09 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# include <bits/types/siginfo_t.h>
-# include <stdbool.h>
+# include <stdio.h>
 # include "../libft/include/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdio.h>
 # include <stdlib.h>
 
 # define TRUE 1
