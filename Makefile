@@ -17,7 +17,7 @@ LIB = ./libft/libft.a -lreadline
 
 FILES = main \
 		handle_start \
-		$(NODE)/create_main_node \
+		$(NODE)/create_node \
 		$(NODE)/free_lst \
 		$(MATRIX)/free_matrix \
 		$(LEXER)/token_factory \
