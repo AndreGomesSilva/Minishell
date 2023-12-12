@@ -28,15 +28,15 @@ static void		create_token(t_control *control, char *input)
 		len = 0;
 		while (*ptr)
 		{
-			if (*ptr == 39)
+			if (*ptr == '\'')
 			{
-				if (++*ptr != 39)
+				if (++*ptr != '\'')
 				{
 					aux = ++ptr;
-					while (*ptr && *ptr != 39)
+					while (*ptr && *ptr != '\'')
 						ptr++;
 					begin = ++ptr;
-					len = str_len_token(aux, 39);
+					len = str_len_token(aux, '\'');
 					create_node(control, ft_substr(aux, 0, len));
 				}
 				else
