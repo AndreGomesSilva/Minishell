@@ -13,11 +13,12 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+
+# include <stdio.h>
 # include "../libft/include/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdio.h>
 # include <stdlib.h>
 
 # define TRUE 1
