@@ -9,43 +9,59 @@ int	str_len_token(const char *str, int delimiter)
 	int i;
 
 	i = 0;
+	str++;
 	while (str[i] && str[i] != delimiter)
 		i++;
 	return (i);
 }
 
+static int		split_token(t_control *control, char *input, char *begin)
+{
+	int len;
+	char *ptr;
+
+	len = 0;
+	ptr = begin;
+	if (*begin == '\'')
+	{
+		ptr++;
+		while (*ptr && *ptr != '\'')
+			ptr++;
+		if (!*ptr || *(begin + 1) == '\'')
+			create_node(control, strdup(""));
+		else
+		{
+			len = str_len_token(begin, '\'');
+			create_node(control, ft_substr(begin, 0, len + 2));
+		}
+	}
+	else
+		create_node(control, strdup(""));
+	return (len);
+}
+
 static void		create_token(t_control *control, char *input)
 {
 		char *begin;
-		char *aux;
 		char *ptr;
 		int len;
 
 		if (!input)
 			return ;
+		len = 0;
 		begin = input;
 		ptr = begin;
-		len = 0;
 		while (*ptr)
 		{
 			if (*ptr == '\'')
 			{
-				if (++*ptr != '\'')
-				{
-					aux = ++ptr;
-					while (*ptr && *ptr != '\'')
-						ptr++;
-					begin = ++ptr;
-					len = str_len_token(aux, '\'');
-					create_node(control, ft_substr(aux, 0, len));
-				}
-				else
-					create_node(control, strdup(""));
-			} 
+				begin = ptr;
+				len = split_token(control, input, begin);
+				ptr = ptr + len + 2;
+			}
 			else
 				ptr++;
 		}
-
 }
 
 //static void	create_token(t_control *control, char **matrix)
