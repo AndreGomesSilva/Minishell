@@ -6,18 +6,18 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2023/12/07 20:37:31 by r-afonso         ###   ########.fr       */
+/*   Updated: 2023/12/14 21:30:49 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
 # include "../libft/include/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
+# include <stdio.h>
 # include <stdlib.h>
 
 # define TRUE 1
@@ -39,15 +39,10 @@ typedef struct s_control
 	struct s_lst	*lst;
 }					t_control;
 
-
 /// handle_nodes
 void				create_node(t_control *control, char *cmd);
 int					list_len(t_lst *lst);
 void				free_lst(t_control *control);
-
-/// test
-int					func_test(t_control *control);
-
 /// handle_matrix
 void				free_matrix(char **matrix);
 

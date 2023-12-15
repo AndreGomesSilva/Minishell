@@ -41,8 +41,9 @@ static void		create_token(t_control *control, char *input)
 				}
 				else
 					create_node(control, strdup(""));
-			} else
-			ptr++;
+			} 
+			else
+				ptr++;
 		}
 
 }

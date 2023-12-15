@@ -6,24 +6,33 @@ RM = rm -f
 INC = -I./include
 
 # file path #
-SRCS_DIR = src/
-NODE = handle_nodes
-MATRIX = handle_matrix
-LEXER = handle_lexer
+SRCS_DIR 	= src/
+TEST_DIR 	= tests/
+NODE 		= handle_nodes
+MATRIX 		= handle_matrix
+LEXER 		= handle_lexer
 
-OBJS_DIR = obj/
-SRC_DIR_LIB= ./libft
-LIB = ./libft/libft.a -lreadline
+OBJS_DIR 	= obj/
+SRC_DIR_LIB	= ./libft
+LIB 		= ./libft/libft.a -lreadline
 
-FILES = main \
-		handle_start \
-		$(NODE)/create_node \
-		$(NODE)/free_lst \
-		$(MATRIX)/free_matrix \
-		$(LEXER)/token_factory \
-		handle_signal \
+FILES_WITHOUT_MAIN = \
+	handle_start handle_signal \
+	$(NODE)/create_node $(NODE)/free_lst \
+	$(MATRIX)/handle_matrix \
+	$(LEXER)/token_factory \
 
-OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
+FILES = \
+	main $(FILES_WITHOUT_MAIN)
+
+FILE_T = \
+	main_test $(MATRIX)/handle_matrix_test \
+
+
+FILE_TESTE 		= $(addprefix $(TEST_DIR), $(addsuffix .cpp, $(FILE_T)))
+FILE_TESTE_PROG	= $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES_WITHOUT_MAIN)))
+
+OBJS 			= $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
 
 all: $(NAME)
 
@@ -43,7 +52,7 @@ $(OBJS_DIR):
 
 runTests:
 	@$(MAKE) -C $(SRC_DIR_LIB) --no-print-directory
-	g++ src/exemplo.c tests/exemplo_test.cpp tests/main.cpp -I/usr/local/include -L/usr/local/lib -lgtest -lgtest_main $(LIB) $(CFLAGS) $(INC) -o test
+	g++ $(FILE_TESTE) $(FILE_TESTE_PROG) -I/usr/local/include -L/usr/local/lib -lgtest -lgtest_main $(LIB) $(CFLAGS) $(INC) -o test
 	./test
 
 bonus: all

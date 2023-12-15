@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	tar \
 	gcc-10 \
 	curl \
-	software-properties-common
+	software-properties-common \
+	libreadline-dev
 
 RUN apt-get install -y openssl
 

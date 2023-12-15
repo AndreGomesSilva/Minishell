@@ -1,8 +1,10 @@
-## Minishell
+# Minishell
+
+## Description
 
 Minishell is a project developed by students at 42 school, which aims to create a simple shell program similar to the Unix command-line interpreter (shell). The project focuses on implementing various features and functionalities commonly found in a shell, such as executing commands, managing processes, handling signals, and implementing built-in shell commands.
 
-### Tests
+## Tests
 
 **1-** Creates the image in docker, it must be run only once:
 `docker build -t gtest .`
@@ -13,7 +15,7 @@ Minishell is a project developed by students at 42 school, which aims to create 
 **3-** Execute the tests:
 `make runTests`
 
-### Features
+## Features
 
 - Command execution: Minishell allows users to execute commands by typing them into the shell prompt. It supports executing both built-in shell commands and external commands available in the system.
 - Environment variables: Users can set and manipulate environment variables within the shell. Minishell provides functionality to manage and use environment variables effectively.

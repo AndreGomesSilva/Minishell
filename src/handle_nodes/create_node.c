@@ -39,7 +39,7 @@ void	create_node(t_control *control, char *cmd)
 	t_lst	*node;
 	t_lst	*temp_node;
 
-	node = ft_calloc(1, sizeof (t_lst));
+	node = (t_lst *)ft_calloc(1, sizeof (t_lst));
 	node->token_name = cmd;
 	node->next = NULL;
 	if (!control->lst)
