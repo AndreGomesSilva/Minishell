@@ -45,10 +45,8 @@ int	str_len_token(const char *str, int delimiter)
 		return (i);
 	}
 	else if (!delimiter)
-	{
 		while (str[i] && !is_delimiter(str[i]) && !is_space(str[i]))
 			i++;
-	}
 	return (i);
 }
 
@@ -93,7 +91,7 @@ int	take_input(t_control *control)
 {
 	char	*input;
 
-	input = readline("> ");	
+	input = readline(control->prompt);
 	if (input)
 	{
 		add_history(input);

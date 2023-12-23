@@ -16,7 +16,7 @@ int	main(int argc, char **argv, char **env)
 {
 	(void)argv;
 	g_control = NULL;
-	handle_start(&g_control);
+	handle_start(&g_control, env);
 	handle_signal();
 	if (argc > 1) {
 		return (0);

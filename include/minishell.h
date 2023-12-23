@@ -26,7 +26,6 @@
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
 
-
 enum e_type
 {
 	CMD,
@@ -47,6 +46,10 @@ typedef struct s_lst
 
 typedef struct s_control
 {
+
+	char 			*pwd;
+	char 			*user;
+	char			*prompt;
 	struct s_lst	*lst;
 }					t_control;
 
@@ -61,9 +64,10 @@ void				free_matrix(char **matrix);
 void				handle_token(t_control *control, char *input);
 int					take_input(t_control *control);
 void				handle_signal(void);
-void				handle_start(t_control **control);
+void				handle_start(t_control **control, char **env);
 
 /// handle_expander
 void handle_expander(t_control *control, char **env);
+char *get_var(char *var, char **env);
 
 #endif
