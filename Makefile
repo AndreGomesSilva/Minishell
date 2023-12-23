@@ -11,6 +11,7 @@ TEST_DIR 	= tests/
 NODE 		= handle_nodes
 MATRIX 		= handle_matrix
 LEXER 		= handle_lexer
+EXPANDER    = handle_expander
 
 OBJS_DIR 	= obj/
 SRC_DIR_LIB	= ./libft
@@ -21,6 +22,7 @@ FILES_WITHOUT_MAIN = \
 	$(NODE)/create_node $(NODE)/free_lst \
 	$(MATRIX)/handle_matrix \
 	$(LEXER)/token_factory \
+	$(EXPANDER)/handle_expander \
 
 FILES = \
 	main $(FILES_WITHOUT_MAIN)
@@ -48,6 +50,7 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)$(NODE)
 	@mkdir -p $(OBJS_DIR)$(MATRIX)
 	@mkdir -p $(OBJS_DIR)$(LEXER)
+	@mkdir -p $(OBJS_DIR)$(EXPANDER)
 	@mkdir -p $(OBJS_DIR)handle_signal
 
 runTests:

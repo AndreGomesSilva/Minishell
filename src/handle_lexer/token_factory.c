@@ -46,7 +46,7 @@ int	str_len_token(const char *str, int delimiter)
 	}
 	else if (!delimiter)
 	{
-		while (str[i] != delimiter && !is_delimiter(str[i]))
+		while (str[i] && !is_delimiter(str[i]) && !is_space(str[i]))
 			i++;
 	}
 	return (i);
@@ -91,7 +91,6 @@ int handle_ctrl_d(t_control *control)
 
 int	take_input(t_control *control)
 {
-	char	**input_matrix;
 	char	*input;
 
 	input = readline("> ");	

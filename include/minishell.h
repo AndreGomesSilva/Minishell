@@ -26,10 +26,20 @@
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
 
+
+enum e_type
+{
+	CMD,
+	VAR,
+	RED,
+	HER,
+};
+
 typedef struct s_lst
 {
 	char			*token_name;
-	int				priority;
+	enum e_type 	type;
+	char 			*value;
 	char			**args;
 	struct s_lst	*next;
 	struct s_lst	*previous;
@@ -52,5 +62,8 @@ void				handle_token(t_control *control, char *input);
 int					take_input(t_control *control);
 void				handle_signal(void);
 void				handle_start(t_control **control);
+
+/// handle_expander
+void handle_expander(t_control *control, char **env);
 
 #endif

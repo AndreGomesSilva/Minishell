@@ -19,6 +19,8 @@ void	free_lst(t_control *control)
 			free(node->token_name);
 		if (node->args)
 			free_matrix(node->args);
+		if (node->value)
+			free(node->value);
 		free(node);
 		node = temp_node;
 	}

@@ -12,7 +12,7 @@ static void	print_lst(t_lst *current)
 
 t_control	*g_control;
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **env)
 {
 	(void)argv;
 	g_control = NULL;
@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 	while (1)
 	{
 		take_input(g_control);
+		handle_expander(g_control, env);
 		print_lst(g_control->lst);
 	}
 	print_lst(g_control->lst);
