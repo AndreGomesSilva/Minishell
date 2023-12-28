@@ -24,12 +24,13 @@
 # define TRUE 1
 # define FALSE 0
 # define INT_MAX 2147483647
-# define INT_MIN -2147483648
+# define INT_MIN (-2147483648)
 
 enum e_type
 {
 	CMD,
 	VAR,
+	PIP,
 	RED,
 	HER,
 };
@@ -61,6 +62,9 @@ void				free_lst(t_control *control);
 void				free_matrix(char **matrix);
 
 ///	handle_lexer
+int 				is_space(char c);
+int					is_delimiter(char c);
+void				set_type(t_lst *lst);
 void				handle_token(t_control *control, char *input);
 int					take_input(t_control *control);
 void				handle_signal(void);

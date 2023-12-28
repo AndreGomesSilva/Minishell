@@ -4,25 +4,6 @@
 
 #include "../include/minishell.h"
 
-static int 	is_space(char c)
-{
-	if (c == ' ' || c == '\t')
-		return (TRUE);
-	return (FALSE);
-}
-
-static int is_delimiter(char c)
-{
-	if (c == '\'' || c == '"')
-		return (1);
-	else if (c == '>' || c == '<')
-		return (2);
-	else if (c == '|')
-		return (3);
-	else
-		return (0);
-}
-
 int	str_len_token(const char *str, int delimiter)
 {
 	int i;
@@ -39,8 +20,8 @@ int	str_len_token(const char *str, int delimiter)
 	{
 		// TODO handle_here_doc
 		if (str[i] && str[i] == '<' && str[i + 1] == '<')
-			printf(">>Here Doc<<\n");
-		if (str[i] && str[i] == '<' || str[i] == '>' || str[i] == '|')
+			i = i + 2;
+		else if (str[i] && str[i] == '<' || str[i] == '>' || str[i] == '|')
 			i++;
 		return (i);
 	}
@@ -107,4 +88,5 @@ int	take_input(t_control *control)
 void	handle_token(t_control *control, char *input)
 {
 	create_token(control, input);
+	set_type(control->lst);
 }

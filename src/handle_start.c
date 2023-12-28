@@ -6,6 +6,7 @@ void	set_path(t_control *control, char **env)
 	char *temp_user;
 
 	temp_user = NULL;
+	temp_pwd = NULL;
 	control->pwd = get_var("PWD", env);
 	control->user = get_var("USER", env);
 	if (!control->user)
