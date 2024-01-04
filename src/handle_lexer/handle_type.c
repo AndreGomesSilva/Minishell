@@ -4,15 +4,13 @@
 
 #include "../../include/minishell.h"
 
-void	set_type(t_lst *lst)
+void	set_type(t_lst *node)
 {
-	t_lst	*node;
 	int		type;
 
-	if (!lst)
+	if (!node)
 		return ;
 
-	node = lst;
 	while (node)
 	{
 		type = 0;
