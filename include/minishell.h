@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2023/12/14 21:30:49 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/01/04 12:43:29 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ void				free_matrix(char **matrix);
 int 				is_space(char c);
 int					is_delimiter(char c);
 void				set_type(t_lst *lst);
-void				handle_token(t_control *control, char *input);
-int					take_input(t_control *control);
+int				handle_token(t_control *control);
 void				handle_signal(void);
 void				handle_start(t_control **control, char **env);
 

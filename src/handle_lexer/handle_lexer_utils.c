@@ -6,7 +6,7 @@
 
 int 	is_space(char c)
 {
-	if (c == ' ' || c == '\t')
+	if (c != 0 && c == ' ' || c == '\t')
 		return (TRUE);
 	return (FALSE);
 }

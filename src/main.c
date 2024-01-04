@@ -18,13 +18,12 @@ int	main(int argc, char **argv, char **env)
 	g_control = NULL;
 	handle_start(&g_control, env);
 	handle_signal();
-	if (argc > 1) {
+	if (argc > 1)
 		return (0);
-	}
 
 	while (1)
 	{
-		take_input(g_control);
+		handle_token(g_control);
 		handle_expander(g_control, env);
 		print_lst(g_control->lst);
 	}
