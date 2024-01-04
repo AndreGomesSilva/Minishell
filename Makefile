@@ -21,7 +21,7 @@ FILES_WITHOUT_MAIN = \
 	handle_start handle_signal \
 	$(NODE)/create_node $(NODE)/free_lst \
 	$(MATRIX)/handle_matrix \
-	$(LEXER)/token_factory \
+	$(LEXER)/handle_factory \
 	$(LEXER)/handle_lexer_utils \
 	$(LEXER)/handle_type \
 	$(EXPANDER)/handle_expander \

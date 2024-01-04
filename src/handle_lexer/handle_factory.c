@@ -2,8 +2,9 @@
 // Created by angomes- on 12/5/23.
 //
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
+// Conta quantos caracteres tem o token até encontrar um delimitador 
 int	str_len_token(const char *str, int delimiter)
 {
 	int i;
@@ -43,22 +44,19 @@ static char		*split_token(t_control *control, char *begin)
 	return (ptr + len);
 }
 
+// 
 static void		create_token(t_control *control, char *input)
 {
-		char *ptr;
-
-		if (!input)
-			return ;
-		ptr = input;
-		while (*ptr)
+		while (*input)
 		{
-			while (*ptr && is_space(*ptr))
-				ptr++;
-			if (*ptr && isascii(*ptr))
-				ptr = split_token(control, ptr);
-			else if (*ptr)
-				ptr++;
+			while (is_space(*input))
+				input++;
+			if (*input && isascii(*input))
+				input = split_token(control, input);
+			else if (*input)
+				input++;
 		}
+		set_type(control->lst);
 }
 
 int handle_ctrl_d(t_control *control)
@@ -68,7 +66,7 @@ int handle_ctrl_d(t_control *control)
 	exit(0);
 }
 
-int	take_input(t_control *control)
+int	handle_token(t_control *control)
 {
 	char	*input;
 
@@ -76,17 +74,11 @@ int	take_input(t_control *control)
 	if (input)
 	{
 		add_history(input);
-		handle_token(control, input);
+		create_token(control, input);
 		free(input);
 		return (TRUE);
 	}
 	else
 		handle_ctrl_d(control);
 	return (FALSE);
-}
-
-void	handle_token(t_control *control, char *input)
-{
-	create_token(control, input);
-	set_type(control->lst);
 }
