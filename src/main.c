@@ -1,11 +1,11 @@
 #include "../include/minishell.h"
 
-static void	print_lst(t_lst *current)
+static void	print_lst(t_cmd *current)
 {
 	printf("number of nodes: %d\n", list_len(current));
 	while (current)
 	{
-		printf("%s\n", current->token_name);
+		printf("%s\n", current->cmd);
 		current = current->next;
 	}
 }
@@ -25,9 +25,9 @@ int	main(int argc, char **argv, char **env)
 	{
 		handle_token(g_control);
 		handle_expander(g_control, env);
-		print_lst(g_control->lst);
+		print_lst(g_control->cmd);
 	}
-	print_lst(g_control->lst);
+	print_lst(g_control->cmd);
 	clear_history();
 	free_lst(g_control);
 	return (0);

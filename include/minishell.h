@@ -35,15 +35,25 @@ enum e_type
 	HER,
 };
 
-typedef struct s_lst
+typedef struct s_args
 {
-	char			*token_name;
+	char			*token;
 	enum e_type 	type;
 	char 			*value;
-	char			**args;
 	struct s_lst	*next;
-	struct s_lst	*previous;
 }					t_lst;
+
+typedef struct s_cmd
+{
+	char 			*cmd;
+	char 			**full_cmd;
+	char 			**path_cmd;
+	int 			infile;
+	int 			outfile;
+	struct s_lst	*lst_cmd;
+	struct s_cmd	*next;
+	struct s_cmd	*previous;
+}	t_cmd;
 
 typedef struct s_control
 {
@@ -51,7 +61,7 @@ typedef struct s_control
 	char 			*pwd;
 	char 			*user;
 	char			*prompt;
-	struct s_lst	*lst;
+	struct s_cmd	*cmd;
 }					t_control;
 
 /// handle_nodes

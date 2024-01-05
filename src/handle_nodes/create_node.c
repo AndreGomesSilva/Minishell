@@ -36,10 +36,10 @@ t_lst	*last_node(t_lst *lst)
 
 void	create_node(t_control *control, char *cmd)
 {
-	t_lst	*node;
-	t_lst	*temp_node;
+	t_cmd	*node;
+	t_cmd	*temp_node;
 
-	node = (t_lst *)ft_calloc(1, sizeof (t_lst));
+	node = (t_cmd *)ft_calloc(1, sizeof (t_cmd));
 	node->token_name = cmd;
 	node->next = NULL;
 	if (!control->lst)
