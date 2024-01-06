@@ -6,19 +6,18 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/01/04 12:43:29 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/01/05 21:33:11 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-
-# include <stdio.h>
 # include "../libft/include/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
+# include <stdio.h>
 # include <stdlib.h>
 
 # define TRUE 1
@@ -26,61 +25,72 @@
 # define INT_MAX 2147483647
 # define INT_MIN (-2147483648)
 
-enum e_type
+enum				e_type_cmd
 {
-	CMD,
-	VAR,
+	NILL,
 	PIP,
-	RED,
-	HER,
+	OR,
+	AND
+};
+
+enum				e_type_arg
+{
+	NORM,
+	QUOTA_S,
+	QUOTA_D,
+	QUOTA_VAR_S,
+	VAR_EXPAND,
+	RE_HERD,
+	RE_INPUT,
+	RE_OUTPUT,
+	RE_OUTPUT_APPEND
 };
 
 typedef struct s_args
 {
-	char			*token;
-	enum e_type 	type;
-	char 			*value;
+	char			*arg;
+	enum e_type_arg	type;
 	struct s_lst	*next;
-}					t_lst;
+}					t_args;
 
 typedef struct s_cmd
 {
-	char 			*cmd;
-	char 			**full_cmd;
-	char 			**path_cmd;
-	int 			infile;
-	int 			outfile;
-	struct s_lst	*lst_cmd;
+	char			*cmd;
+	char			**cmd_and_args;
+	char			*path_cmd;
+	enum e_type_cmd	type;
+	int				infile;
+	int				outfile;
+	struct s_args	*list_args;
 	struct s_cmd	*next;
-	struct s_cmd	*previous;
-}	t_cmd;
+	struct s_cmd	*prev;
+}					t_cmd;
 
 typedef struct s_control
 {
-
-	char 			*pwd;
-	char 			*user;
+	char			*pwd_initial;
+	char			*user;
 	char			*prompt;
 	struct s_cmd	*cmd;
 }					t_control;
 
 /// handle_nodes
 void				create_node(t_control *control, char *cmd);
-int					list_len(t_lst *lst);
+int					list_len(t_cmd *lst);
 void				free_lst(t_control *control);
 /// handle_matrix
 void				free_matrix(char **matrix);
 
 ///	handle_lexer
-int 				is_space(char c);
+int					is_space(char c);
 int					is_delimiter(char c);
-void				set_type(t_lst *lst);
-int				handle_token(t_control *control);
+void				set_type(t_cmd *lst);
+int					handle_token(t_control *control);
 void				handle_signal(void);
 void				handle_start(t_control **control, char **env);
 
 /// handle_expander
-void handle_expander(t_control *control, char **env);
-char *get_var(char *var, char **env);
+void				handle_expander(t_control *control, char **env);
+char				*get_var(char *var, char **env);
 
 #endif
