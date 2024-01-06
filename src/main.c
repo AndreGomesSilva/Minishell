@@ -1,12 +1,12 @@
 #include "../include/minishell.h"
 
-static void	print_lst(t_cmd *current)
+static void	print_lst(t_cmd *cmd)
 {
-	printf("number of nodes: %d\n", list_len(current));
-	while (current)
+	printf("number of nodes: %d\n", list_len(cmd));
+	while (cmd)
 	{
-		printf("%s\n", current->cmd);
-		current = current->next;
+		printf("%s\n", cmd->cmd);
+		cmd = cmd->next;
 	}
 }
 
@@ -29,6 +29,6 @@ int	main(int argc, char **argv, char **env)
 	}
 	print_lst(g_control->cmd);
 	clear_history();
-	free_lst(g_control);
+	free_cmd(g_control);
 	return (0);
 }

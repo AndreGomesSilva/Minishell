@@ -4,13 +4,13 @@
 
 #include "../../include/minishell.h"
 
-int	list_len(t_lst *lst)
+int	list_len(t_cmd *cmd)
 {
 	int		count;
-	t_lst	*current;
+	t_cmd	*current;
 
 	count = 0;
-	current = lst;
+	current = cmd;
 	while (current)
 	{
 		count++;
@@ -19,17 +19,17 @@ int	list_len(t_lst *lst)
 	return (count);
 }
 
-t_lst	*last_node(t_lst *lst)
+t_cmd	*get_last_node(t_cmd *cmd)
 {
-	t_lst	*temp_node;
+	t_cmd	*temp_node;
 
-	if (!lst)
+	if (!cmd)
 		return (NULL);
-	temp_node = lst;
-	while (lst->next)
+	temp_node = cmd;
+	while (cmd->next)
 	{
-		temp_node = lst->next;
-		lst = temp_node;
+		temp_node = cmd->next;
+		cmd = temp_node;
 	}
 	return (temp_node);
 }
@@ -40,16 +40,16 @@ void	create_node(t_control *control, char *cmd)
 	t_cmd	*temp_node;
 
 	node = (t_cmd *)ft_calloc(1, sizeof (t_cmd));
-	node->token_name = cmd;
+	node->cmd = cmd;
 	node->next = NULL;
-	if (!control->lst)
+	if (!control->cmd)
 	{
 		node->previous = NULL;
-		control->lst = node;
+		control-> = node;
 	}
 	else
 	{
-		temp_node = last_node(control->lst);
+		temp_node = last_node(control->cmd);
 		temp_node->next = node;
 		node->previous = temp_node;
 	}

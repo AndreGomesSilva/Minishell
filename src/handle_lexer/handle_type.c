@@ -4,29 +4,29 @@
 
 #include "../../include/minishell.h"
 
-void	set_type(t_lst *node)
+void	set_type(t_cmd *cmd)
 {
 	int		type;
 
-	if (!node)
+	if (!cmd)
 		return ;
 
-	while (node)
+	while (cmd)
 	{
 		type = 0;
-		type = is_delimiter(node->token_name[0]);
+		type = is_delimiter(cmd->cmd[0]);
 		if (type)
 		{
 			if (type == 3)
-				node->type = PIP;
+				cmd->type = PIP;
 			else if (type == 2)
 			{
-				if (is_delimiter(node->token_name[1]))
-					node->type = HER;
+				if (is_delimiter(cmd->cmd[1]))
+					cmd->type = HER;
 				else
-					node->type = RED;
+					cmd->type = RED;
 			}
 		}
-		node = node->next;
+		cmd = cmd->next;
 	}
 }

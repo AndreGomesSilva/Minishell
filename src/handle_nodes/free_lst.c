@@ -4,7 +4,7 @@
 
 #include "../../include/minishell.h"
 
-void	free_lst(t_control *control)
+void	free_cmd(t_control *control)
 {
 	t_lst	*node;
 	t_lst	*temp_node;

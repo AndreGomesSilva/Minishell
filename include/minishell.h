@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/01/05 21:33:11 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/01/06 17:13:27 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ enum				e_type_cmd
 enum				e_type_arg
 {
 	NORM,
-	QUOTA_S,
-	QUOTA_D,
-	QUOTA_VAR_S,
+	QUOTE_SINGLE,
+	QUOTE_DOUBLE,
+	QUOTE_VAR_SINGLE,
 	VAR_EXPAND,
 	RE_HERD,
 	RE_INPUT,
@@ -76,8 +76,10 @@ typedef struct s_control
 
 /// handle_nodes
 void				create_node(t_control *control, char *cmd);
+t_cmd				*get_last_node(t_cmd *cmd);
 int					list_len(t_cmd *lst);
-void				free_lst(t_control *control);
+void				free_cmd(t_control *control);
+
 /// handle_matrix
 void				free_matrix(char **matrix);
 
@@ -91,6 +93,7 @@ void				handle_start(t_control **control, char **env);
 
 /// handle_expander
 void				handle_expander(t_control *control, char **env);
+static char			*split_token(t_control *control, char *begin);
 char				*get_var(char *var, char **env);
 
 #endif

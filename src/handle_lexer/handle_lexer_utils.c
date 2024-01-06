@@ -11,14 +11,12 @@ int 	is_space(char c)
 	return (FALSE);
 }
 
-int is_delimiter(char c)
+int is_args(char *input)
 {
-	if (c == '\'' || c == '"')
+	if (input[0] == '\'' || input[0] == '"')
 		return (1);
 	else if (c == '>' || c == '<')
 		return (2);
-	else if (c == '|')
-		return (3);
 	else
 		return (0);
 }

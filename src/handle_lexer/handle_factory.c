@@ -4,71 +4,30 @@
 
 #include "../../include/minishell.h"
 
-// Conta quantos caracteres tem o token até encontrar um delimitador 
-int	str_len_token(const char *str, int delimiter)
+//
+static void	create_token(t_control *control, char *input)
 {
-	int i;
-
-	i = 0;
-	if (delimiter == 1)
+	while (*input)
 	{
-		str++;
-		while (str[i] && str[i] != '\'' && str[i] != '"')
-			i++;
-		return (i + 2);
+		while (is_space(*input))
+			input++;
+		if (*input && ft_isascii(*input))
+			input = split_token(control, input);
+		else if (*input)
+			input++;
 	}
-	else if (delimiter == 2 || delimiter == 3)
-	{
-		// TODO handle_here_doc
-		if (str[i] && str[i] == '<' && str[i + 1] == '<')
-			i = i + 2;
-		else if (str[i] && str[i] == '<' || str[i] == '>' || str[i] == '|')
-			i++;
-		return (i);
-	}
-	else if (!delimiter)
-		while (str[i] && !is_delimiter(str[i]) && !is_space(str[i]))
-			i++;
-	return (i);
 }
 
-static char		*split_token(t_control *control, char *begin)
-{
-	int len;
-	char *ptr;
-
-	len = 0;
-	ptr = begin;
-	len = str_len_token(ptr, is_delimiter(*ptr));
-	create_node(control, ft_substr(begin, 0, len));
-	return (ptr + len);
-}
-
-// 
-static void		create_token(t_control *control, char *input)
-{
-		while (*input)
-		{
-			while (is_space(*input))
-				input++;
-			if (*input && isascii(*input))
-				input = split_token(control, input);
-			else if (*input)
-				input++;
-		}
-		set_type(control->lst);
-}
-
-int handle_ctrl_d(t_control *control)
+int	handle_ctrl_d(t_control *control)
 {
 	clear_history();
-	free_lst(control);
+	free_cmd(control);
 	exit(0);
 }
 
 int	handle_token(t_control *control)
 {
-	char	*input;
+	char *input;
 
 	input = readline(control->prompt);
 	if (input)

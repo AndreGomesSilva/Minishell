@@ -3,6 +3,7 @@
 
 void receive_sig_int(int sig) {
 	extern t_control *g_control;
+	free_cmd(g_control);
     printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -20,4 +21,4 @@ void handle_signal(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-// Ctrl + C = apaga o que esta no buffer e desenha uma nova linha
+// FIXME: Ctrl + C = apaga o que esta no buffer e desenha uma nova linha
