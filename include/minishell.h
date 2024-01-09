@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/01/08 20:54:20 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:34:27 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_control
 }					t_control;
 
 /// handle_nodes
-void				create_node(t_control *control, char *cmd);
+void				create_node(t_control *control, enum e_type_cmd type);
 t_cmd				*get_last_node(t_cmd *cmd);
 int					list_len(t_cmd *lst);
 void				free_cmd(t_control *control);

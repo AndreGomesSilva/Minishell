@@ -59,6 +59,7 @@ char	*split_token(t_control *control, char *input)
 		type_cmd = is_cmd(actual);
 		if (type_cmd)
 		{
+			create_node(control, type);
 			actual = create_cmd(control, actual, type_cmd, &size_cmd);
 			create_args(control, actual, size_cmd);
 			size_cmd = 0;
