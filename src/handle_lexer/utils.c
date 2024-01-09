@@ -26,9 +26,9 @@ int	is_delimiter(char c)
 		return (NILL);
 }
 
-int	is_args(t_control *control, char *actual)
-{
-}
+//int	is_args(t_control *control, char *actual)
+//{
+//}
 
 //0 = false, 1 = pipe, 2 = or, 3 = and
 int	is_cmd(char *actual)

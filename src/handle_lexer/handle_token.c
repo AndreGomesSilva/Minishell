@@ -67,6 +67,7 @@ char	*split_token(t_control *control, char *input)
 		actual++;
 		size_cmd++;
 	}
+	return (actual);
 }
 
 int	handle_token(t_control *control)
