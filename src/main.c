@@ -24,7 +24,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		handle_token(g_control);
-		handle_expander(g_control, env);
+		// handle_expander(g_control, env);
 		print_lst(g_control->cmd);
 	}
 	print_lst(g_control->cmd);

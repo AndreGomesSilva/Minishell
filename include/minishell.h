@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/01/06 17:13:27 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/01/08 20:54:20 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ enum				e_type_cmd
 enum				e_type_arg
 {
 	NORM,
-	QUOTE_SINGLE,
-	QUOTE_DOUBLE,
-	QUOTE_VAR_SINGLE,
+	QUOTE,
 	VAR_EXPAND,
 	RE_HERD,
 	RE_INPUT,
@@ -46,12 +44,12 @@ enum				e_type_arg
 	RE_OUTPUT_APPEND
 };
 
-typedef struct s_args
+typedef struct s_arg
 {
 	char			*arg;
 	enum e_type_arg	type;
-	struct s_lst	*next;
-}					t_args;
+	struct s_arg	*next;
+}					t_arg;
 
 typedef struct s_cmd
 {
@@ -61,7 +59,7 @@ typedef struct s_cmd
 	enum e_type_cmd	type;
 	int				infile;
 	int				outfile;
-	struct s_args	*list_args;
+	struct t_args	*list_args;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }					t_cmd;
@@ -86,14 +84,18 @@ void				free_matrix(char **matrix);
 ///	handle_lexer
 int					is_space(char c);
 int					is_delimiter(char c);
+int					is_cmd(char *actual);
+int					is_args(t_control *control, char *actual);
 void				set_type(t_cmd *lst);
 int					handle_token(t_control *control);
+char				*split_token(t_control *control, char *input);
 void				handle_signal(void);
 void				handle_start(t_control **control, char **env);
-
+int					receive_signal_ctrl_d(t_control *control);
+t_cmd				*get_last_node_cmd(t_cmd *cmd);
+t_arg				*get_last_node_arg(t_arg *cmd);
 /// handle_expander
 void				handle_expander(t_control *control, char **env);
-static char			*split_token(t_control *control, char *begin);
 char				*get_var(char *var, char **env);
 
 #endif
