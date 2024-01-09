@@ -59,7 +59,7 @@ typedef struct s_cmd
 	enum e_type_cmd	type;
 	int				infile;
 	int				outfile;
-	struct t_args	*list_args;
+	struct s_arg	*list_args;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
 }					t_cmd;
