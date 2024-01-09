@@ -4,23 +4,37 @@
 
 #include "../../include/minishell.h"
 
-void	free_cmd(t_control *control)
+void	free_args(t_cmd *cmd)
 {
-	t_lst	*node;
-	t_lst	*temp_node;
-	t_lst	*lst;
+	t_arg	*node;
+	t_arg 	*temp_node;
 
-	lst = control->lst;
-	node = lst;
+	node = cmd->list_args;
 	while (node)
 	{
 		temp_node = node->next;
-		if (node->token_name)
-			free(node->token_name);
-		if (node->args)
-			free_matrix(node->args);
-		if (node->value)
-			free(node->value);
+		if (node->arg)
+			free(node->arg);
+		free(node);
+		node = temp_node;
+	}
+}
+
+void	free_cmd(t_control *control)
+{
+	t_cmd	*node;
+	t_cmd	*temp_node;
+
+	node = control->cmd;
+	while (node)
+	{
+		temp_node = node->next;
+		if (node->cmd_and_args)
+			free(node->cmd_and_args);
+		if (node->list_args)
+			free_args(node);
+		if (node->path_cmd)
+			free(node->path_cmd);
 		free(node);
 		node = temp_node;
 	}

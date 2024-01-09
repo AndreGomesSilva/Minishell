@@ -74,6 +74,8 @@ typedef struct s_control
 
 /// handle_nodes
 void				create_node(t_control *control, enum e_type_cmd type);
+void				create_cmd_node(t_control *control, char *cmd);
+void				create_arg_node(t_cmd *cmd_node, char *arg);
 t_cmd				*get_last_node(t_cmd *cmd);
 int					list_len(t_cmd *lst);
 void				free_cmd(t_control *control);

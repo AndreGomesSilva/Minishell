@@ -4,9 +4,9 @@
 
 #include "../../include/minishell.h"
 
-int is_variable(t_lst *node)
+int is_variable(t_arg *node)
 {
-	if (node && node->token_name[0] == '$')
+	if (node && node->arg[0] == '$')
 		return (1);
 	return (0);
 }
@@ -33,22 +33,22 @@ char *get_var(char *var, char **env)
 	return (result);
 }
 
-void expand_var(t_lst *node, char **env)
+void expand_var(t_arg *node, char **env)
 {
 	char *var;
 
-	node->type = VAR;
-	var = &node->token_name[1];
-	node->value = get_var(var, env);
-	if (!node->value)
-		node->value = ft_strdup("");
+	node->type = VAR_EXPAND;
+	var = &node->arg[1];
+	node->arg = get_var(var, env);
+	if (!node->arg)
+		node->arg = ft_strdup("");
 }
 
-void handle_var(t_control *control, char **env)
+void handle_var(t_cmd *cmd, char **env)
 {
-	t_lst *node;
+	t_arg *node;
 
-	node = control->lst;
+	node = cmd->list_args;
 	while(node)
 	{
 		if (is_variable(node))
@@ -59,5 +59,5 @@ void handle_var(t_control *control, char **env)
 
 void handle_expander(t_control *control, char **env)
 {
-	handle_var(control, env);
+	handle_var(control->cmd, env);
 }

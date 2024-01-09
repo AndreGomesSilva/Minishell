@@ -28,9 +28,9 @@ int	str_len_token(const char *str, int delimiter)
 	return (i);
 }
 
-void	create_args(t_control *control, char *input, int size_cmd)
-{
-}
+//void	create_args(t_control *control, char *input, int size_cmd)
+//{
+//}
 
 char	*create_cmd(t_control *control, char *actual, int type_cmd,
 		int *size_cmd)
@@ -59,9 +59,9 @@ char	*split_token(t_control *control, char *input)
 		type_cmd = is_cmd(actual);
 		if (type_cmd)
 		{
-			create_node(control, type);
+//			create_node_cmd(control);
 			actual = create_cmd(control, actual, type_cmd, &size_cmd);
-			create_args(control, actual, size_cmd);
+//			create_args(control, actual, size_cmd);
 			size_cmd = 0;
 		}
 		actual++;
