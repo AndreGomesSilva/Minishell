@@ -30,7 +30,7 @@ void	free_cmd(t_control *control)
 	{
 		temp_node = node->next;
 		if (node->cmd_and_args)
-			free(node->cmd_and_args);
+			free_matrix(node->cmd_and_args);
 		if (node->list_args)
 			free_args(node);
 		if (node->path_cmd)

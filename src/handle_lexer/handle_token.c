@@ -28,44 +28,50 @@ int	str_len_token(const char *str, int delimiter)
 	return (i);
 }
 
-//void	create_args(t_control *control, char *input, int size_cmd)
-//{
-//}
-
-char	*create_cmd(t_control *control, char *actual, int type_cmd,
-		int *size_cmd)
+char	*create_args(t_cmd	*cmd, char *input)
 {
-	t_cmd	*last_cmd;
+	t_arg	*last_arg;
+	int 	len;
+
+	len = 0;
+
+	while (is_space(*input))
+		input++;
+	len = str_len_token(input, is_delimiter(*input));
+	create_arg_node(cmd, ft_substr(input, 0, len));
+	last_arg = get_last_node_arg(cmd->list_args);
+
+	return (input + len);
+}
+// echo $PATH<<
+char	*create_cmd(t_control *control, char *actual)
+{
 	int		len;
 
 	len = 0;
+	while (is_space(*actual))
+		actual++;
 	len = str_len_token(actual, is_delimiter(*actual));
 	create_cmd_node(control, ft_substr(actual, 0, len));
-	last_cmd = get_last_node_cmd(control->cmd);
-	last_cmd->type = type_cmd;
+
 	return (actual + len);
 }
 
 char	*split_token(t_control *control, char *input)
 {
 	char	*actual;
-	int		type_cmd;
-	int		size_cmd;
 
 	actual = input;
-	size_cmd = 0;
-	while (*actual)
+	while (*(actual++))
 	{
-		type_cmd = is_cmd(actual);
-		if (type_cmd)
+		actual = create_cmd(control, input);
+		while (*actual)
 		{
-//			create_node_cmd(control);
-			actual = create_cmd(control, actual, type_cmd, &size_cmd);
-//			create_args(control, actual, size_cmd);
-			size_cmd = 0;
+			if(is_cmd(actual))
+				break ;
+			else
+				actual = create_args(get_last_node_cmd(control->cmd), actual);
 		}
-		actual++;
-		size_cmd++;
 	}
 	return (actual);
 }
