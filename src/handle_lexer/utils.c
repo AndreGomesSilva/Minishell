@@ -20,8 +20,6 @@ int	is_delimiter(char c)
 		return (QUOTE);
 	else if (c == '>' || c == '<')
 		return (RE_HERD);
-	 else if (c == '|')
-	 	return (3);
 	else
 		return (NILL);
 }

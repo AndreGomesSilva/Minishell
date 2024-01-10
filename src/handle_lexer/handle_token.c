@@ -28,49 +28,60 @@ int	str_len_token(const char *str, int delimiter)
 	return (i);
 }
 
-char	*create_args(t_cmd	*cmd, char *input)
+char	*create_args(t_cmd *cmd, char *input)
 {
 	t_arg	*last_arg;
-	int 	len;
+	int		len;
 
 	len = 0;
-
 	while (is_space(*input))
 		input++;
 	len = str_len_token(input, is_delimiter(*input));
 	create_arg_node(cmd, ft_substr(input, 0, len));
 	last_arg = get_last_node_arg(cmd->list_args);
-
-	return (input + len);
+	input = input + len;
+	while (is_space(*input))
+		input++;
+	return (input);
 }
-// echo $PATH<<
+
 char	*create_cmd(t_control *control, char *actual)
 {
-	int		len;
+	int	len;
 
 	len = 0;
 	while (is_space(*actual))
 		actual++;
 	len = str_len_token(actual, is_delimiter(*actual));
 	create_cmd_node(control, ft_substr(actual, 0, len));
-
 	return (actual + len);
 }
 
 char	*split_token(t_control *control, char *input)
 {
 	char	*actual;
+	int		result_is_cmd;
 
 	actual = input;
-	while (*(actual++))
+	while (*actual)
 	{
-		actual = create_cmd(control, input);
+		actual = create_cmd(control, actual);
 		while (*actual)
 		{
-			if(is_cmd(actual))
+			result_is_cmd = is_cmd(actual);
+			if (result_is_cmd)
+			{
+				get_last_node_cmd(control->cmd)->type = result_is_cmd;
+				if (result_is_cmd == PIP)
+					actual++;
+				else
+					actual += 2;
 				break ;
+			}
 			else
+			{
 				actual = create_args(get_last_node_cmd(control->cmd), actual);
+			}
 		}
 	}
 	return (actual);
@@ -79,8 +90,10 @@ char	*split_token(t_control *control, char *input)
 int	handle_token(t_control *control)
 {
 	char	*input;
+	char	*first_input;
 
 	input = readline(control->prompt);
+	first_input = input;
 	if (input)
 	{
 		add_history(input);
@@ -90,10 +103,10 @@ int	handle_token(t_control *control)
 				input++;
 			if (*input && ft_isascii(*input))
 				input = split_token(control, input);
-			else if (*input)
-				input++;
+			else
+			 	input++;
 		}
-		free(input);
+		free(first_input);
 		return (TRUE);
 	}
 	else
