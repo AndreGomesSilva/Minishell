@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/01/09 15:34:27 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:04:08 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ enum				e_type_arg
 	NORM,
 	QUOTE,
 	VAR_EXPAND,
-	RE_HERD,
-	RE_INPUT,
-	RE_OUTPUT,
-	RE_OUTPUT_APPEND
+	REDIRECT_HERD,
+	REDIRECT_INPUT,
+	REDIRECT_OUTPUT,
+	REDIRECT_OUTPUT_APPEND
 };
 
 typedef struct s_arg
