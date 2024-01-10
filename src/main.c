@@ -1,15 +1,22 @@
 #include "../include/minishell.h"
 
-static void	print_lst(t_cmd *cmd)
+static void    print_lst(t_cmd *cmd)
 {
-	printf("number of nodes: %d\n", list_len(cmd));
-	while (cmd)
-	{
-		printf("%s\n", cmd->cmd);
-		cmd = cmd->next;
-	}
+    printf("number of nodes: %d\n", list_len(cmd));
+printf("types 3 == AND,  2 == OR, 1 == PIP\n");
+	printf("\n---------------------------------\n");
+    while (cmd)
+    {
+        printf("CMD: %s --- type: %d \n", cmd->cmd, cmd->type);
+        while (cmd->list_args)
+        {
+            printf("ARG: %s\n", cmd->list_args->arg);
+            cmd->list_args = cmd->list_args->next;
+        }
+        printf("\n---------------------------------\n");
+        cmd = cmd->next;
+    }
 }
-
 t_control	*g_control;
 
 int	main(int argc, char **argv, char **env)

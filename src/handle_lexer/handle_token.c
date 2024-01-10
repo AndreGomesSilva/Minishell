@@ -36,9 +36,12 @@ char	*create_args(t_cmd *cmd, char *input)
 	len = 0;
 	while (is_space(*input))
 		input++;
-	len = str_len_token(input, is_delimiter(*input));
-	create_arg_node(cmd, ft_substr(input, 0, len));
-	last_arg = get_last_node_arg(cmd->list_args);
+	if (!is_cmd(input))
+	{
+		len = str_len_token(input, is_delimiter(*input));
+		create_arg_node(cmd, ft_substr(input, 0, len));
+		last_arg = get_last_node_arg(cmd->list_args);
+	}
 	input = input + len;
 	while (is_space(*input))
 		input++;
@@ -52,10 +55,15 @@ char	*create_cmd(t_control *control, char *actual)
 	len = 0;
 	while (is_space(*actual))
 		actual++;
-	len = str_len_token(actual, is_delimiter(*actual));
-	create_cmd_node(control, ft_substr(actual, 0, len));
+	if (is_cmd(actual) || *actual == '<')
+		create_cmd_node(control, ft_strdup(""));
+	else
+	{
+		len = str_len_token(actual, is_delimiter(*actual));
+		create_cmd_node(control, ft_substr(actual, 0, len));
+	}
 	return (actual + len);
-}
+} 
 
 char	*split_token(t_control *control, char *input)
 {
@@ -79,9 +87,7 @@ char	*split_token(t_control *control, char *input)
 				break ;
 			}
 			else
-			{
 				actual = create_args(get_last_node_cmd(control->cmd), actual);
-			}
 		}
 	}
 	return (actual);
@@ -101,10 +107,8 @@ int	handle_token(t_control *control)
 		{
 			while (is_space(*input))
 				input++;
-			if (*input && ft_isascii(*input))
+			if (*input)
 				input = split_token(control, input);
-			else
-			 	input++;
 		}
 		free(first_input);
 		return (TRUE);
