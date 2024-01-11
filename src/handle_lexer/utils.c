@@ -19,14 +19,38 @@ int	is_delimiter(char c)
 	if (c == '\'' || c == '"')
 		return (QUOTE);
 	else if (c == '>' || c == '<')
-		return (RE_HERD);
+		return (REDIRECT_HERD);
 	else
 		return (NILL);
 }
 
-//int	is_args(t_control *control, char *actual)
-//{
-//}
+int	is_args(char *actual)
+{
+	if (!actual || !*actual)
+		return (NORM);
+	else if (*actual == '<')
+	{
+		if (*(actual + 1) == '<')
+			return (REDIRECT_HERD);
+		else
+		 	return (REDIRECT_INPUT);
+	}
+	else if (*actual == '>')
+	{
+		if (*(actual + 1) == '>')
+			return (REDIRECT_OUTPUT_APPEND);
+		else
+		 	return (REDIRECT_OUTPUT);
+	}
+	else if (*actual == '$')
+		return (VAR_EXPAND);
+	else if (*actual == '\'')
+		return (QUOTE);
+	else if (*actual == '\"')
+		return (DOUBLE_QUOTE);
+	else 
+		return (NORM);
+}
 
 //0 = false, 1 = pipe, 2 = or, 3 = and
 int	is_cmd(char *actual)

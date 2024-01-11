@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/01/10 17:04:08 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/01/10 20:39:46 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ enum				e_type_arg
 {
 	NORM,
 	QUOTE,
+	DOUBLE_QUOTE,
 	VAR_EXPAND,
 	REDIRECT_HERD,
 	REDIRECT_INPUT,
@@ -87,7 +88,7 @@ void				free_matrix(char **matrix);
 int					is_space(char c);
 int					is_delimiter(char c);
 int					is_cmd(char *actual);
-int					is_args(t_control *control, char *actual);
+int					is_args(char *actual);
 void				set_type(t_cmd *lst);
 int					handle_token(t_control *control);
 char				*split_token(t_control *control, char *input);

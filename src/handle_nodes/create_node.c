@@ -51,7 +51,8 @@ void	create_arg_node(t_cmd *cmd_node, char *arg)
 	t_arg	*temp_node;
 
 	node = (t_arg *)ft_calloc(1, sizeof(t_arg));
-	node->arg = arg;
+	if(*arg)
+		node->arg = arg;
 	node->next = NULL;
 	if (!cmd_node->list_args)
 		cmd_node->list_args = node;
@@ -69,7 +70,8 @@ void	create_cmd_node(t_control *control, char *cmd)
 	t_cmd	*temp_node;
 
 	node = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-	node->cmd = cmd;
+	if(*cmd)
+		node->cmd = cmd;
 	node->next = NULL;
 	if (!control->cmd)
 	{

@@ -12,7 +12,7 @@ int	str_len_token(const char *str, int delimiter)
 			i++;
 		return (i + 2);
 	}
-	else if (delimiter == RE_HERD)
+	else if (delimiter == REDIRECT_HERD)
 	{
 		if (str[i] && str[i] == '<' && str[i + 1] == '<')
 			i = i + 2;
@@ -36,11 +36,19 @@ char	*create_args(t_cmd *cmd, char *input)
 	len = 0;
 	while (is_space(*input))
 		input++;
-	if (!is_cmd(input))
+	if (!is_cmd(input) && (is_args(input) == QUOTE || is_args(input) == VAR_EXPAND || is_args(input) == NORM) || is_args(input) == DOUBLE_QUOTE)
 	{
 		len = str_len_token(input, is_delimiter(*input));
 		create_arg_node(cmd, ft_substr(input, 0, len));
 		last_arg = get_last_node_arg(cmd->list_args);
+		last_arg->type = is_args(last_arg->arg);
+	}else {
+		create_args(cmd, "");
+		get_last_node_arg(cmd->list_args)->type = is_args(input);
+		if (is_args(input) == REDIRECT_INPUT || is_args(input) == REDIRECT_OUTPUT)
+			len += 1;
+		else
+		 	len += 2;
 	}
 	input = input + len;
 	while (is_space(*input))
@@ -55,8 +63,8 @@ char	*create_cmd(t_control *control, char *actual)
 	len = 0;
 	while (is_space(*actual))
 		actual++;
-	if (is_cmd(actual) || *actual == '<')
-		create_cmd_node(control, ft_strdup(""));
+	if (is_cmd(actual) || is_args(actual))
+		create_cmd_node(control, "");
 	else
 	{
 		len = str_len_token(actual, is_delimiter(*actual));
