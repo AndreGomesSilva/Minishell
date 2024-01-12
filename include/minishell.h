@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/01/10 20:39:46 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:56:14 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@
 enum				e_type_cmd
 {
 	NILL,
-	PIP,
-	OR,
-	AND
+	PIP
 };
 
 enum				e_type_arg
@@ -90,8 +88,8 @@ int					is_delimiter(char c);
 int					is_cmd(char *actual);
 int					is_args(char *actual);
 void				set_type(t_cmd *lst);
-int					handle_token(t_control *control);
-char				*split_token(t_control *control, char *input);
+int					handle_input(t_control *control);
+char				*handle_token(t_control *control, char *input);
 void				handle_signal(void);
 void				handle_start(t_control **control, char **env);
 int					receive_signal_ctrl_d(t_control *control);

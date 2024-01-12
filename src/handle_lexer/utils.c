@@ -61,12 +61,7 @@ int	is_cmd(char *actual)
 	if (!actual || !*actual)
 		return (NILL);
 	else if (actual[i] == '|')
-		if (actual[i + 1] == '|')
-			return (OR);
-		else
 			return (PIP);
-	else if (actual[i] == '&' && actual[i + 1] == '&')
-		return (AND);
 	else
 		return (NILL);
 }

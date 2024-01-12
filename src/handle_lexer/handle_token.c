@@ -73,7 +73,7 @@ char	*create_cmd(t_control *control, char *actual)
 	return (actual + len);
 } 
 
-char	*split_token(t_control *control, char *input)
+char	*handle_token(t_control *control, char *input)
 {
 	char	*actual;
 	int		result_is_cmd;
@@ -99,29 +99,4 @@ char	*split_token(t_control *control, char *input)
 		}
 	}
 	return (actual);
-}
-
-int	handle_token(t_control *control)
-{
-	char	*input;
-	char	*first_input;
-
-	input = readline(control->prompt);
-	first_input = input;
-	if (input)
-	{
-		add_history(input);
-		while (*input)
-		{
-			while (is_space(*input))
-				input++;
-			if (*input)
-				input = split_token(control, input);
-		}
-		free(first_input);
-		return (TRUE);
-	}
-	else
-		receive_signal_ctrl_d(control);
-	return (FALSE);
 }

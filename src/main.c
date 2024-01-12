@@ -17,7 +17,35 @@ static void    print_lst(t_cmd *cmd)
         cmd = cmd->next;
     }
 }
+
 t_control	*g_control;
+
+int	handle_input(t_control *control)
+{
+	char	*input;
+	char	*first_input;
+
+	input = readline(control->prompt);
+	first_input = input;
+	if (input)
+	{
+		add_history(input);
+		while (*input)
+		{
+			while (is_space(*input))
+				input++;
+			if (*input)
+				input = handle_token(control, input);
+		}
+		print_lst(g_control->cmd);
+		free(first_input);
+		free_cmd(control);
+		return (TRUE);
+	}
+	else
+		receive_signal_ctrl_d(control);
+	return (FALSE);
+}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -30,9 +58,7 @@ int	main(int argc, char **argv, char **env)
 
 	while (1)
 	{
-		handle_token(g_control);
-		// handle_expander(g_control, env);
-		print_lst(g_control->cmd);
+		handle_input(g_control);
 	}
 	print_lst(g_control->cmd);
 	clear_history();

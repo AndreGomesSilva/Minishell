@@ -4,19 +4,17 @@
 
 #include "../../include/minishell.h"
 
-void	free_args(t_cmd *cmd)
+void	free_args(t_arg *list_args)
 {
-	t_arg	*node;
 	t_arg 	*temp_node;
 
-	node = cmd->list_args;
-	while (node)
+	while (list_args)
 	{
-		temp_node = node->next;
-		if (node->arg)
-			free(node->arg);
-		free(node);
-		node = temp_node;
+		temp_node = list_args->next;
+		if (list_args->arg)
+			free(list_args->arg);
+		free(list_args);
+		list_args = temp_node;
 	}
 }
 
@@ -29,13 +27,16 @@ void	free_cmd(t_control *control)
 	while (node)
 	{
 		temp_node = node->next;
+		if (node->cmd)
+			free(node->cmd);
 		if (node->cmd_and_args)
 			free_matrix(node->cmd_and_args);
-		if (node->list_args)
-			free_args(node);
 		if (node->path_cmd)
 			free(node->path_cmd);
+		if (node->list_args)
+			free_args(node->list_args);
 		free(node);
 		node = temp_node;
 	}
+	control->cmd = NULL;
 }
