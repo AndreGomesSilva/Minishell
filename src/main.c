@@ -37,6 +37,7 @@ int	handle_input(t_control *control)
 			if (*input)
 				input = handle_token(control, input);
 		}
+		handle_expander(control, control->env);
 		print_lst(g_control->cmd);
 		free(first_input);
 		free_cmd(control);

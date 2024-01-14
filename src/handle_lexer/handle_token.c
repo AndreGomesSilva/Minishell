@@ -43,7 +43,7 @@ char	*create_args(t_cmd *cmd, char *input)
 		last_arg = get_last_node_arg(cmd->list_args);
 		last_arg->type = is_args(last_arg->arg);
 	}else {
-		create_args(cmd, "");
+		create_arg_node(cmd, "");
 		get_last_node_arg(cmd->list_args)->type = is_args(input);
 		if (is_args(input) == REDIRECT_INPUT || is_args(input) == REDIRECT_OUTPUT)
 			len += 1;

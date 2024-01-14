@@ -25,6 +25,7 @@ FILES_WITHOUT_MAIN = \
 	$(LEXER)/handle_type \
 	$(LEXER)/utils \
 	$(EXPANDER)/handle_expander \
+	$(EXPANDER)/utils \
 
 FILES = \
 	main $(FILES_WITHOUT_MAIN)

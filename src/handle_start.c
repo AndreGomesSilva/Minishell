@@ -7,6 +7,7 @@ void	set_path(t_control *control, char **env)
 
 	temp_user = NULL;
 	temp_pwd = NULL;
+	control->env = env;
 	control->pwd_initial = get_var("PWD", env);
 	control->user = get_var("USER", env);
 	temp_user = ft_strjoin(control->user, "@Minishell:");

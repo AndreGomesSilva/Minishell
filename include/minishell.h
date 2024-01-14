@@ -13,11 +13,12 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+
+# include <stdio.h>
 # include "../libft/include/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdio.h>
 # include <stdlib.h>
 
 # define TRUE 1
@@ -65,6 +66,7 @@ typedef struct s_cmd
 
 typedef struct s_control
 {
+	char 			**env;
 	char			*pwd_initial;
 	char			*user;
 	char			*prompt;
@@ -95,8 +97,11 @@ void				handle_start(t_control **control, char **env);
 int					receive_signal_ctrl_d(t_control *control);
 t_cmd				*get_last_node_cmd(t_cmd *cmd);
 t_arg				*get_last_node_arg(t_arg *cmd);
+
 /// handle_expander
 void				handle_expander(t_control *control, char **env);
+char 				*get_var_double_quote(t_control *control, t_arg *double_quote_arg);
 char				*get_var(char *var, char **env);
+int 				is_variable(char *str);
 
 #endif
