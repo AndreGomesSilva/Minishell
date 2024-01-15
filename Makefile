@@ -22,7 +22,6 @@ FILES_WITHOUT_MAIN = \
 	$(NODE)/create_node $(NODE)/free_lst \
 	$(MATRIX)/handle_matrix \
 	$(LEXER)/handle_token \
-	$(LEXER)/handle_type \
 	$(LEXER)/utils \
 	$(EXPANDER)/handle_expander \
 	$(EXPANDER)/utils \
