@@ -5,22 +5,24 @@ int	str_len_token(const char *str, int delimiter)
 	int	i;
 
 	i = 0;
-	if (delimiter == QUOTE)
+	if (delimiter == QUOTE || delimiter == DOUBLE_QUOTE)
 	{
 		str++;
-		while (str[i] && str[i] != '\'' && str[i] != '"')
-			i++;
+		if (delimiter == DOUBLE_QUOTE)
+			while (str[i] && str[i] != '"')
+				i++;
+		else
+			while (str[i] && str[i] != '\'')
+				i++;
 		return (i + 2);
 	}
 	else if (delimiter == REDIRECT_HERD)
 	{
-		if (str[i] && str[i] == '<' && str[i + 1] == '<')
+		if (str[i] && (str[i] == '<' && str[i + 1] == '<')
+			|| (str[i] && str[i] == '>' && str[i + 1] == '>'))
 			i = i + 2;
-		else if (str[i] && str[i] == '>' && str[i + 1] == '>')
-			i = i + 2;
-		if (str[i] && str[i] == '<' || str[i] == '>')
+		else if (str[i] && str[i] == '<' || str[i] == '>')
 			i++;
-		return (i);
 	}
 	else if (!delimiter)
 		while (str[i] && !is_delimiter(str[i]) && !is_space(str[i]))

@@ -16,8 +16,10 @@ int	is_space(char c)
 
 int	is_delimiter(char c)
 {
-	if (c == '\'' || c == '"')
+	if (c == '\'')
 		return (QUOTE);
+	else if (c == '"')
+		return (DOUBLE_QUOTE);
 	else if (c == '>' || c == '<')
 		return (REDIRECT_HERD);
 	else
