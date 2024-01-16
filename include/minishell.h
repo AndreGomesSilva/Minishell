@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/01/11 17:56:14 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/01/15 22:01:22 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,20 @@
 
 enum				e_type_cmd
 {
-	NILL,
-	PIP
+	NILL,					// 0
+	PIP						// 1
 };
 
 enum				e_type_arg
 {
-	NORM,
-	QUOTE,
-	DOUBLE_QUOTE,
-	VAR_EXPAND,
-	REDIRECT_HERD,
-	REDIRECT_INPUT,
-	REDIRECT_OUTPUT,
-	REDIRECT_OUTPUT_APPEND
+	NORM, 					// 0
+	QUOTE,  				// 1
+	DOUBLE_QUOTE,			// 2
+	VAR_EXPAND,				// 3
+	REDIRECT_HERD,			// 4
+	REDIRECT_INPUT,			// 5
+	REDIRECT_OUTPUT,		// 6
+	REDIRECT_OUTPUT_APPEND	// 7
 };
 
 typedef struct s_arg
@@ -86,7 +86,6 @@ void				free_matrix(char **matrix);
 
 ///	handle_lexer
 int					is_space(char c);
-int					is_delimiter(char c);
 int					is_cmd(char *actual);
 int					is_args(char *actual);
 void				set_type(t_cmd *lst);

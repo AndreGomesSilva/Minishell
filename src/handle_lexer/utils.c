@@ -14,18 +14,6 @@ int	is_space(char c)
 	return (FALSE);
 }
 
-int	is_delimiter(char c)
-{
-	if (c == '\'')
-		return (QUOTE);
-	else if (c == '"')
-		return (DOUBLE_QUOTE);
-	else if (c == '>' || c == '<')
-		return (REDIRECT_HERD);
-	else
-		return (NILL);
-}
-
 int	is_args(char *actual)
 {
 	if (!actual || !*actual)
@@ -35,22 +23,28 @@ int	is_args(char *actual)
 		if (*(actual + 1) == '<')
 			return (REDIRECT_HERD);
 		else
-		 	return (REDIRECT_INPUT);
+			return (REDIRECT_INPUT);
 	}
 	else if (*actual == '>')
 	{
 		if (*(actual + 1) == '>')
 			return (REDIRECT_OUTPUT_APPEND);
 		else
-		 	return (REDIRECT_OUTPUT);
+			return (REDIRECT_OUTPUT);
 	}
 	else if (*actual == '$')
 		return (VAR_EXPAND);
-	else if (*actual == '\'')
-		return (QUOTE);
-	else if (*actual == '\"')
-		return (DOUBLE_QUOTE);
-	else 
+	else if (*actual == '"' || *actual == '\'')
+	{
+		while (actual++, *actual)
+		{
+			if (*actual == '"')
+				return (DOUBLE_QUOTE);
+			else if (*actual == '\'')
+				return (QUOTE);
+		}
+	}
+	else
 		return (NORM);
 }
 
@@ -63,7 +57,7 @@ int	is_cmd(char *actual)
 	if (!actual || !*actual)
 		return (NILL);
 	else if (actual[i] == '|')
-			return (PIP);
+		return (PIP);
 	else
 		return (NILL);
 }
