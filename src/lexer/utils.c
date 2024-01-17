@@ -1,24 +1,17 @@
 #include "../../include/minishell.h"
 
-int	receive_signal_ctrl_d(t_control *control)
-{
-	clear_history();
-	free_cmd(control);
-	exit(0);
-}
-
 int	is_space(char c)
 {
-	if (c != 0 && c == ' ' || c == '\t')
+	if (c != 0 && (c == ' ' || c == '\t'))
 		return (TRUE);
 	return (FALSE);
 }
 
-int	is_args(char *actual)
+enum e_type_arg	is_arg(char *actual)
 {
 	if (!actual || !*actual)
 		return (NORM);
-	else if (*actual == '<')
+	if (*actual == '<')
 	{
 		if (*(actual + 1) == '<')
 			return (REDIRECT_HERD);
@@ -44,12 +37,11 @@ int	is_args(char *actual)
 				return (QUOTE);
 		}
 	}
-	else
-		return (NORM);
+	return (NORM);
 }
 
 //0 = false, 1 = pipe, 2 = or, 3 = and
-int	is_cmd(char *actual)
+enum e_type_cmd	is_cmd(char *actual)
 {
 	int	i;
 
@@ -60,4 +52,33 @@ int	is_cmd(char *actual)
 		return (PIP);
 	else
 		return (NILL);
+}
+
+int	str_len_token(char *str, int type)
+{
+	int	i;
+
+	i = 0;
+	if ((type == QUOTE || type == DOUBLE_QUOTE) && ++str)
+	{
+		if (type == DOUBLE_QUOTE)
+			while (str[i] && str[i] != '"')
+				i++;
+		else
+			while (str[i] && str[i] != '\'')
+				i++;
+		return (i + 2);
+	}
+	else if (type == REDIRECT_HERD)
+	{
+		if (str[i] && (((str[i] == '<' && str[i + 1] == '<')) || ((str[i] == '>') && (str[i + 1] == '>'))))
+			i = i + 2;
+		else if (str[i] && (str[i] == '<' || str[i] == '>'))
+			i++;
+	}
+	else if (!type)
+		while (str[i] && ((!is_arg(&str[i]) || is_arg(&str[i]) == VAR_EXPAND))
+			&& !is_space(str[i]))
+			i++;
+	return (i);
 }

@@ -30,47 +30,13 @@ t_cmd	*get_last_node_cmd(t_cmd *node)
 	return (temp_node);
 }
 
-t_arg	*get_last_node_arg(t_arg *node)
-{
-	t_arg	*temp_node;
-
-	if (!node)
-		return (NULL);
-	temp_node = node;
-	while (node->next)
-	{
-		temp_node = node->next;
-		node = temp_node;
-	}
-	return (temp_node);
-}
-
-void	create_arg_node(t_cmd *cmd_node, char *arg)
-{
-	t_arg	*node;
-	t_arg	*temp_node;
-
-	node = (t_arg *)ft_calloc(1, sizeof(t_arg));
-	if(*arg)
-		node->arg = arg;
-	node->next = NULL;
-	if (!cmd_node->list_args)
-		cmd_node->list_args = node;
-	else
-	{
-		temp_node = get_last_node_arg(cmd_node->list_args);
-		temp_node->next = node;
-	}
-		
-}
-
-void	create_cmd_node(t_control *control, char *cmd)
+void	create_node_cmd(t_control *control, char *cmd)
 {
 	t_cmd	*node;
 	t_cmd	*temp_node;
 
 	node = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
-	if(*cmd)
+	if (*cmd)
 		node->cmd = cmd;
 	node->next = NULL;
 	if (!control->cmd)

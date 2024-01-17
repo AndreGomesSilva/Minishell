@@ -1,26 +1,27 @@
 NAME = minishell
 CC = cc -g
-CFLAGS =
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 INC = -I./include
 
 # file path #
 SRCS_DIR 	= src/
-TEST_DIR 	= tests/
-NODE 		= handle_nodes
-MATRIX 		= handle_matrix
-LEXER 		= handle_lexer
-EXPANDER    = handle_expander
+TEST_DIR 	= test/
+LIST 		= list
+MATRIX 		= matrix
+LEXER 		= lexer
+EXPANDER    = expander
+PARSER 		= parser
 
 OBJS_DIR 	= obj/
 SRC_DIR_LIB	= ./libft
 LIB 		= ./libft/libft.a -lreadline
 
 FILES_WITHOUT_MAIN = \
-	handle_start handle_signal \
-	$(NODE)/create_node $(NODE)/free_lst \
-	$(MATRIX)/handle_matrix \
+	handle_config handle_signal	middleware \
+	$(LIST)/handle_list_cmd $(LIST)/handle_list_arg $(LIST)/free_list \
+	$(PARSER)/handle_matrix \
+	$(PARSER)/handle_parser \
 	$(LEXER)/handle_token \
 	$(LEXER)/utils \
 	$(EXPANDER)/handle_expander \
@@ -30,8 +31,7 @@ FILES = \
 	main $(FILES_WITHOUT_MAIN)
 
 FILE_T = \
-	main_test $(MATRIX)/handle_matrix_test \
-
+	main_test $(LEXER)/* \
 
 FILE_TESTE 		= $(addprefix $(TEST_DIR), $(addsuffix .cpp, $(FILE_T)))
 FILE_TESTE_PROG	= $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES_WITHOUT_MAIN)))
@@ -49,16 +49,17 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c | $(OBJS_DIR)
 
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)$(NODE)
+	@mkdir -p $(OBJS_DIR)$(LIST)
 	@mkdir -p $(OBJS_DIR)$(MATRIX)
 	@mkdir -p $(OBJS_DIR)$(LEXER)
 	@mkdir -p $(OBJS_DIR)$(EXPANDER)
 	@mkdir -p $(OBJS_DIR)handle_signal
 
-runTests:
+runTests: fclean
+	@$(RM) testeRun	
 	@$(MAKE) -C $(SRC_DIR_LIB) --no-print-directory
-	g++ $(FILE_TESTE) $(FILE_TESTE_PROG) -I/usr/local/include -L/usr/local/lib -lgtest -lgtest_main $(LIB) $(CFLAGS) $(INC) -o test
-	./test
+	g++ $(FILE_TESTE) $(FILE_TESTE_PROG) $(INC) -I/usr/local/include -L/usr/local/lib -lgtest -lgtest_main $(LIB) -o testeRun
+	./testeRun
 
 bonus: all
 
@@ -69,7 +70,6 @@ clean:
 fclean: clean
 	$(MAKE) fclean -C $(SRC_DIR_LIB)
 	$(RM) $(NAME)
-	$(RM) test
 
 re: fclean all
 

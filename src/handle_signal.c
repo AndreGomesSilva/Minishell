@@ -1,7 +1,15 @@
 #include "../include/minishell.h"
 #include <readline/readline.h>
 
+int	receive_signal_ctrl_d(t_control *control)
+{
+	clear_history();
+	free_cmd(control);
+	exit(0);
+}
+
 void receive_sig_int(int sig) {
+	sig  = 0;
 	extern t_control *g_control;
 	free_cmd(g_control);
     printf("\n");
@@ -11,6 +19,7 @@ void receive_sig_int(int sig) {
 }
 
 void receive_sigquit(int sig) {
+	sig  = 0;
     printf("exit\n");
 }
 

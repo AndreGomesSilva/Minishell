@@ -6,19 +6,21 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/01/15 22:01:22 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/01/16 22:06:27 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-
-# include <stdio.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
 # include "../libft/include/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
+# include <stdio.h>
 # include <stdlib.h>
 
 # define TRUE 1
@@ -28,20 +30,21 @@
 
 enum				e_type_cmd
 {
-	NILL,					// 0
-	PIP						// 1
+	NILL, // 0
+	PIP   // 1
 };
 
 enum				e_type_arg
 {
-	NORM, 					// 0
-	QUOTE,  				// 1
-	DOUBLE_QUOTE,			// 2
-	VAR_EXPAND,				// 3
-	REDIRECT_HERD,			// 4
-	REDIRECT_INPUT,			// 5
-	REDIRECT_OUTPUT,		// 6
-	REDIRECT_OUTPUT_APPEND	// 7
+	NORM,                  	// 0
+	QUOTE,                 	// 1
+	DOUBLE_QUOTE,          	// 2
+	VAR_EXPAND,            	// 3
+	BROKEN_QUOTES,         	// 8
+	REDIRECT_HERD,         	// 4 FIXME: ainda nao implementado
+	REDIRECT_INPUT,        	// 5
+	REDIRECT_OUTPUT,       	// 6
+	REDIRECT_OUTPUT_APPEND, // 7
 };
 
 typedef struct s_arg
@@ -66,7 +69,7 @@ typedef struct s_cmd
 
 typedef struct s_control
 {
-	char 			**env;
+	char			**env;
 	char			*pwd_initial;
 	char			*user;
 	char			*prompt;
@@ -75,32 +78,40 @@ typedef struct s_control
 
 /// handle_nodes
 void				create_node(t_control *control, enum e_type_cmd type);
-void				create_cmd_node(t_control *control, char *cmd);
-void				create_arg_node(t_cmd *cmd_node, char *arg);
+void				create_node_cmd(t_control *control, char *cmd);
+void				create_node_arg(t_cmd *cmd_node, const char *arg);
 t_cmd				*get_last_node(t_cmd *cmd);
 int					list_len(t_cmd *lst);
 void				free_cmd(t_control *control);
 
-/// handle_matrix
+/// handle_parser
 void				free_matrix(char **matrix);
+void				handle_parser(t_control *control);
 
 ///	handle_lexer
+void				print_lst(t_cmd *cmd); // FIX: retirar, função auxiliar
 int					is_space(char c);
-int					is_cmd(char *actual);
-int					is_args(char *actual);
+int					str_len_token(char *str, int type);
+enum e_type_cmd		is_cmd(char *actual);
+enum e_type_arg		is_arg(char *actual);
 void				set_type(t_cmd *lst);
-int					handle_input(t_control *control);
+int					middleware(t_control *control);
 char				*handle_token(t_control *control, char *input);
 void				handle_signal(void);
-void				handle_start(t_control **control, char **env);
+void				handle_config(t_control **control, char **env);
 int					receive_signal_ctrl_d(t_control *control);
 t_cmd				*get_last_node_cmd(t_cmd *cmd);
 t_arg				*get_last_node_arg(t_arg *cmd);
 
 /// handle_expander
 void				handle_expander(t_control *control, char **env);
-char 				*get_var_double_quote(t_control *control, t_arg *double_quote_arg);
-char				*get_var(char *var, char **env);
-int 				is_variable(char *str);
+char	*get_var_double_quote(t_control *control,
+							t_arg *double_quote_arg);
+char				*get_var(const char *var, char **env);
+int					is_variable(char *str);
 
+#endif
+
+#ifdef __cplusplus
+} // extern "C"
 #endif

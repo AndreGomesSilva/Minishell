@@ -4,7 +4,7 @@
 
 #include "../../include/minishell.h"
 
-void	free_args(t_arg *list_args)
+void	free_arg(t_arg *list_args)
 {
 	t_arg 	*temp_node;
 
@@ -34,7 +34,7 @@ void	free_cmd(t_control *control)
 		if (node->path_cmd)
 			free(node->path_cmd);
 		if (node->list_args)
-			free_args(node->list_args);
+			free_arg(node->list_args);
 		free(node);
 		node = temp_node;
 	}

@@ -1,9 +1,9 @@
-#include "../../include/minishell.h"
 #include <gtest/gtest.h>
+
+#include "../../include/minishell.h"
 
 TEST(utils, is_space) {
     char c = ' ';
-	
 	int result;
 	
 	result = is_space(c);

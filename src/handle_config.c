@@ -17,7 +17,7 @@ void	set_path(t_control *control, char **env)
 	free(temp_pwd);
 }
 
-void	handle_start(t_control **control, char **env)
+void	handle_config(t_control **control, char **env)
 {
 	*control = (t_control *)ft_calloc(sizeof(t_control), 1);
 	set_path(*control, env);

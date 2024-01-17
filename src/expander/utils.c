@@ -11,7 +11,7 @@ int is_variable(char *str)
 	return (0);
 }
 
-char *get_var(char *var, char **env)
+char *get_var(const char *var, char **env)
 {
 	char *result;
 	int i;
