@@ -1,12 +1,5 @@
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "../include/minishell.h"
 
-#ifdef __cplusplus
-} // extern "C"
-#endif
 #include <gtest/gtest.h>
 
 t_control	*g_control;

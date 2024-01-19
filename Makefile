@@ -20,12 +20,14 @@ LIB 		= ./libft/libft.a -lreadline
 FILES_WITHOUT_MAIN = \
 	handle_config handle_signal	middleware \
 	$(LIST)/handle_list_cmd $(LIST)/handle_list_arg $(LIST)/free_list \
-	$(PARSER)/handle_matrix \
-	$(PARSER)/handle_parser \
 	$(LEXER)/handle_token \
+	$(LEXER)/handle_quotes \
 	$(LEXER)/utils \
 	$(EXPANDER)/handle_expander \
 	$(EXPANDER)/utils \
+	$(PARSER)/handle_matrix \
+	$(PARSER)/handle_parser \
+
 
 FILES = \
 	main $(FILES_WITHOUT_MAIN)
@@ -53,6 +55,7 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)$(MATRIX)
 	@mkdir -p $(OBJS_DIR)$(LEXER)
 	@mkdir -p $(OBJS_DIR)$(EXPANDER)
+	@mkdir -p $(OBJS_DIR)$(PARSER)
 	@mkdir -p $(OBJS_DIR)handle_signal
 
 runTests: fclean

@@ -56,7 +56,7 @@
 // 	}
 // }
 
-void	handle_parser(t_control *control)
-{
-	// get_cmd_matrix(control);
-}
+// void	handle_parser(t_control *control)
+// {
+// 	// get_cmd_matrix(control);
+// }

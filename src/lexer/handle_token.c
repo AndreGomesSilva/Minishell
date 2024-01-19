@@ -48,10 +48,7 @@ char	*create_arg(t_cmd *cmd, char *input)
 	if (!is_cmd(input) && type <= VAR_EXPAND)
 	{
 		len = str_len_token(input, type);
-		if (type == DOUBLE_QUOTE || type == QUOTE)
-			create_node_arg(cmd, ft_substr(input, 1, len - 2));
-		else
-			create_node_arg(cmd, ft_substr(input, 0, len));
+		create_node_arg(cmd, ft_substr(input, 0, len));
 		last_arg = get_last_node_arg(cmd->list_args);
 		last_arg->type = type;
 	}
@@ -78,7 +75,10 @@ char	*create_cmd(t_control *control, char *actual)
 		len = str_len_token(actual, is_arg(actual));
 		create_node_cmd(control, ft_substr(actual, 0, len));
 	}
-	return (actual + len);
+	actual = actual + len;
+	while (is_space(*actual))
+		actual++;
+	return (actual);
 }
 
 char	*handle_token(t_control *control, char *input)
@@ -98,8 +98,6 @@ char	*handle_token(t_control *control, char *input)
 				get_last_node_cmd(control->cmd)->type = result_is_cmd;
 				if (result_is_cmd == PIP)
 					actual++;
-				else
-					actual += 2;
 				break ;
 			}
 			else

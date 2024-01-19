@@ -25,19 +25,7 @@ enum e_type_arg	is_arg(char *actual)
 		else
 			return (REDIRECT_OUTPUT);
 	}
-	else if (*actual == '$')
-		return (VAR_EXPAND);
-	else if (*actual == '"' || *actual == '\'')
-	{
-		while (actual++, *actual)
-		{
-			if (*actual == '"')
-				return (DOUBLE_QUOTE);
-			else if (*actual == '\'')
-				return (QUOTE);
-		}
-	}
-	return (NORM);
+	return(set_type_args(actual));
 }
 
 //0 = false, 1 = pipe, 2 = or, 3 = and
@@ -56,29 +44,18 @@ enum e_type_cmd	is_cmd(char *actual)
 
 int	str_len_token(char *str, int type)
 {
-	int	i;
+	int	len;
 
-	i = 0;
-	if ((type == QUOTE || type == DOUBLE_QUOTE) && ++str)
+	len = 0;
+	if (type == REDIRECT_HERD)
 	{
-		if (type == DOUBLE_QUOTE)
-			while (str[i] && str[i] != '"')
-				i++;
-		else
-			while (str[i] && str[i] != '\'')
-				i++;
-		return (i + 2);
+		if (str[len] && (((str[len] == '<' && str[len + 1] == '<')) || ((str[len] == '>') && (str[len + 1] == '>'))))
+			len = len + 2;
+		else if (str[len] && (str[len] == '<' || str[len] == '>'))
+			len++;
 	}
-	else if (type == REDIRECT_HERD)
-	{
-		if (str[i] && (((str[i] == '<' && str[i + 1] == '<')) || ((str[i] == '>') && (str[i + 1] == '>'))))
-			i = i + 2;
-		else if (str[i] && (str[i] == '<' || str[i] == '>'))
-			i++;
-	}
-	else if (!type)
-		while (str[i] && ((!is_arg(&str[i]) || is_arg(&str[i]) == VAR_EXPAND))
-			&& !is_space(str[i]))
-			i++;
-	return (i);
+	else
+		if (str[len] && ((is_arg(&str[len]) <= BROKEN_QUOTES)))
+			len = handle_quotes(str);
+	return (len);
 }

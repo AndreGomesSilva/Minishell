@@ -67,8 +67,6 @@ void handle_expander(t_control *control, char **env)
 			arg_node_temp = arg_node->next;
 			if (arg_node->type == VAR_EXPAND)
 				handle_node_var(control->cmd, env);
-			else if (arg_node->type == DOUBLE_QUOTE)
-				search_quote_var(control, arg_node);
 			arg_node = arg_node_temp;
 		}
 		cmd_node = cmd_node_temp;

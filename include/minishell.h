@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/01/16 22:06:27 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/01/18 21:37:24 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
 # include "../libft/include/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -37,14 +38,12 @@ enum				e_type_cmd
 enum				e_type_arg
 {
 	NORM,                  	// 0
-	QUOTE,                 	// 1
-	DOUBLE_QUOTE,          	// 2
-	VAR_EXPAND,            	// 3
-	BROKEN_QUOTES,         	// 8
-	REDIRECT_HERD,         	// 4 FIXME: ainda nao implementado
-	REDIRECT_INPUT,        	// 5
-	REDIRECT_OUTPUT,       	// 6
-	REDIRECT_OUTPUT_APPEND, // 7
+	VAR_EXPAND,            	// 1
+	BROKEN_QUOTES,         	// 2
+	REDIRECT_HERD,         	// 3 FIXME: ainda nao implementado
+	REDIRECT_INPUT,        	// 4
+	REDIRECT_OUTPUT,       	// 5
+	REDIRECT_OUTPUT_APPEND, // 6
 };
 
 typedef struct s_arg
@@ -94,7 +93,6 @@ int					is_space(char c);
 int					str_len_token(char *str, int type);
 enum e_type_cmd		is_cmd(char *actual);
 enum e_type_arg		is_arg(char *actual);
-void				set_type(t_cmd *lst);
 int					middleware(t_control *control);
 char				*handle_token(t_control *control, char *input);
 void				handle_signal(void);
@@ -102,11 +100,13 @@ void				handle_config(t_control **control, char **env);
 int					receive_signal_ctrl_d(t_control *control);
 t_cmd				*get_last_node_cmd(t_cmd *cmd);
 t_arg				*get_last_node_arg(t_arg *cmd);
+enum e_type_arg 	set_type_args(char *str);
 
 /// handle_expander
 void				handle_expander(t_control *control, char **env);
 char	*get_var_double_quote(t_control *control,
 							t_arg *double_quote_arg);
+int					handle_quotes(char *str);
 char				*get_var(const char *var, char **env);
 int					is_variable(char *str);
 

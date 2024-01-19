@@ -1,3 +1,6 @@
 echo "hello " " | "
 echo 'ola'"hello
 echo '"ola'"hello"
+ech$HOME"hello"'' ola mundo
+ech$HOME"hello"'' ola "mundo"
+echo "'"$HOME>file.txt"'"
