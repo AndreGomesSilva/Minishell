@@ -9,7 +9,8 @@ int	receive_signal_ctrl_d(t_control *control)
 }
 
 void receive_sig_int(int sig) {
-	sig  = 0;
+//	sig  = 0;
+	(void) sig;
 	extern t_control *g_control;
 	free_cmd(g_control);
     printf("\n");
@@ -19,7 +20,8 @@ void receive_sig_int(int sig) {
 }
 
 void receive_sigquit(int sig) {
-	sig  = 0;
+	(void) sig;
+//	sig  = 0;
     printf("exit\n");
 }
 

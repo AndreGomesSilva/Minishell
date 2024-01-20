@@ -4,12 +4,13 @@
 enum e_type_arg set_type_args(char *str)
 {
     int n_quotes;
-    int type_of_quote;
+    char type_of_quote;
     int flag_var;
     int i;
 
     i = -1;
     n_quotes = 0;
+	flag_var = 0;
     while (i++, str[i])
     {
         if (str[i] == '"' || str[i] == '\'')
@@ -20,7 +21,7 @@ enum e_type_arg set_type_args(char *str)
             while (str[i] && n_quotes % 2 != 0)
             {
                 if (type_of_quote == '"')
-                    flag_var = is_variable(&str[i]);
+                    flag_var += is_variable(&str[i]);
                 if (str[i] == type_of_quote)
                 {
                     n_quotes++;
@@ -32,8 +33,8 @@ enum e_type_arg set_type_args(char *str)
                 return (BROKEN_QUOTES);
             n_quotes = 0;
         }
-        if (!n_quotes)
-            flag_var = is_variable(&str[i]);
+        if (str[i] && !n_quotes)
+            flag_var += is_variable(&str[i]);
     }
     if (flag_var)
         return (VAR_EXPAND);
@@ -62,7 +63,7 @@ int	handle_quotes(char *str)
 				i++;
 			}
 		}
-		if (!str[i] || str[i] == ' ' || str[i] == '|' || is_arg(&str[i]) >= BROKEN_QUOTES )
+		if (!str[i] || str[i] == ' ' || str[i] == '|' || is_arg(&str[i]) > BROKEN_QUOTES )
 			break;
 		i++;
 	}

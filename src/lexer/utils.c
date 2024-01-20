@@ -47,13 +47,10 @@ int	str_len_token(char *str, int type)
 	int	len;
 
 	len = 0;
-	if (type == REDIRECT_HERD)
-	{
-		if (str[len] && (((str[len] == '<' && str[len + 1] == '<')) || ((str[len] == '>') && (str[len + 1] == '>'))))
-			len = len + 2;
-		else if (str[len] && (str[len] == '<' || str[len] == '>'))
-			len++;
-	}
+	if (type == REDIRECT_INPUT || type == REDIRECT_OUTPUT)
+		len += 1;
+	else if (type == REDIRECT_OUTPUT_APPEND || type == REDIRECT_HERD)
+		len += 2;
 	else
 		if (str[len] && ((is_arg(&str[len]) <= BROKEN_QUOTES)))
 			len = handle_quotes(str);

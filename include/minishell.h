@@ -17,11 +17,11 @@
 extern "C" {
 #endif
 
+# include <stdio.h>
 # include "../libft/include/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdio.h>
 # include <stdlib.h>
 
 # define TRUE 1
@@ -58,7 +58,8 @@ typedef struct s_cmd
 	char			*cmd;
 	char			**cmd_and_args;
 	char			*path_cmd;
-	enum e_type_cmd	type;
+	enum e_type_arg	type;
+	enum e_type_cmd delimiter_type;
 	int				infile;
 	int				outfile;
 	struct s_arg	*list_args;
