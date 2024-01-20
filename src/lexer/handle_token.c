@@ -41,7 +41,7 @@ char	*create_arg(t_cmd *cmd, char *input)
 		input++;
 	if (!is_cmd(input))
 	{
-		len = str_len_token(input, is_arg(input));
+		len = get_token_len(input, is_arg(input));
 		create_node_arg(cmd, ft_substr(input, 0, len));
 		last_arg = get_last_node_arg(cmd->list_args);
 		last_arg->type = is_arg(last_arg->arg);
@@ -69,7 +69,7 @@ char	*create_cmd(t_control *control, char *actual)
 		create_node_cmd(control, (char *)"");
 	else
 	{
-		len = str_len_token(actual, is_arg(actual));
+		len = get_token_len(actual, is_arg(actual));
 		create_node_cmd(control, ft_substr(actual, 0, len));
 		node = get_last_node_cmd(control->cmd);
 		node->type = is_arg(node->cmd);

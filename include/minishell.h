@@ -77,11 +77,11 @@ typedef struct s_control
 }					t_control;
 
 /// handle_nodes
-void				create_node(t_control *control, enum e_type_cmd type);
 void				create_node_cmd(t_control *control, char *cmd);
 void				create_node_arg(t_cmd *cmd_node, const char *arg);
-t_cmd				*get_last_node(t_cmd *cmd);
 int					list_len(t_cmd *lst);
+t_cmd				*get_last_node_cmd(t_cmd *cmd);
+t_arg				*get_last_node_arg(t_arg *cmd);
 void				free_cmd(t_control *control);
 
 /// handle_parser
@@ -91,7 +91,7 @@ void				handle_parser(t_control *control);
 ///	handle_lexer
 void				print_lst(t_cmd *cmd); // FIX: retirar, função auxiliar
 int					is_space(char c);
-int					str_len_token(char *str, int type);
+int					get_token_len(char *str, int type);
 enum e_type_cmd		is_cmd(char *actual);
 enum e_type_arg		is_arg(char *actual);
 int					middleware(t_control *control);
@@ -99,15 +99,12 @@ char				*handle_token(t_control *control, char *input);
 void				handle_signal(void);
 void				handle_config(t_control **control, char **env);
 int					receive_signal_ctrl_d(t_control *control);
-t_cmd				*get_last_node_cmd(t_cmd *cmd);
-t_arg				*get_last_node_arg(t_arg *cmd);
-enum e_type_arg 	set_type_args(char *str);
+enum e_type_arg 	set_type(char *str);
+int					len_string_token(char *str);
 
 /// handle_expander
-void				handle_expander(t_control *control, char **env);
-char	*get_var_double_quote(t_control *control,
-							t_arg *double_quote_arg);
-int					handle_quotes(char *str);
+void				handle_expander(t_control *control);
+char 				*get_var_in_node(t_control *control, char *str);
 char				*get_var(const char *var, char **env);
 int					is_variable(char *str);
 

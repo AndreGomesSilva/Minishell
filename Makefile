@@ -21,7 +21,7 @@ FILES_WITHOUT_MAIN = \
 	handle_config handle_signal	middleware \
 	$(LIST)/handle_list_cmd $(LIST)/handle_list_arg $(LIST)/free_list \
 	$(LEXER)/handle_token \
-	$(LEXER)/handle_quotes \
+	$(LEXER)/handle_type \
 	$(LEXER)/utils \
 	$(EXPANDER)/handle_expander \
 	$(EXPANDER)/utils \
