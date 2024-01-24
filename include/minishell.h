@@ -46,6 +46,20 @@ enum				e_type_arg
 	REDIRECT_OUTPUT_APPEND, // 6
 };
 
+typedef struct s_ht_item
+{
+	char				*key;
+	char				*value;
+	struct s_ht_item	*next;
+}t_ht_item;
+
+typedef struct s_table
+{
+	int count;
+	int size;
+	struct s_ht_item **items;
+} t_table;
+
 typedef struct s_arg
 {
 	char			*arg;
