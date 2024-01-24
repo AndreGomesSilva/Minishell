@@ -24,6 +24,8 @@ FILES_WITHOUT_MAIN = \
 	$(LEXER)/handle_type \
 	$(LEXER)/utils \
 	$(EXPANDER)/handle_expander \
+	$(EXPANDER)/free_hash_table \
+	$(EXPANDER)/set_hash_table \
 	$(EXPANDER)/utils \
 	$(PARSER)/handle_matrix \
 	$(PARSER)/handle_parser \

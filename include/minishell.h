@@ -121,6 +121,8 @@ void				handle_expander(t_control *control);
 char 				*get_var_in_node(t_control *control, char *str);
 char				*get_var(const char *var, char **env);
 int					is_variable(char *str);
+int 				copy_env(t_control *control, char **env);
+void 				free_hash_table(t_table *table);
 
 #endif
 

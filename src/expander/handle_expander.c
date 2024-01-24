@@ -26,7 +26,6 @@ char *ft_join_var(t_control *control, char *str, char *var, char *end)
 	return (result);
 }
 
-
 char *get_var_in_node(t_control *control, char *str)
 {
 	char    *var;
