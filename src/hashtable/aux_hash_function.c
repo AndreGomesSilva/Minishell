@@ -16,18 +16,17 @@ char	*get_var_value(t_control *control, char *key)
 	while (node)
 	{
 		if (!ft_strncmp(key, node->key, ft_strlen(key)) && !ft_strncmp(node->key, key, ft_strlen(node->key)))
-			result = control->env_table->items[index]->value;
+			result = node->value;
 		node = node->next;
 	}
-
 	return (result);
 }
 
 t_ht_item *get_var(t_control *control, char *key)
 {
-	int index;
-	t_ht_item *node;
-	t_ht_item *result;
+	int			index;
+	t_ht_item	*node;
+	t_ht_item	*result;
 
 	index = hash_function(key, control->env_table->size);
 	node = control->env_table->items[index];
@@ -35,7 +34,7 @@ t_ht_item *get_var(t_control *control, char *key)
 	while (node)
 	{
 		if (!ft_strncmp(key, node->key, ft_strlen(key)) && !ft_strncmp(node->key, key, ft_strlen(node->key)))
-			result = control->env_table->items[index];
+			result = node;
 		node = node->next;
 	}
 	return (result);

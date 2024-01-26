@@ -11,6 +11,7 @@ int	main(int argc, char **argv, char **env)
 	 handle_config(&g_control, env);
 	 handle_signal();
 	 handle_envp(g_control, env);
+	printf("\n %s \n", get_var_value(g_control, "LOGNAME"));
 	free_hash_table(g_control->env_table);
 //	 while (1)
 //	 	middleware(g_control);

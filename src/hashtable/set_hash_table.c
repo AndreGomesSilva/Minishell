@@ -19,19 +19,13 @@ void print_hash_table (t_table *table)
 				{
 					next_tem = items[i]->next;
 					printf("\nindex : %d", i);
-					if (items[i]->value)
-						printf("\nkey = %s", items[i]->key);
-					if (items[i]->key)
+					printf("\nkey = %s", items[i]->key);
+					printf("   value = %s ", items[i]->value);
+					if (items[i]->next)
 					{
-						printf("   value = %s ", items[i]->value);
-						if (items[i]->next)
-						{
-							printf("\n -----     key = %s", items[i]->next->key);
-							printf("\n -----    next value = %s", items[i]->next->value);
-						}
+						printf("\n ----->   key = %s", items[i]->next->key);
+						printf("\n ----->   next value = %s", items[i]->next->value);
 					}
-					items[i]->next = NULL;
-					items[i] = next_tem;
 				}
 				i++;
 			}
@@ -124,7 +118,8 @@ void	copy_env(t_control *control, char **env)
 		add_item_to_table(control->env_table, key, value);
 		i++;
 	} 
-}	
+}
+
 int handle_envp(t_control *control, char **env)
 {
 	t_table *table;
@@ -133,6 +128,5 @@ int handle_envp(t_control *control, char **env)
 	copy_env(control, env);
 	print_hash_table(table);
 	printf("\n FINISH \n");
-	printf("/n %s /n ", get_var_value(control, "HOME"));
 	return (TRUE);
 }
