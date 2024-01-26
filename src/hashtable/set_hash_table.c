@@ -14,51 +14,28 @@ void print_hash_table (t_table *table)
 	i = 0;
 	if (table) {
 		items = table->items;
-		if (items) {
-			while (items[i]) {
-				next_tem = items[i]->next;
-				printf("\nindex : %d", i);
-				if (items[i]->value)
-					printf("\nkey = %s", items[i]->key);
-				if (items[i]->key)
+			while (i < table->size) {
+				if (items[i])
 				{
-					printf("\nvalue = %s \n", items[i]->value);
-					if (items[i]->next)
-						printf("\n next value = %s \n", items[i]->next->value);
+					next_tem = items[i]->next;
+					// printf("\nindex : %d", i);
+					if (items[i]->value)
+						printf("\nkey = %s", items[i]->key);
+					if (items[i]->key)
+					{
+						printf("   value = %s ", items[i]->value);
+						if (items[i]->next)
+						{
+							printf("\n -----     key = %s", items[i]->key);
+							printf("\n -----    next value = %s", items[i]->next->value);
+						}
+					}
+					items[i]->next = NULL;
+					items[i] = next_tem;
 				}
-				items[i]->next = NULL;
-				items[i] = next_tem;
 				i++;
 			}
-		}
 	}
-}
-
-int	len_env(char **env)
-{
-	int i;
-
-	i = 0;
-	while (env[i])
-		i++;
-	return (i);
-}
-
-int	ft_pow(int base, int exponent)
-{
-	int result;
-	int i;
-
-	result = 1;
-	i = 0;
-	if (exponent == 0)
-		return (result);
-	while (i < exponent)
-	{
-		result *= base;
-		i++;
-	}
-	return (result);
 }
 
 int	hash_function(char *str, int size)
@@ -82,7 +59,7 @@ int	hash_function(char *str, int size)
 t_ht_item	*create_hash_node(char *key, char *value)
 {
 	t_ht_item *node;
-	node = ft_calloc(1, sizeof(t_ht_item));
+	node = (t_ht_item *)ft_calloc(1, sizeof(t_ht_item));
 	node->key = key;
 	node->value = value;
 	node->next = NULL;
@@ -109,31 +86,53 @@ void add_item_to_table(t_table *table, char *key, char *value)
 	}
 }
 
-
 t_table *init_table(t_control *control, char **env)
 {
 	t_table *table;
 	int		arr_size;
 
 	arr_size = len_env(env) * 3;
-	table = malloc(sizeof(t_table));
+	table = (t_table *)malloc(sizeof(t_table));
 	table->count = 0;
 	table->size = arr_size;
-	table->items = ft_calloc(table->size, sizeof(t_ht_item *));
+	table->items = (t_ht_item **)ft_calloc(table->size, sizeof(t_ht_item *));
+	control->env_table = table;
 	return (table);
-	control->cmd = NULL;
 }
 
-int copy_env(t_control *control, char **env)
+int strlen_var_name(char *str)
+{
+	int i;
+	i = 0;
+
+	while(str[i] && str[i] != '=')
+		i++;
+	return (i);
+}
+
+void	copy_env(t_control *control, char **env)
+{
+	char *key;
+	char *value;
+	int   i;
+	int	  j;
+
+	i = 0;
+	j = 0;
+	while(env[i])
+	{
+		key = ft_substr(env[i], 0, strlen_var_name(env[i]));
+		value = get_var(key, env);
+		add_item_to_table(control->env_table, key, value);
+		i++;
+	} 
+}	
+int handle_envp(t_control *control, char **env)
 {
 	t_table *table;
-	char  *key = ft_strdup("hello");
-	char  *value = ft_strdup("world");
-	char  *key2 = ft_strdup("hello");
-	char  *value2 = ft_strdup("teste");
+	
 	table = init_table(control, env);
-	add_item_to_table(table, key, value);
-	add_item_to_table(table, key2, value2);
+	copy_env(control, env);
 	print_hash_table(table);
 	free_hash_table(table);
 	printf("\n FINISH \n");

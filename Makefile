@@ -12,6 +12,7 @@ MATRIX 		= matrix
 LEXER 		= lexer
 EXPANDER    = expander
 PARSER 		= parser
+HASHTABLE	= hashtable
 
 OBJS_DIR 	= obj/
 SRC_DIR_LIB	= ./libft
@@ -24,9 +25,10 @@ FILES_WITHOUT_MAIN = \
 	$(LEXER)/handle_type \
 	$(LEXER)/utils \
 	$(EXPANDER)/handle_expander \
-	$(EXPANDER)/free_hash_table \
-	$(EXPANDER)/set_hash_table \
 	$(EXPANDER)/utils \
+	$(HASHTABLE)/free_hash_table \
+	$(HASHTABLE)/set_hash_table \
+	$(HASHTABLE)/utils \
 	$(PARSER)/handle_matrix \
 	$(PARSER)/handle_parser \
 
@@ -57,6 +59,7 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)$(MATRIX)
 	@mkdir -p $(OBJS_DIR)$(LEXER)
 	@mkdir -p $(OBJS_DIR)$(EXPANDER)
+	@mkdir -p $(OBJS_DIR)$(HASHTABLE)
 	@mkdir -p $(OBJS_DIR)$(PARSER)
 	@mkdir -p $(OBJS_DIR)handle_signal
 

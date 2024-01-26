@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/01/18 21:37:24 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/01/25 21:46:19 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ typedef struct s_ht_item
 	char				*key;
 	char				*value;
 	struct s_ht_item	*next;
-}t_ht_item;
+}	t_ht_item;
 
 typedef struct s_table
 {
 	int count;
 	int size;
 	struct s_ht_item **items;
-} t_table;
+}	t_table;
 
 typedef struct s_arg
 {
@@ -83,6 +83,7 @@ typedef struct s_cmd
 
 typedef struct s_control
 {
+	t_table			*env_table;
 	char			**env;
 	char			*pwd_initial;
 	char			*user;
@@ -90,7 +91,7 @@ typedef struct s_control
 	struct s_cmd	*cmd;
 }					t_control;
 
-/// handle_nodes
+// handle_nodes
 void				create_node_cmd(t_control *control, char *cmd);
 void				create_node_arg(t_cmd *cmd_node, const char *arg);
 int					list_len(t_cmd *lst);
@@ -98,11 +99,11 @@ t_cmd				*get_last_node_cmd(t_cmd *cmd);
 t_arg				*get_last_node_arg(t_arg *cmd);
 void				free_cmd(t_control *control);
 
-/// handle_parser
+// handle_parser
 void				free_matrix(char **matrix);
 void				handle_parser(t_control *control);
 
-///	handle_lexer
+//	handle_lexer
 void				print_lst(t_cmd *cmd); // FIX: retirar, função auxiliar
 int					is_space(char c);
 int					get_token_len(char *str, int type);
@@ -116,13 +117,17 @@ int					receive_signal_ctrl_d(t_control *control);
 enum e_type_arg 	set_type(char *str);
 int					len_string_token(char *str);
 
-/// handle_expander
+// handle_expander
 void				handle_expander(t_control *control);
 char 				*get_var_in_node(t_control *control, char *str);
 char				*get_var(const char *var, char **env);
 int					is_variable(char *str);
-int 				copy_env(t_control *control, char **env);
+
+// hashtable
+int 				handle_envp(t_control *control, char **env);
+int					ft_pow(int base, int exponent);
 void 				free_hash_table(t_table *table);
+int					len_env(char **env);
 
 #endif
 
