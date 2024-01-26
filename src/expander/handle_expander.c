@@ -1,13 +1,13 @@
 #include "../../include/minishell.h"
 
-char *ft_join_var(t_control *control, char *str, char *var, char *end)
+char *ft_join_var(char *str, char *var, char *end)
 {
 	char *result;
 	char *temp;
 	char *expand_var;
 
 	result = NULL;
-	expand_var = get_var(var, control->env);
+	expand_var = strdup(getenv(var));
 	if (expand_var)
 	{
 		temp = ft_strjoin(str, expand_var);
@@ -26,7 +26,7 @@ char *ft_join_var(t_control *control, char *str, char *var, char *end)
 	return (result);
 }
 
-char *get_var_in_node(t_control *control, char *str)
+char *get_var_in_node(char *str)
 {
 	char    *var;
 	int 	i;
@@ -41,7 +41,7 @@ char *get_var_in_node(t_control *control, char *str)
 			while (ft_isalpha(str[i + 1 + j]) || str[i + 1 + j] == '_')
 				j++;
 			var = ft_substr(&str[i + 1], 0, j);
-			str = ft_join_var(control, ft_substr(str, 0, i), var, &str[i + 1 + j]);
+			str = ft_join_var(ft_substr(str, 0, i), var, &str[i + 1 + j]);
 			i = 0;
 		}
 		i++;
@@ -49,7 +49,7 @@ char *get_var_in_node(t_control *control, char *str)
 	return (str);
 }
 
-void search_var_in_arg(t_control *control, t_cmd *node) {
+void search_var_in_arg(t_cmd *node) {
 	t_arg *temp_arg_node;
 	t_arg *arg_node;
 
@@ -58,7 +58,7 @@ void search_var_in_arg(t_control *control, t_cmd *node) {
 	{
 		temp_arg_node = arg_node->next;
 		if (arg_node->type == VAR_EXPAND)
-			arg_node->arg = get_var_in_node(control, arg_node->arg);
+			arg_node->arg = get_var_in_node(arg_node->arg);
 		arg_node = temp_arg_node;
 	}
 }
@@ -73,8 +73,8 @@ void handle_expander(t_control *control)
 	{
 		cmd_node_temp = cmd_node->next;
 		if (cmd_node->type == VAR_EXPAND)
-			cmd_node->cmd = get_var_in_node(control, cmd_node->cmd);
-		search_var_in_arg(control, cmd_node);
+			cmd_node->cmd = get_var_in_node(cmd_node->cmd);
+		search_var_in_arg(cmd_node);
 		cmd_node = cmd_node_temp;
 	}
 }

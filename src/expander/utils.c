@@ -11,24 +11,24 @@ int is_variable(char *str)
 	return (0);
 }
 
-char *get_var(const char *var, char **env)
-{
-	char *result;
-	int i;
-	int j;
-
-	i = 0;
-	result = NULL;
-	while (env[i])
-	{
-		j = 0;
-		while (var[j] && env[i][j] && var[j] == env[i][j])
-		{
-			if (env[i][j + 1] == '=' && env[i][j + 2])
-				result = ft_strdup(&env[i][j + 2]);
-			j++;
-		}
-		i++;
-	}
-	return (result);
-}
+//char *get_var(const char *var, char **env)
+//{
+//	char *result;
+//	int i;
+//	int j;
+//
+//	i = 0;
+//	result = NULL;
+//	while (env[i])
+//	{
+//		j = 0;
+//		while (var[j] && env[i][j] && var[j] == env[i][j])
+//		{
+//			if (env[i][j + 1] == '=' && env[i][j + 2])
+//				result = ft_strdup(&env[i][j + 2]);
+//			j++;
+//		}
+//		i++;
+//	}
+//	return (result);
+//}

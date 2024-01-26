@@ -19,18 +19,6 @@ void	print_lst(t_cmd *cmd)
 	}
 }
 
-//char	*handle_redirect(const enum e_type_arg type, int len, t_cmd *cmd,
-//		char *input)
-//{
-//	create_node_arg(cmd, "");
-//	get_last_node_arg(cmd->list_args)->type = type;
-//	if (type == REDIRECT_INPUT || type == REDIRECT_OUTPUT)
-//		len += 1;
-//	else if (type == REDIRECT_OUTPUT_APPEND)
-//		len += 2;
-//	return (input + len);
-//}
-
 char	*create_arg(t_cmd *cmd, char *input)
 {
 	t_arg			*last_arg;
@@ -46,9 +34,6 @@ char	*create_arg(t_cmd *cmd, char *input)
 		last_arg = get_last_node_arg(cmd->list_args);
 		last_arg->type = is_arg(last_arg->arg);
 	}
-//	else
-//		// else ficou para comandos acima de VAR_EXPAND no caso os redirects e o BROKEN_QUOTES que definimos juntos.
-//		input = handle_redirect(type, len, cmd, input);
 	input = input + len;
 	while (is_space(*input))
 		input++;

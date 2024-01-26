@@ -119,12 +119,14 @@ int					len_string_token(char *str);
 
 // handle_expander
 void				handle_expander(t_control *control);
-char 				*get_var_in_node(t_control *control, char *str);
-char				*get_var(const char *var, char **env);
+char 				*get_var_in_node(char *str);
 int					is_variable(char *str);
 
 // hashtable
 int 				handle_envp(t_control *control, char **env);
+t_ht_item 			*get_var(t_control *control, char *key);
+char				*get_var_value(t_control *control, char *key);
+int					hash_function(char *str, int size);
 int					ft_pow(int base, int exponent);
 void 				free_hash_table(t_table *table);
 int					len_env(char **env);

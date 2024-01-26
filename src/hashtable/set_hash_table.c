@@ -18,7 +18,7 @@ void print_hash_table (t_table *table)
 				if (items[i])
 				{
 					next_tem = items[i]->next;
-					// printf("\nindex : %d", i);
+					printf("\nindex : %d", i);
 					if (items[i]->value)
 						printf("\nkey = %s", items[i]->key);
 					if (items[i]->key)
@@ -26,7 +26,7 @@ void print_hash_table (t_table *table)
 						printf("   value = %s ", items[i]->value);
 						if (items[i]->next)
 						{
-							printf("\n -----     key = %s", items[i]->key);
+							printf("\n -----     key = %s", items[i]->next->key);
 							printf("\n -----    next value = %s", items[i]->next->value);
 						}
 					}
@@ -91,7 +91,7 @@ t_table *init_table(t_control *control, char **env)
 	t_table *table;
 	int		arr_size;
 
-	arr_size = len_env(env) * 3;
+	arr_size = len_env(env) * 5;
 	table = (t_table *)malloc(sizeof(t_table));
 	table->count = 0;
 	table->size = arr_size;
@@ -115,14 +115,12 @@ void	copy_env(t_control *control, char **env)
 	char *key;
 	char *value;
 	int   i;
-	int	  j;
 
 	i = 0;
-	j = 0;
 	while(env[i])
 	{
 		key = ft_substr(env[i], 0, strlen_var_name(env[i]));
-		value = get_var(key, env);
+		value = strdup(getenv(key));
 		add_item_to_table(control->env_table, key, value);
 		i++;
 	} 
@@ -134,7 +132,7 @@ int handle_envp(t_control *control, char **env)
 	table = init_table(control, env);
 	copy_env(control, env);
 	print_hash_table(table);
-	free_hash_table(table);
 	printf("\n FINISH \n");
+	printf("/n %s /n ", get_var_value(control, "HOME"));
 	return (TRUE);
 }
