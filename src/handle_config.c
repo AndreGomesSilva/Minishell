@@ -16,9 +16,20 @@ void	set_path(t_control *control, char **env)
 	free(temp_user);
 	free(temp_pwd);
 }
+int handle_envp(t_control *control, char **env)
+{
+	t_table *table;
+	
+	table = init_table(control, env);
+	copy_env(control, env);
+	print_hash_table(table);
+	printf("\n FINISH \n");
+	return (TRUE);
+}
 
 void	handle_config(t_control **control, char **env)
 {
 	*control = (t_control *)ft_calloc(sizeof(t_control), 1);
 	set_path(*control, env);
+	handle_envp(*control, env);
 }

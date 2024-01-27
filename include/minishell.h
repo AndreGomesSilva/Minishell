@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/01/25 21:46:19 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/01/27 00:25:18 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,9 @@ int					hash_function(char *str, int size);
 int					ft_pow(int base, int exponent);
 void 				free_hash_table(t_table *table);
 int					len_env(char **env);
+t_table 			*init_table(t_control *control, char **env);
+void				copy_env(t_control *control, char **env);
+void				print_hash_table (t_table *table);
 
 #endif
 
