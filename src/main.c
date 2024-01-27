@@ -10,12 +10,10 @@ int	main(int argc, char **argv, char **env)
 		return (0);
 	handle_config(&g_control, env);
 	handle_signal();
-	printf("\n %s \n", get_var_value(g_control, "LOGNAME"));
+	while (1)
+		middleware(g_control);
+	clear_history();
+	free_cmd(g_control);
 	free_hash_table(g_control->env_table);
-	//		while (1)
-	//			middleware(g_control);
-	//		print_lst(g_control->cmd);
-	//		clear_history();
-	//		free_cmd(g_control);
 	return (0);
 }

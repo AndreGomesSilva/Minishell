@@ -9,7 +9,6 @@ void print_hash_table (t_table *table)
 
 	int	i;
 	t_ht_item **items;
-	t_ht_item *next_tem;
 
 	i = 0;
 	if (table) {
@@ -17,7 +16,6 @@ void print_hash_table (t_table *table)
 			while (i < table->size) {
 				if (items[i])
 				{
-					next_tem = items[i]->next;
 					printf("\nindex : %d", i);
 					printf("\nkey = %s", items[i]->key);
 					printf("   value = %s ", items[i]->value);
@@ -50,7 +48,7 @@ int	hash_function(char *str, int size)
 	return ((int)hash);
 }
 
-t_ht_item	*create_hash_node(char *key, char *value)
+static t_ht_item	*create_hash_node(char *key, char *value)
 {
 	t_ht_item *node;
 	node = (t_ht_item *)ft_calloc(1, sizeof(t_ht_item));
@@ -94,16 +92,6 @@ t_table *init_table(t_control *control, char **env)
 	return (table);
 }
 
-int strlen_var_name(char *str)
-{
-	int i;
-	i = 0;
-
-	while(str[i] && str[i] != '=')
-		i++;
-	return (i);
-}
-
 void	copy_env(t_control *control, char **env)
 {
 	char *key;
@@ -114,10 +102,8 @@ void	copy_env(t_control *control, char **env)
 	while(env[i])
 	{
 		key = ft_substr(env[i], 0, strlen_var_name(env[i]));
-		value = strdup(getenv(key));
+		value = ft_strdup(getenv(key));
 		add_item_to_table(control->env_table, key, value);
 		i++;
 	} 
 }
-
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes <angomes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/01/27 00:25:18 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/01/27 15:48:31 by angomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,17 +119,17 @@ int					len_string_token(char *str);
 
 // handle_expander
 void				handle_expander(t_control *control);
-char 				*get_var_in_node(char *str);
 int					is_variable(char *str);
 
 // hashtable
 int 				handle_envp(t_control *control, char **env);
-t_ht_item 			*get_var(t_control *control, char *key);
-char				*get_var_value(t_control *control, char *key);
+t_ht_item 			*get_var_node(t_control *control, char *key);
+char				*get_var(t_control *control, char *key);
 int					hash_function(char *str, int size);
 int					ft_pow(int base, int exponent);
 void 				free_hash_table(t_table *table);
 int					len_env(char **env);
+int 				strlen_var_name(char *str);
 t_table 			*init_table(t_control *control, char **env);
 void				copy_env(t_control *control, char **env);
 void				print_hash_table (t_table *table);

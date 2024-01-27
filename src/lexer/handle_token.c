@@ -42,8 +42,8 @@ char	*create_arg(t_cmd *cmd, char *input)
 
 char	*create_cmd(t_control *control, char *actual)
 {
-	int	len;
-	t_cmd *node;
+	int		len;
+	t_cmd 	*node;
 
 	len = 0;
 	while (is_space(*actual))

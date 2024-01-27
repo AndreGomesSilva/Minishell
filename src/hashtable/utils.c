@@ -24,3 +24,13 @@ int	len_env(char **env)
 		i++;
 	return (i);
 }
+
+int strlen_var_name(char *str)
+{
+	int i;
+	i = 0;
+
+	while(str[i] && str[i] != '=')
+		i++;
+	return (i);
+}
