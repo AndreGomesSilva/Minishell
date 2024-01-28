@@ -15,7 +15,6 @@ RUN apt-get install -y --no-install-recommends \
 	curl \
 	software-properties-common \
 	libreadline-dev \
-	clang-12 \
 	zsh \
 	curl \
 	wget \
@@ -26,6 +25,10 @@ RUN apt-get install icu-devtools -y
 RUN apt-get install -y openssl
 
 RUN update-ca-certificates
+
+#clang e clangd
+RUN wget -O - https://apt.llvm.org/llvm.sh | bash -s -- -y
+RUN update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-18 100
 
 # Clone o GoogleTest do repositório oficial
 RUN git clone https://github.com/google/googletest.git
@@ -45,8 +48,6 @@ RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUS
 # Crie o diretório de build do GoogleTest e compile-o
 RUN cd googletest && mkdir build && cd build && cmake .. && make && make install
 
-RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-12 100
-RUN export PATH=PATH:/usr/bin/clang
 # Configure o diretório de trabalho para o diretório do seu projeto
 RUN mkdir /minishell
 
