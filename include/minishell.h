@@ -6,7 +6,7 @@
 /*   By: angomes <angomes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/01/27 15:48:31 by angomes          ###   ########.fr       */
+/*   Updated: 2024/01/27 20:58:07 by angomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ typedef struct s_ht_item
 
 typedef struct s_table
 {
-	int count;
-	int size;
-	struct s_ht_item **items;
+	int					count;
+	int 				size;
+	struct s_ht_item	**items;
 }	t_table;
 
 typedef struct s_arg
@@ -120,6 +120,7 @@ int					len_string_token(char *str);
 // handle_expander
 void				handle_expander(t_control *control);
 int					is_variable(char *str);
+char				*handle_home_path(t_control *control, char *path);
 
 // hashtable
 int 				handle_envp(t_control *control, char **env);

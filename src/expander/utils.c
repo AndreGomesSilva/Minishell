@@ -11,24 +11,41 @@ int is_variable(char *str)
 	return (0);
 }
 
-//char *get_var(const char *var, char **env)
-//{
-//	char *result;
-//	int i;
-//	int j;
-//
-//	i = 0;
-//	result = NULL;
-//	while (env[i])
-//	{
-//		j = 0;
-//		while (var[j] && env[i][j] && var[j] == env[i][j])
-//		{
-//			if (env[i][j + 1] == '=' && env[i][j + 2])
-//				result = ft_strdup(&env[i][j + 2]);
-//			j++;
-//		}
-//		i++;
-//	}
-//	return (result);
-//}
+char	*convert_home_path(char *path, int len)
+{
+	char *result;
+	char *sinal;
+	char *cut_path;
+
+	sinal = ft_strdup("~");
+	if (path)
+	{
+		cut_path = ft_substr(path, len, ft_strlen(path));
+		result = ft_strjoin(sinal, cut_path);
+		free(cut_path);
+		free(sinal);
+	}
+	return (result);
+}
+
+char *handle_home_path(t_control *control, char *path)
+{
+	int	i;
+	char *home;
+	char *new_path;
+	
+	i = 0;
+	home = NULL;
+	new_path = NULL;
+	home = get_var(control, "HOME");
+	while (path[i] && home[i])
+	{
+		if (!ft_strncmp(&path[i], &home[i], ft_strlen(home)))
+		 {
+			new_path = convert_home_path(&path[i], ft_strlen(home));
+			return (new_path);
+		 }
+		 i++;
+	}
+	return (path);
+}
