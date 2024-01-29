@@ -14,16 +14,17 @@ int is_variable(char *str)
 char	*convert_home_path(char *path, int len)
 {
 	char *result;
-	char *sinal;
+	char *sign;
 	char *cut_path;
 
-	sinal = ft_strdup("~");
+	sign = ft_strdup("~");
+	result = NULL;
 	if (path)
 	{
 		cut_path = ft_substr(path, len, ft_strlen(path));
-		result = ft_strjoin(sinal, cut_path);
+		result = ft_strjoin(sign, cut_path);
 		free(cut_path);
-		free(sinal);
+		free(sign);
 	}
 	return (result);
 }
@@ -38,11 +39,11 @@ char *handle_home_path(t_control *control, char *path)
 	home = NULL;
 	new_path = NULL;
 	home = get_var(control, "HOME");
-	while (path[i] && home[i])
+	while (path && path[i] && home[i])
 	{
 		if (!ft_strncmp(&path[i], &home[i], ft_strlen(home)))
 		 {
-			new_path = convert_home_path(&path[i], ft_strlen(home));
+			new_path = convert_home_path(&path[i], (int) ft_strlen(home));
 			return (new_path);
 		 }
 		 i++;

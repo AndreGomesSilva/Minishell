@@ -6,7 +6,6 @@
 
 void print_hash_table (t_table *table)
 {
-
 	int	i;
 	t_ht_item **items;
 
