@@ -46,6 +46,17 @@ enum				e_type_arg
 	REDIRECT_OUTPUT_APPEND, // 6
 };
 
+enum	e_type_builtin
+{
+	NOBT,                  //not a builtin
+	ECHO,
+	CD,
+	PWD,
+	ENV,
+	EXPORT,
+	UNSET,
+};
+
 typedef struct s_ht_item
 {
 	char				*key;
