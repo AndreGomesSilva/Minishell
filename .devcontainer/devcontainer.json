@@ -12,31 +12,15 @@
 		"context": "..",
 		// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
 		"dockerfile": "../Dockerfile"
-	}
+	},
+	"mounts": [
+		"type=bind,source=/nfs/homes/${localEnv:USER}/.ssh,target=/root/.ssh,readonly",
+		"source=/nfs/homes/${localEnv:USER}/.gitconfig,target=/root/.gitconfig,type=bind"
+	]
 	// "customizations": {
 	// 	"vscode": {
 	// 		"extensions": [
 	// 			"keyhr.42-c-format",
-	// 			"DoKca.42-ft-count-line",
-	// 			"kube.42header",
-	// 			"MariusvanWijk-JoppeKoers.codam-norminette-3",
-	// 			"llvm-vs-code-extensions.vscode-clangd",
-	// 			"Codeium.codeium",
-	// 			"vadimcn.vscode-lldb",
-	// 			"naumovs.color-highlight",
-	// 			"fabiospampinato.vscode-diff",
-	// 			"mhutchie.git-graph",
-	// 			"VisualStudioExptTeam.vscodeintellicode",
-	// 			"VisualStudioExptTeam.intellicode-api-usage-examples",
-	// 			"ms-vsliveshare.vsliveshare",
-	// 			"ms-vscode.makefile-tools",
-	// 			"neptunedesign.vs-sequential-number",
-	// 			"alefragnani.project-manager",
-	// 			"PKief.material-icon-theme",
-	// 			"dracula-theme.theme-dracula",
-	// 			"mikestead.dotenv",
-	// 			"ms-vscode-remote.remote-containers",
-	// 			"aaron-bond.better-comments"
 	// 		]
 	// 	}
 	// }

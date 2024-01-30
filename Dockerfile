@@ -18,17 +18,14 @@ RUN apt-get install -y --no-install-recommends \
 	zsh \
 	curl \
 	wget \
-	vim
+	vim \
+	openssh-server
 
 RUN apt-get install icu-devtools -y
 
 RUN apt-get install -y openssl
 
 RUN update-ca-certificates
-
-#clang e clangd
-RUN wget -O - https://apt.llvm.org/llvm.sh | bash -s -- -y
-RUN update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-18 100
 
 # Clone o GoogleTest do repositório oficial
 RUN git clone https://github.com/google/googletest.git
@@ -44,6 +41,13 @@ SHELL ["/bin/zsh", "-c"]
 # Plugins Zsh
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+#clang e clangd
+RUN wget https://apt.llvm.org/llvm.sh
+RUN chmod +x llvm.sh
+RUN ./llvm.sh 17
+RUN update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-17 100
+RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-17 100
 
 # Crie o diretório de build do GoogleTest e compile-o
 RUN cd googletest && mkdir build && cd build && cmake .. && make && make install
