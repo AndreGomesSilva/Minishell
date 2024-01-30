@@ -18,6 +18,7 @@ int	middleware(t_control *control)
 				input = handle_token(control, input);
 		}
 		handle_expander(control);
+		handle_parser(control);
 		print_lst(control->cmd);
 		free(first_input);
 		free_cmd(control);

@@ -54,8 +54,35 @@
 // 		cmd = cmd->next;
 // 	}
 // }
+
+//int 	get_last_redirect(t_control *control)
+//{
+//	t_cmd	*cmd;
+//	t_arg	*arg;
 //
-// void	handle_parser(t_control *control)
-// {
+//	cmd = control->cmd;
+//	if (cmd->type >= REDIRECT_HERD && cmd->delimiter_type == NORM)
+//	{
+//		if (cmd->type == REDIRECT_INPUT)
+//
+//	}
+//
+//}
+//
+//int		set_io_file(t_control *control)
+//{
+//	t_cmd *cmd;
+//
+//	cmd = control->cmd;
+//	if (cmd->delimiter_type == PIP)
+//		cmd->infile = 1;
+//	else
+//}
+
+
+
+ void	handle_parser(t_control *control)
+ {
+	 handle_bin_path(control, control->cmd);
 // 	 get_cmd_matrix(control);
-// }
+ }

@@ -26,6 +26,7 @@ FILES_WITHOUT_MAIN = \
 	$(HASHTABLE)/free_hash_table $(HASHTABLE)/set_hash_table \
 	$(HASHTABLE)/aux_hash_function $(HASHTABLE)/utils \
 	$(PARSER)/handle_matrix $(PARSER)/handle_parser \
+	$(PARSER)/handle_path $(PARSER)/utils \
 
 FILES = \
 	main $(FILES_WITHOUT_MAIN)
