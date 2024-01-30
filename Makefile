@@ -21,24 +21,18 @@ LIB 		= ./libft/libft.a -lreadline
 FILES_WITHOUT_MAIN = \
 	handle_config handle_signal	middleware \
 	$(LIST)/handle_list_cmd $(LIST)/handle_list_arg $(LIST)/free_list \
-	$(LEXER)/handle_token \
-	$(LEXER)/handle_type \
-	$(LEXER)/utils \
-	$(EXPANDER)/handle_expander \
-	$(EXPANDER)/utils \
-	$(HASHTABLE)/free_hash_table \
-	$(HASHTABLE)/set_hash_table \
-	$(HASHTABLE)/aux_hash_function \
-	$(HASHTABLE)/utils \
-	$(PARSER)/handle_matrix \
-	$(PARSER)/handle_parser \
-
+	$(LEXER)/handle_token $(LEXER)/handle_type $(LEXER)/utils \
+	$(EXPANDER)/handle_expander $(EXPANDER)/utils \
+	$(HASHTABLE)/free_hash_table $(HASHTABLE)/set_hash_table \
+	$(HASHTABLE)/aux_hash_function $(HASHTABLE)/utils \
+	$(PARSER)/handle_matrix $(PARSER)/handle_parser \
 
 FILES = \
 	main $(FILES_WITHOUT_MAIN)
 
 FILE_T = \
-	main_test $(LEXER)/* \
+	main_test $(LEXER)/*
+#	main_test $(LEXER)/* $(EXPANDER)/* $(HASHTABLE)/* $(PARSER)/* $(LIST)/*
 
 FILE_TESTE 		= $(addprefix $(TEST_DIR), $(addsuffix .cpp, $(FILE_T)))
 FILE_TESTE_PROG	= $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES_WITHOUT_MAIN)))
@@ -64,7 +58,7 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)$(PARSER)
 	@mkdir -p $(OBJS_DIR)handle_signal
 
-runTests: fclean
+runTests:
 	@$(RM) testeRun	
 	@$(MAKE) -C $(SRC_DIR_LIB) --no-print-directory
 	g++ $(FILE_TESTE) $(FILE_TESTE_PROG) $(INC) -I/usr/local/include -L/usr/local/lib -lgtest -lgtest_main $(LIB) -o testeRun

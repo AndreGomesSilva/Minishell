@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes <angomes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/01/27 20:58:07 by angomes          ###   ########.fr       */
+/*   Updated: 2024/01/29 19:02:30 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ char				*handle_home_path(t_control *control, char *path);
 // hashtable
 int 				handle_envp(t_control *control, char **env);
 t_ht_item 			*get_var_node(t_control *control, char *key);
-char				*get_var(t_control *control, char *key);
-int					hash_function(char *str, int size);
+char				*get_var(t_control *control, const char *key);
+int					hash_function(const char *str, int size);
 int					ft_pow(int base, int exponent);
 void 				free_hash_table(t_table *table);
 int					len_env(char **env);

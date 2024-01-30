@@ -1,3 +1,5 @@
+#include "../../include/minishell.h"
+
 int	ft_pow(int base, int exponent)
 {
 	int result;

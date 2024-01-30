@@ -30,7 +30,7 @@ void print_hash_table (t_table *table)
 	}
 }
 
-int	hash_function(char *str, int size)
+int	hash_function(const char *str, int size)
 {
 	long int hash;
 	int 	len;

@@ -4,7 +4,7 @@
 
 #include "../../include/minishell.h"
 
-char	*get_var(t_control *control, char *key)
+char	*get_var(t_control *control, const char *key)
 {
 	int index;
 	char *result;
