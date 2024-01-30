@@ -27,14 +27,14 @@ void	free_cmd(t_control *control)
 	while (node)
 	{
 		temp_node = node->next;
-		if (node->cmd)
-			free(node->cmd);
 		if (node->cmd_and_args)
 			free_matrix(node->cmd_and_args);
 		if (node->path_cmd)
 			free(node->path_cmd);
 		if (node->list_args)
 			free_arg(node->list_args);
+		if (node->cmd)
+			free(node->cmd);
 		free(node);
 		node = temp_node;
 	}

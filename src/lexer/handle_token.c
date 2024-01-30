@@ -3,19 +3,24 @@
 // FIX: retirar posteriormente, função auxiliar
 void	print_lst(t_cmd *cmd)
 {
+	t_cmd *ptr_cmd;
+	t_arg *ptr_arg;
+
+	ptr_cmd = cmd;
+	ptr_arg = cmd->list_args;
 	printf("number of nodes: %d\n", list_len(cmd));
 	printf("\n---------------------------------\n");
-	while (cmd)
+	while (ptr_cmd)
 	{
-		printf("CMD: %s --- type: %d -- delimiter_type: %d \n", cmd->cmd, cmd->type, cmd->delimiter_type);
-		while (cmd->list_args)
+		printf("CMD: %s --- type: %d -- delimiter_type: %d \n", ptr_cmd->cmd, ptr_cmd->type, ptr_cmd->delimiter_type);
+		while (ptr_arg)
 		{
-			printf("ARG: %s --- type: %d \n", cmd->list_args->arg,
-					cmd->list_args->type);
-			cmd->list_args = cmd->list_args->next;
+			printf("ARG: %s --- type: %d \n", ptr_arg->arg,
+					ptr_arg->type);
+			ptr_arg = ptr_arg->next;
 		}
 		printf("\n---------------------------------\n");
-		cmd = cmd->next;
+		ptr_cmd = ptr_cmd->next;
 	}
 }
 
