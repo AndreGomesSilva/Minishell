@@ -32,7 +32,7 @@ char	*create_arg(t_cmd *cmd, char *input)
 	len = 0;
 	while (is_space(*input))
 		input++;
-	if (!is_cmd(input))
+	if (*input != '|')
 	{
 		len = get_token_len(input, is_arg(input));
 		create_node_arg(cmd, ft_substr(input, 0, len));
@@ -76,12 +76,14 @@ char	*handle_token(t_control *control, char *input)
 	enum e_type_cmd	result_is_cmd;
 
 	actual = input;
+	result_is_cmd = 0;
 	while (*actual)
 	{
 		actual = create_cmd(control, actual);
 		while (*actual)
 		{
-			result_is_cmd = is_cmd(actual);
+			if(*actual == '|')
+				result_is_cmd = 1;
 			if (result_is_cmd)
 			{
 				get_last_node_cmd(control->cmd)->delimiter_type = result_is_cmd;

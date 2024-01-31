@@ -16,7 +16,7 @@ TEST(lexer_utils, is_space_invalid) {
 TEST(lexer_utils, is_arg_valid) {
 	std::vector<int> options = {0, 1, 2, 3, 4, 5, 6};
 	char str[] = ">";
-	int result = is_arg(str);
+	enum e_type_arg result = is_arg(str);
 	EXPECT_THAT(options, testing::Contains(result));
 	
 	char str_2[] = ">>";
@@ -38,8 +38,4 @@ TEST(lexer_utils, is_arg_invalid) {
     int result = is_arg(str);
     auto it = std::find(options.begin(), options.end(), result);
     EXPECT_TRUE(it == options.end());
-}
-
-TEST(lexer_utils, is_cmd){
-	
 }

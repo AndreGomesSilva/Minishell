@@ -28,20 +28,6 @@ enum e_type_arg	is_arg(char *actual)
 	return(set_type(actual));
 }
 
-//0 = false, 1 = pipe, 2 = or, 3 = and
-enum e_type_cmd	is_cmd(char *actual)
-{
-	int	i;
-
-	i = 0;
-	if (!actual || !*actual)
-		return (NILL);
-	else if (actual[i] == '|')
-		return (PIP);
-	else
-		return (NILL);
-}
-
 int	len_string_token(char *str)
 {
 	int n_quote;
