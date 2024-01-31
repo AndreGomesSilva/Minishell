@@ -16,7 +16,16 @@
 	"mounts": [
 		"type=bind,source=/nfs/homes/${localEnv:USER}/.ssh,target=/root/.ssh,readonly",
 		"source=/nfs/homes/${localEnv:USER}/.gitconfig,target=/root/.gitconfig,type=bind"
-	]
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"mhutchie.git-graph",
+				"llvm-vs-code-extensions.vscode-clangd",
+				"vadimcn.vscode-lldb"
+			]
+		}
+	}
 	// "customizations": {
 	// 	"vscode": {
 	// 		"extensions": [

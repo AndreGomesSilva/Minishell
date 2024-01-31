@@ -44,6 +44,8 @@ enum				e_type_arg
 	REDIRECT_INPUT,        	// 4
 	REDIRECT_OUTPUT,       	// 5
 	REDIRECT_OUTPUT_APPEND, // 6
+	OUTFILE,
+	INFILE,
 };
 
 enum	e_type_builtin

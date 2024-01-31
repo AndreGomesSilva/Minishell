@@ -30,10 +30,7 @@ char *get_cmd_path(t_control *control, t_cmd *cmd)
 	char *path_var;
 	char *bin;
 	char **split_path;
-	int	 i;
 
-
-	i = 0;
 	bin = NULL;
 	path_var = get_var(control, "PATH");
 	if (path_var)

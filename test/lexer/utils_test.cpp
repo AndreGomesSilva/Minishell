@@ -41,5 +41,5 @@ TEST(lexer_utils, is_arg_invalid) {
 }
 
 TEST(lexer_utils, is_cmd){
-
+	
 }
