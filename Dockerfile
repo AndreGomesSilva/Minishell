@@ -56,3 +56,5 @@ RUN cd googletest && mkdir build && cd build && cmake .. && make && make install
 RUN mkdir /minishell
 
 WORKDIR /minishell
+
+RUN git config pull.rebase true
