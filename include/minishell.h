@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/01 16:05:40 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/01 23:26:17 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ enum e_type_arg 	set_type(char *str);
 int					len_string_token(char *str);
 char				*create_cmd(t_control *control, char *actual);
 char				*create_arg(t_cmd *cmd, char *input);
+int 				handle_quotes(char *str, int *iterator, int *n_quotes, int *flag_var);
 
 // handle_expander
 void				handle_expander(t_control *control);
