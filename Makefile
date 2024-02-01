@@ -62,8 +62,8 @@ $(OBJS_DIR):
 runTests:
 	@$(RM) testeRun	
 	@$(MAKE) -C $(SRC_DIR_LIB) --no-print-directory
-	g++ $(FILE_TESTE) $(FILE_TESTE_PROG) $(INC) -I/usr/local/include -L/usr/local/lib -lgtest -lgtest_main $(LIB) -o testeRun
-	./testeRun
+	g++ $(FILE_TESTE) $(FILE_TESTE_PROG) $(INC) -I/usr/local/include -L/usr/local/lib -lgtest -lgtest_main $(LIB) -o testRun
+	./testRun
 
 bonus: all
 
@@ -74,6 +74,7 @@ clean:
 fclean: clean
 	$(MAKE) fclean -C $(SRC_DIR_LIB)
 	$(RM) $(NAME)
+	$(RM) testRun
 
 re: fclean all
 
