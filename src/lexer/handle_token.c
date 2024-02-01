@@ -87,8 +87,7 @@ void	handle_token(t_control *control, char *input)
 			if (result_is_cmd)
 			{
 				get_last_node_cmd(control->cmd)->delimiter_type = result_is_cmd;
-				if (result_is_cmd == PIP)
-					actual++;
+				actual++;
 				break ;
 			}
 			else

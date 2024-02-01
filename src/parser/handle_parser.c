@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
- void	type_io_file(t_control *control)
+void	type_io_file(t_control *control)
  {
 	t_cmd *ptr_cmd;
 	t_arg *ptr_arg;
@@ -46,7 +46,7 @@
 	return (count);
  }
 
- char	**create_full_cmd(t_control *control)
+ void create_full_cmd(t_control *control)
  {
 	int		len;
 	char	**args;
@@ -61,7 +61,7 @@
 		i = 0;
 		len = count_args(ptr_cmd);
 		ptr_arg = ptr_cmd->list_args;
-		args = (char **)ft_calloc(len + 1, sizeof(char **));
+		args = (char **)ft_calloc(len + 1, sizeof(char *));
 		if (ptr_cmd->type < REDIRECT_HERD)
 			args[i++] = ft_strdup(ptr_cmd->cmd);
 		while (ptr_arg)
@@ -70,11 +70,9 @@
 				args[i++] = ft_strdup(ptr_arg->arg);
 			ptr_arg = ptr_arg->next;
 		}
-		args[len + 1] = NULL;
 		ptr_cmd->cmd_and_args = args;
 		ptr_cmd = ptr_cmd->next;
 	}
-	return (args);
  }
 
  void	handle_parser(t_control *control)

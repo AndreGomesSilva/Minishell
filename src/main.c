@@ -13,7 +13,5 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 		middleware(g_control);
 	clear_history();
-	free_cmd(g_control);
-	free_hash_table(g_control->env_table);
 	return (0);
 }

@@ -6,13 +6,13 @@
 
 void	free_matrix(char **matrix)
 {
-	int	i;
+	char **ptr_temp;
 
-	i = 0;
-	while (matrix[i] != NULL)
+	ptr_temp = matrix;
+	while (*matrix)
 	{
-		free(matrix[i]);
-		i++;
+		free(*matrix);
+		matrix++;
 	}
-	free(matrix);
+	free(ptr_temp);
 }
