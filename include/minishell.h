@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/01/29 19:02:30 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/01 00:53:28 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,13 @@ int					get_token_len(char *str, int type);
 enum e_type_cmd		is_cmd(char *actual);
 enum e_type_arg		is_arg(char *actual);
 int					middleware(t_control *control);
-char				*handle_token(t_control *control, char *input);
+void				handle_token(t_control *control, char *input);
 void				handle_signal(void);
 void				handle_config(t_control **control, char **env);
 int					receive_signal_ctrl_d(t_control *control);
 enum e_type_arg 	set_type(char *str);
 int					len_string_token(char *str);
+char				*create_cmd(t_control *control, char *actual);
 
 // handle_expander
 void				handle_expander(t_control *control);

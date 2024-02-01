@@ -10,14 +10,11 @@ int	middleware(t_control *control)
 	if (input)
 	{
 		add_history(input);
-		while (*input)
-		{
-			while (is_space(*input))
-				input++;
-			if (*input)
-				input = handle_token(control, input);
-		}
-		handle_expander(control);
+		while (is_space(*input))
+			input++;
+		if (*input)
+		handle_token(control, input);
+			handle_expander(control);
 		handle_parser(control);
 		print_lst(control->cmd);
 		free(first_input);

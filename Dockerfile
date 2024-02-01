@@ -2,14 +2,15 @@
 FROM ubuntu:latest
 
 # Instale as dependências necessárias
-RUN apt-get update 
+RUN apt-get update
 
-RUN apt-get install -y --no-install-recommends \
-    build-essential \
-    cmake \
+RUN apt-get install -y \
+	software-properties-common \
+	build-essential \
+	cmake \
 	make \
 	g++ \
-    git \
+	git \
 	tar \
 	gcc-10 \
 	curl \
@@ -19,13 +20,22 @@ RUN apt-get install -y --no-install-recommends \
 	curl \
 	wget \
 	vim \
-	openssh-server
+	openssh-server \
+	icu-devtools \
+	openssl
 
-RUN apt-get install icu-devtools -y
-
-RUN apt-get install -y openssl
-
+# Atualizo certificado para o SSH funcionar
 RUN update-ca-certificates
+
+# Instale o Python 3.8 e formatter automatico para 42 (42 C-Format)
+RUN add-apt-repository ppa:deadsnakes/ppa
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+	python3.8 \
+	python3-pip
+RUN pip3 install c_formatter_42
+
+RUN apt-get clean
 
 # Clone o GoogleTest do repositório oficial
 RUN git clone https://github.com/google/googletest.git
@@ -42,7 +52,7 @@ SHELL ["/bin/zsh", "-c"]
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-#clang e clangd
+# Instalo clang e clangd
 RUN wget https://apt.llvm.org/llvm.sh
 RUN chmod +x llvm.sh
 RUN ./llvm.sh 17
@@ -56,5 +66,3 @@ RUN cd googletest && mkdir build && cd build && cmake .. && make && make install
 RUN mkdir /minishell
 
 WORKDIR /minishell
-
-RUN git config pull.rebase true

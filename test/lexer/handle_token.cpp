@@ -1,37 +1,51 @@
-// #include "../../include/minishell.h"
-// #include <gtest/gtest.h>
+#include "../../include/minishell.h"
+#include <gtest/gtest.h>
 
-// extern "C" {
-//     // Declaração de funções externas que você irá "mockar"
-//     char* readline(const char* prompt);
-//     void add_history(const char* line);
-// }
+extern "C" {
+char *readline(const char *prompt);
+}
 
-// // Funções "mock" que simulam readline e add_history
+// Funções "mock" que simulam readline e add_history
 // char* mock_readline(const char* prompt) {
 //     // Implemente o retorno de um comando simulado
 //     return strdup("echo teste |");
 // }
 
-// void mock_add_history(const char* line) {
-//     // Implemente a lógica de adição no histórico se necessário
-// }
-
 // extern char **environ;
-// // Caso de teste para a função handle_input
+// Caso de teste para a função handle_input
 // TEST(HandleInputTest, HandleValidInput) {
 //     t_control *g_control;
 // 	char	**env;
 // 	env = environ;
-	
-// 	handle_start(&g_control, env);
+
+// 	handle_config(&g_control, env);
 
 //     readline = mock_readline;
-//     add_history = mock_add_history;
 
 //     // Chame a função handle_input e verifique o resultado
-//     int result = handle_input(g_control);
-//     ASSERT_EQ(result, TRUE); // Substitua TRUE pelo valor correspondente
+//     handle_token(g_control);
+//     ASSERT_EQ(result, TRUE);
+// Substitua TRUE pelo valor correspondente
 
-    // Adicione verificações adicionais conforme necessário
+//     Adicione verificações adicionais conforme necessário
+
+// handle_token(g_control, (char *)"echo hello world");
 // }
+t_control *start_config(void) {
+    t_control *g_control;
+    char **env;
+    env = environ;
+    handle_config(&g_control, env);
+    return (g_control);
+}
+TEST(handle_token, create_arg) {
+    t_control *g_control;
+    char *actual;
+    actual = ft_strdup("echo hello world");
+
+    g_control = start_config();
+    for (int count = 0; count < 10; count++) {
+        actual = create_cmd(g_control, actual);
+    }
+    EXPECT_TRUE(true);
+}

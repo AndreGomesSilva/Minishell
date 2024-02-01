@@ -3,8 +3,8 @@
 // FIX: retirar posteriormente, função auxiliar
 void	print_lst(t_cmd *cmd)
 {
-	t_cmd *ptr_cmd;
-	t_arg *ptr_arg;
+	t_cmd	*ptr_cmd;
+	t_arg	*ptr_arg;
 
 	ptr_cmd = cmd;
 	ptr_arg = cmd->list_args;
@@ -12,11 +12,11 @@ void	print_lst(t_cmd *cmd)
 	printf("\n---------------------------------\n");
 	while (ptr_cmd)
 	{
-		printf("CMD: %s --- type: %d -- delimiter_type: %d \n", ptr_cmd->cmd, ptr_cmd->type, ptr_cmd->delimiter_type);
+		printf("CMD: %s --- type: %d -- delimiter_type: %d \n", ptr_cmd->cmd,
+			ptr_cmd->type, ptr_cmd->delimiter_type);
 		while (ptr_arg)
 		{
-			printf("ARG: %s --- type: %d \n", ptr_arg->arg,
-					ptr_arg->type);
+			printf("ARG: %s --- type: %d \n", ptr_arg->arg, ptr_arg->type);
 			ptr_arg = ptr_arg->next;
 		}
 		printf("\n---------------------------------\n");
@@ -26,8 +26,8 @@ void	print_lst(t_cmd *cmd)
 
 char	*create_arg(t_cmd *cmd, char *input)
 {
-	t_arg			*last_arg;
-	int				len;
+	t_arg	*last_arg;
+	int		len;
 
 	len = 0;
 	while (is_space(*input))
@@ -48,14 +48,14 @@ char	*create_arg(t_cmd *cmd, char *input)
 char	*create_cmd(t_control *control, char *actual)
 {
 	int		len;
-	t_cmd 	*node;
+	t_cmd	*node;
 
 	len = 0;
 	while (is_space(*actual))
 		actual++;
 	if (!*actual)
 		return (actual);
-	if (is_cmd(actual))
+	if (*actual == '|')
 		create_node_cmd(control, (char *)"");
 	else
 	{
@@ -70,20 +70,20 @@ char	*create_cmd(t_control *control, char *actual)
 	return (actual);
 }
 
-char	*handle_token(t_control *control, char *input)
+void	handle_token(t_control *control, char *input)
 {
 	char			*actual;
 	enum e_type_cmd	result_is_cmd;
 
 	actual = input;
-	result_is_cmd = 0;
+	result_is_cmd = NILL;
 	while (*actual)
 	{
 		actual = create_cmd(control, actual);
 		while (*actual)
 		{
-			if(*actual == '|')
-				result_is_cmd = 1;
+			if (*actual == '|')
+				result_is_cmd = PIP;
 			if (result_is_cmd)
 			{
 				get_last_node_cmd(control->cmd)->delimiter_type = result_is_cmd;
@@ -95,5 +95,4 @@ char	*handle_token(t_control *control, char *input)
 				actual = create_arg(get_last_node_cmd(control->cmd), actual);
 		}
 	}
-	return (actual);
 }
