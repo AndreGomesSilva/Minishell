@@ -45,7 +45,7 @@ TEST(handle_token, create_arg) {
 
     g_control = start_config();
     for (int count = 0; count < 10; count++) {
-        actual = create_cmd(g_control, actual);
+        actual = create_arg(g_control->cmd, actual);
     }
     EXPECT_TRUE(true);
 }
