@@ -1,11 +1,11 @@
 #include "../../include/minishell.h"
 
-void	type_io_file(t_control *control)
+void	type_io_file(t_cmd *cmd)
  {
 	t_cmd *ptr_cmd;
 	t_arg *ptr_arg;
 
-	ptr_cmd = control->cmd;
+	ptr_cmd = cmd;
 	while (ptr_cmd)
 	{
 		ptr_arg = ptr_cmd->list_args;
@@ -46,7 +46,7 @@ void	type_io_file(t_control *control)
 	return (count);
  }
 
- void create_full_cmd(t_control *control)
+ char **create_full_cmd(t_cmd *cmd)
  {
 	int		len;
 	char	**args;
@@ -54,9 +54,10 @@ void	type_io_file(t_control *control)
 	t_cmd *ptr_cmd;
 	t_arg *ptr_arg;
 
-	ptr_cmd = control->cmd;
-	type_io_file(control);
-	while (ptr_cmd)
+	ptr_cmd = cmd;
+	args = NULL;
+	type_io_file(ptr_cmd);
+	if (ptr_cmd)
 	{
 		i = 0;
 		len = count_args(ptr_cmd);
@@ -70,13 +71,19 @@ void	type_io_file(t_control *control)
 				args[i++] = ft_strdup(ptr_arg->arg);
 			ptr_arg = ptr_arg->next;
 		}
-		ptr_cmd->cmd_and_args = args;
-		ptr_cmd = ptr_cmd->next;
 	}
+	return (args);
  }
 
  void	handle_parser(t_control *control)
  {
-	 handle_bin_path(control, control->cmd);
-	 create_full_cmd(control);
+	t_cmd *ptr_cmd;
+
+	ptr_cmd = control->cmd;
+	while (ptr_cmd)
+	{
+		ptr_cmd->path_cmd = handle_bin_path(control, ptr_cmd);
+		ptr_cmd->cmd_and_args = create_full_cmd(ptr_cmd);
+		ptr_cmd = ptr_cmd->next;
+	}
  }

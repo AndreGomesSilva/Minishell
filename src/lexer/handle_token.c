@@ -1,17 +1,18 @@
 #include "../../include/minishell.h"
 
 // FIX: retirar posteriormente, função auxiliar
+
 void	print_lst(t_cmd *cmd)
 {
 	t_cmd	*ptr_cmd;
 	t_arg	*ptr_arg;
 
 	ptr_cmd = cmd;
-	ptr_arg = cmd->list_args;
 	printf("number of nodes: %d\n", list_len(cmd));
 	printf("\n---------------------------------\n");
 	while (ptr_cmd)
 	{
+		ptr_arg = ptr_cmd->list_args;
 		printf("CMD: %s --- type: %d -- delimiter_type: %d \n", ptr_cmd->cmd,
 			ptr_cmd->type, ptr_cmd->delimiter_type);
 		while (ptr_arg)
@@ -73,20 +74,16 @@ char	*create_cmd(t_control *control, char *actual)
 void	handle_token(t_control *control, char *input)
 {
 	char			*actual;
-	enum e_type_cmd	result_is_cmd;
 
 	actual = input;
-	result_is_cmd = NILL;
 	while (*actual)
 	{
 		actual = create_cmd(control, actual);
 		while (*actual)
 		{
 			if (*actual == '|')
-				result_is_cmd = PIP;
-			if (result_is_cmd)
 			{
-				get_last_node_cmd(control->cmd)->delimiter_type = result_is_cmd;
+				get_last_node_cmd(control->cmd)->delimiter_type = PIP;
 				actual++;
 				break ;
 			}

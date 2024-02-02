@@ -6,7 +6,9 @@
 
 int is_variable(char *str)
 {
-	if (str[0] && str[1] && str[0] == '$' && (ft_isalpha(str[1]) || str[1] == '_'))
+	if (str[0] && str[1] && str[0] == '$' && ft_isdigit(str[1]))
+		return (0);
+	else if (str[0] && str[1] && str[0] == '$' && (ft_isalnum(str[1]) || str[1] == '_'))
 		return (1);
 	return (0);
 }

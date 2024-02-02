@@ -41,6 +41,7 @@ zinit light-mode for \
 alias cls=clear
 alias mf="make fclean"
 
+export 0LA=ls -l
 export PATH=$PATH:/nfs/homes/r-afonso/dotnet/
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -113,7 +113,7 @@ void				free_cmd(t_control *control);
 
 // handle_parser
 void				free_matrix(char **matrix);
-void 				handle_bin_path(t_control *control, t_cmd *cmd);
+char 				*handle_bin_path(t_control *control, t_cmd *cmd);
 int					is_builtin(char *cmd);
 void				handle_parser(t_control *control);
 

@@ -39,7 +39,7 @@ static char *get_var_in_node(t_control *control, char *str)
 		if(is_variable(&str[i]))
 		{
 			j = 0;
-			while (ft_isalpha(str[i + 1 + j]) || str[i + 1 + j] == '_')
+			while (ft_isalnum(str[i + 1 + j]) || str[i + 1 + j] == '_')
 				j++;
 			var = ft_substr(&str[i + 1], 0, j);
 			str = ft_join_var(control, ft_substr(str, 0, i), var, &str[i + 1 + j]);

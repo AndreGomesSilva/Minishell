@@ -42,13 +42,14 @@ char *get_cmd_path(t_control *control, t_cmd *cmd)
 	return (bin);
 }
 
-void handle_bin_path(t_control *control, t_cmd *cmd)
+char *handle_bin_path(t_control *control, t_cmd *cmd)
 {
 	t_cmd *ptr_cmd;
 	ptr_cmd = cmd;
+	char *bin_path;
 
-	if (is_builtin(ptr_cmd->cmd))
-		ptr_cmd->path_cmd = NULL;
-	else
-		ptr_cmd->path_cmd = get_cmd_path(control, ptr_cmd);
+	bin_path = NULL;
+	if (!is_builtin(ptr_cmd->cmd))
+		bin_path = get_cmd_path(control, ptr_cmd);
+	return (bin_path);
 }

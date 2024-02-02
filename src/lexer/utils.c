@@ -31,7 +31,7 @@ enum e_type_arg	is_arg(char *actual)
 int	len_string_token(char *str)
 {
 	int n_quote;
-	int type_of_quote;
+	char type_of_quote;
 	int i;
 
 	i = 0;
