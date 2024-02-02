@@ -19,7 +19,7 @@ SRC_DIR_LIB	= ./libft
 LIB 		= ./libft/libft.a -lreadline
 
 FILES_WITHOUT_MAIN = \
-	handle_config handle_signal	middleware \
+	handle_config handle_signal	middleware handle_errors handle_free\
 	$(LIST)/handle_list_cmd $(LIST)/handle_list_arg $(LIST)/free_list \
 	$(LEXER)/handle_token $(LEXER)/handle_type $(LEXER)/utils \
 	$(EXPANDER)/handle_expander $(EXPANDER)/utils \
@@ -27,6 +27,7 @@ FILES_WITHOUT_MAIN = \
 	$(HASHTABLE)/aux_hash_function $(HASHTABLE)/utils \
 	$(PARSER)/handle_matrix $(PARSER)/handle_parser \
 	$(PARSER)/handle_path $(PARSER)/utils \
+	$(PARSER)/handle_syntax_error
 
 FILES = \
 	main $(FILES_WITHOUT_MAIN)

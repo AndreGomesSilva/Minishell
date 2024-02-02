@@ -75,15 +75,24 @@ void	type_io_file(t_cmd *cmd)
 	return (args);
  }
 
- void	handle_parser(t_control *control)
+ int	handle_parser(t_control *control)
  {
 	t_cmd *ptr_cmd;
+	int	result;
 
 	ptr_cmd = control->cmd;
-	while (ptr_cmd)
+	result = 0;
+	if (handle_syntax_error(ptr_cmd))
 	{
-		ptr_cmd->path_cmd = handle_bin_path(control, ptr_cmd);
-		ptr_cmd->cmd_and_args = create_full_cmd(ptr_cmd);
-		ptr_cmd = ptr_cmd->next;
+		print_errors("syntax", 1);
+		result = TRUE;
 	}
+	else
+		while (ptr_cmd)
+		{
+			ptr_cmd->path_cmd = handle_bin_path(control, ptr_cmd);
+			ptr_cmd->cmd_and_args = create_full_cmd(ptr_cmd);
+			ptr_cmd = ptr_cmd->next;
+		}
+	return (result);
  }

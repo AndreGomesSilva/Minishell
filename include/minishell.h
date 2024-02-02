@@ -103,6 +103,14 @@ typedef struct s_control
 	struct s_cmd	*cmd;
 }					t_control;
 
+//	common
+void				general_free(t_control *control);
+void				print_errors(char *type, int flag);
+void				handle_config(t_control **control, char **env);
+void				handle_signal(void);
+int					receive_signal_ctrl_d(t_control *control);
+int					middleware(t_control *control);
+
 // handle_nodes
 void				create_node_cmd(t_control *control, char *cmd);
 void				create_node_arg(t_cmd *cmd_node, const char *arg);
@@ -115,19 +123,15 @@ void				free_cmd(t_control *control);
 void				free_matrix(char **matrix);
 char 				*handle_bin_path(t_control *control, t_cmd *cmd);
 int					is_builtin(char *cmd);
-void				handle_parser(t_control *control);
+int					handle_parser(t_control *control);
+int					handle_syntax_error(t_cmd *cmd);
 
 //	handle_lexer
 void				print_lst(t_cmd *cmd); // FIX: retirar, função auxiliar
 int					is_space(char c);
 int					get_token_len(char *str, int type);
-enum e_type_cmd		is_cmd(char *actual);
 enum e_type_arg		is_arg(char *actual);
-int					middleware(t_control *control);
 void				handle_token(t_control *control, char *input);
-void				handle_signal(void);
-void				handle_config(t_control **control, char **env);
-int					receive_signal_ctrl_d(t_control *control);
 enum e_type_arg 	set_type(char *str);
 int					len_string_token(char *str);
 char				*create_cmd(t_control *control, char *actual);
