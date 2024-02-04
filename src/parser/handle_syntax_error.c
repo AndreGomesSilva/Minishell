@@ -25,9 +25,9 @@ int	check_end_redirect(t_cmd *cmd)
 	return (FALSE);
 }
 
-int check_end_pipe(t_cmd *cmd)
+int	check_end_pipe(t_cmd *cmd)
 {
-	t_cmd *ptr_cmd;
+	t_cmd	*ptr_cmd;
 
 	ptr_cmd = cmd;
 	if (ptr_cmd->delimiter_type && !ptr_cmd->next)
@@ -47,5 +47,5 @@ int	handle_syntax_error(t_cmd *cmd)
 			return (TRUE);
 		ptr_cmd = ptr_cmd->next;
 	}
-	return  (FALSE);
+	return (FALSE);
 }

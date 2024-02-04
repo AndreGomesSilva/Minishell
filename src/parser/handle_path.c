@@ -25,7 +25,7 @@ char *get_bin(char **split_path, char *cmd)
 	return (bin);
 }
 
-char *get_cmd_path(t_control *control, t_cmd *cmd)
+char *get_cmd_path(t_control *control, char *cmd)
 {
 	char *path_var;
 	char *bin;
@@ -36,7 +36,7 @@ char *get_cmd_path(t_control *control, t_cmd *cmd)
 	if (path_var)
 	{
 		split_path = ft_split(path_var, ':');
-		bin = get_bin(split_path, cmd->cmd);
+		bin = get_bin(split_path, cmd);
 		free_matrix(split_path);
 	}
 	return (bin);
@@ -49,7 +49,9 @@ char *handle_bin_path(t_control *control, t_cmd *cmd)
 	char *bin_path;
 
 	bin_path = NULL;
-	if (!is_builtin(ptr_cmd->cmd))
-		bin_path = get_cmd_path(control, ptr_cmd);
+        if (is_absolute_path(ptr_cmd->cmd))
+            bin_path = ft_strdup(ptr_cmd->cmd);
+        else if (!is_builtin(ptr_cmd->cmd))
+            bin_path = get_cmd_path(control, ptr_cmd->cmd);
 	return (bin_path);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_parser.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
+/*   Updated: 2024/02/04 13:33:42 by angomes-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 void	type_io_file(t_cmd *cmd)
@@ -75,6 +87,27 @@ void	type_io_file(t_cmd *cmd)
 	return (args);
  }
 
+ char *new_cmd_absolute_path(t_cmd *cmd)
+ {
+     char *ptr_cmd;
+     char *result;
+     int len;
+
+     len = 0;
+     ptr_cmd = cmd->cmd;
+     result = NULL;
+     len = (int) ft_strlen(ptr_cmd);
+     if (len > 0)
+         while (--len && ptr_cmd[len])
+            if (ptr_cmd[len] == '/')
+             {
+                result = ft_substr(&ptr_cmd[len], len, ft_strlen(&ptr_cmd[len]));
+                free(cmd->cmd);
+                return (result);
+            }
+     return (result);
+ }
+
  int	handle_parser(t_control *control)
  {
 	t_cmd *ptr_cmd;
@@ -91,7 +124,9 @@ void	type_io_file(t_cmd *cmd)
 		while (ptr_cmd)
 		{
 			ptr_cmd->path_cmd = handle_bin_path(control, ptr_cmd);
-			ptr_cmd->cmd_and_args = create_full_cmd(ptr_cmd);
+                        if (is_absolute_path(ptr_cmd->cmd))
+                            ptr_cmd->cmd = new_cmd_absolute_path(ptr_cmd);
+                        ptr_cmd->cmd_and_args = create_full_cmd(ptr_cmd);
 			ptr_cmd = ptr_cmd->next;
 		}
 	return (result);

@@ -4,6 +4,14 @@
 
 #include "../../include/minishell.h"
 
+int is_absolute_path(char *cmd)
+{
+    while (*cmd && cmd++)
+       if (*cmd == '/')
+           return (TRUE);
+    return (FALSE);
+}
+
 int is_builtin(char *cmd)
 {
 	int len;

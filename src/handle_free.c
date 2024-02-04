@@ -7,5 +7,5 @@
 void	general_free(t_control *control)
 {
 	free_cmd(control);
-	free_hash_table(control->env_table);
+//	free_hash_table(control->env_table);
 }
