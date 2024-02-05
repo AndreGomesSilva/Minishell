@@ -18,7 +18,7 @@ int	middleware(t_control *control)
 		handle_parser(control);
 		print_lst(control->cmd);
 		free(first_input);
-		general_free(control);
+		free_cmd(control);
 		return (TRUE);
 	}
 	else

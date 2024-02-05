@@ -4,12 +4,11 @@
 int	receive_signal_ctrl_d(t_control *control)
 {
 	clear_history();
-	free_cmd(control);
+	general_free(control);
 	exit(0);
 }
 
 void receive_sig_int(int sig) {
-//	sig  = 0;
 	(void) sig;
 	extern t_control *g_control;
 	free_cmd(g_control);
