@@ -43,7 +43,7 @@ int	handle_syntax_error(t_cmd *cmd)
 	ptr_cmd = cmd;
 	while (ptr_cmd)
 	{
-		if (check_end_pipe(cmd) || check_end_redirect(cmd))
+		if (check_end_pipe(cmd) || check_end_redirect(cmd) || ptr_cmd->cmd == NULL)
 			return (TRUE);
 		ptr_cmd = ptr_cmd->next;
 	}

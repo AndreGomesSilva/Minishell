@@ -10,14 +10,14 @@ void free_hash_table(t_table *table)
 	t_ht_item **items;
 	t_ht_item *next_tem;
 
-	i = 0;
+	i = -1;
 	if (table)
 	{
 		items = table->items;
 		if (items)
 		{
-			while (i < table->size)
-				while (items[i++])
+			while (i++, i < table->size)
+				while (items[i])
 				{
 					next_tem = items[i]->next;
 					if (items[i]->value)

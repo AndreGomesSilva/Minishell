@@ -6,7 +6,7 @@
 
 int is_absolute_path(char *cmd)
 {
-    while (*cmd && cmd++)
+    while (cmd && *cmd &&  cmd++)
        if (*cmd == '/')
            return (TRUE);
     return (FALSE);
