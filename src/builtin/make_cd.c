@@ -13,13 +13,13 @@
 #include "../../include/minishell.h"
 
 // TODO: make_cd.
-int	make_cd(char **cmd)
-{
-	// 1- recupero caminho atual (getcwd(NULL, 0)).
-	// 2- verifico se caminho alvo existe.
-	// 	2.1- Existe ? access para verificar. E mudo o pwd da estrutura
-	// 	2.1- Não existe? Retorno erro.
-	
-	// const char *path = "/caminho/para/verificar";
-    // if (access(path, F_OK) != -1)
-}
+//int	make_cd(char **cmd)
+//{
+//	// 1- recupero caminho atual (getcwd(NULL, 0)).
+//	// 2- verifico se caminho alvo existe.
+//	// 	2.1- Existe ? access para verificar. E mudo o pwd da estrutura
+//	// 	2.1- Não existe? Retorno erro.
+//
+//	// const char *path = "/caminho/para/verificar";
+//    // if (access(path, F_OK) != -1)
+//}

@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-#include <readline/readline.h>
 
 int	receive_signal_ctrl_d(t_control *control)
 {

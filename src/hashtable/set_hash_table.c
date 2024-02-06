@@ -15,13 +15,12 @@ void print_hash_table (t_table *table)
 			while (i < table->size) {
 				if (items[i])
 				{
-					printf("\nindex : %d", i);
-					printf("\nkey = %s", items[i]->key);
-					printf("   value = %s ", items[i]->value);
+					printf("%s", items[i]->key);
+					printf("=%s\n", items[i]->value);
 					if (items[i]->next)
 					{
-						printf("\n ----->   key = %s", items[i]->next->key);
-						printf("\n ----->   next value = %s", items[i]->next->value);
+						printf("%s", items[i]->next->key);
+						printf("=%s\n", items[i]->next->value);
 					}
 				}
 				i++;
@@ -58,7 +57,7 @@ static t_ht_item	*create_hash_node(char *key, char *value)
 	return (node);
 }
 
-void add_item_to_table(t_table *table, char *key, char *value)
+void insert_to_table(t_table *table, char *key, char *value)
 {
 	int index;
 	t_ht_item *temp_node;
@@ -75,6 +74,7 @@ void add_item_to_table(t_table *table, char *key, char *value)
 			temp_node = temp_node->next;
 		temp_node->next = node;
 	}
+	table->count++;
 }
 
 t_table *init_table(t_control *control, char **env)
@@ -82,7 +82,7 @@ t_table *init_table(t_control *control, char **env)
 	t_table *table;
 	int		arr_size;
 
-	arr_size = len_env(env) * 5;
+	arr_size = len_env(env) * 3;
 	table = (t_table *)malloc(sizeof(t_table));
 	table->count = 0;
 	table->size = arr_size;
@@ -102,7 +102,7 @@ void	copy_env(t_control *control, char **env)
 	{
 		key = ft_substr(env[i], 0, strlen_var_name(env[i]));
 		value = ft_strdup(getenv(key));
-		add_item_to_table(control->env_table, key, value);
+		insert_to_table(control->env_table, key, value);
 		i++;
 	} 
 }

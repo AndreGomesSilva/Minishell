@@ -96,7 +96,6 @@ typedef struct s_cmd
 typedef struct s_control
 {
 	t_table			*env_table;
-	char			**env;
 	char			*pwd_initial;
 	char			*user;
 	char			*prompt;
@@ -156,6 +155,7 @@ int 				strlen_var_name(char *str);
 t_table 			*init_table(t_control *control, char **env);
 void				copy_env(t_control *control, char **env);
 void				print_hash_table (t_table *table);
+void				print_sort_env(t_control *control);
 
 // builtin
 void 				handle_builtin(char **cmd);

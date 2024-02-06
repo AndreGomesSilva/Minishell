@@ -27,7 +27,6 @@ int handle_envp(t_control *control, char **env)
 	t_table *table;
 	
 	table = init_table(control, env);
-	control->env = env;
 	copy_env(control, env);
 	print_hash_table(table);
 	printf("\n FINISH \n");

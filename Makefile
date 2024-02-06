@@ -30,9 +30,9 @@ FILES_WITHOUT_MAIN = \
 	$(PARSER)/handle_matrix $(PARSER)/handle_parser \
 	$(PARSER)/handle_path $(PARSER)/utils \
 	$(PARSER)/handle_syntax_error \
-	$(BUILTIN)/make_cd $(BUILTIN)/make_env $(BUILTIN)/make_exit \
-	$(BUILTIN)/make_pwd $(BUILTIN)/make_export $(BUILTIN)/make_unset \
-	$(BUILTIN)/make_echo $(BUILTIN)/handle_builtin
+#	$(BUILTIN)/make_cd $(BUILTIN)/make_env $(BUILTIN)/make_exit \
+#	$(BUILTIN)/make_pwd $(BUILTIN)/make_export $(BUILTIN)/make_unset \
+#	$(BUILTIN)/make_echo $(BUILTIN)/handle_builtin
 
 FILES = \
 	main $(FILES_WITHOUT_MAIN)
@@ -63,6 +63,7 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)$(EXPANDER)
 	@mkdir -p $(OBJS_DIR)$(HASHTABLE)
 	@mkdir -p $(OBJS_DIR)$(PARSER)
+	@mkdir -p $(OBJS_DIR)$(BUILTIN)
 	@mkdir -p $(OBJS_DIR)handle_signal
 
 runTests:
