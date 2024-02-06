@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/05 23:52:02 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/06 23:51:44 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ typedef struct s_cmd
 typedef struct s_control
 {
 	t_table			*env_table;
-	char			*pwd_initial;
+	char			**env;
+	char			*pwd;
 	char			*user;
 	char			*prompt;
 	struct s_cmd	*cmd;
@@ -159,6 +160,7 @@ void				print_sort_env(t_control *control);
 
 // builtin
 void 				handle_builtin(char **cmd);
+int					make_cd(char *cmd, t_control *control);
 
 #endif
 
