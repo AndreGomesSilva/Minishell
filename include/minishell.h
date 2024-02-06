@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/01 23:26:17 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/05 23:52:02 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,13 @@ void				general_free(t_control *control);
 void				print_errors(char *type, int flag);
 void				handle_config(t_control **control, char **env);
 void				handle_signal(void);
-int				receive_signal_ctrl_d(t_control *control);
-int				middleware(t_control *control);
+int					receive_signal_ctrl_d(t_control *control);
+int					middleware(t_control *control);
 
 // handle_nodes
 void				create_node_cmd(t_control *control, char *cmd);
 void				create_node_arg(t_cmd *cmd_node, const char *arg);
-int				list_len(t_cmd *lst);
+int					list_len(t_cmd *lst);
 t_cmd				*get_last_node_cmd(t_cmd *cmd);
 t_arg				*get_last_node_arg(t_arg *cmd);
 void				free_cmd(t_control *control);
@@ -122,18 +122,18 @@ void				free_cmd(t_control *control);
 // handle_parser
 void				free_matrix(char **matrix);
 char 				*handle_bin_path(t_control *control, t_cmd *cmd);
-int				is_builtin(char *cmd);
-int				handle_parser(t_control *control);
-int				handle_syntax_error(t_cmd *cmd);
-int                             is_absolute_path(char *cmd);
+int					is_builtin(char *cmd);
+int					handle_parser(t_control *control);
+int					handle_syntax_error(t_cmd *cmd);
+int                 is_absolute_path(char *cmd);
 
 //	handle_lexer
 void				print_lst(t_cmd *cmd); // FIX: retirar, função auxiliar
-int				is_space(char c);
-int				get_token_len(char *str, int type);
-enum e_type_arg is_arg(char *actual);
-void		handle_token(t_control *control, char *input);
-enum e_type_arg set_type(char *str);
+int					is_space(char c);
+int					get_token_len(char *str, int type);
+enum e_type_arg 	is_arg(char *actual);
+void				handle_token(t_control *control, char *input);
+enum e_type_arg 	set_type(char *str);
 int					len_string_token(char *str);
 char				*create_cmd(t_control *control, char *actual);
 char				*create_arg(t_cmd *cmd, char *input);
@@ -156,6 +156,9 @@ int 				strlen_var_name(char *str);
 t_table 			*init_table(t_control *control, char **env);
 void				copy_env(t_control *control, char **env);
 void				print_hash_table (t_table *table);
+
+// builtin
+void 				handle_builtin(char **cmd);
 
 #endif
 

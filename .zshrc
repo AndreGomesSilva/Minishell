@@ -40,6 +40,7 @@ zinit light-mode for \
 
 alias cls=clear
 alias mf="make fclean"
+alias gpu="git pull"
 
 export 0LA=ls -l
 export PATH=$PATH:/nfs/homes/r-afonso/dotnet/

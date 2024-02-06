@@ -13,13 +13,15 @@ LEXER 		= lexer
 EXPANDER    = expander
 PARSER 		= parser
 HASHTABLE	= hashtable
+BUILTIN		= builtin
 
 OBJS_DIR 	= obj/
 SRC_DIR_LIB	= ./libft
 LIB 		= ./libft/libft.a -lreadline
 
 FILES_WITHOUT_MAIN = \
-	handle_config handle_signal	middleware handle_errors handle_free \
+	handle_config handle_signal	middleware \
+	handle_errors handle_free \
 	$(LIST)/handle_list_cmd $(LIST)/handle_list_arg \
 	$(LEXER)/handle_token $(LEXER)/handle_type $(LEXER)/utils \
 	$(EXPANDER)/handle_expander $(EXPANDER)/utils \
@@ -27,7 +29,10 @@ FILES_WITHOUT_MAIN = \
 	$(HASHTABLE)/utils \
 	$(PARSER)/handle_matrix $(PARSER)/handle_parser \
 	$(PARSER)/handle_path $(PARSER)/utils \
-	$(PARSER)/handle_syntax_error
+	$(PARSER)/handle_syntax_error \
+	$(BUILTIN)/make_cd $(BUILTIN)/make_env $(BUILTIN)/make_exit \
+	$(BUILTIN)/make_pwd $(BUILTIN)/make_export $(BUILTIN)/make_unset \
+	$(BUILTIN)/make_echo $(BUILTIN)/handle_builtin
 
 FILES = \
 	main $(FILES_WITHOUT_MAIN)
