@@ -104,7 +104,8 @@ typedef struct s_control
 }					t_control;
 
 //	common
-void				general_free(t_control *control);
+
+void				free_control(t_control *control);
 void				print_errors(char *type, int flag);
 void				handle_config(t_control **control, char **env);
 void				handle_signal(void);
@@ -152,11 +153,12 @@ int					hash_function(const char *str, int size);
 int					ft_pow(int base, int exponent);
 void 				free_hash_table(t_table *table);
 int					len_env(char **env);
-int 				strlen_var_name(char *str);
+int 				strlen_var_name(const char *str);
 t_table 			*init_table(t_control *control, char **env);
 void				copy_env(t_control *control, char **env);
 void				print_hash_table (t_table *table);
 void				print_sort_env(t_control *control);
+void				matrix_quicksort(char *arr[], int start, int end);
 
 // builtin
 void 				handle_builtin(char **cmd);

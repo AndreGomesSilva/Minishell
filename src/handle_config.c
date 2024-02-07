@@ -10,13 +10,13 @@ void	set_path(t_control *control)
 	pwd = get_var(control, "PWD");
 	user = get_var(control, "USER");
 	if (pwd)
-			control->pwd_initial = handle_home_path(control, pwd);
+			control->pwd = handle_home_path(control, pwd);
 	if (user)
 		control->user = user;
 	else
 	 	control->user = ft_strdup("GUEST");
 	temp_user = ft_strjoin(control->user, "@Minishell:");
-	temp_pwd = ft_strjoin(temp_user, control->pwd_initial);
+	temp_pwd = ft_strjoin(temp_user, control->pwd);
 	control->prompt = ft_strjoin(temp_pwd, "$ ");
 	free(temp_user);
 	free(temp_pwd);
@@ -28,8 +28,6 @@ int handle_envp(t_control *control, char **env)
 	
 	table = init_table(control, env);
 	copy_env(control, env);
-	print_hash_table(table);
-	printf("\n FINISH \n");
 	return (TRUE);
 }
 

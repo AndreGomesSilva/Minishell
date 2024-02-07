@@ -70,9 +70,17 @@ void	free_cmd(t_control *control)
 	control->cmd = NULL;
 }
 
-void	general_free(t_control *control)
+void	free_control(t_control *control)
 {
-	free_cmd(control);
-	free_hash_table(control->env_table);
+	if (control->env_table)
+		free_hash_table(control->env_table);
+	if (control->env)
+		free_matrix(control->env);
+	if (control->pwd)
+		free(control->pwd);
+	if (control->prompt)
+		free(control->prompt);
+	if (control->cmd)
+		free_cmd(control);
 	free(control);
 }

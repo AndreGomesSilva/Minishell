@@ -3,7 +3,7 @@
 int	receive_signal_ctrl_d(t_control *control)
 {
 	clear_history();
-	general_free(control);
+	free_control(control);
 	exit(0);
 }
 

@@ -10,9 +10,9 @@ int	main(int argc, char **argv, char **env)
 		return (0);
 	handle_config(&g_control, env);
 	handle_signal();
-	print_sort_env(g_control);
-//	while (1)
-//		middleware(g_control);
-//	clear_history();
+	while (1)
+		middleware(g_control);
+	clear_history();
+	free_control(g_control);
 	return (0);
 }

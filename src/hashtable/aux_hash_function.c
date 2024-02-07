@@ -44,15 +44,10 @@ t_ht_item *get_var_node(t_control *control, char *key)
 	return (result);
 }
 
-//char	**sort_env_matrix(char **env)
-//{
-//
-//}
-
 char 	**get_matrix_env(t_control *control)
 {
 	char **env_matrix;
-	t_ht_item **items;
+	t_ht_item *items;
 	int	i;
 	int j;
 
@@ -62,13 +57,15 @@ char 	**get_matrix_env(t_control *control)
 	if (control->env_table)
 	{
 		env_matrix = (char **) ft_calloc(control->env_table->count + 1, sizeof(char *));
-		items = control->env_table->items;
 		while (i++, i < control->env_table->size)
-			while (items[i])
+		{
+			items = control->env_table->items[i];
+			while (items)
 			{
-				env_matrix[j++]= ft_strdup(items[i]->key);
-				items[i] = items[i]->next;
+					env_matrix[j++]= ft_strdup(items->key);
+					items = items->next;
 			}
+		}
 	}
 	return (env_matrix);
 }
@@ -81,12 +78,13 @@ void print_sort_env(t_control *control)
 
 	i = 0;
 	env = get_matrix_env(control);
+	matrix_quicksort(env, 0, control->env_table->count - 1);
 	if (env)
 	{
 		while (env[i])
 		{
 			item = get_var_node(control, env[i]);
-			if (item)
+			if (item && !(item->key[0] == '_' && !item->key[1]))
 				printf("declare -x %s=%s\n", item->key, item->value);
 			i++;
 		}

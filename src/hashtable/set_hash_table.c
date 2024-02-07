@@ -7,25 +7,25 @@
 void print_hash_table (t_table *table)
 {
 	int	i;
-	t_ht_item **items;
+	t_ht_item *items;
 
 	i = 0;
-	if (table) {
-		items = table->items;
-			while (i < table->size) {
-				if (items[i])
+	if (table)
+			while (i < table->size)
+			{
+				items = table->items[i];
+				if (items)
 				{
-					printf("%s", items[i]->key);
-					printf("=%s\n", items[i]->value);
-					if (items[i]->next)
+					printf("%s", items->key);
+					printf("=%s\n", items->value);
+					if (items->next)
 					{
-						printf("%s", items[i]->next->key);
-						printf("=%s\n", items[i]->next->value);
+						printf("%s", items->next->key);
+						printf("=%s\n", items->next->value);
 					}
 				}
 				i++;
 			}
-	}
 }
 
 int	hash_function(const char *str, int size)
@@ -34,7 +34,7 @@ int	hash_function(const char *str, int size)
 	int 	len;
 	int 	 i;
 
-	len = ft_strlen(str);
+	len = (int) ft_strlen(str);
 	hash = 0;
 	i = 0;
 	while (i < len)
