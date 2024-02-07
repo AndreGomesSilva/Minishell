@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/06 23:51:44 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/07 21:07:18 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ typedef struct s_control
 {
 	t_table			*env_table;
 	char			**env;
-	char			*pwd;
 	char			*user;
 	char			*prompt;
 	struct s_cmd	*cmd;
@@ -161,8 +160,14 @@ void				print_sort_env(t_control *control);
 void				matrix_quicksort(char *arr[], int start, int end);
 
 // builtin
-void 				handle_builtin(char **cmd);
-int					make_cd(char *cmd, t_control *control);
+void 				handle_builtin(char **matriz);
+int					handle_cd(char **matriz);
+int					handle_export(char **matriz);
+int					handle_unset(char **matriz);
+int					handle_env(char **matriz);
+int					handle_exit(char **matriz);
+int					handle_echo(char **matriz);
+int					handle_pwd(char **matriz);
 
 #endif
 
