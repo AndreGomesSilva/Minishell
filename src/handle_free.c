@@ -8,7 +8,8 @@ void free_hash_table(t_table *table)
 {
 	int	i;
 	t_ht_item **items;
-	t_ht_item *next_tem;
+	t_ht_item *item;
+	t_ht_item *next_item;
 
 	i = -1;
 	if (table)
@@ -17,17 +18,20 @@ void free_hash_table(t_table *table)
 		if (items)
 		{
 			while (i++, i < table->size)
-				while (items[i])
-				{
-					next_tem = items[i]->next;
-					if (items[i]->value)
-						free(items[i]->value);
-					if (items[i]->key)
-						free(items[i]->key);
-					items[i]->next = NULL;
-					items[i] = next_tem;
-				}
+			{
+				item = table->items[i];
+				while (item) {
+					next_item = item->next;
+					if (item->value)
+						free(item->value);
+					if (item->key)
+						free(item->key);
+					free(item);
+					item = next_item;
+			}
+		}
 			free(items);
+			table->items = NULL;
 		}
 		free(table);
 	}
