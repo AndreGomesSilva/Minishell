@@ -20,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip setuptools
-        python -m pip install norminette
+        python -m pip install norminette==3.3.51
     - name: Lint with norminette
       run: |
         norminette
