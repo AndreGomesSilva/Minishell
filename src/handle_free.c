@@ -6,13 +6,13 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:17:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 18:17:36 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:26:11 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_ht_item *free_node(t_ht_item *node)
+t_ht_item	*free_node(t_ht_item *node)
 {
 	t_ht_item	*next_node;
 
@@ -25,7 +25,7 @@ t_ht_item *free_node(t_ht_item *node)
 	return (next_node);
 }
 
-void free_hash_table(t_table *table)
+void	free_hash_table(t_table *table)
 {
 	int			i;
 	t_ht_item	**items;

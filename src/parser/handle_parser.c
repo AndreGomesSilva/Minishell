@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/08 16:31:35 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:24:45 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ char	*new_cmd_absolute_path(t_cmd *cmd)
 	result = NULL;
 	len = (int)ft_strlen(ptr_cmd);
 	if (len > 0)
+	{
 		while (--len, ptr_cmd[len])
 		{
 			if (ptr_cmd[len] == '/')
@@ -111,6 +112,7 @@ char	*new_cmd_absolute_path(t_cmd *cmd)
 				return (result);
 			}
 		}
+	}
 	return (result);
 }
 
@@ -127,6 +129,7 @@ int	handle_parser(t_control *control)
 		result = TRUE;
 	}
 	else
+	{
 		while (ptr_cmd)
 		{
 			ptr_cmd->path_cmd = handle_bin_path(control, ptr_cmd);
@@ -135,5 +138,6 @@ int	handle_parser(t_control *control)
 			ptr_cmd->cmd_and_args = create_full_cmd(ptr_cmd);
 			ptr_cmd = ptr_cmd->next;
 		}
+	}
 	return (result);
 }
