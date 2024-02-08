@@ -29,19 +29,12 @@ void free_hash_table(t_table *table)
 			while (i++, i < table->size)
 			{
 				item = table->items[i];
-				while (item) {
+				while (item)
+				{
 					next_item = item->next;
 					free_node(item);
-//					if (item->value)
-//						free(item->value);
-//					if (item->key)
-//						free(item->key);
-//					free(item);
 					item = next_item;
-			}
-		}
-				while (item)
-					free_hash_table_make_free(&item);
+				}
 			}
 			free(items);
 			table->items = NULL;

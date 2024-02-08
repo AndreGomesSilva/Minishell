@@ -55,7 +55,7 @@ char	*handle_bin_path(t_control *control, t_cmd *cmd)
 	t_cmd	*ptr_cmd;
 	char	*bin_path;
 
-	ptr_cmd = cmd
+	ptr_cmd = cmd;
 	bin_path = NULL;
 	if (is_absolute_path(ptr_cmd->cmd))
 		bin_path = ft_strdup(ptr_cmd->cmd);
