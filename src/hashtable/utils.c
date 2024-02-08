@@ -1,32 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 16:15:51 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/02/08 16:27:01 by r-afonso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-int partition(char *arr[], int start, int end) {
-	char *pivot;
-	int i;
-	int j;
+int	partition(char *arr[], int start, int end)
+{
+	char	*pivot;
+	int		i;
+	int		j;
+	char	*temp;
 
 	i = start - 1;
 	pivot = arr[end];
 	j = start;
-	while(j < end && j++)
+	while (j < end)
+	{
+		j++;
 		if (ft_strncmp(arr[j], pivot, ft_strlen(arr[j])) < 0)
 		{
 			i++;
-			char *temp = arr[i];
+			temp = arr[i];
 			arr[i] = arr[j];
 			arr[j] = temp;
 		}
-	char *temp = arr[i + 1];
+	}
+	temp = arr[i + 1];
 	arr[i + 1] = arr[end];
 	arr[end] = temp;
-	return i + 1;
+	return (i + 1);
 }
 
-void matrix_quicksort(char *arr[], int start, int end) {
-	if (start < end) {
-		int pivot;
-		pivot = partition(arr, start, end);
+void	matrix_quicksort(char *arr[], int start, int end)
+{
+	int	pivot;
 
+	if (start < end)
+	{
+		pivot = partition(arr, start, end);
 		matrix_quicksort(arr, start, pivot - 1);
 		matrix_quicksort(arr, pivot + 1, end);
 	}
@@ -34,8 +53,8 @@ void matrix_quicksort(char *arr[], int start, int end) {
 
 int	ft_pow(int base, int exponent)
 {
-	int result;
-	int i;
+	int	result;
+	int	i;
 
 	result = 1;
 	i = 0;
@@ -51,7 +70,7 @@ int	ft_pow(int base, int exponent)
 
 int	len_env(char **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env[i])
@@ -59,12 +78,12 @@ int	len_env(char **env)
 	return (i);
 }
 
-int strlen_var_name(const char *str)
+int	strlen_var_name(const char *str)
 {
-	int i;
-	i = 0;
+	int	i;
 
-	while(str[i] && str[i] != '=')
+	i = 0;
+	while (str[i] && str[i] != '=')
 		i++;
 	return (i);
 }

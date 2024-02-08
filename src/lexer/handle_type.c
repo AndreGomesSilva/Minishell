@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_type.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 16:20:38 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/02/08 16:20:41 by r-afonso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "../../include/minishell.h" 
+#include "../../include/minishell.h"
 
-int handle_quotes(char *str, int *iterator, int *n_quotes, int *flag_var)
+int	handle_quotes(char *str, int *iterator, int *n_quotes, int *flag_var)
 {
-	char type_of_quote;
+	char	type_of_quote;
 
 	type_of_quote = str[*iterator];
 	*iterator = *iterator + 1;
@@ -15,7 +26,7 @@ int handle_quotes(char *str, int *iterator, int *n_quotes, int *flag_var)
 		if (str[*iterator] == type_of_quote)
 		{
 			*n_quotes = *n_quotes + 1;
-			break;
+			break ;
 		}
 		*iterator = *iterator + 1;
 	}
@@ -25,27 +36,26 @@ int handle_quotes(char *str, int *iterator, int *n_quotes, int *flag_var)
 	return (0);
 }
 
-enum e_type_arg set_type(char *str)
+enum e_type_arg	set_type(char *str)
 {
-    int n_quotes;
-    int flag_var;
-    int i;
+	int	n_quotes;
+	int	flag_var;
+	int	i;
 
-    i = -1;
-    n_quotes = 0;
+	i = -1;
+	n_quotes = 0;
 	flag_var = 0;
-    while (i++, str[i])
-    {
-
-        if (str[i] == '"' || str[i] == '\'')
-        {
+	while (i++, str[i])
+	{
+		if (str[i] == '"' || str[i] == '\'')
+		{
 			if (handle_quotes(str, &i, &n_quotes, &flag_var))
 				return (BROKEN_QUOTES);
-        }
-        if (str[i] && !n_quotes)
-            flag_var += is_variable(&str[i]);
-    }
-    if (flag_var)
-        return (VAR_EXPAND);
-    return (NORM);
+		}
+		if (str[i] && !n_quotes)
+			flag_var += is_variable(&str[i]);
+	}
+	if (flag_var)
+		return (VAR_EXPAND);
+	return (NORM);
 }

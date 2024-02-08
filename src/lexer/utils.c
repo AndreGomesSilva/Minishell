@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 16:17:54 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/02/08 16:20:27 by r-afonso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 int	is_space(char c)
@@ -25,18 +37,18 @@ enum e_type_arg	is_arg(char *actual)
 		else
 			return (REDIRECT_OUTPUT);
 	}
-	return(set_type(actual));
+	return (set_type(actual));
 }
 
 int	len_string_token(char *str)
 {
-	int n_quote;
-	char type_of_quote;
-	int i;
+	int		n_quote;
+	char	type_of_quote;
+	int		i;
 
-	i = 0;
+	i = -1;
 	n_quote = 0;
-	while (str[i])
+	while (i++, str[i])
 	{
 		if (str[i] == '"' || str[i] == '\'')
 		{
@@ -50,9 +62,9 @@ int	len_string_token(char *str)
 				i++;
 			}
 		}
-		if (!str[i] || str[i] == ' ' || str[i] == '|' || is_arg(&str[i]) > BROKEN_QUOTES )
-			break;
-		i++;
+		if (!str[i] || str[i] == ' ' || str[i] == '|'
+			|| is_arg(&str[i]) > BROKEN_QUOTES)
+			break ;
 	}
 	return (i);
 }
@@ -66,8 +78,7 @@ int	get_token_len(char *str, int type)
 		len += 1;
 	else if (type == REDIRECT_OUTPUT_APPEND || type == REDIRECT_HERD)
 		len += 2;
-	else
-		if (str[len] && ((is_arg(&str[len]) <= BROKEN_QUOTES)))
-			len = len_string_token(str);
+	else if (str[len] && ((is_arg(&str[len]) <= BROKEN_QUOTES)))
+		len = len_string_token(str);
 	return (len);
 }

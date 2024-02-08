@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_expander.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 16:16:22 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/02/08 16:22:49 by r-afonso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
-static char *ft_join_var(t_control *control, char *str, char *var, char *end)
+static char	*ft_join_var(t_control *control, char *str, char *var, char *end)
 {
-	char *result;
-	char *temp;
-	char *expand_var;
+	char	*result;
+	char	*temp;
+	char	*expand_var;
 
 	result = NULL;
 	expand_var = get_var(control, var);
@@ -27,22 +39,23 @@ static char *ft_join_var(t_control *control, char *str, char *var, char *end)
 	return (result);
 }
 
-static char *get_var_in_node(t_control *control, char *str)
+static char	*get_var_in_node(t_control *control, char *str)
 {
-	char    *var;
-	int 	i;
-	int 	j;
+	char	*var;
+	int		i;
+	int		j;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
-		if(is_variable(&str[i]))
+		if (is_variable(&str[i]))
 		{
 			j = 0;
 			while (ft_isalnum(str[i + 1 + j]) || str[i + 1 + j] == '_')
 				j++;
 			var = ft_substr(&str[i + 1], 0, j);
-			str = ft_join_var(control, ft_substr(str, 0, i), var, &str[i + 1 + j]);
+			str = ft_join_var(control, ft_substr(str, 0, i), var, &str[i + 1
+					+ j]);
 			i = 0;
 		}
 		i++;
@@ -50,9 +63,10 @@ static char *get_var_in_node(t_control *control, char *str)
 	return (str);
 }
 
-static void search_var_in_arg(t_control *control, t_cmd *node) {
-	t_arg *temp_arg_node;
-	t_arg *arg_node;
+static void	search_var_in_arg(t_control *control, t_cmd *node)
+{
+	t_arg	*temp_arg_node;
+	t_arg	*arg_node;
 
 	arg_node = node->list_args;
 	while (arg_node)
@@ -64,10 +78,10 @@ static void search_var_in_arg(t_control *control, t_cmd *node) {
 	}
 }
 
-void handle_expander(t_control *control)
+void	handle_expander(t_control *control)
 {
-	t_cmd *cmd_node_temp;
-	t_cmd *cmd_node;
+	t_cmd	*cmd_node_temp;
+	t_cmd	*cmd_node;
 
 	cmd_node = control->cmd;
 	while (cmd_node)

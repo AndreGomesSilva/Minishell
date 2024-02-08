@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/07 21:07:18 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:57:27 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ enum	e_type_builtin
 	ENV,
 	EXPORT,
 	UNSET,
+	EXIT
 };
 
 typedef struct s_ht_item
@@ -160,7 +161,7 @@ void				print_sort_env(t_control *control);
 void				matrix_quicksort(char *arr[], int start, int end);
 
 // builtin
-void 				handle_builtin(char **matriz);
+int 				handle_builtin(char **matriz);
 int					handle_cd(char **matriz);
 int					handle_export(char **matriz);
 int					handle_unset(char **matriz);

@@ -1,15 +1,34 @@
-//
-// Created by angomes- on 2/2/24.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_free.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 16:14:17 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/02/08 16:38:30 by r-afonso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void free_hash_table(t_table *table)
+void free_hash_table_make_free(t_ht_item **item)
 {
-	int	i;
-	t_ht_item **items;
-	t_ht_item *item;
-	t_ht_item *next_item;
+	next_item = item->next;
+	if (item->value)
+		free(item->value);
+	if (item->key)
+		free(item->key);
+	free(item);
+	item = next_item;
+}
+
+void	free_hash_table(t_table *table)
+{
+	int			i;
+	t_ht_item	**items;
+	t_ht_item	*item;
+	t_ht_item	*next_item;
 
 	i = -1;
 	if (table)
@@ -20,16 +39,9 @@ void free_hash_table(t_table *table)
 			while (i++, i < table->size)
 			{
 				item = table->items[i];
-				while (item) {
-					next_item = item->next;
-					if (item->value)
-						free(item->value);
-					if (item->key)
-						free(item->key);
-					free(item);
-					item = next_item;
+				while (item)
+					free_hash_table_make_free(&item);
 			}
-		}
 			free(items);
 			table->items = NULL;
 		}
@@ -39,7 +51,7 @@ void free_hash_table(t_table *table)
 
 void	free_arg(t_arg *list_args)
 {
-	t_arg 	*temp_node;
+	t_arg	*temp_node;
 
 	while (list_args)
 	{
