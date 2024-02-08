@@ -1,6 +1,4 @@
 .idea
 .zshrc
 .vscode
-[safe]
-    directory = *
 .devcontainer/devcontainer.json
