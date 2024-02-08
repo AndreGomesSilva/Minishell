@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-int	handle_echo(char **cmd)
-{
-	
-}
+//int	handle_echo(char **cmd)
+//{
+//
+//}

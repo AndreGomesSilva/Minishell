@@ -10,14 +10,15 @@ void	set_path(t_control *control)
 	pwd = get_var(control, "PWD");
 	user = get_var(control, "USER");
 	if (pwd)
-			control->pwd = handle_home_path(control, pwd);
+			pwd = handle_home_path(control, pwd);
 	if (user)
 		control->user = user;
 	else
 	 	control->user = ft_strdup("GUEST");
 	temp_user = ft_strjoin(control->user, "@Minishell:");
-	temp_pwd = ft_strjoin(temp_user, control->pwd);
+	temp_pwd = ft_strjoin(temp_user, pwd);
 	control->prompt = ft_strjoin(temp_pwd, "$ ");
+	free(pwd);
 	free(temp_user);
 	free(temp_pwd);
 }

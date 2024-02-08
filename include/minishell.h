@@ -105,6 +105,7 @@ typedef struct s_control
 //	common
 
 void				free_control(t_control *control);
+void 				free_node(t_ht_item *node);
 void				print_errors(char *type, int flag);
 void				handle_config(t_control **control, char **env);
 void				handle_signal(void);
@@ -158,6 +159,9 @@ void				copy_env(t_control *control, char **env);
 void				print_hash_table (t_table *table);
 void				print_sort_env(t_control *control);
 void				matrix_quicksort(char *arr[], int start, int end);
+void 				update_env_var(t_control *control, char *key, char *value);
+void 				remove_env_var(t_control *control, char *key);
+t_ht_item			*create_hash_node(char *key, char *value);
 
 // builtin
 void 				handle_builtin(char **matriz);

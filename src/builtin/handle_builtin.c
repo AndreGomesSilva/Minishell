@@ -10,22 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-
-void handle_builtin(char **cmd)
-{
-	if (ft_strncmp(cmd[0], "echo", 5) == 0)
-		handle_echo(cmd);
-	else if (ft_strncmp(cmd[0], "exit", 5) == 0)
-		handle_exit(cmd);
-	else if (ft_strncmp(cmd[0], "env", 4) == 0)
-		handle_env(cmd);
-	else if (ft_strncmp(cmd[0], "export", 7) == 0)
-		handle_export(cmd);
-	else if (ft_strncmp(cmd[0], "unset", 6) == 0)
-		handle_unset(cmd);
-	else if (ft_strncmp(cmd[0], "cd", 3) == 0)
-		handle_cd(cmd);
-	else if (ft_strncmp(cmd[0], "pwd", 4) == 0)
-		handle_pwd(cmd);
-}
+//#include "../../include/minishell.h"
+//
+//void handle_builtin(char **cmd)
+//{
+//	if (ft_strncmp(cmd[0], "echo", 5) == 0)
+//		handle_echo(cmd);
+//	else if (ft_strncmp(cmd[0], "exit", 5) == 0)
+//		handle_exit(cmd);
+//	else if (ft_strncmp(cmd[0], "env", 4) == 0)
+//		handle_env(cmd);
+//	else if (ft_strncmp(cmd[0], "export", 7) == 0)
+//		handle_export(cmd);
+//	else if (ft_strncmp(cmd[0], "unset", 6) == 0)
+//		handle_unset(cmd);
+//	else if (ft_strncmp(cmd[0], "cd", 3) == 0)
+//		handle_cd(cmd);
+//	else if (ft_strncmp(cmd[0], "pwd", 4) == 0)
+//		handle_pwd(cmd);
+//}

@@ -4,6 +4,15 @@
 
 #include "../include/minishell.h"
 
+void free_node(t_ht_item *node)
+{
+	if (node->value)
+		free(node->value);
+	if (node->key)
+		free(node->key);
+	free(node);
+}
+
 void free_hash_table(t_table *table)
 {
 	int	i;
@@ -22,11 +31,12 @@ void free_hash_table(t_table *table)
 				item = table->items[i];
 				while (item) {
 					next_item = item->next;
-					if (item->value)
-						free(item->value);
-					if (item->key)
-						free(item->key);
-					free(item);
+					free_node(item);
+//					if (item->value)
+//						free(item->value);
+//					if (item->key)
+//						free(item->key);
+//					free(item);
 					item = next_item;
 			}
 		}
@@ -80,8 +90,6 @@ void	free_control(t_control *control)
 		free_hash_table(control->env_table);
 	if (control->env)
 		free_matrix(control->env);
-	if (control->pwd)
-		free(control->pwd);
 	if (control->prompt)
 		free(control->prompt);
 	if (control->cmd)

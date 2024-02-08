@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-
-int	handle_env(char **cmd)
-{
-	
-}
+//#include "../../include/minishell.h"
+//
+//int	handle_env(char **cmd)
+//{
+//
+//}

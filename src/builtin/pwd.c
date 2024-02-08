@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-int	handle_pwd(char **cmd)
-{
-	
-}
+//int	handle_pwd(char **cmd)
+//{
+//
+//}

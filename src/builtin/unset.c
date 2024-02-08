@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-int	handle_unset(char **cmd)
-{
-	
-}
+//int	handle_unset(char **cmd)
+//{
+//
+//}

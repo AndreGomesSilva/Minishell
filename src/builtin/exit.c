@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"\
-
-int	handle_exit(char **cmd)
-{
-	
-}
+//#include "../../include/minishell.h"\
+//
+//int	handle_exit(char **cmd)
+//{
+//
+//}
