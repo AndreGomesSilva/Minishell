@@ -31,7 +31,9 @@ FILES_WITHOUT_MAIN = \
 	$(PARSER)/handle_path $(PARSER)/utils \
 	$(PARSER)/handle_syntax_error \
 	$(BUILTIN)/handle_builtin $(BUILTIN)/export_unset_env_exit \
-	$(BUILTIN)/echo_cd_pwd \
+	$(BUILTIN)/cd $(BUILTIN)/echo $(BUILTIN)/env \
+	$(BUILTIN)/exit $(BUILTIN)/export $(BUILTIN)/pwd \
+	$(BUILTIN)/unset $(BUILTIN)/handle_builtin \
 
 FILES = \
 	main $(FILES_WITHOUT_MAIN)
