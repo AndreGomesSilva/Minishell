@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 18:57:27 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:13:09 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_control
 //	common
 
 void				free_control(t_control *control);
-void 				free_node(t_ht_item *node);
+t_ht_item			*free_node(t_ht_item *node);
 void				print_errors(char *type, int flag);
 void				handle_config(t_control **control, char **env);
 void				handle_signal(void);

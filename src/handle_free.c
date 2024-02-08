@@ -1,16 +1,28 @@
-//
-// Created by angomes- on 2/2/24.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_free.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 18:17:29 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/02/08 18:17:36 by r-afonso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void free_node(t_ht_item *node)
+t_ht_item *free_node(t_ht_item *node)
 {
+	t_ht_item	*next_node;
+
+	next_node = node->next;
 	if (node->value)
 		free(node->value);
 	if (node->key)
 		free(node->key);
 	free(node);
+	return (next_node);
 }
 
 void free_hash_table(t_table *table)
@@ -18,7 +30,6 @@ void free_hash_table(t_table *table)
 	int			i;
 	t_ht_item	**items;
 	t_ht_item	*item;
-	t_ht_item	*next_item;
 
 	i = -1;
 	if (table)
@@ -31,9 +42,7 @@ void free_hash_table(t_table *table)
 				item = table->items[i];
 				while (item)
 				{
-					next_item = item->next;
-					free_node(item);
-					item = next_item;
+					item = free_node(item);
 				}
 			}
 			free(items);
