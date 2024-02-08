@@ -35,6 +35,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 	python3.8 \
 	python3-pip
 RUN pip3 install c_formatter_42
+RUN pip3 install norminette==3.3.51
 
 RUN apt-get clean
 
