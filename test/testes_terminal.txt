@@ -6,7 +6,7 @@ ech$HOME"hello"'' ola "mundo"
 echo "'"$HOME>file.txt"'"
 
 --------------------------------------------------------
->> 'ola'
+<< 'ola'
 $PATH
 'ola'
 
@@ -17,3 +17,6 @@ Nao expande variavel devido as aspas.
 Caso algum arquivo do meio nao tenha permissao para ser alterado/acessado, a execuçao do PIP seguinte nao deve ser feita
 --------------------------------------------------------
 Comandos sem PIP devem ser rodados no pai, sem fork.
+--------------------------------------------------------
+
+--------------------------------------------------------

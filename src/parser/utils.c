@@ -1,20 +1,28 @@
-//
-// Created by angomes- on 1/29/24.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 16:15:24 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/02/08 16:32:26 by r-afonso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int is_absolute_path(char *cmd)
+int	is_absolute_path(char *cmd)
 {
-    while (cmd && *cmd &&  cmd++)
-       if (*cmd == '/')
-           return (TRUE);
-    return (FALSE);
+	while (cmd && *cmd && cmd++)
+		if (*cmd == '/')
+			return (TRUE);
+	return (FALSE);
 }
 
-int is_builtin(char *cmd)
+int	is_builtin(char *cmd)
 {
-	int len;
+	int	len;
 
 	if (!cmd)
 		return (FALSE);
@@ -31,5 +39,7 @@ int is_builtin(char *cmd)
 		return (EXPORT);
 	else if (!ft_strncmp(cmd, "unset", len))
 		return (UNSET);
+	else if (!ft_strncmp(cmd, "exit", len))
+		return (EXIT);
 	return (NOBT);
 }

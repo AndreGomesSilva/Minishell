@@ -5,6 +5,7 @@ FROM ubuntu:latest
 RUN apt-get update
 
 RUN apt-get install -y \
+	clang-format \
 	software-properties-common \
 	build-essential \
 	cmake \
@@ -52,7 +53,7 @@ SHELL ["/bin/zsh", "-c"]
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-# Instalo clang e clangd
+# Clang e clangd
 RUN wget https://apt.llvm.org/llvm.sh
 RUN chmod +x llvm.sh
 RUN ./llvm.sh 17

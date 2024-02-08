@@ -1,6 +1,14 @@
-//
-// Created by angomes- on 2/2/24.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_syntax_error.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 16:15:17 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/02/08 16:32:38 by r-afonso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
@@ -38,12 +46,13 @@ int	check_end_pipe(t_cmd *cmd)
 
 int	handle_syntax_error(t_cmd *cmd)
 {
-	t_cmd *ptr_cmd;
+	t_cmd	*ptr_cmd;
 
 	ptr_cmd = cmd;
 	while (ptr_cmd)
 	{
-		if (check_end_pipe(cmd) || check_end_redirect(cmd) || ptr_cmd->cmd == NULL)
+		if (check_end_pipe(cmd) || check_end_redirect(cmd)
+			|| ptr_cmd->cmd == NULL)
 			return (TRUE);
 		ptr_cmd = ptr_cmd->next;
 	}

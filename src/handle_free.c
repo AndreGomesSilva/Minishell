@@ -15,10 +15,10 @@ void free_node(t_ht_item *node)
 
 void free_hash_table(t_table *table)
 {
-	int	i;
-	t_ht_item **items;
-	t_ht_item *item;
-	t_ht_item *next_item;
+	int			i;
+	t_ht_item	**items;
+	t_ht_item	*item;
+	t_ht_item	*next_item;
 
 	i = -1;
 	if (table)
@@ -40,6 +40,9 @@ void free_hash_table(t_table *table)
 					item = next_item;
 			}
 		}
+				while (item)
+					free_hash_table_make_free(&item);
+			}
 			free(items);
 			table->items = NULL;
 		}
@@ -49,7 +52,7 @@ void free_hash_table(t_table *table)
 
 void	free_arg(t_arg *list_args)
 {
-	t_arg 	*temp_node;
+	t_arg	*temp_node;
 
 	while (list_args)
 	{

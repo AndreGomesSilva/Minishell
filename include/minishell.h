@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/07 21:07:18 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/08 18:57:27 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ enum	e_type_builtin
 	ENV,
 	EXPORT,
 	UNSET,
+	EXIT
 };
 
 typedef struct s_ht_item
@@ -164,7 +165,7 @@ void 				remove_env_var(t_control *control, char *key);
 t_ht_item			*create_hash_node(char *key, char *value);
 
 // builtin
-void 				handle_builtin(char **matriz);
+int 				handle_builtin(char **matriz);
 int					handle_cd(char **matriz);
 int					handle_export(char **matriz);
 int					handle_unset(char **matriz);

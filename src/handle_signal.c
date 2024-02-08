@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_signal.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 16:14:00 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/02/08 16:39:05 by r-afonso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 int	receive_signal_ctrl_d(t_control *control)
@@ -7,25 +19,22 @@ int	receive_signal_ctrl_d(t_control *control)
 	exit(0);
 }
 
-void receive_sig_int(int sig) {
-	(void) sig;
-	extern t_control *g_control;
+void	receive_sig_int(int sig)
+{
+	extern t_control	*g_control;
+
+	(void)sig;
 	free_cmd(g_control);
-    printf("\n");
+	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
-   	rl_redisplay();
+	rl_redisplay();
 }
 
-void receive_sigquit(int sig) {
-	(void) sig;
-//	sig  = 0;
-    printf("exit\n");
-}
-
-void handle_signal(void)
+void	handle_signal(void)
 {
-	extern t_control *g_control;
+	extern t_control	*g_control;
+
 	signal(SIGINT, receive_sig_int);
 	signal(SIGQUIT, SIG_IGN);
 }

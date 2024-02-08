@@ -1,15 +1,23 @@
-//
-// Created by angomes- on 1/29/24.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_redirect.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 16:15:33 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/02/08 16:15:34 by r-afonso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//int search_redirects(t_cmd *cmd)
+// int search_redirects(t_cmd *cmd)
 //{
 //
 //}
 //
-//int handle_redirect(t_control *control)
+// int handle_redirect(t_control *control)
 //{
 //	t_cmd *cmd;
 //

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:33:41 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 14:34:10 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/08 16:56:53 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../../include/minishell.h"
-//
-//int	handle_env(char **cmd)
-//{
-//
-//}
+#include "../../include/minishell.h"
+
+// int	handle_env(char **cmd)
+// {
+	// 
+// }

@@ -6,16 +6,16 @@
 
 int	hash_function(const char *str, int size)
 {
-	long int hash;
-	int 	len;
-	int 	 i;
+	long int	hash;
+	int			len;
+	int			i;
 
-	len = (int) ft_strlen(str);
+	len = (int)ft_strlen(str);
 	hash = 0;
 	i = 0;
 	while (i < len)
 	{
-		hash += (long) ft_pow(131, len - (i + 1)) * str[i];
+		hash += (long)ft_pow(131, len - (i + 1)) * str[i];
 		hash = hash % size;
 		i++;
 	}
@@ -24,18 +24,18 @@ int	hash_function(const char *str, int size)
 
 t_ht_item	*create_hash_node(char *key, char *value)
 {
-	t_ht_item *node;
+	t_ht_item	*node;
+
 	node = (t_ht_item *)ft_calloc(1, sizeof(t_ht_item));
 	node->key = key;
 	node->value = value;
 	node->next = NULL;
-
 	return (node);
 }
 
-t_table *init_table(t_control *control, char **env)
+t_table	*init_table(t_control *control, char **env)
 {
-	t_table *table;
+	t_table	*table;
 	int		arr_size;
 
 	arr_size = len_env(env) * 3;
@@ -49,16 +49,16 @@ t_table *init_table(t_control *control, char **env)
 
 void	copy_env(t_control *control, char **env)
 {
-	char *key;
-	char *value;
-	int   i;
+	char	*key;
+	char	*value;
+	int		i;
 
 	i = 0;
-	while(env[i])
+	while (env[i])
 	{
 		key = ft_substr(env[i], 0, strlen_var_name(env[i]));
 		value = ft_strdup(getenv(key));
 		update_env_var(control, key, value);
 		i++;
-	} 
+	}
 }

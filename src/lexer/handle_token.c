@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_token.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 16:20:56 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/02/08 16:21:32 by r-afonso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 // FIX: retirar posteriormente, função auxiliar
-
 void	print_lst(t_cmd *cmd)
 {
 	t_cmd	*ptr_cmd;
@@ -73,7 +84,7 @@ char	*create_cmd(t_control *control, char *actual)
 
 void	handle_token(t_control *control, char *input)
 {
-	char			*actual;
+	char	*actual;
 
 	actual = input;
 	while (*actual)

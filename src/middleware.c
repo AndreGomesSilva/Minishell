@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   middleware.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 16:14:41 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/02/08 16:14:42 by r-afonso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 int	middleware(t_control *control)
 {
-	char *input;
-	char *first_input;
+	char	*input;
+	char	*first_input;
 
 	input = readline(control->prompt);
 	first_input = input;
