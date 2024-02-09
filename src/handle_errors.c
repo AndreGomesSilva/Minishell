@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:33:44 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/09 13:04:42 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	print_errors(char *type, int flag)
+void	handle_error(t_cmd *ptr_cmd, enum e_type_error error)
 {
-	if (!ft_strncmp(type, "syntax", 5))
+	ptr_cmd->error_type = error;
+	if (ptr_cmd->error_type == SYNTAX)
+		ft_putstr_fd("Error: Syntax \n", 2);
+	else if (ptr_cmd->error_type == CMD_NO_FOUND)
 	{
-		if (flag == 1)
-			ft_putstr_fd("syntax error near unexpected token `|' \n", 2);
+		ft_putstr_fd(ptr_cmd->cmd, 2);
+		ft_putstr_fd(": Command not found \n", 2);
 	}
 }

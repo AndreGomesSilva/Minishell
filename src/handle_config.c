@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_config.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:53:08 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/09 13:02:53 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	handle_envp(t_control *control, char **env)
 {
 	t_table	*table;
 
-	table = init_table(control, env);
+	table = init_table(env);
+	control->env_table = table;
 	copy_env(control, env);
 	return (TRUE);
 }

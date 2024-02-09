@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 22:26:12 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/09 13:08:53 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,15 @@ enum					e_type_builtin
 	EXIT
 };
 
+enum					e_type_error
+{
+	NO_ERROR,
+	CMD_NO_FOUND,
+	NO_FILE,
+	FATAL,
+	SYNTAX,
+};
+
 typedef struct s_ht_item
 {
 	char				*key;
@@ -87,6 +96,7 @@ typedef struct s_cmd
 	char				*path_cmd;
 	enum e_type_arg		type;
 	enum e_type_cmd		delimiter_type;
+	enum e_type_error	error_type;
 	int					infile;
 	int					outfile;
 	struct s_arg		*list_args;
@@ -107,7 +117,7 @@ typedef struct s_control
 
 void					free_control(t_control *control);
 t_ht_item				*free_node(t_ht_item *node);
-void					print_errors(char *type, int flag);
+void					handle_error(t_cmd *ptr_cmd, enum e_type_error error);
 void					handle_config(t_control **control, char **env);
 void					handle_signal(void);
 int						receive_signal_ctrl_d(t_control *control);
@@ -122,6 +132,7 @@ t_arg					*get_last_node_arg(t_arg *cmd);
 void					free_cmd(t_control *control);
 
 // handle_parser
+int						is_valid_cmd(t_cmd *cmd);
 void					free_matrix(char **matrix);
 char					*handle_bin_path(t_control *control, t_cmd *cmd);
 int						is_builtin(char *cmd);
@@ -143,7 +154,7 @@ int						handle_quotes(char *str, int *iterator, int *n_quotes,
 							int *flag_var);
 
 // handle_expander
-void					handle_expander(t_control *control);
+int						handle_expander(t_control *control);
 int						is_variable(char *str);
 char					*handle_home_path(t_control *control, char *path);
 
@@ -156,7 +167,7 @@ int						ft_pow(int base, int exponent);
 void					free_hash_table(t_table *table);
 int						len_env(char **env);
 int						strlen_var_name(const char *str);
-t_table					*init_table(t_control *control, char **env);
+t_table					*init_table(char **env);
 void					copy_env(t_control *control, char **env);
 void					print_hash_table(t_table *table);
 void					print_sort_env(t_control *control);

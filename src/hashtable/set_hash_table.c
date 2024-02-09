@@ -41,7 +41,7 @@ t_ht_item	*create_hash_node(char *key, char *value)
 	return (node);
 }
 
-t_table	*init_table(t_control *control, char **env)
+t_table	*init_table(char **env)
 {
 	t_table	*table;
 	int		arr_size;
@@ -51,7 +51,6 @@ t_table	*init_table(t_control *control, char **env)
 	table->count = 0;
 	table->size = arr_size;
 	table->items = (t_ht_item **)ft_calloc(table->size, sizeof(t_ht_item *));
-	control->env_table = table;
 	return (table);
 }
 

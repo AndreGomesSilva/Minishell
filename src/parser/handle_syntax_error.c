@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   handle_syntax_error.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:17 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:32:38 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/09 13:07:29 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	is_valid_cmd(t_cmd *cmd)
+{
+	if (cmd->type >= REDIRECT_HERD || !access(cmd->path_cmd, X_OK))
+		return (TRUE);
+	return (FALSE);
+}
 
 int	check_end_redirect(t_cmd *cmd)
 {

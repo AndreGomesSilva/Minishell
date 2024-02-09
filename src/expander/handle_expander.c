@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_expander.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:22 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:22:49 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/09 13:02:40 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static char	*get_var_in_node(t_control *control, char *str)
 	return (str);
 }
 
-static void	search_var_in_arg(t_control *control, t_cmd *node)
+static int	get_var_in_arg(t_control *control, t_cmd *node)
 {
 	t_arg	*temp_arg_node;
 	t_arg	*arg_node;
@@ -72,13 +72,16 @@ static void	search_var_in_arg(t_control *control, t_cmd *node)
 	while (arg_node)
 	{
 		temp_arg_node = arg_node->next;
+		if (arg_node->type == BROKEN_QUOTES)
+			return (FALSE);
 		if (arg_node->type == VAR_EXPAND)
 			arg_node->arg = get_var_in_node(control, arg_node->arg);
 		arg_node = temp_arg_node;
 	}
+	return (TRUE);
 }
 
-void	handle_expander(t_control *control)
+int	handle_expander(t_control *control)
 {
 	t_cmd	*cmd_node_temp;
 	t_cmd	*cmd_node;
@@ -89,7 +92,13 @@ void	handle_expander(t_control *control)
 		cmd_node_temp = cmd_node->next;
 		if (cmd_node->type == VAR_EXPAND)
 			cmd_node->cmd = get_var_in_node(control, cmd_node->cmd);
-		search_var_in_arg(control, cmd_node);
+		if (!get_var_in_arg(control, cmd_node)
+			|| cmd_node->type == BROKEN_QUOTES)
+		{
+			handle_error(cmd_node, SYNTAX);
+			return (FALSE);
+		}
 		cmd_node = cmd_node_temp;
 	}
+	return (TRUE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/08 18:24:45 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/09 13:06:42 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,25 +119,25 @@ char	*new_cmd_absolute_path(t_cmd *cmd)
 int	handle_parser(t_control *control)
 {
 	t_cmd	*ptr_cmd;
-	int		result;
 
 	ptr_cmd = control->cmd;
-	result = 0;
 	if (handle_syntax_error(ptr_cmd))
 	{
-		print_errors("syntax", 1);
-		result = TRUE;
+		handle_error(ptr_cmd, SYNTAX);
+		return (FALSE);
 	}
-	else
+	while (ptr_cmd)
 	{
-		while (ptr_cmd)
+		ptr_cmd->path_cmd = handle_bin_path(control, ptr_cmd);
+		if (!is_builtin(ptr_cmd->cmd) && !is_valid_cmd(ptr_cmd))
 		{
-			ptr_cmd->path_cmd = handle_bin_path(control, ptr_cmd);
-			if (is_absolute_path(ptr_cmd->cmd))
-				ptr_cmd->cmd = new_cmd_absolute_path(ptr_cmd);
-			ptr_cmd->cmd_and_args = create_full_cmd(ptr_cmd);
-			ptr_cmd = ptr_cmd->next;
+			handle_error(ptr_cmd, CMD_NO_FOUND);
+			return (FALSE);
 		}
+		if (is_absolute_path(ptr_cmd->cmd))
+			ptr_cmd->cmd = new_cmd_absolute_path(ptr_cmd);
+		ptr_cmd->cmd_and_args = create_full_cmd(ptr_cmd);
+		ptr_cmd = ptr_cmd->next;
 	}
-	return (result);
+	return (TRUE);
 }
