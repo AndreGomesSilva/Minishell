@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:21:38 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/10 14:05:21 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/10 14:37:57 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	create_node_cmd(t_control *control, char *cmd)
 {
 	t_cmd	*node;
 	t_cmd	*temp_node;
+	int		cmd_number;
 
 	node = (t_cmd *)ft_calloc(1, sizeof(t_cmd));
 	if (*cmd)
@@ -62,6 +63,7 @@ void	create_node_cmd(t_control *control, char *cmd)
 		temp_node = get_last_node_cmd(control->cmd);
 		temp_node->next = node;
 		node->prev = temp_node;
-		node->cmd_number = node->prev->cmd_number++;
+		cmd_number = node->prev->cmd_number;
+		node->cmd_number = ++cmd_number;
 	}
 }
