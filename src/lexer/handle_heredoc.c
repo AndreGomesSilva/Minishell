@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:11:45 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/10 04:23:56 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/10 10:03:29 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ char	*get_next_eof(t_cmd *cmd)
 int	create_heredoc_file(t_cmd *cmd, char *input, int file)
 {
 	int	fd;
-	if (file == 1) 
+
+	if (file == 1)
 		fd = open("./heredoc", O_WRONLY | O_CREAT | O_APPEND, 0666);
 	else
-		fd = open("./heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0666);	
+		fd = open("./heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (fd == -1)
 		handle_error(cmd, NO_FILE);
 	ft_putstr_fd(input, fd);
@@ -48,30 +49,39 @@ int	create_heredoc_file(t_cmd *cmd, char *input, int file)
 	return (fd);
 }
 
-void	open_prompt(t_cmd *cmd)
+int	heredoc_input(t_cmd *cmd, char *eof, int file_action)
 {
 	char	*input;
-	int		file;
 	int		flux_ctrl;
-	char	*eof;
 
-	eof = get_next_eof(cmd);
-	file = 1;
-	while (eof)
+	flux_ctrl = 1;
+	while (flux_ctrl)
 	{
-		flux_ctrl = 1;
-		while (flux_ctrl)
+		input = readline("> ");
+		if (input && *input)
 		{
-			input = readline("> ");
-			flux_ctrl = ft_strncmp(eof, input, ft_strlen(eof));
-			if (input && flux_ctrl)
+			flux_ctrl = ft_strncmp(eof, input, ft_strlen(input));
+			if (flux_ctrl)
 			{
-				create_heredoc_file(cmd, input, file);
-				file = 1;
+				create_heredoc_file(cmd, input, file_action);
+				file_action = 1;
 			}
 			free(input);
 		}
-		file = 0;
+	}
+	return (file_action);
+}
+
+void	open_prompt(t_cmd *cmd)
+{
+	int		file_action;
+	char	*eof;
+
+	eof = get_next_eof(cmd);
+	while (eof)
+	{
+		heredoc_input(cmd, eof, file_action);
+		file_action = 0;
 		eof = get_next_eof(cmd);
 	}
 }
