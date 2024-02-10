@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_list_cmd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:21:38 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:21:56 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/10 14:05:21 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,13 @@ void	create_node_cmd(t_control *control, char *cmd)
 	{
 		node->prev = NULL;
 		control->cmd = node;
+		node->cmd_number++;
 	}
 	else
 	{
 		temp_node = get_last_node_cmd(control->cmd);
 		temp_node->next = node;
 		node->prev = temp_node;
+		node->cmd_number = node->prev->cmd_number++;
 	}
 }

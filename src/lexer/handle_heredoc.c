@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:11:45 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/10 10:03:29 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/10 14:08:02 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,21 @@ char	*get_next_eof(t_cmd *cmd)
 	return (eof);
 }
 
-int	create_heredoc_file(t_cmd *cmd, char *input, int file)
+void	create_heredoc_file(t_cmd *cmd, char *input, int file_action)
 {
 	int	fd;
 
-	if (file == 1)
-		fd = open("./heredoc", O_WRONLY | O_CREAT | O_APPEND, 0666);
+	if (file_action == 1)
+		fd = open(ft_itoa(cmd->cmd_number), O_WRONLY | O_CREAT | O_APPEND,
+				0666);
 	else
-		fd = open("./heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		fd = open(ft_itoa(cmd->cmd_number), O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (fd == -1)
 		handle_error(cmd, NO_FILE);
 	ft_putstr_fd(input, fd);
 	ft_putstr_fd("\n", fd);
 	close(fd);
 	add_history(input);
-	return (fd);
 }
 
 int	heredoc_input(t_cmd *cmd, char *eof, int file_action)

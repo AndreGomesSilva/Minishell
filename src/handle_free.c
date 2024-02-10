@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   handle_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:17:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 18:26:11 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/10 14:19:47 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <unistd.h>
 
 t_ht_item	*free_node(t_ht_item *node)
 {
@@ -70,11 +71,13 @@ void	free_cmd(t_control *control)
 {
 	t_cmd	*node;
 	t_cmd	*temp_node;
+	char	*file_name;
 
 	node = control->cmd;
 	while (node)
 	{
 		temp_node = node->next;
+		file_name = ft_itoa(node->cmd_number);
 		if (node->cmd_and_args)
 			free_matrix(node->cmd_and_args);
 		if (node->path_cmd)
@@ -83,6 +86,8 @@ void	free_cmd(t_control *control)
 			free_arg(node->list_args);
 		if (node->cmd)
 			free(node->cmd);
+		if (!access(file_name, F_OK))
+			unlink(file_name);
 		free(node);
 		node = temp_node;
 	}

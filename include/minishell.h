@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/10 00:09:11 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/10 14:02:06 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_cmd
 	enum e_type_error	error_type;
 	int					infile;
 	int					outfile;
+	int					cmd_number;
 	struct s_arg		*list_args;
 	struct s_cmd		*next;
 	struct s_cmd		*prev;
