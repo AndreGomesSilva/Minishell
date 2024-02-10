@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   middleware.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:41 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 21:58:58 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/09 19:40:00 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	middleware(t_control *control)
 			input++;
 		if (*input)
 			handle_token(control, input);
+		handle_heredoc(control);
 		handle_expander(control);
 		handle_parser(control);
 		print_lst(control->cmd);

@@ -23,7 +23,9 @@ FILES_WITHOUT_MAIN = \
 	handle_config handle_signal	middleware \
 	handle_errors handle_free \
 	$(LIST)/handle_list_cmd $(LIST)/handle_list_arg \
-	$(LEXER)/handle_token $(LEXER)/handle_type $(LEXER)/utils \
+	$(LEXER)/handle_token $(LEXER)/handle_type \
+	$(LEXER)/handle_heredoc $(LEXER)/heredoc_utils \
+	$(LEXER)/utils \
 	$(EXPANDER)/handle_expander $(EXPANDER)/utils \
 	$(HASHTABLE)/set_hash_table $(HASHTABLE)/aux_hash_function  \
 	$(HASHTABLE)/utils $(HASHTABLE)/handle_hash_table \
@@ -77,7 +79,7 @@ bonus: all
 
 clean:
 	$(MAKE) clean -C $(SRC_DIR_LIB)
-	$(RM) -r $(OBJS_DIR)
+	$(RM) -r $(OBJS_DIR) ./heredoc
 
 fclean: clean
 	$(MAKE) fclean -C $(SRC_DIR_LIB)

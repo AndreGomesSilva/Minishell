@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/09 13:08:53 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/10 00:09:11 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <fcntl.h>
 
 # define TRUE 1
 # define FALSE 0
@@ -45,6 +46,7 @@ enum					e_type_arg
 	REDIRECT_OUTPUT,
 	REDIRECT_OUTPUT_APPEND,
 	IOFILE,
+	DOC,
 };
 
 enum					e_type_builtin
@@ -141,6 +143,9 @@ int						handle_syntax_error(t_cmd *cmd);
 int						is_absolute_path(char *cmd);
 
 //	handle_lexer
+int						search_heredoc_arg(t_cmd *cmd);
+int						search_heredoc_cmd(t_cmd *cmd);
+void					handle_heredoc(t_control *control);
 void					print_lst(t_cmd *cmd);
 int						is_space(char c);
 int						get_token_len(char *str, int type);
