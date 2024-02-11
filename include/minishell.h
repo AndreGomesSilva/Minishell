@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/11 15:52:05 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/11 23:11:35 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ int						handle_export(char **cmd);
 int						handle_unset(char **cmd);
 int						handle_env(char **cmd);
 int						handle_exit(char **cmd);
-int						handle_echo(char **cmd);
+void					handle_echo(char **cmd, int fd);
 int						handle_pwd(char **cmd);
 
 //executor
