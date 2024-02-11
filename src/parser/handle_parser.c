@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/11 00:28:05 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/11 16:25:18 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	type_io_file(t_cmd *cmd)
 	while (ptr_cmd)
 	{
 		ptr_arg = ptr_cmd->list_args;
-		if (ptr_cmd->type >= REDIRECT_HERD && ptr_arg && (ptr_arg->type == NORM
+		if (ptr_cmd->type > REDIRECT_HERD && ptr_arg && (ptr_arg->type == NORM
 				|| ptr_arg->type == VAR_EXPAND))
 		{
 			ptr_arg->type = IOFILE;
@@ -29,7 +29,7 @@ void	type_io_file(t_cmd *cmd)
 		}
 		while (ptr_arg)
 		{
-			if (ptr_arg->type >= REDIRECT_HERD && ptr_arg->next
+			if (ptr_arg->type > REDIRECT_HERD && ptr_arg->next
 				&& (ptr_arg->next->type == NORM
 					|| ptr_arg->next->type == VAR_EXPAND))
 				ptr_arg->next->type = IOFILE;
@@ -131,6 +131,7 @@ int	handle_parser(t_control *control)
 		ptr_cmd->path_cmd = handle_bin_path(control, ptr_cmd);
 		if (!is_builtin(ptr_cmd->cmd) && !is_valid_cmd(ptr_cmd))
 		{
+			type_io_file(ptr_cmd);
 			print_error(ptr_cmd, CMD_NO_FOUND);
 			return (FALSE);
 		}

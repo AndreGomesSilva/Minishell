@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:07:24 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/11 00:25:37 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/11 16:24:42 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,34 +46,6 @@ void	infinit_prompt(t_control *control)
 	}
 }
 
-int	handle_quote_eof(char *eof)
-{
-	int		i;
-	int		j;
-	int		quote;
-	char	type_quote;
-
-	i = 0;
-	quote = 1;
-	while (eof[i])
-	{
-		if (eof[i] == '"' || eof[i] == '\'')
-		{
-			type_quote = eof[i];
-			j = i + 1;
-			while (eof[j] != type_quote)
-			{
-				j++;
-				if (!eof[j])
-					return (BROKEN_QUOTES);
-			}
-			return (quote);
-		}
-		i++;
-	}
-	return (NORM);
-}
-
 int	find_heredoc_arg(t_cmd *cmd)
 {
 	t_arg	*arg;
@@ -90,7 +62,7 @@ int	find_heredoc_arg(t_cmd *cmd)
 				print_error(cmd, SYNTAX);
 				return (FALSE);
 			}
-			else if (arg->next->type < VAR_EXPAND)
+			else if (arg->next->type <= VAR_EXPAND)
 			{
 				arg->next->type = DOC;
 				result = TRUE;

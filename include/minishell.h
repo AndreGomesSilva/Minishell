@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/11 00:23:19 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/11 15:52:05 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,9 @@ int						handle_env(char **cmd);
 int						handle_exit(char **cmd);
 int						handle_echo(char **cmd);
 int						handle_pwd(char **cmd);
+
+//executor
+int						handle_redirects(t_control *control);
 
 #endif
 

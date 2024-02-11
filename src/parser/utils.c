@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:24 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:32:26 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/11 15:55:48 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,21 @@ int	is_absolute_path(char *cmd)
 
 int	is_builtin(char *cmd)
 {
-	int	len;
-
 	if (!cmd)
 		return (FALSE);
-	len = ft_strlen(cmd);
-	if (!ft_strncmp(cmd, "echo", len))
+	if (!str_compare(cmd, "echo"))
 		return (ECHO);
-	else if (!ft_strncmp(cmd, "cd", len))
+	else if (!str_compare(cmd, "cd"))
 		return (CD);
-	else if (!ft_strncmp(cmd, "pwd", len))
+	else if (!str_compare(cmd, "pwd"))
 		return (PWD);
-	else if (!ft_strncmp(cmd, "env", len))
+	else if (!str_compare(cmd, "env"))
 		return (ENV);
-	else if (!ft_strncmp(cmd, "export", len))
+	else if (!str_compare(cmd, "export"))
 		return (EXPORT);
-	else if (!ft_strncmp(cmd, "unset", len))
+	else if (!str_compare(cmd, "unset"))
 		return (UNSET);
-	else if (!ft_strncmp(cmd, "exit", len))
+	else if (!str_compare(cmd, "exit"))
 		return (EXIT);
 	return (NOBT);
 }

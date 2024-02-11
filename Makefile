@@ -14,6 +14,7 @@ EXPANDER    = expander
 PARSER 		= parser
 HASHTABLE	= hashtable
 BUILTIN		= builtin
+EXECUTOR	= executor
 
 OBJS_DIR 	= obj/
 SRC_DIR_LIB	= ./libft
@@ -32,6 +33,7 @@ FILES_WITHOUT_MAIN = \
 	$(PARSER)/handle_matrix $(PARSER)/handle_parser \
 	$(PARSER)/handle_path $(PARSER)/utils \
 	$(PARSER)/handle_syntax_error \
+	$(EXECUTOR)/handle_redirects \
 #	$(BUILTIN)/handle_builtin $(BUILTIN)/export_unset_env_exit \
 #	$(BUILTIN)/cd $(BUILTIN)/echo $(BUILTIN)/env \
 #	$(BUILTIN)/exit $(BUILTIN)/export $(BUILTIN)/pwd \
@@ -66,6 +68,7 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)$(EXPANDER)
 	@mkdir -p $(OBJS_DIR)$(HASHTABLE)
 	@mkdir -p $(OBJS_DIR)$(PARSER)
+	@mkdir -p $(OBJS_DIR)$(EXECUTOR)
 #	@mkdir -p $(OBJS_DIR)$(BUILTIN)
 	@mkdir -p $(OBJS_DIR)handle_signal
 

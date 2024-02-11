@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:11:45 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/11 00:25:49 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/11 16:34:11 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void	heredoc_input(t_control *control, t_cmd *cmd, char *eof, int action)
 			free(input);
 			free(new_eof);
 		}
-		else
-			receive_signal_ctrl_d(control);
 	}
 }
 

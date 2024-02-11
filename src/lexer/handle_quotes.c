@@ -6,26 +6,38 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 23:31:53 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/11 00:02:52 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/11 15:49:26 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	str_compare(char *s1, char *s2)
+int	handle_quote_eof(char *eof)
 {
-	int	len1;
-	int	len2;
-	int	result;
+	int		i;
+	int		j;
+	int		quote;
+	char	type_quote;
 
-	result = 0;
-	len1 = strlen(s1);
-	len2 = strlen(s2);
-	if (len2 > len1)
-		result = ft_strncmp(s1, s2, len2);
-	else
-		result = ft_strncmp(s1, s2, len1);
-	return (result);
+	i = 0;
+	quote = 1;
+	while (eof[i])
+	{
+		if (eof[i] == '"' || eof[i] == '\'')
+		{
+			type_quote = eof[i];
+			j = i + 1;
+			while (eof[j] != type_quote)
+			{
+				j++;
+				if (!eof[j])
+					return (BROKEN_QUOTES);
+			}
+			return (quote);
+		}
+		i++;
+	}
+	return (NORM);
 }
 
 char	*swap_string(char *str, char *sub_str)
