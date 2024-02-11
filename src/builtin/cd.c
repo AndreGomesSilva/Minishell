@@ -6,38 +6,38 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:20:03 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/10 21:06:13 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// TODO: corrigir entrada por matriz e testar
-int	handle_cd(char **matriz)
+char	*make_cd(char *pwd_target)
 {
-	const char	*pwd_target = matriz[1];
 	char		*pwd_relative;
 	char		*pwd;
 
-	if (matriz[2] != NULL)
+	if (chdir(pwd_target) == 0)
+		return (getcwd(NULL, 0));
+	
+	pwd = getcwd(NULL, 0);
+	pwd_relative = ft_strjoin((const char *)pwd, (const char *)pwd_target);
+	if(chdir(pwd_relative) == 0)
 	{
-		return (0);
-	}
-	if (chdir(pwd_target) != 0)
-	{
-		pwd = getcwd(NULL, NULL);
-		pwd_relative = ft_strjoin((const char *)pwd, (const char *)pwd_target);
-		free(pwd);
-		if (chdir(pwd_relative) != 0)
-		{
-			free(pwd_relative);
-			return (FALSE);
-		}
-		else
-		{
-			free(pwd_relative);
-			return (TRUE);
-		}
-	}
-	return (TRUE);
+		free(pwd_relative);
+		return (getcwd(NULL, 0));
+	}	
+	return (FALSE);
 }
+
+int	handle_builtin_cd(char *cmd)
+{
+	char *result;
+
+	result = make_cd(cmd);
+	if(!result)
+		return (FALSE);
+	free(result);
+	return (TRUE);	
+}
+
