@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:22 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/10 17:13:51 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/11 00:27:14 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	handle_expander(t_control *control)
 		if (!get_var_in_arg(control, cmd_node)
 			|| cmd_node->type == BROKEN_QUOTES)
 		{
-			handle_error(cmd_node, SYNTAX);
+			print_error(cmd_node, SYNTAX);
 			return (FALSE);
 		}
 		cmd_node = cmd_node_temp;

@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/09 13:06:42 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/11 00:28:05 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	handle_parser(t_control *control)
 	ptr_cmd = control->cmd;
 	if (handle_syntax_error(ptr_cmd))
 	{
-		handle_error(ptr_cmd, SYNTAX);
+		print_error(ptr_cmd, SYNTAX);
 		return (FALSE);
 	}
 	while (ptr_cmd)
@@ -131,7 +131,7 @@ int	handle_parser(t_control *control)
 		ptr_cmd->path_cmd = handle_bin_path(control, ptr_cmd);
 		if (!is_builtin(ptr_cmd->cmd) && !is_valid_cmd(ptr_cmd))
 		{
-			handle_error(ptr_cmd, CMD_NO_FOUND);
+			print_error(ptr_cmd, CMD_NO_FOUND);
 			return (FALSE);
 		}
 		if (is_absolute_path(ptr_cmd->cmd))
