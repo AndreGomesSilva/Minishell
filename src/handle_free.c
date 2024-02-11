@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:17:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/10 14:19:47 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/10 23:15:21 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,9 @@ void	free_cmd(t_control *control)
 			free_arg(node->list_args);
 		if (node->cmd)
 			free(node->cmd);
-		if (!access(file_name, F_OK))
+		if (file_name && !access(file_name, F_OK))
 			unlink(file_name);
+		free(file_name);
 		free(node);
 		node = temp_node;
 	}

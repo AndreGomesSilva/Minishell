@@ -6,13 +6,75 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:07:24 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/10 00:08:44 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/10 21:22:53 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	search_heredoc_arg(t_cmd *cmd)
+char	*get_next_eof(t_cmd *cmd)
+{
+	t_arg	*ptr_arg;
+	char	*eof;
+
+	eof = NULL;
+	ptr_arg = cmd->list_args;
+	while (ptr_arg)
+	{
+		if (ptr_arg->type == DOC)
+		{
+			ptr_arg->type = NORM;
+			eof = (ptr_arg->arg);
+			break ;
+		}
+		ptr_arg = ptr_arg->next;
+	}
+	return (eof);
+}
+
+void	infinit_prompt(t_control *control)
+{
+	char	*input;
+
+	while (1)
+	{
+		input = readline("> ");
+		if (input)
+			free(input);
+		else
+			receive_signal_ctrl_d(control);
+	}
+}
+
+int	handle_quote_eof(char *eof)
+{
+	int		i;
+	int		j;
+	int		quote;
+	char	type_quote;
+
+	i = 0;
+	quote = 1;
+	while (eof[i])
+	{
+		if (eof[i] == '"' || eof[i] == '\'')
+		{
+			type_quote = eof[i];
+			j = i + 1;
+			while (eof[j] != type_quote)
+			{
+				j++;
+				if (!eof[j])
+					return (BROKEN_QUOTES);
+			}
+			return (quote);
+		}
+		i++;
+	}
+	return (NORM);
+}
+
+int	find_heredoc_arg(t_cmd *cmd)
 {
 	t_arg	*arg;
 	int		result;
@@ -39,7 +101,7 @@ int	search_heredoc_arg(t_cmd *cmd)
 	return (result);
 }
 
-int	search_heredoc_cmd(t_cmd *cmd)
+int	find_heredoc_cmd(t_cmd *cmd)
 {
 	int	result;
 
@@ -57,6 +119,6 @@ int	search_heredoc_cmd(t_cmd *cmd)
 			result = TRUE;
 		}
 	}
-	result += search_heredoc_arg(cmd);
+	result += find_heredoc_arg(cmd);
 	return (result);
 }

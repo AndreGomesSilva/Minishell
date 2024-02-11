@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:22 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/09 13:02:40 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/10 17:13:51 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*ft_join_var(t_control *control, char *str, char *var, char *end)
 	return (result);
 }
 
-static char	*get_var_in_node(t_control *control, char *str)
+char	*get_var_in_node(t_control *control, char *str)
 {
 	char	*var;
 	int		i;
