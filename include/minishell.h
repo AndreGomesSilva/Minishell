@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 20:02:59 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/12 23:24:29 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,22 +170,22 @@ int						is_variable(char *str);
 char					*handle_home_path(t_control *control, char *path);
 
 // hashtable
-int						handle_envp(t_control *control, char **env);
+int						handle_env(t_control *control, char **env);
 t_ht_item				*get_var_node(t_control *control, char *key);
 char					*get_var(t_control *control, const char *key);
 int						hash_function(const char *str, int size);
 int						ft_pow(int base, int exponent);
-void					free_hash_table(t_table *table);
-int						len_env(char **env);
-int						strlen_var_name(const char *str);
+void					free_env(t_table *table);
+int						get_size_matrix(char **env);
+int						get_size_env_key(const char *str);
 t_table					*init_table(char **env);
 void					copy_env(t_control *control, char **env);
 void					print_hash_table(t_table *table);
 void					print_sort_env(t_control *control);
-void					matrix_quicksort(char *arr[], int start, int end);
-void					update_env_var(t_control *control, const char *key,
+void					sort_matrix(char *arr[], int start, int end);
+void					update_env(t_control *control, const char *key,
 							const char *value);
-void					remove_env_var(t_control *control, const char *key);
+void					remove_env(t_control *control, const char *key);
 t_ht_item				*create_hash_node(const char *key, const char *value);
 
 // builtin
@@ -194,7 +194,7 @@ char					*make_cd(t_control *control, char *pwd_target);
 int						handle_cd(t_control *control, char *cmd);
 int						handle_export(char **cmd);
 int						handle_unset(char **cmd);
-void					handle_env(t_control *control);
+void					handle_env_b(t_control *control);
 void					handle_exit(t_control *control);
 void					handle_echo(char **cmd, int fd);
 int						handle_pwd(char **cmd);

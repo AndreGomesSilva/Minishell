@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:59:36 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 01:23:08 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/12 23:20:24 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_table	*init_table(char **env)
 	t_table	*table;
 	int		arr_size;
 
-	arr_size = len_env(env) * 3;
+	arr_size = get_size_matrix(env) * 3;
 	table = (t_table *)malloc(sizeof(t_table));
 	table->count = 0;
 	table->size = arr_size;
@@ -63,9 +63,9 @@ void	copy_env(t_control *control, char **env)
 	i = 0;
 	while (env[i])
 	{
-		key = ft_substr(env[i], 0, strlen_var_name(env[i]));
+		key = ft_substr(env[i], 0, get_size_env_key(env[i]));
 		value = ft_strdup(getenv(key));
-		update_env_var(control, key, value);
+		update_env(control, key, value);
 		i++;
 	}
 }

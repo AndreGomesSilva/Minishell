@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:24:25 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/12 23:19:27 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	print_sort_env(t_control *control)
 
 	i = 0;
 	env = get_matrix_env(control);
-	matrix_quicksort(env, 0, control->env_table->count - 1);
+	sort_matrix(env, 0, control->env_table->count - 1);
 	if (env)
 	{
 		while (env[i])
