@@ -33,11 +33,12 @@ FILES_WITHOUT_MAIN = \
 	$(PARSER)/handle_matrix $(PARSER)/handle_parser \
 	$(PARSER)/handle_path $(PARSER)/utils \
 	$(PARSER)/handle_syntax_error \
-	$(EXECUTOR)/handle_redirects \
-#	$(BUILTIN)/handle_builtin $(BUILTIN)/export_unset_env_exit \
-#	$(BUILTIN)/cd $(BUILTIN)/echo $(BUILTIN)/env \
-#	$(BUILTIN)/exit $(BUILTIN)/export $(BUILTIN)/pwd \
-#	$(BUILTIN)/unset $(BUILTIN)/handle_builtin \
+	$(EXECUTOR)/handle_redirects $(EXECUTOR)/handle_execution\
+	$(BUILTIN)/handle_builtin $(BUILTIN)/echo \
+	$(BUILTIN)/cd $(BUILTIN)/env \
+	$(BUILTIN)/exit $(BUILTIN)/export \
+#	$(BUILTIN)/pwd (BUILTIN)/export_unset_env_exit \
+#	$(BUILTIN)/unset 
 
 FILES = \
 	main $(FILES_WITHOUT_MAIN)
@@ -69,7 +70,7 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)$(HASHTABLE)
 	@mkdir -p $(OBJS_DIR)$(PARSER)
 	@mkdir -p $(OBJS_DIR)$(EXECUTOR)
-#	@mkdir -p $(OBJS_DIR)$(BUILTIN)
+	@mkdir -p $(OBJS_DIR)$(BUILTIN)
 	@mkdir -p $(OBJS_DIR)handle_signal
 
 runTests:

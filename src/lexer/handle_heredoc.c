@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:11:45 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/11 22:51:35 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:52:07 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 int	create_heredoc_file(t_cmd *cmd, char *input, int action)
 {
 	int		fd;
+	char	*name;
 	char	*file;
 
-	file = ft_itoa(cmd->cmd_number);
+	name = ft_itoa(cmd->cmd_number);
+	file = ft_strjoin("/tmp/", name);
 	if (action == 1)
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND,
 				0666);
@@ -28,8 +30,8 @@ int	create_heredoc_file(t_cmd *cmd, char *input, int action)
 	ft_putstr_fd(input, fd);
 	ft_putstr_fd("\n", fd);
 	close(fd);
-	if (file)
-		free(file);
+	free(file);
+	free(name);
 	return (TRUE);
 }
 

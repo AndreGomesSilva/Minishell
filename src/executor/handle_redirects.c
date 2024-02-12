@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 15:12:44 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/11 16:11:55 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:08:24 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	handle_redirects(t_control *control)
 		{
 			if (ptr_arg->type == IOFILE)
 			{
-				create_files(ptr_arg->arg);
+				if (!create_files(ptr_arg->arg))
+					print_error(ptr_cmd, NO_FILE);
 				ptr_arg->type = NORM;
 				last_file = ptr_arg;
 			}

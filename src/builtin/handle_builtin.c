@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 23:49:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 01:16:18 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/12 19:51:28 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	handle_builtin(char **cmd, int fd, t_control *control)
 {
-	const enum e_type_error	builtin = is_builtin(cmd[0]);
+	const enum e_type_builtin	builtin = is_builtin(cmd[0]);
 
 	if (builtin == CD || builtin == ECHO || builtin == EXPORT
 		|| builtin == UNSET || builtin == ENV || builtin == EXIT
@@ -54,4 +54,5 @@ int	handle_builtin(char **cmd, int fd, t_control *control)
 	}
 	else
 		return (FALSE);
+	return (TRUE);
 }
