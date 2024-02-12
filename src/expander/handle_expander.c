@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:22 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/11 20:24:08 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/12 16:38:01 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,12 @@ static char	*ft_join_var(t_control *control, char *str, char *var, char *end)
 char	*get_var_in_node(t_control *control, char *str)
 {
 	char	*var;
-	char	*ptr_str;
+	char	*new_str;
 	int		i;
 	int		j;
 
 	i = 0;
-	ptr_str = str;
-	while (str[i])
+	while (str && str[i])
 	{
 		if (is_variable(&str[i]))
 		{
@@ -56,14 +55,16 @@ char	*get_var_in_node(t_control *control, char *str)
 			while (ft_isalnum(str[i + 1 + j]) || str[i + 1 + j] == '_')
 				j++;
 			var = ft_substr(&str[i + 1], 0, j);
-			str = ft_join_var(control, ft_substr(str, 0, i), var, &str[i + 1
+			new_str = ft_join_var(control, ft_substr(str, 0, i), var, &str[i + 1
 					+ j]);
+			if (new_str != NULL)
+				free(str);
+			str = new_str;
 			i = 0;
 		}
-		i++;
+		if (*str)
+			i++;
 	}
-	if (ptr_str && *str == '\0')
-		free(ptr_str);
 	return (str);
 }
 

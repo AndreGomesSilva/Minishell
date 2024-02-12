@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/11 16:25:18 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/11 23:36:38 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ char	**create_full_cmd(t_cmd *cmd)
 		len = count_args(ptr_cmd);
 		ptr_arg = ptr_cmd->list_args;
 		args = (char **)ft_calloc(len + 1, sizeof(char *));
-		if (ptr_cmd->type < REDIRECT_HERD)
+		if (ptr_cmd->cmd && ptr_cmd->type < REDIRECT_HERD)
 			args[i++] = ft_strdup(ptr_cmd->cmd);
 		while (ptr_arg)
 		{
-			if (ptr_arg->type < REDIRECT_HERD)
+			if (ptr_arg->arg && ptr_arg->type < REDIRECT_HERD)
 				args[i++] = ft_strdup(ptr_arg->arg);
 			ptr_arg = ptr_arg->next;
 		}
