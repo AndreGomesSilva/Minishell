@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:33:41 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 01:12:09 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/12 22:31:32 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	handle_env(t_control *control)
 {
-	print_hash_table(control->env_table);	
+	print_env(control->env_table);	
 }
