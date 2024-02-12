@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 00:34:19 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/12 01:23:55 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,18 +183,18 @@ void					copy_env(t_control *control, char **env);
 void					print_hash_table(t_table *table);
 void					print_sort_env(t_control *control);
 void					matrix_quicksort(char *arr[], int start, int end);
-void					update_env_var(t_control *control, char *key,
-							char *value);
-void					remove_env_var(t_control *control, char *key);
-t_ht_item				*create_hash_node(char *key, char *value);
+void					update_env_var(t_control *control, const char *key,
+							const char *value);
+void					remove_env_var(t_control *control, const char *key);
+t_ht_item				*create_hash_node(const char *key, const char *value);
 
 // builtin
 int						handle_builtin(char **cmd, int fd, t_control *control);
-char					*make_cd(char *cmd);
-int						handle_cd(char *cmd);
+char					*make_cd(t_control *control, char *pwd_target);
+int						handle_cd(t_control *control, char *cmd);
 int						handle_export(char **cmd);
 int						handle_unset(char **cmd);
-int						handle_env(char **cmd);
+void					handle_env(t_control *control);
 void					handle_exit(t_control *control);
 void					handle_echo(char **cmd, int fd);
 int						handle_pwd(char **cmd);

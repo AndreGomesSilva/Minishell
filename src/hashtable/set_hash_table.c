@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:59:36 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 17:59:37 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/12 01:23:08 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int	hash_function(const char *str, int size)
 	return ((int)hash);
 }
 
-t_ht_item	*create_hash_node(char *key, char *value)
+t_ht_item	*create_hash_node(const char *key, const char *value)
 {
 	t_ht_item	*node;
 
 	node = (t_ht_item *)ft_calloc(1, sizeof(t_ht_item));
-	node->key = key;
-	node->value = value;
+	node->key = (char *)key;
+	node->value = (char *)value;
 	node->next = NULL;
 	return (node);
 }

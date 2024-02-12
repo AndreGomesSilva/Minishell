@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:59:18 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 18:23:52 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/12 01:25:28 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	print_hash_table(t_table *table)
 	}
 }
 
-void	remove_env_var(t_control *control, char *key)
+void	remove_env_var(t_control *control, const char *key)
 {
 	t_ht_item	*node;
 	t_ht_item	*previous_node;
 	int			index;
 
 	index = hash_function(key, control->env_table->size);
-	node = get_var_node(control, key);
+	node = get_var_node(control, (char *)key);
 	previous_node = control->env_table->items[index];
 	if (previous_node == node && previous_node->next)
 	{
@@ -66,18 +66,18 @@ void	remove_env_var(t_control *control, char *key)
 	}
 }
 
-void	update_env_var(t_control *control, char *key, char *value)
+void	update_env_var(t_control *control, const char *key, const char *value)
 {
 	int			index;
 	t_ht_item	*temp_node;
 	t_ht_item	*node;
 
 	index = hash_function(key, control->env_table->size);
-	node = get_var_node(control, key);
+	node = get_var_node(control, (char *)key);
 	if (node)
 	{
 		free(node->value);
-		node->value = value;
+		node->value = (char *)value;
 	}
 	else
 	{

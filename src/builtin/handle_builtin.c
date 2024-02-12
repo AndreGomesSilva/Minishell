@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 23:49:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 00:58:53 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/12 01:16:18 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	handle_builtin(char **cmd, int fd, t_control *control)
 	{
 		if (builtin == CD)
 		{
-			if (handle_cd(cmd[1]) == TRUE)
+			if (handle_cd(control, cmd[1]) == TRUE)
 				return (TRUE);
 		}
 		else if (builtin == ECHO)
@@ -35,6 +35,12 @@ int	handle_builtin(char **cmd, int fd, t_control *control)
 			handle_exit(control);
 			return (TRUE);
 		}
+		else if (builtin == ENV)
+		{
+			handle_env(control);
+				return (TRUE);
+		}
+				
 		// else if (builtin == 0)
 		//		handle_env(cmd, fd);
 		//	else if (ft_strncmp(cmd[0], "export", 7) == 0)
