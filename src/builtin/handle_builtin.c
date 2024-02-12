@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 23:49:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 23:25:07 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/12 23:26:09 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	handle_builtin(char **cmd, int fd, t_control *control)
 {
-	const enum e_type_builtin	builtin = is_builtin(cmd[0]);
 	const enum e_type_builtin	builtin = is_builtin(cmd[0]);
 
 	if (builtin == CD || builtin == ECHO || builtin == EXPORT

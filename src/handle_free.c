@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:17:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/11 16:06:24 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/12 23:26:44 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_ht_item	*free_node(t_ht_item *node)
 	return (next_node);
 }
 
-void	free_hash_table(t_table *table)
+void	free_env(t_table *table)
 {
 	int			i;
 	t_ht_item	**items;
@@ -98,7 +98,7 @@ void	free_cmd(t_control *control)
 void	free_control(t_control *control)
 {
 	if (control->env_table)
-		free_hash_table(control->env_table);
+		free_env(control->env_table);
 	if (control->env)
 		free_matrix(control->env);
 	if (control->prompt)

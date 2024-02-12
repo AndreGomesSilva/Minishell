@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 23:24:29 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/12 23:25:53 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ int						get_size_matrix(char **env);
 int						get_size_env_key(const char *str);
 t_table					*init_table(char **env);
 void					copy_env(t_control *control, char **env);
-void					print_hash_table(t_table *table);
+void					print_env(t_table *table);
 void					print_sort_env(t_control *control);
 void					sort_matrix(char *arr[], int start, int end);
 void					update_env(t_control *control, const char *key,
