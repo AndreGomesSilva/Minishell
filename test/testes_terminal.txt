@@ -18,5 +18,10 @@ Caso algum arquivo do meio nao tenha permissao para ser alterado/acessado, a exe
 --------------------------------------------------------
 Comandos sem PIP devem ser rodados no pai, sem fork.
 --------------------------------------------------------
+cat << eo"f
+
+heredoc infinito com aspas quebrada.
+--------------------------------------------------------
+--------------------------------------------------------
 
 --------------------------------------------------------

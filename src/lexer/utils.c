@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:17:54 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/11 15:48:33 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/11 21:48:38 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	str_compare(char *s1, char *s2)
 	int	result;
 
 	result = 0;
-	len1 = strlen(s1);
-	len2 = strlen(s2);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
 	if (len2 > len1)
 		result = ft_strncmp(s1, s2, len2);
 	else

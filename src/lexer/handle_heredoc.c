@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:11:45 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/11 16:34:11 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/11 21:10:59 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	heredoc_input(t_control *control, t_cmd *cmd, char *eof, int action)
 	while (flux_ctrl)
 	{
 		input = readline("> ");
-		if (input && *input)
+		if (input)
 		{
 			new_eof = remove_quotes(eof);
 			flux_ctrl = str_compare(new_eof, input);
@@ -57,6 +57,8 @@ void	heredoc_input(t_control *control, t_cmd *cmd, char *eof, int action)
 			free(input);
 			free(new_eof);
 		}
+		else
+			receive_signal_ctrl_d(control);
 	}
 }
 
