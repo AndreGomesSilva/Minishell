@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/11 23:11:35 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/12 00:34:19 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ typedef struct s_control
 }						t_control;
 
 //	common
-
 void					free_control(t_control *control);
 t_ht_item				*free_node(t_ht_item *node);
 void					print_error(t_cmd *ptr_cmd, enum e_type_error error);
@@ -190,13 +189,13 @@ void					remove_env_var(t_control *control, char *key);
 t_ht_item				*create_hash_node(char *key, char *value);
 
 // builtin
-int						handle_builtin(char **cmd, int fd);
+int						handle_builtin(char **cmd, int fd, t_control *control);
 char					*make_cd(char *cmd);
-int						handle_builtin_cd(char *cmd);
+int						handle_cd(char *cmd);
 int						handle_export(char **cmd);
 int						handle_unset(char **cmd);
 int						handle_env(char **cmd);
-int						handle_exit(char **cmd);
+void					handle_exit(t_control *control);
 void					handle_echo(char **cmd, int fd);
 int						handle_pwd(char **cmd);
 

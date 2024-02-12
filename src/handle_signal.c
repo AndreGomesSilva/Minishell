@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:39:05 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/11 23:59:26 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	receive_sig_int(int sig)
 	extern t_control	*g_control;
 
 	(void)sig;
-	free_cmd(g_control);
+	free_control(g_control);
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
