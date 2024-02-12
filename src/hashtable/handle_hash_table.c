@@ -6,13 +6,13 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:59:18 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 01:25:28 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/12 23:33:03 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	print_hash_table(t_table *table)
+void	print_env(t_table *table)
 {
 	int			i;
 	t_ht_item	*items;
@@ -38,7 +38,7 @@ void	print_hash_table(t_table *table)
 	}
 }
 
-void	remove_env_var(t_control *control, const char *key)
+void	remove_env(t_control *control, const char *key)
 {
 	t_ht_item	*node;
 	t_ht_item	*previous_node;
@@ -66,7 +66,7 @@ void	remove_env_var(t_control *control, const char *key)
 	}
 }
 
-void	update_env_var(t_control *control, const char *key, const char *value)
+void	update_env(t_control *control, const char *key, const char *value)
 {
 	int			index;
 	t_ht_item	*temp_node;

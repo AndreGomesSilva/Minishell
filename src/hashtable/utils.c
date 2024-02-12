@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:51 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:27:01 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/12 23:38:57 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ int	partition(char *arr[], int start, int end)
 	return (i + 1);
 }
 
-void	matrix_quicksort(char *arr[], int start, int end)
+void	sort_matrix(char *arr[], int start, int end)
 {
 	int	pivot;
 
 	if (start < end)
 	{
 		pivot = partition(arr, start, end);
-		matrix_quicksort(arr, start, pivot - 1);
-		matrix_quicksort(arr, pivot + 1, end);
+		sort_matrix(arr, start, pivot - 1);
+		sort_matrix(arr, pivot + 1, end);
 	}
 }
 
@@ -68,7 +68,7 @@ int	ft_pow(int base, int exponent)
 	return (result);
 }
 
-int	len_env(char **env)
+int	get_size_matrix(char **env)
 {
 	int	i;
 
@@ -78,7 +78,7 @@ int	len_env(char **env)
 	return (i);
 }
 
-int	strlen_var_name(const char *str)
+int	get_size_env_key(const char *str)
 {
 	int	i;
 

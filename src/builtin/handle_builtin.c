@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 23:49:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 23:26:09 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/12 23:30:01 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	handle_builtin(char **cmd, int fd, t_control *control)
 		}
 		else if (builtin == ENV)
 		{
-			handle_env_b(control);
+			handle_env_builtin(control);
 			return (TRUE);
 		}
 		// else if (builtin == EXPORT)

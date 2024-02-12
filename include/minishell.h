@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 23:25:53 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/12 23:29:52 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,9 +192,9 @@ t_ht_item				*create_hash_node(const char *key, const char *value);
 int						handle_builtin(char **cmd, int fd, t_control *control);
 char					*make_cd(t_control *control, char *pwd_target);
 int						handle_cd(t_control *control, char *cmd);
-int						handle_export(char **cmd);
+int						handle_export(t_control *control, char **cmd);
 int						handle_unset(char **cmd);
-void					handle_env_b(t_control *control);
+void					handle_env_builtin(t_control *control);
 void					handle_exit(t_control *control);
 void					handle_echo(char **cmd, int fd);
 int						handle_pwd(char **cmd);
