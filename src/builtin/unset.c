@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:33:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:58:08 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/13 00:44:30 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+// TODO: apagar varios comandos
 //int	handle_unset(char **cmd)
 //{
 //

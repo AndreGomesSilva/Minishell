@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirects.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 15:12:44 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/12 17:08:24 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/13 00:53:04 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	handle_redirects(t_control *control)
 			if (ptr_arg->type == IOFILE)
 			{
 				if (!create_files(ptr_arg->arg))
-					print_error(ptr_cmd, NO_FILE);
+					print_error(ptr_cmd, E_NO_FILE);
 				ptr_arg->type = NORM;
 				last_file = ptr_arg;
 			}

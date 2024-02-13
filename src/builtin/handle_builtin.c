@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 23:49:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 23:30:01 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/13 01:14:58 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,40 @@
 
 int	handle_builtin(char **cmd, int fd, t_control *control)
 {
-	const enum e_type_builtin	builtin = is_builtin(cmd[0]);
+	enum e_type_builtin	builtin;
 
-	if (builtin == CD || builtin == ECHO || builtin == EXPORT
-		|| builtin == UNSET || builtin == ENV || builtin == EXIT
-		|| builtin == PWD)
+	builtin = is_builtin(cmd[0]);
+	if (builtin == B_CD || builtin == B_ECHO || builtin == B_EXPORT
+		|| builtin == B_UNSET || builtin == B_ENV || builtin == B_EXIT
+		|| builtin == B_PWD)
 	{
-		if (builtin == CD)
+		if (builtin == B_CD)
 		{
 			if (handle_cd(control, cmd[1]) == TRUE)
 				return (TRUE);
 		}
-		else if (builtin == ECHO)
+		else if (builtin == B_ECHO)
 		{
 			handle_echo(cmd, fd);
 			return (TRUE);
 		}
-		else if (builtin == EXIT)
+		else if (builtin == B_EXIT)
 		{
 			handle_exit(control);
 			return (TRUE);
 		}
-		else if (builtin == ENV)
+		else if (builtin == B_ENV)
 		{
 			handle_env_builtin(control);
 			return (TRUE);
 		}
-		// else if (builtin == EXPORT)
-		// {
-		// 	handle_export(control, cmd);
-		// 	return (TRUE);
-		// }
+		else if (builtin == B_EXPORT)
+		{
+			handle_export(control, cmd);
+			return (TRUE);
+		}
 		//	else if (ft_strncmp(cmd[0], "unset", 6) == 0)
 		//		handle_unset(cmd, fd);
-		//	else if (ft_strncmp(cmd[0], "cd", 3) == 0)
-		//		handle_cd(cmd, fd);
 		//	else if (ft_strncmp(cmd[0], "pwd", 4) == 0)
 		//		handle_pwd(cmd, fd);
 	}

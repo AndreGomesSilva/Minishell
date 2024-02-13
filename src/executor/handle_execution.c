@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_execution.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:21:09 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/12 21:58:43 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/13 01:18:28 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	single_execution_builtin(t_control *control)
 
 	ptr_cmd = control->cmd;
 	fd = STDOUT_FILENO;
+	control->cmd_actual = control->cmd;
 	handle_builtin(ptr_cmd->cmd_and_args, fd, control);
 }
 

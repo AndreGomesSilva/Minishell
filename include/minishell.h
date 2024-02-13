@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 23:29:52 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/13 00:44:09 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 // #endif
 
 # include "../libft/include/libft.h"
+# include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <fcntl.h>
 
 # define TRUE 1
 # define FALSE 0
@@ -51,23 +51,24 @@ enum					e_type_arg
 
 enum					e_type_builtin
 {
-	NOBT,
-	ECHO,
-	CD,
-	PWD,
-	ENV,
-	EXPORT,
-	UNSET,
-	EXIT
+	B_NOBT,
+	B_ECHO,
+	B_CD,
+	B_PWD,
+	B_ENV,
+	B_EXPORT,
+	B_UNSET,
+	B_EXIT
 };
 
 enum					e_type_error
 {
-	NO_ERROR,
-	CMD_NO_FOUND,
-	NO_FILE,
-	FATAL,
-	SYNTAX,
+	E_NO_ERROR,
+	E_CMD_NO_FOUND,
+	E_NO_FILE,
+	E_FATAL,
+	E_SYNTAX,
+	E_EXPORT
 };
 
 typedef struct s_ht_item
@@ -113,6 +114,7 @@ typedef struct s_control
 	char				**env;
 	char				*user;
 	char				*prompt;
+	struct s_cmd		*cmd_actual;
 	struct s_cmd		*cmd;
 }						t_control;
 
@@ -192,14 +194,14 @@ t_ht_item				*create_hash_node(const char *key, const char *value);
 int						handle_builtin(char **cmd, int fd, t_control *control);
 char					*make_cd(t_control *control, char *pwd_target);
 int						handle_cd(t_control *control, char *cmd);
-int						handle_export(t_control *control, char **cmd);
+void					handle_export(t_control *control, char **cmd);
 int						handle_unset(char **cmd);
 void					handle_env_builtin(t_control *control);
 void					handle_exit(t_control *control);
 void					handle_echo(char **cmd, int fd);
 int						handle_pwd(char **cmd);
 
-//executor
+// executor
 int						handle_redirects(t_control *control);
 void					handle_execution(t_control *control);
 

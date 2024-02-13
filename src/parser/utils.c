@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:24 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/11 15:55:48 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/13 00:52:55 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ int	is_builtin(char *cmd)
 	if (!cmd)
 		return (FALSE);
 	if (!str_compare(cmd, "echo"))
-		return (ECHO);
+		return (B_ECHO);
 	else if (!str_compare(cmd, "cd"))
-		return (CD);
+		return (B_CD);
 	else if (!str_compare(cmd, "pwd"))
-		return (PWD);
+		return (B_PWD);
 	else if (!str_compare(cmd, "env"))
-		return (ENV);
+		return (B_ENV);
 	else if (!str_compare(cmd, "export"))
-		return (EXPORT);
+		return (B_EXPORT);
 	else if (!str_compare(cmd, "unset"))
-		return (UNSET);
+		return (B_UNSET);
 	else if (!str_compare(cmd, "exit"))
-		return (EXIT);
-	return (NOBT);
+		return (B_EXIT);
+	return (B_NOBT);
 }

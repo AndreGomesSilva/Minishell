@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/11 23:36:38 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/13 00:52:20 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	handle_parser(t_control *control)
 	ptr_cmd = control->cmd;
 	if (handle_syntax_error(ptr_cmd))
 	{
-		print_error(ptr_cmd, SYNTAX);
+		print_error(ptr_cmd, E_SYNTAX);
 		return (FALSE);
 	}
 	while (ptr_cmd)
@@ -132,7 +132,7 @@ int	handle_parser(t_control *control)
 		if (!is_builtin(ptr_cmd->cmd) && !is_valid_cmd(ptr_cmd))
 		{
 			type_io_file(ptr_cmd);
-			print_error(ptr_cmd, CMD_NO_FOUND);
+			print_error(ptr_cmd, E_CMD_NO_FOUND);
 			return (FALSE);
 		}
 		if (is_absolute_path(ptr_cmd->cmd))

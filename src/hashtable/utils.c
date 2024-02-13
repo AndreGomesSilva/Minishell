@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:51 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 23:38:57 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/13 00:52:02 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,12 @@ int	get_size_matrix(char **env)
 
 int	get_size_env_key(const char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (str[i] && str[i] != '=')
 		i++;
+	if(ft_strlen(str) == i)
+		return (-1);
 	return (i);
 }
