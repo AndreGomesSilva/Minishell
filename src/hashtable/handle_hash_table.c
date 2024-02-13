@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_hash_table.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:59:18 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 23:33:03 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/12 21:53:15by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,34 @@ void	print_env(t_table *table)
 	}
 }
 
+void	remove_node_env(t_control *control, t_ht_item *previous_node,
+		t_ht_item *node, int index)
+{
+	if (previous_node == node && !previous_node->next)
+	{
+		control->env_table->items[index] = previous_node->next;
+		control->env_table->count--;
+		free_node(node);
+	}
+	else
+	{
+		while (previous_node)
+		{
+			if (previous_node->next == node)
+			{
+				if (previous_node->next->next)
+					previous_node->next = previous_node->next->next;
+				else
+					previous_node->next = NULL;
+				control->env_table->count--;
+				free_node(node);
+				break ;
+			}
+			previous_node = previous_node->next;
+		}
+	}
+}
+
 void	remove_env(t_control *control, const char *key)
 {
 	t_ht_item	*node;
@@ -47,23 +75,7 @@ void	remove_env(t_control *control, const char *key)
 	index = hash_function(key, control->env_table->size);
 	node = get_var_node(control, (char *)key);
 	previous_node = control->env_table->items[index];
-	if (previous_node == node && previous_node->next)
-	{
-		control->env_table->items[index] = previous_node->next;
-		free_node(node);
-	}
-	else
-	{
-		while (previous_node && previous_node->next)
-		{
-			if (previous_node->next == node)
-			{
-				previous_node->next = free_node(node);
-				break ;
-			}
-			previous_node = previous_node->next;
-		}
-	}
+	remove_node_env(control, previous_node, node, index);
 }
 
 void	update_env(t_control *control, const char *key, const char *value)
