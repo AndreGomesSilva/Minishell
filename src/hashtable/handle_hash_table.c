@@ -75,7 +75,8 @@ void	remove_env(t_control *control, const char *key)
 	index = hash_function(key, control->env_table->size);
 	node = get_var_node(control, (char *)key);
 	previous_node = control->env_table->items[index];
-	remove_node_env(control, previous_node, node, index);
+	if(node)
+		remove_node_env(control, previous_node, node, index);
 }
 
 void	update_env(t_control *control, const char *key, const char *value)
