@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/14 03:25:30 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/14 13:53:18 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ void					handle_unset(t_control *control, char **cmd);
 void					handle_env_builtin(t_control *control);
 void					handle_exit(t_control *control);
 void					handle_echo(char **cmd, int fd);
-int						handle_pwd(char **cmd);
+void					handle_pwd(char **cmd);
 
 // executor
 int						handle_redirects(t_control *control);

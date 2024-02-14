@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:22 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/14 03:22:20 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:15:57 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static int	get_var_in_arg(t_control *control, t_cmd *cmd)
 {
 	t_arg	*temp_arg_node;
 	t_arg	*arg_node;
-	char	*temp_arg;
 
 	arg_node = cmd->list_args;
 	while (arg_node)
@@ -81,17 +80,7 @@ static int	get_var_in_arg(t_control *control, t_cmd *cmd)
 		if (arg_node->type == BROKEN_QUOTES)
 			return (FALSE);
 		if (arg_node->type == VAR_EXPAND)
-		{
-			if (ft_strncmp(cmd->cmd, "unset", 6))
 				arg_node->arg = get_var_in_node(control, arg_node->arg);
-			else if (arg_node->arg[0] == '$')
-			{
-				temp_arg = arg_node->arg;
-				arg_node->arg = ft_substr(arg_node->arg, 1,
-						ft_strlen(arg_node->arg) - 1);
-				free(temp_arg);
-			}
-		}
 		arg_node = temp_arg_node;
 	}
 	return (TRUE);
