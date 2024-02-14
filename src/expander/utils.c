@@ -3,21 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:10 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:23:41 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/14 20:31:54 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	valid_braces(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '{')
+		{
+			if (str[i + 1] && ft_isdigit(str[i + 1]))
+				return (FALSE);
+			while (str[i])
+			{
+				if (str[i] == '{')
+					return (FALSE);
+				else if (str[i] == '}')
+					return (TRUE);
+				i++;
+			}
+		}	
+		if (str[i])
+			i++;
+	}
+	return (FALSE);
+}
 
 int	is_variable(char *str)
 {
 	if (str[0] && str[1] && str[0] == '$' && ft_isdigit(str[1]))
 		return (0);
 	else if (str[0] && str[1] && str[0] == '$' && (ft_isalnum(str[1])
-			|| str[1] == '_'))
+			|| str[1] == '_' || valid_braces(&str[1])))
 		return (1);
 	return (0);
 }

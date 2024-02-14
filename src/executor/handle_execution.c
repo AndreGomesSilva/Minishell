@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_execution.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:21:09 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/13 01:18:28 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:43:53 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ void	handle_execution(t_control *control)
 	if (!n_pipes && is_builtin(control->cmd->cmd))
 		single_execution_builtin(control);
 // 	else
-// 	 	multi_execution(control, n_pipes);
+// 	 	multi_execution(control);
 }
