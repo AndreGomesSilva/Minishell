@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 23:31:53 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/11 15:49:26 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/13 22:40:21 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,29 @@ char	*remove_quotes(char *str)
 	if (!result)
 		result = ft_strdup(ptr_str);
 	return (result);
+}
+
+void	handle_quotes_parsing(t_control *control)
+{
+	t_cmd	*ptr_cmd;
+	char	*temp_cmd;
+	t_arg	*ptr_arg;
+	char	*temp_arg;
+
+	ptr_cmd = control->cmd;
+	while (ptr_cmd)
+	{
+		ptr_arg = ptr_cmd->list_args;
+		temp_cmd = remove_quotes(ptr_cmd->cmd);
+		free(ptr_cmd->cmd);
+		ptr_cmd->cmd = temp_cmd;
+		while (ptr_arg)
+		{
+			temp_arg = remove_quotes(ptr_arg->arg);
+			free(ptr_arg->arg);
+			ptr_arg->arg = temp_arg;
+			ptr_arg = ptr_arg->next;
+		}
+		ptr_cmd = ptr_cmd->next;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/13 00:44:09 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/13 22:37:41 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ int						handle_syntax_error(t_cmd *cmd);
 int						is_absolute_path(char *cmd);
 
 //	handle_lexer
+void					handle_quotes_parsing(t_control *control);
 int						str_compare(char *s1, char *s2);
 char					*get_next_eof(t_cmd *cmd);
 char					*remove_quotes(char *str);

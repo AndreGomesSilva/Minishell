@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/13 00:52:20 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/13 22:39:02 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int	handle_parser(t_control *control)
 		print_error(ptr_cmd, E_SYNTAX);
 		return (FALSE);
 	}
+	handle_quotes_parsing(control);
 	while (ptr_cmd)
 	{
 		ptr_cmd->path_cmd = handle_bin_path(control, ptr_cmd);
