@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/13 22:37:41 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/14 03:25:30 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ enum					e_type_builtin
 
 enum					e_type_error
 {
+	E_NULL,
 	E_NO_ERROR,
 	E_CMD_NO_FOUND,
 	E_NO_FILE,
@@ -122,6 +123,7 @@ typedef struct s_control
 void					free_control(t_control *control);
 t_ht_item				*free_node(t_ht_item *node);
 void					print_error(t_cmd *ptr_cmd, enum e_type_error error);
+void					print_simple_error(char *error);
 void					handle_config(t_control **control, char **env);
 void					handle_signal(void);
 int						receive_signal_ctrl_d(t_control *control);
@@ -196,7 +198,7 @@ int						handle_builtin(char **cmd, int fd, t_control *control);
 char					*make_cd(t_control *control, char *pwd_target);
 int						handle_cd(t_control *control, char *cmd);
 void					handle_export(t_control *control, char **cmd);
-int						handle_unset(char **cmd);
+void					handle_unset(t_control *control, char **cmd);
 void					handle_env_builtin(t_control *control);
 void					handle_exit(t_control *control);
 void					handle_echo(char **cmd, int fd);

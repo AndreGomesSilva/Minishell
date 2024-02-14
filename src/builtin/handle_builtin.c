@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 23:49:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/13 01:14:58 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/14 03:19:12 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ int	handle_builtin(char **cmd, int fd, t_control *control)
 		}
 		else if (builtin == B_EXPORT)
 		{
-			handle_export(control, cmd);
+			handle_export(control ,cmd);
 			return (TRUE);
 		}
-		//	else if (ft_strncmp(cmd[0], "unset", 6) == 0)
-		//		handle_unset(cmd, fd);
+		else if (builtin == B_UNSET)
+			handle_unset(control, cmd);
 		//	else if (ft_strncmp(cmd[0], "pwd", 4) == 0)
 		//		handle_pwd(cmd, fd);
 	}

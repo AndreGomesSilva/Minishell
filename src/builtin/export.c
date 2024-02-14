@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:33:15 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/13 01:13:38 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/14 01:49:49 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	handle_export(t_control *control, char **cmd)
 	i = 0;
 	if (!cmd[1])
 	{
-		print_sort_env(control);
+		print_simple_error("EXPORT");
 		return ;
 	}
 	while (i++, cmd[i])
@@ -32,6 +32,6 @@ void	handle_export(t_control *control, char **cmd)
 				ft_substr(cmd[i], position_equal + 1, ft_strlen(cmd[i])));
 		}
 		else
-			print_error(control->cmd_actual, E_EXPORT);
+			print_simple_error("EXPORT");
 	}
 }
