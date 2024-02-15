@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:51 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/13 00:52:02 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:44:48 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	get_size_env_key(const char *str)
 	i = 0;
 	while (str[i] && str[i] != '=')
 		i++;
-	if(ft_strlen(str) == i)
+	if (ft_strlen(str) == i)
 		return (-1);
 	return (i);
 }

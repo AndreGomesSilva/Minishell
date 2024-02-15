@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:21:09 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/14 16:43:53 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/15 20:00:58 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,13 @@ void	handle_execution(t_control *control)
 {
 	int		n_pipes;
 
+	if (control->fatal_err)
+	{
+		printf("FATAL ERROR \n");
+		control->fatal_err = 0;
+		free_cmd(control);
+		return ;
+	}
 	n_pipes = count_pipes(control->cmd);
 	if (!n_pipes && is_builtin(control->cmd->cmd))
 		single_execution_builtin(control);

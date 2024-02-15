@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:11:45 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/13 00:51:10 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/15 20:04:03 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int	create_heredoc_file(t_cmd *cmd, char *input, int action)
 	name = ft_itoa(cmd->cmd_number);
 	file = ft_strjoin("/tmp/", name);
 	if (action == 1)
-		fd = open(file, O_WRONLY | O_CREAT | O_APPEND,
-				0666);
+		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	else
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (fd == -1)

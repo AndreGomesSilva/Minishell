@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:07:24 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/13 00:51:37 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/15 18:32:03 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ int	find_heredoc_arg(t_cmd *cmd)
 		if (arg->type == REDIRECT_HERD)
 		{
 			if (arg->next == NULL || arg->next->type > VAR_EXPAND)
-			{
-				print_error(cmd, E_SYNTAX);
 				return (FALSE);
-			}
 			else if (arg->next->type <= VAR_EXPAND)
 			{
 				arg->next->type = DOC;
@@ -81,10 +78,7 @@ int	find_heredoc_cmd(t_cmd *cmd)
 	if (cmd->type == REDIRECT_HERD)
 	{
 		if (cmd->list_args == NULL || cmd->list_args->type > VAR_EXPAND)
-		{
-			print_error(cmd, E_SYNTAX);
 			return (FALSE);
-		}
 		else if (cmd->list_args->type <= VAR_EXPAND)
 		{
 			cmd->list_args->type = DOC;

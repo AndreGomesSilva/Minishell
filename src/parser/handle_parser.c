@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/13 22:39:02 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/15 20:05:33 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,15 @@ char	*new_cmd_absolute_path(t_cmd *cmd)
 	return (result);
 }
 
-int	handle_parser(t_control *control)
+void	handle_parser(t_control *control)
 {
 	t_cmd	*ptr_cmd;
 
 	ptr_cmd = control->cmd;
 	if (handle_syntax_error(ptr_cmd))
 	{
-		print_error(ptr_cmd, E_SYNTAX);
-		return (FALSE);
+		control->fatal_err = 1;
+		return ;
 	}
 	handle_quotes_parsing(control);
 	while (ptr_cmd)
@@ -133,13 +133,14 @@ int	handle_parser(t_control *control)
 		if (!is_builtin(ptr_cmd->cmd) && !is_valid_cmd(ptr_cmd))
 		{
 			type_io_file(ptr_cmd);
-			print_error(ptr_cmd, E_CMD_NO_FOUND);
-			return (FALSE);
+			ptr_cmd->error_type = E_CMD_NO_FOUND;
 		}
-		if (is_absolute_path(ptr_cmd->cmd))
-			ptr_cmd->cmd = new_cmd_absolute_path(ptr_cmd);
-		ptr_cmd->cmd_and_args = create_full_cmd(ptr_cmd);
+		else
+		{
+			if (is_absolute_path(ptr_cmd->cmd))
+				ptr_cmd->cmd = new_cmd_absolute_path(ptr_cmd);
+			ptr_cmd->cmd_and_args = create_full_cmd(ptr_cmd);
+		}
 		ptr_cmd = ptr_cmd->next;
 	}
-	return (TRUE);
 }

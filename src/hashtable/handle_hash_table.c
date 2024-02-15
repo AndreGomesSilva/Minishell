@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:59:18 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 21:53:15by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:02:37 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	remove_env(t_control *control, const char *key)
 	index = hash_function(key, control->env_table->size);
 	node = get_var_node(control, (char *)key);
 	previous_node = control->env_table->items[index];
-	if(node)
+	if (node)
 		remove_node_env(control, previous_node, node, index);
 }
 

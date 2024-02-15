@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/14 13:53:18 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/15 17:44:41 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct s_control
 	char				*prompt;
 	struct s_cmd		*cmd_actual;
 	struct s_cmd		*cmd;
+	int					fatal_err;
 }						t_control;
 
 //	common
@@ -142,7 +143,7 @@ int						is_valid_cmd(t_cmd *cmd);
 void					free_matrix(char **matrix);
 char					*handle_bin_path(t_control *control, t_cmd *cmd);
 int						is_builtin(char *cmd);
-int						handle_parser(t_control *control);
+void					handle_parser(t_control *control);
 int						handle_syntax_error(t_cmd *cmd);
 int						is_absolute_path(char *cmd);
 

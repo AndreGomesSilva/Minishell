@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_expander.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:22 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/14 17:15:57 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/15 17:51:57 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	handle_expander(t_control *control)
 		if (!get_var_in_arg(control, cmd_node)
 			|| cmd_node->type == BROKEN_QUOTES)
 		{
-			print_error(cmd_node, E_SYNTAX);
+			control->fatal_err = 1;
 			return (FALSE);
 		}
 		cmd_node = cmd_node_temp;
