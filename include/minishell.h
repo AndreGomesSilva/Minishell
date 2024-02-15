@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/15 17:44:41 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/15 20:25:25 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void					print_simple_error(char *error);
 void					handle_config(t_control **control, char **env);
 void					handle_signal(void);
 int						receive_signal_ctrl_d(t_control *control);
-int						middleware(t_control *control);
+void					middleware(t_control *control);
 
 // handle_nodes
 void					create_node_cmd(t_control *control, char *cmd);
