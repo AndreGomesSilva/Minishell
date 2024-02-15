@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 23:49:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/14 03:19:12 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/15 23:21:01 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,20 @@ int	handle_builtin(char **cmd, int fd, t_control *control)
 		|| builtin == B_PWD)
 	{
 		if (builtin == B_CD)
-		{
-			if (handle_cd(control, cmd[1]) == TRUE)
-				return (TRUE);
-		}
+			handle_cd_builtin(control, cmd);
 		else if (builtin == B_ECHO)
-		{
-			handle_echo(cmd, fd);
-			return (TRUE);
-		}
+			handle_echo_builtin(cmd, fd);
 		else if (builtin == B_EXIT)
-		{
-			handle_exit(control);
-			return (TRUE);
-		}
+			handle_exit_builtin(control);
 		else if (builtin == B_ENV)
-		{
 			handle_env_builtin(control);
-			return (TRUE);
-		}
 		else if (builtin == B_EXPORT)
-		{
-			handle_export(control ,cmd);
-			return (TRUE);
-		}
+			handle_export_builtin(control, cmd);
 		else if (builtin == B_UNSET)
-			handle_unset(control, cmd);
-		//	else if (ft_strncmp(cmd[0], "pwd", 4) == 0)
-		//		handle_pwd(cmd, fd);
+			handle_unset_builtin(control, cmd);
+		else if (builtin == B_EXIT)
+			handle_pwd_builtin(control, cmd);
+		return (TRUE);
 	}
-	else
-		return (FALSE);
-	return (TRUE);
+	return (FALSE);
 }

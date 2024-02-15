@@ -48,7 +48,7 @@ RUN chsh -s $(which zsh)
 RUN git clone https://github.com/denysdovhan/spaceship-prompt.git "$HOME/.oh-my-zsh/themes/spaceship-prompt" --depth=1
 RUN ln -s "$HOME/.oh-my-zsh/themes/spaceship-prompt/spaceship.zsh-theme" "$HOME/.oh-my-zsh/themes/spaceship.zsh-theme"
 COPY .zshrc /root/.zshrc
-SHELL ["/bin/zsh", "-c"]
+# SHELL ["/bin/zsh", "-c"]
 
 # Plugins Zsh
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
