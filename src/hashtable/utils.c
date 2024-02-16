@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:51 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/15 14:44:48 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/15 22:24:09 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	partition(char *arr[], int start, int end)
 	j = start;
 	while (j < end)
 	{
-		j++;
 		if (ft_strncmp(arr[j], pivot, ft_strlen(arr[j])) < 0)
 		{
 			i++;
@@ -32,6 +31,7 @@ int	partition(char *arr[], int start, int end)
 			arr[i] = arr[j];
 			arr[j] = temp;
 		}
+		j++;
 	}
 	temp = arr[i + 1];
 	arr[i + 1] = arr[end];
