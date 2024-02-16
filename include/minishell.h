@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/16 01:15:30 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/16 00:13:35 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,8 @@ void					print_simple_error(char *error);
 void					handle_config(t_control **control, char **env);
 void					handle_signal(void);
 int						receive_signal_ctrl_d(t_control *control);
-void					middleware(t_control *control);
+int						receive_signal_ctrl_d_herdoc(t_control *control, char *eof);
+void					get_input(t_control *control);
 
 // handle_nodes
 void					create_node_cmd(t_control *control, char *cmd);
@@ -148,6 +149,7 @@ int						handle_syntax_error(t_cmd *cmd);
 int						is_absolute_path(char *cmd);
 
 //	handle_lexer
+int						verify_broken_quote(t_control *control);
 void					handle_quotes_parsing(t_control *control);
 int						str_compare(char *s1, char *s2);
 char					*get_next_eof(t_cmd *cmd);

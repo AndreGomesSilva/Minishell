@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_expander.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:22 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/16 01:09:07 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/16 00:04:01by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*get_var_in_node(t_control *control, char *str)
 	return (str);
 }
 
-static int	get_var_in_arg(t_control *control, t_cmd *cmd)
+static void	get_var_in_arg(t_control *control, t_cmd *cmd)
 {
 	t_arg	*temp_arg_node;
 	t_arg	*arg_node;
@@ -77,13 +77,10 @@ static int	get_var_in_arg(t_control *control, t_cmd *cmd)
 	while (arg_node)
 	{
 		temp_arg_node = arg_node->next;
-		if (arg_node->type == BROKEN_QUOTES)
-			return (FALSE);
 		if (arg_node->type == VAR_EXPAND)
 				arg_node->arg = get_var_in_node(control, arg_node->arg);
 		arg_node = temp_arg_node;
 	}
-	return (TRUE);
 }
 
 int	handle_expander(t_control *control)
@@ -97,12 +94,7 @@ int	handle_expander(t_control *control)
 		cmd_node_temp = cmd_node->next;
 		if (cmd_node->type == VAR_EXPAND)
 			cmd_node->cmd = get_var_in_node(control, cmd_node->cmd);
-		if (!get_var_in_arg(control, cmd_node)
-			|| cmd_node->type == BROKEN_QUOTES)
-		{
-			control->fatal_err = 1;
-			return (FALSE);
-		}
+		get_var_in_arg(control, cmd_node);
 		cmd_node = cmd_node_temp;
 	}
 	return (TRUE);

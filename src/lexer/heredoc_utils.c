@@ -6,11 +6,33 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:07:24 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/15 18:32:03 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/16 00:16:12 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int		verify_broken_quote(t_control *control)
+{
+	t_cmd *ptr_cmd;
+	t_arg *ptr_arg;
+
+	ptr_cmd = control->cmd;
+	if (ptr_cmd && ptr_cmd->type == BROKEN_QUOTES)
+		return (TRUE);
+	while (ptr_cmd)
+	{
+		ptr_arg = ptr_cmd->list_args;
+		while (ptr_arg)
+		{
+			if (ptr_arg->type == BROKEN_QUOTES)
+				return (TRUE);
+			ptr_arg = ptr_arg->next;
+		}
+		ptr_cmd = ptr_cmd->next;
+	}
+	return (FALSE);
+}
 
 char	*get_next_eof(t_cmd *cmd)
 {
@@ -30,20 +52,6 @@ char	*get_next_eof(t_cmd *cmd)
 		ptr_arg = ptr_arg->next;
 	}
 	return (eof);
-}
-
-void	infinit_prompt(t_control *control)
-{
-	char	*input;
-
-	while (1)
-	{
-		input = readline("> ");
-		if (input)
-			free(input);
-		else
-			receive_signal_ctrl_d(control);
-	}
 }
 
 int	find_heredoc_arg(t_cmd *cmd)
