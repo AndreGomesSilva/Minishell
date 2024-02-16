@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 15:12:44 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/14 20:34:04 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/16 14:48:14 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,55 +23,28 @@ int	create_files(char *file)
 	return (TRUE);
 }
 
-int	handle_redirects(t_control *control)
+char	*get_last_outfile(t_cmd *cmd)
 {
-	t_cmd	*ptr_cmd;
 	t_arg	*ptr_arg;
-	t_arg	*last_file;
+	char	*last_file;
 
-	ptr_cmd = control->cmd;
 	last_file = NULL;
-	while (ptr_cmd)
+	ptr_arg = cmd->list_args;
+	while (ptr_arg)
 	{
-		ptr_arg = ptr_cmd->list_args;
-		while (ptr_arg)
+		if (ptr_arg->type == REDIRECT_OUTPUT)
 		{
-			if (ptr_arg->type == IOFILE)
+			if (ptr_arg->next && ptr_arg->next->type == IOFILE)
 			{
-				if (!create_files(ptr_arg->arg))
-					print_error(ptr_cmd, E_NO_FILE);
-				ptr_arg->type = NORM;
-				last_file = ptr_arg;
+				if (!create_files(ptr_arg->next->arg))
+				{
+					print_error(cmd, E_NO_FILE);
+					return (NULL);
+				}
+				last_file = ptr_arg->next->arg;
 			}
-			ptr_arg = ptr_arg->next;
 		}
-		if (last_file)
-			last_file->type = IOFILE;
-		ptr_cmd = ptr_cmd->next;
+		ptr_arg = ptr_arg->next;
 	}
-	return (TRUE);
-}
-
-char	*get_infile(t_control *control)
-{
-	t_cmd	*ptr_cmd;
-	t_arg	*ptr_arg;
-	char	*result;
-
-	result = NULL;
-	ptr_cmd = control->cmd;
-	while (ptr_cmd)
-	{
-		ptr_arg = ptr_cmd->list_args;
-		if (ptr_arg && ptr_cmd->type == REDIRECT_INPUT)
-			return (ptr_arg->arg);
-		while (ptr_arg)
-		{
-			if (ptr_arg->type == REDIRECT_INPUT && ptr_arg->next)
-				return (ptr_arg->next->arg);
-			ptr_arg = ptr_arg->next;
-		}
-		ptr_cmd = ptr_cmd->next;
-	}
-	return (result);
+	return (last_file);
 }

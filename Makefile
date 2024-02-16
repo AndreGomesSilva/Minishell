@@ -34,6 +34,7 @@ FILES_WITHOUT_MAIN = \
 	$(PARSER)/handle_path $(PARSER)/utils \
 	$(PARSER)/handle_syntax_error \
 	$(EXECUTOR)/handle_redirects $(EXECUTOR)/handle_execution\
+	$(EXECUTOR)/handle_io \
 	$(BUILTIN)/handle_builtin $(BUILTIN)/echo \
 	$(BUILTIN)/cd $(BUILTIN)/env \
 	$(BUILTIN)/exit $(BUILTIN)/export \

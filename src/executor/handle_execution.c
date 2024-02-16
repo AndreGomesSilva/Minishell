@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_execution.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:21:09 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/16 01:16:23 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/16 15:27:50 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,21 @@ int	count_pipes(t_cmd *cmd)
 void	single_execution_builtin(t_control *control)
 {
 	t_cmd	*ptr_cmd;
+	int		pipe_fd[2];
+	int		old_stdin;
+	int		old_stdout;
 
 	ptr_cmd = control->cmd;
-	control->cmd_actual = control->cmd;
-	handle_builtin(ptr_cmd->cmd_and_args, control);
+	if (handle_io(ptr_cmd, pipe_fd))
+	{
+		old_stdin = dup(STDIN_FILENO);
+		old_stdout = dup(STDOUT_FILENO);
+		change_stdio(ptr_cmd->infile, ptr_cmd->outfile);
+		control->cmd_actual = control->cmd;
+		handle_builtin(ptr_cmd->cmd_and_args, control);
+		change_stdio(old_stdin, old_stdout);
+		close_fd(ptr_cmd->infile, ptr_cmd->outfile);
+	}
 }
 
 void	handle_execution(t_control *control)
@@ -53,6 +64,6 @@ void	handle_execution(t_control *control)
 	n_pipes = count_pipes(control->cmd);
 	if (ptr_cmd && !n_pipes && is_builtin(ptr_cmd->cmd))
 		single_execution_builtin(control);
-// 	else
-// 	 	multi_execution(control);
+	// 	else
+	// 			multi_execution(control);
 }

@@ -6,16 +6,16 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:07:24 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/16 00:16:12 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/16 15:30:58 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int		verify_broken_quote(t_control *control)
+int	verify_broken_quote(t_control *control)
 {
-	t_cmd *ptr_cmd;
-	t_arg *ptr_arg;
+	t_cmd	*ptr_cmd;
+	t_arg	*ptr_arg;
 
 	ptr_cmd = control->cmd;
 	if (ptr_cmd && ptr_cmd->type == BROKEN_QUOTES)

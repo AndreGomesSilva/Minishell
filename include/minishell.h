@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/16 00:13:35 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/16 15:30:06 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
 
 # define TRUE 1
 # define FALSE 0
@@ -128,7 +129,8 @@ void					print_simple_error(char *error);
 void					handle_config(t_control **control, char **env);
 void					handle_signal(void);
 int						receive_signal_ctrl_d(t_control *control);
-int						receive_signal_ctrl_d_herdoc(t_control *control, char *eof);
+int						ctrl_d_herdoc(t_control *control,
+							char *eof);
 void					get_input(t_control *control);
 
 // handle_nodes
@@ -207,8 +209,11 @@ void					handle_echo_builtin(t_control *control, char **cmd);
 void					handle_pwd_builtin(t_control *control, char **cmd);
 
 // executor
-int						handle_redirects(t_control *control);
 void					handle_execution(t_control *control);
+char					*get_last_outfile(t_cmd *cmd);
+int						handle_io(t_cmd *cmd, int *pipe_fd);
+void					close_fd(int in, int out);
+void					change_stdio(int in, int out);
 
 #endif
 
