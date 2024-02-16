@@ -37,8 +37,8 @@ FILES_WITHOUT_MAIN = \
 	$(BUILTIN)/handle_builtin $(BUILTIN)/echo \
 	$(BUILTIN)/cd $(BUILTIN)/env \
 	$(BUILTIN)/exit $(BUILTIN)/export \
-	$(BUILTIN)/unset 
-#	$(BUILTIN)/pwd \
+	$(BUILTIN)/unset \
+	$(BUILTIN)/pwd \
 
 FILES = \
 	main $(FILES_WITHOUT_MAIN)

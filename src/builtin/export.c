@@ -6,13 +6,13 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:33:15 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/15 20:59:50 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/16 01:02:41 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	handle_export(t_control *control, char **cmd)
+void	handle_export_builtin(t_control *control, char **cmd)
 {
 	int	i;
 	int	position_equal;

@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/15 23:28:02 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/16 01:15:30 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ char					*handle_home_path(t_control *control, char *path);
 // hashtable
 int						handle_env(t_control *control, char **env);
 t_ht_item				*get_var_node(t_control *control, char *key);
-char					*get_var(t_control *control, const char *key);
+char					*get_var_env(t_control *control, const char *key);
 int						hash_function(const char *str, int size);
 int						ft_pow(int base, int exponent);
 void					free_env(t_table *table);
@@ -195,13 +195,13 @@ void					remove_env(t_control *control, const char *key);
 t_ht_item				*create_hash_node(const char *key, const char *value);
 
 // builtin
-int						handle_builtin(char **cmd, int fd, t_control *control);
-void					handle_cd_builtin(t_control**control, char **cmd);
+int						handle_builtin(char **cmd, t_control *control);
+void					handle_cd_builtin(t_control *control, char **cmd);
 void					handle_export_builtin(t_control *control, char **cmd);
 void					handle_unset_builtin(t_control *control, char **cmd);
 void					handle_env_builtin(t_control *control);
 void					handle_exit_builtin(t_control *control);
-void					handle_echo_builtin(char **cmd, int fd);
+void					handle_echo_builtin(t_control *control, char **cmd);
 void					handle_pwd_builtin(t_control *control, char **cmd);
 
 // executor

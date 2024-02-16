@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_expander.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:22 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/15 17:51:57 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/16 01:09:07 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char	*ft_join_var(t_control *control, char *str, char *var, char *end)
 	char	*expand_var;
 
 	result = NULL;
-	expand_var = get_var(control, var);
+	expand_var = get_var_env(control, var);
 	if (expand_var)
 	{
 		expand_var = ft_strdup(expand_var);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:32:36 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 19:44:35 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/16 01:21:34 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,16 @@ char	*build_output_string(char **cmd, int *new_line)
 	return (buffer);
 }
 
-void	handle_echo(char **cmd, int fd)
+void	handle_echo_builtin(t_control *control, char **cmd)
 {
 	int		new_line;
 	char	*output_string;
 
+	(void) control;
 	new_line = 1;
 	output_string = build_output_string(cmd, &new_line);
-	write(fd, output_string, strlen(output_string));
+	printf("%s", output_string);
 	if (new_line)
-		write(fd, "\n", 1);
+		printf("\n");
 	free(output_string);
 }

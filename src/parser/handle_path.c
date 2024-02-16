@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:59 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:40:30 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/16 01:08:01 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*get_cmd_path(t_control *control, char *cmd)
 	char	**split_path;
 
 	bin = NULL;
-	path_var = get_var(control, "PATH");
+	path_var = get_var_env(control, "PATH");
 	if (path_var)
 	{
 		split_path = ft_split(path_var, ':');

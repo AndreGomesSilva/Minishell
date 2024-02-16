@@ -6,13 +6,13 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/15 23:17:19 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/16 01:02:07 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	handle_cd(t_control *control, char **cmd)
+void	handle_cd_builtin(t_control *control, char **cmd)
 {
 	char		*pwd_relative;
 	char		*pwd;

@@ -6,13 +6,13 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 23:19:27 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/16 01:10:18 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*get_var(t_control *control, const char *key)
+char	*get_var_env(t_control *control, const char *key)
 {
 	int			index;
 	char		*result;

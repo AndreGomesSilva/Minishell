@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_config.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/09 13:02:53 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/16 01:08:37 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	set_path(t_control *control)
 	char	*temp_pwd;
 	char	*temp_user;
 
-	pwd = get_var(control, "PWD");
-	user = get_var(control, "USER");
+	pwd = get_var_env(control, "PWD");
+	user = get_var_env(control, "USER");
 	if (pwd)
 			pwd = handle_home_path(control, pwd);
 	if (user)

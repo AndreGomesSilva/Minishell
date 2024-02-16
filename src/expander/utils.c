@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:10 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/15 16:48:27 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/16 01:09:13 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*handle_home_path(t_control *control, char *path)
 	i = 0;
 	home = NULL;
 	new_path = NULL;
-	home = get_var(control, "HOME");
+	home = get_var_env(control, "HOME");
 	while (path && path[i] && home[i])
 	{
 		if (!ft_strncmp(&path[i], &home[i], ft_strlen(home)))
