@@ -6,13 +6,13 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:20 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/16 15:28:39 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/17 16:46:38 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	get_outfile(t_cmd *cmd, int pipefd)
+int	get_outfile(t_cmd *cmd, int pipe_fd)
 {
 	char	*outfile;
 	int		fd;
@@ -20,14 +20,14 @@ int	get_outfile(t_cmd *cmd, int pipefd)
 	outfile = get_last_outfile(cmd);
 	if (outfile)
 	{
-		fd = open(outfile, O_WRONLY | O_CREAT | O_APPEND, 0666);
+		fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 		if (fd == -1)
 			print_error(cmd, E_NO_FILE);
 		return (fd);
 	}
 	if (cmd->next == NULL)
 		return (STDOUT_FILENO);
-	return (pipefd);
+	return (pipe_fd);
 }
 
 int	get_infile(t_cmd *cmd, int pipe_fd)
@@ -58,16 +58,22 @@ int	get_infile(t_cmd *cmd, int pipe_fd)
 void	change_stdio(int in, int out)
 {
 	if (in != STDIN_FILENO)
+	{
 		dup2(in, STDIN_FILENO);
+		close(in);
+	}
 	if (out != STDOUT_FILENO)
+	{
 		dup2(out, STDOUT_FILENO);
+		close(out);
+	}
 }
 
 void	close_fd(int in, int out)
 {
-	if (in != STDIN_FILENO)
+	if (in != 0)
 		close(in);
-	if (out != STDOUT_FILENO)
+	if (out != 1)
 		close(out);
 }
 

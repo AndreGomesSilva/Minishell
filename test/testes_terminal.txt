@@ -1,3 +1,10 @@
+flags vlagind
+
+valgrind --trace-children=yes --track-fds=yes --log-fd=2 --error-limit=no \
+         --leak-check=full --show-possibly-lost=yes --track-origins=yes \
+         --show-reachable=yes
+--------------------------------------------------------		 
+
 echo "hello " " | "
 echo 'ola'"hello
 echo '"ola'"hello"
@@ -26,3 +33,7 @@ export ${ola}
 --------------------------------------------------------
 export "olaA"= "mundo"
 --------------------------------------------------------bash
+clear
+
+command to clear terminal need evnterm;
+--------------------------------------------------------

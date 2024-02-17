@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:41 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/16 15:30:43 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/17 15:38:32 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	middleware(t_control *control, char *input)
 		handle_parser(control);
 	}
 	handle_execution(control);
-	print_lst(control->cmd);
+	// print_lst(control->cmd);
 }
 
 void	get_input(t_control *control)

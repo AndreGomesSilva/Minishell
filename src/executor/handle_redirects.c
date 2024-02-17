@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 15:12:44 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/16 14:48:14 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/17 14:54:21 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*get_last_outfile(t_cmd *cmd)
 	ptr_arg = cmd->list_args;
 	while (ptr_arg)
 	{
-		if (ptr_arg->type == REDIRECT_OUTPUT)
+		if (ptr_arg->type == REDIRECT_OUTPUT || ptr_arg->type == REDIRECT_OUTPUT_APPEND)
 		{
 			if (ptr_arg->next && ptr_arg->next->type == IOFILE)
 			{
