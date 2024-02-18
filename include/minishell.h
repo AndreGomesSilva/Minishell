@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/16 21:09:44 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/18 02:39:13 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ typedef struct s_control
 {
 	t_table				*env_table;
 	char				**env;
-	char				*user;
 	char				*prompt;
 	struct s_cmd		*cmd_actual;
 	struct s_cmd		*cmd;
@@ -129,9 +128,9 @@ void					print_simple_error(char *error);
 void					handle_config(t_control **control, char **env);
 void					handle_signal(void);
 int						receive_signal_ctrl_d(t_control *control);
-int						ctrl_d_herdoc(t_control *control,
-							char *eof);
+int						ctrl_d_herdoc(t_control *control, char *eof);
 void					get_input(t_control *control);
+void					set_path(t_control *control);
 
 // handle_nodes
 void					create_node_cmd(t_control *control, char *cmd);

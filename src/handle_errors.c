@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/15 23:10:03 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/17 19:16:06 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ void	print_simple_error(char *error)
 		ft_putstr_fd("unset: Invalid command \n", 2);
 	else if (!ft_strncmp(error, "PWD", 4))
 		ft_putstr_fd("pwd: too many arguments \n", 2);
-	else if (!ft_strncmp(error, "CD", 4))
+	else if (!ft_strncmp(error, "CD_NO_ARG", 10))
 		ft_putstr_fd("cd: too many arguments \n", 2);
+	else if (!ft_strncmp(error, "CD_NO_EXIST", 12))
+		ft_putstr_fd("cd: no such file or directory \n", 2);
 }
 
 void	print_error(t_cmd *ptr_cmd, enum e_type_error error)
