@@ -6,22 +6,12 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/18 02:38:26 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/18 14:22:42 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include <stdlib.h>
-
-// void	set_path(t_control *control)
-// {
-// 	char	*pwd;
-	
-// 	pwd = get_var_env(control, "PWD");
-// 	pwd = handle_home_path(control, pwd);
-// 	control->prompt = ft_strjoin(pwd, "$ ");
-// 	free(pwd);
-// }
 
 int	handle_envp(t_control *control, char **env)
 {

@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/18 02:31:25 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/18 14:25:24 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	handle_cd_builtin(t_control *control, char **cmd)
 	{
 		update_env(control, "OLDPWD", old_pwd);
 		update_env(control, "PWD", getcwd(NULL, 0));
-		printf("%s", get_var_env(control, "PWD"));
 		set_path(control);
 		return ;
 	}
@@ -54,10 +53,7 @@ void	handle_cd_builtin(t_control *control, char **cmd)
 	pwd_relative = ft_strjoin((const char *)pwd, (const char *)cmd[1]);
 	result_relative = check_pwd_exist(control, pwd_relative, old_pwd, pwd);
 	if (result_relative)
-	{
-		printf("%s", get_var_env(control, "PWD"));	
 		set_path(control);
-	}
 	else
 		print_simple_error("CD_NO_EXIST");
 }

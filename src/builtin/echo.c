@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:32:36 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/16 01:21:34 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/18 14:33:16 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	handle_echo_builtin(t_control *control, char **cmd)
 	int		new_line;
 	char	*output_string;
 
+	if(!cmd[1])
+		return ;
 	(void) control;
 	new_line = 1;
 	output_string = build_output_string(cmd, &new_line);
