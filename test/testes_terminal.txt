@@ -37,3 +37,11 @@ clear
 
 command to clear terminal need evnterm;
 --------------------------------------------------------
+^C 
+^D 
+
+Teste de sinal, ctrl+c e depois ctrl+d dentro da readline.
+--------------------------------------------------------
+
+ctrl + D depois de usar o comando CD. -> segfault
+--------------------------------------------------------

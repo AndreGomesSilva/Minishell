@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/18 02:39:13 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/18 21:50:51 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 // extern "C" {
 // #endif
 
+# include <stdio.h>
 # include "../libft/include/libft.h"
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -210,7 +210,7 @@ void					handle_pwd_builtin(t_control *control, char **cmd);
 // executor
 void					handle_execution(t_control *control);
 char					*get_last_outfile(t_cmd *cmd);
-int						handle_io(t_cmd *cmd, int *pipe_fd);
+int						handle_io(t_cmd *cmd, int **pipe_fd, int index, int flag);
 void					close_fd(int in, int out);
 void					change_stdio(int in, int out);
 

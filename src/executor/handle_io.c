@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:20 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/17 16:46:38 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/18 22:20:12 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,30 @@ void	close_fd(int in, int out)
 		close(out);
 }
 
-int	handle_io(t_cmd *cmd, int *pipe_fd)
+int	handle_io(t_cmd *cmd, int **pipe_fd, int index, int multi_cmd)
 {
-	cmd->infile = get_infile(cmd, pipe_fd[0]);
-	cmd->outfile = get_outfile(cmd, pipe_fd[1]);
+	if (multi_cmd)
+	{
+		if (cmd->cmd_number == 1)
+		{
+			cmd->infile = get_infile(cmd, 0);
+			cmd->outfile = get_outfile(cmd, pipe_fd[index][1]);
+		}
+		else if (cmd->next == NULL)
+		{
+			cmd->infile = get_infile(cmd, pipe_fd[index - 1][0]);
+			cmd->outfile = get_outfile(cmd, 1);
+		}
+		else
+		{
+			cmd->infile = get_infile(cmd, pipe_fd[index - 1][0]);
+			cmd->outfile = get_outfile(cmd, pipe_fd[index][1]);
+		}
+	}
+	else {
+		cmd->infile = get_infile(cmd, 0);
+		cmd->outfile = get_outfile(cmd, 1);
+	}
 	if (cmd->infile == -1 || cmd->outfile == -1)
 		return (FALSE);
 	return (TRUE);

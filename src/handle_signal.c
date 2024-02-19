@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/16 15:31:31 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/18 14:16:05 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	receive_sig_int(int sig)
 	extern t_control	*g_control;
 
 	(void)sig;
-	free_control(g_control);
+	free_cmd(g_control);
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
