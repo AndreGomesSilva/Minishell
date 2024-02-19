@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 23:31:53 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/13 22:40:21 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:09:05 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*remove_quotes(char *str)
 			while (str[i] && str[i] != type_quote)
 				i++;
 			result = swap_string(result, ft_substr(str, 0, i));
-			str = &str[i];
+			str = &str[i + 1];
 		}
 		else if (*str)
 			str++;

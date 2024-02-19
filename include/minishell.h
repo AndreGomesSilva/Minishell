@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/18 21:50:51 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:59:55 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ void					handle_execution(t_control *control);
 char					*get_last_outfile(t_cmd *cmd);
 int						handle_io(t_cmd *cmd, int **pipe_fd, int index, int flag);
 void					close_fd(int in, int out);
-void					change_stdio(int in, int out);
+void					change_stdio(t_cmd *cmd, int in, int out);
 
 #endif
 

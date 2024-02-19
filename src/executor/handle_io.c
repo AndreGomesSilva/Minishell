@@ -6,11 +6,12 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:20 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/18 22:20:12 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:29:49angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <unistd.h>
 
 int	get_outfile(t_cmd *cmd, int pipe_fd)
 {
@@ -55,27 +56,29 @@ int	get_infile(t_cmd *cmd, int pipe_fd)
 	return (pipe_fd);
 }
 
-void	change_stdio(int in, int out)
+void	close_fd(int in, int out)
+{
+	if (in != STDIN_FILENO)
+		close(in);
+	if (out != STDOUT_FILENO)
+		close(out);
+}
+
+void	change_stdio(t_cmd *cmd, int in, int out)
 {
 	if (in != STDIN_FILENO)
 	{
-		dup2(in, STDIN_FILENO);
+		cmd->infile = dup2(in, STDIN_FILENO);
 		close(in);
 	}
 	if (out != STDOUT_FILENO)
 	{
-		dup2(out, STDOUT_FILENO);
+		cmd->outfile = dup2(out, STDOUT_FILENO);
 		close(out);
 	}
 }
 
-void	close_fd(int in, int out)
-{
-	if (in != 0)
-		close(in);
-	if (out != 1)
-		close(out);
-}
+
 
 int	handle_io(t_cmd *cmd, int **pipe_fd, int index, int multi_cmd)
 {

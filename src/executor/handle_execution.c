@@ -44,9 +44,9 @@ void	single_execution_builtin(t_control *control)
 	{
 		old_stdin = dup(STDIN_FILENO);
 		old_stdout = dup(STDOUT_FILENO);
-		change_stdio(ptr_cmd->infile, ptr_cmd->outfile);
+		change_stdio(ptr_cmd, ptr_cmd->infile, ptr_cmd->outfile);
 		handle_builtin(ptr_cmd->cmd_and_args, control);
-		change_stdio(old_stdin, old_stdout);
+		change_stdio(ptr_cmd, old_stdin, old_stdout);
 		close_fd(ptr_cmd->infile, ptr_cmd->outfile);
 		close_fd(old_stdin, old_stdout);
 	}
@@ -112,24 +112,26 @@ void multi_execution(t_control *control, int n_pipes) {
 		}
 		else if (pid == 0)
 		{
-			if (handle_io(ptr_cmd, pipe_fd, i, 1))
+			handle_io(ptr_cmd, pipe_fd, i, 1);
+			change_stdio(ptr_cmd, ptr_cmd->infile, ptr_cmd->outfile);
+			if (is_builtin(ptr_cmd->cmd))
 			{
-				change_stdio(ptr_cmd->infile, ptr_cmd->outfile);
-				if (is_builtin(ptr_cmd->cmd))
-				{
-					handle_builtin(ptr_cmd->cmd_and_args, control);
-					exit(EXIT_SUCCESS);
-				}
+				handle_builtin(ptr_cmd->cmd_and_args, control);
 				for (int j = 0; j < n_pipes + 1; j++) {
-    	            close(pipe_fd[j][0]);
-    		        close(pipe_fd[j][1]);
-            	}
-				execve(ptr_cmd->path_cmd, ptr_cmd->cmd_and_args, NULL);
-   		    	perror("execve");
-				exit(EXIT_FAILURE);
+					close(pipe_fd[j][0]);
+					close(pipe_fd[j][1]);
+				}
+				exit(EXIT_SUCCESS);
 			}
+			for (int j = 0; j < n_pipes + 1; j++) {
+				close(pipe_fd[j][0]);
+				close(pipe_fd[j][1]);
+			}
+			close_fd(ptr_cmd->infile, ptr_cmd->outfile);
+			execve(ptr_cmd->path_cmd, ptr_cmd->cmd_and_args, NULL);
+			perror("execve");
 			exit(EXIT_FAILURE);
-		}
+		}		
 		ptr_cmd = ptr_cmd->next;
 		i++;
 	}

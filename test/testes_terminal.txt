@@ -45,3 +45,6 @@ Teste de sinal, ctrl+c e depois ctrl+d dentro da readline.
 
 ctrl + D depois de usar o comando CD. -> segfault
 --------------------------------------------------------
+
+input = "echo" "hello"''"hi"there"'" | output = hellohithere'
+--------------------------------------------------------
