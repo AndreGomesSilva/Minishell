@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:17:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/15 17:31:58 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:40:34 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,11 @@ void	free_cmd(t_control *control)
 {
 	t_cmd	*node;
 	t_cmd	*temp_node;
-	char	*file_name;
 
 	node = control->cmd;
 	while (node)
 	{
 		temp_node = node->next;
-		file_name = ft_itoa(node->cmd_number);
 		if (node->cmd_and_args)
 			free_matrix(node->cmd_and_args);
 		if (node->path_cmd)
@@ -85,9 +83,8 @@ void	free_cmd(t_control *control)
 			free_arg(node->list_args);
 		if (node->cmd)
 			free(node->cmd);
-		if (file_name && !access(file_name, F_OK))
-			unlink(file_name);
-		free(file_name);
+		if (node->heredoc_file)
+			free(node->heredoc_file);
 		free(node);
 		node = temp_node;
 	}

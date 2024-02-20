@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/18 15:41:55 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:42:10 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,22 @@ void	print_error(t_cmd *ptr_cmd, enum e_type_error error)
 	{
 		ft_putstr_fd(ptr_cmd->cmd, 2);
 		ft_putstr_fd(": Command not found \n", 2);
+		exit(127);
 	}
+	else if (ptr_cmd->error_type == E_NO_FILE)
+	{
+		ft_putstr_fd("Error: No such file or directory \n", 2);
+		exit(127);
+	}
+	else if (ptr_cmd->error_type == E_PERMISSION)
+	{
+		ft_putstr_fd("Error: Permission denied \n", 2);
+		exit(126);
+	}
+	else if (ptr_cmd->error_type == E_NO_ERROR)
+		exit(0);
+	else if (ptr_cmd->error_type == E_EXPORT)
+		print_simple_error(ptr_cmd->cmd_and_args[0]);
+	else if (ptr_cmd->error_type == E_UNSET)
+		print_simple_error(ptr_cmd->cmd_and_args[0]);
 }

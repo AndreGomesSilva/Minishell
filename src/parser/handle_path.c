@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:59 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/16 01:08:01 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:46:17 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,14 @@ char	*get_cmd_path(t_control *control, char *cmd)
 	return (bin);
 }
 
-char	*handle_bin_path(t_control *control, t_cmd *cmd)
+char	*handle_bin_path(t_control *control, char *cmd)
 {
-	t_cmd	*ptr_cmd;
 	char	*bin_path;
 
-	ptr_cmd = cmd;
 	bin_path = NULL;
-	if (is_absolute_path(ptr_cmd->cmd))
-		bin_path = ft_strdup(ptr_cmd->cmd);
-	else if (!is_builtin(ptr_cmd->cmd))
-		bin_path = get_cmd_path(control, ptr_cmd->cmd);
+	if (is_absolute_path(cmd))
+		bin_path = ft_strdup(cmd);
+	else if (!is_builtin(cmd))
+		bin_path = get_cmd_path(control, cmd);
 	return (bin_path);
 }

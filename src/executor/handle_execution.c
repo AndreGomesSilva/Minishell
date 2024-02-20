@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <complex.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -46,24 +47,37 @@ void	single_execution_builtin(t_control *control)
 	ptr_cmd = control->cmd;
 	if (handle_io(ptr_cmd, NULL, 0, FALSE))
 	{
-		old_stdin = dup(STDIN_FILENO);
-		old_stdout = dup(STDOUT_FILENO);
-		change_stdio(ptr_cmd, ptr_cmd->infile, ptr_cmd->outfile);
-		handle_builtin(ptr_cmd->cmd_and_args, control);
-		change_stdio(ptr_cmd, old_stdin, old_stdout);
-		close_fd(ptr_cmd->infile, ptr_cmd->outfile);
-		close_fd(old_stdin, old_stdout);
+		if (ptr_cmd->infile == STDIN_FILENO && ptr_cmd->outfile == STDOUT_FILENO)
+			handle_builtin(ptr_cmd->cmd_and_args, control);
+		else
+		 {
+			old_stdin = dup(STDIN_FILENO);
+			old_stdout = dup(STDOUT_FILENO);
+			change_stdio(ptr_cmd->infile, ptr_cmd->outfile);
+			handle_builtin(ptr_cmd->cmd_and_args, control);
+			change_stdio(old_stdin, old_stdout);
+		 };
+
 	}
 }
 
 void children_exec(t_control *control,t_cmd *cmd, int index, int n_pipes)
 {
+	if (cmd->error_type)
+	{
+		close_pipes(control->pipe_fd, n_pipes);
+		close_fd(control->cmd->infile, cmd->outfile);
+		print_error(cmd, cmd->error_type);
+	}
 	handle_io(cmd, control->pipe_fd, index, TRUE);
-	change_stdio(cmd, cmd->infile, cmd->outfile);
-	if (is_builtin(cmd->cmd))
+	change_stdio(cmd->infile, cmd->outfile);
+	if (is_builtin(cmd->cmd_and_args[0]))
 	{
 		handle_builtin(cmd->cmd_and_args, control);
 		close_pipes(control->pipe_fd, n_pipes);
+		close_fd(control->cmd->infile, cmd->outfile);
+		close(STDIN_FILENO);
+		close(STDOUT_FILENO);
 		exit(EXIT_SUCCESS);
 	}
 	close_pipes(control->pipe_fd, n_pipes);
@@ -120,7 +134,7 @@ void	handle_execution(t_control *control)
 		return ;
 	}
 	n_pipes = count_pipes(control->cmd);
-	if (ptr_cmd && !n_pipes && is_builtin(ptr_cmd->cmd))
+	if (ptr_cmd && !n_pipes && is_builtin(ptr_cmd->cmd_and_args[0]))
 		single_execution_builtin(control);
 	else
 		multi_execution(control, n_pipes);

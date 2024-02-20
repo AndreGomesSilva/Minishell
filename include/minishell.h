@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/19 21:35:06 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:45:36 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,14 @@ enum					e_type_builtin
 
 enum					e_type_error
 {
-	E_NULL,
 	E_NO_ERROR,
 	E_CMD_NO_FOUND,
 	E_NO_FILE,
+	E_PERMISSION,
 	E_FATAL,
 	E_SYNTAX,
-	E_EXPORT
+	E_EXPORT,
+	E_UNSET
 };
 
 typedef struct s_ht_item
@@ -105,6 +106,7 @@ typedef struct s_cmd
 	int					infile;
 	int					outfile;
 	int					cmd_number;
+	char				*heredoc_file;
 	struct s_arg		*list_args;
 	struct s_cmd		*next;
 	struct s_cmd		*prev;
@@ -144,7 +146,7 @@ void					free_cmd(t_control *control);
 // handle_parser
 int						is_valid_cmd(t_cmd *cmd);
 void					free_matrix(char **matrix);
-char					*handle_bin_path(t_control *control, t_cmd *cmd);
+char					*handle_bin_path(t_control *control, char *cmd);
 int						is_builtin(char *cmd);
 void					handle_parser(t_control *control);
 int						handle_syntax_error(t_cmd *cmd);
@@ -215,9 +217,10 @@ void					free_pipes(int **pipe_fd, int n_pipes);
 void 					close_pipes(int **pipe_fd, int n_pipes);
 void					handle_execution(t_control *control);
 char					*get_last_outfile(t_cmd *cmd);
+char 					*get_last_infile(t_cmd *cmd);
 int						handle_io(t_cmd *cmd, int **pipe_fd, int index, int multi_cmd);
 void					close_fd(int in, int out);
-void					change_stdio(t_cmd *cmd,int in, int out);
+void					change_stdio(int in, int out);
 
 #endif
 

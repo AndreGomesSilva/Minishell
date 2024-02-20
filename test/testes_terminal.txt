@@ -48,3 +48,9 @@ ctrl + D depois de usar o comando CD. -> segfault
 
 input = "echo" "hello"''"hi"there"'" | output = hellohithere'
 --------------------------------------------------------
+
+< arq1 <arq2 echo hello
+--------------------------------------------------------
+
+< arq1 <arq2 cat
+--------------------------------------------------------

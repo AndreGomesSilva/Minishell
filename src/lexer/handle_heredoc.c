@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:11:45 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/20 10:08:32 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:11:29 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ int	create_heredoc_file(t_cmd *cmd, char *input, int action)
 	ft_putstr_fd(input, fd);
 	ft_putstr_fd("\n", fd);
 	close(fd);
-	free(file);
+	if (cmd->heredoc_file)
+	{
+		free(cmd->heredoc_file);
+		cmd->heredoc_file = file;
+	}
 	free(name);
 	return (TRUE);
 }

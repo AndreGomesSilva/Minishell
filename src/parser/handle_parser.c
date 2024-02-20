@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/20 10:27:21 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/20 19:54:48 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,25 +90,25 @@ char	**create_full_cmd(t_cmd *cmd)
 	return (args);
 }
 
-char	*new_cmd_absolute_path(t_cmd *cmd)
+char	*new_cmd_absolute_path(char **matrix)
 {
-	char	*ptr_cmd;
 	char	*result;
 	int		len;
+	char	*cmd;
 
+	cmd = matrix[0];
 	len = 0;
-	ptr_cmd = cmd->cmd;
 	result = NULL;
-	len = (int)ft_strlen(ptr_cmd);
+	len = (int)ft_strlen(cmd);
 	if (len > 0)
 	{
-		while (--len, ptr_cmd[len])
+		while (--len, cmd[len])
 		{
-			if (ptr_cmd[len] == '/')
+			if (cmd[len] == '/')
 			{
-				result = ft_substr(&ptr_cmd[len], len,
-						ft_strlen(&ptr_cmd[len]));
-				free(cmd->cmd);
+				result = ft_substr(&cmd[len], len,
+						ft_strlen(&cmd[len]));
+				free(matrix[0]);
 				return (result);
 			}
 		}
@@ -129,17 +129,17 @@ void	handle_parser(t_control *control)
 	handle_quotes_parsing(control);
 	while (ptr_cmd)
 	{
-		ptr_cmd->path_cmd = handle_bin_path(control, ptr_cmd);
-		if (!is_builtin(ptr_cmd->cmd) && !is_valid_cmd(ptr_cmd))
+		ptr_cmd->cmd_and_args = create_full_cmd(ptr_cmd);
+		ptr_cmd->path_cmd = handle_bin_path(control, ptr_cmd->cmd_and_args[0]);
+		if (!is_builtin(ptr_cmd->cmd_and_args[0]) && !is_valid_cmd(ptr_cmd))
 		{
 			type_io_file(ptr_cmd);
 			ptr_cmd->error_type = E_CMD_NO_FOUND;
 		}
 		else
 		{
-			if (is_absolute_path(ptr_cmd->cmd))
-				ptr_cmd->cmd = new_cmd_absolute_path(ptr_cmd);
-			ptr_cmd->cmd_and_args = create_full_cmd(ptr_cmd);
+			if (is_absolute_path(ptr_cmd->cmd_and_args[0]))
+				ptr_cmd->cmd_and_args[0] = new_cmd_absolute_path(ptr_cmd->cmd_and_args);
 		}
 		ptr_cmd = ptr_cmd->next;
 	}

@@ -18,6 +18,7 @@ int	get_outfile(t_cmd *cmd, int pipe_fd)
 	char	*outfile;
 	int		fd;
 
+	fd = STDOUT_FILENO;
 	outfile = get_last_outfile(cmd);
 	if (outfile)
 	{
@@ -27,32 +28,26 @@ int	get_outfile(t_cmd *cmd, int pipe_fd)
 		return (fd);
 	}
 	if (cmd->next == NULL)
-		return (STDOUT_FILENO);
+		return (fd);
 	return (pipe_fd);
 }
 
 int	get_infile(t_cmd *cmd, int pipe_fd)
 {
-	t_arg	*ptr_arg;
 	int		fd;
+	char 	*infile;
 
-	ptr_arg = cmd->list_args;
-	if (ptr_arg && cmd->type == REDIRECT_INPUT)
+	fd = STDIN_FILENO;
+	infile = get_last_infile(cmd);
+	if (infile)
 	{
-		fd = open(ptr_arg->arg, O_RDONLY);
+		fd = open(infile, O_RDONLY);
+		if (fd == -1)
+			print_error(cmd, E_NO_FILE);
 		return (fd);
 	}
-	while (ptr_arg)
-	{
-		if (ptr_arg->type == REDIRECT_INPUT && ptr_arg->next)
-		{
-			fd = open(ptr_arg->next->arg, O_RDONLY);
-			return (fd);
-		}
-		ptr_arg = ptr_arg->next;
-	}
 	if (cmd->cmd_number == 1)
-		return (STDIN_FILENO);
+		return (fd);
 	return (pipe_fd);
 }
 
@@ -64,16 +59,16 @@ void	close_fd(int in, int out)
 		close(out);
 }
 
-void	change_stdio(t_cmd *cmd, int in, int out)
+void	change_stdio(int in, int out)
 {
 	if (in != STDIN_FILENO)
 	{
-		cmd->infile = dup2(in, STDIN_FILENO);
+		dup2(in, STDIN_FILENO);
 		close(in);
 	}
 	if (out != STDOUT_FILENO)
 	{
-		cmd->outfile = dup2(out, STDOUT_FILENO);
+		dup2(out, STDOUT_FILENO);
 		close(out);
 	}
 }
