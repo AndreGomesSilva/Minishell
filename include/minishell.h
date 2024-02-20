@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/21 00:01:46 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/21 20:08:00 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,7 @@ int						handle_builtin(char **cmd, t_control *control);
 void					handle_cd_builtin(t_control *control, char **cmd);
 void					handle_export_builtin(t_control *control, char **cmd);
 void					handle_unset_builtin(t_control *control, char **cmd);
-void					handle_env_builtin(t_control *control);
+void					handle_env_builtin(t_control *control, char **cmd);
 void					handle_exit_builtin(t_control *control);
 void					handle_echo_builtin(t_control *control, char **cmd);
 void					handle_pwd_builtin(t_control *control, char **cmd);

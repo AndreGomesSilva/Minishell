@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/21 00:02:01 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/21 20:02:12 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	print_simple_error(char *error)
 		perror("pwd");
 	else if (!ft_strncmp(error, "CD_NO_EXIST", 12))
 		perror("cd");
+	else if (!ft_strncmp(error, "ENV", 4))
+		printf("%s","env: Syntax error\n");
 }
 
 void	print_error(t_cmd *ptr_cmd, enum e_type_error error)
