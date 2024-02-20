@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:07:24 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/16 15:30:58 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/20 09:49:55 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*get_next_eof(t_cmd *cmd)
 	{
 		if (ptr_arg->type == DOC)
 		{
-			ptr_arg->type = NORM;
+			ptr_arg->type = IOFILE;
 			eof = (ptr_arg->arg);
 			break ;
 		}

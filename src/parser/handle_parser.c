@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/15 20:05:33 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/20 10:27:21 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	type_io_file(t_cmd *cmd)
 		}
 		while (ptr_arg)
 		{
-			if (ptr_arg->type > REDIRECT_HERD && ptr_arg->next
-				&& (ptr_arg->next->type == NORM
+			if ((ptr_arg->type > REDIRECT_HERD && ptr_arg->type < IOFILE)
+				&& ptr_arg->next && (ptr_arg->next->type == NORM
 					|| ptr_arg->next->type == VAR_EXPAND))
 				ptr_arg->next->type = IOFILE;
 			ptr_arg = ptr_arg->next;
