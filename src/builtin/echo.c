@@ -6,36 +6,40 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:32:36 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/18 14:33:16 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:45:55 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*build_output_string(char **cmd, int *new_line)
+int		check_new_line(char **cmd, int position, int *new_line)
 {
-	int		i;
-	char	*buffer;
-	char	*temp;
-
-	if (ft_strncmp(cmd[1], "-n", 3) == 0)
+	if (ft_strncmp(cmd[position], "-n", 3) == 0)
 	{
 		*new_line = 0;
-		buffer = ft_strdup(cmd[2]);
-		i = 2;
+		return (1);
 	}
-	else
-	{
-		buffer = ft_strdup(cmd[1]);
-		i = 1;
-	}
-	while (i++, cmd[i])
+	return (0);
+}
+
+char	*build_output_string(char **cmd, int *new_line)
+{
+	char	*buffer;
+	char	*temp;
+	int		position;
+	
+	position = 1;
+	while(check_new_line(cmd, position, new_line))
+		position++;
+	if(cmd[position])
+		buffer = ft_strdup(cmd[position]);
+	while (position++, cmd[position])
 	{
 		temp = buffer;
 		buffer = ft_strjoin(buffer, " ");
 		free(temp);
 		temp = buffer;
-		buffer = ft_strjoin(buffer, cmd[i]);
+		buffer = ft_strjoin(buffer, cmd[position]);
 		free(temp);
 	}
 	return (buffer);
