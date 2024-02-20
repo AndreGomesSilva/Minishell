@@ -17,20 +17,24 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-int	count_pipes(t_cmd *cmd)
+int	handle_wait(int n_pipes)
 {
-	t_cmd	*ptr_cmd;
-	int		count;
+	int		status;
+	pid_t	pid;
+	int		i;
 
-	ptr_cmd = cmd;
-	count = 0;
-	while (ptr_cmd)
+	i = 0;
+	while (i < n_pipes + 1)
 	{
-		if (ptr_cmd->delimiter_type == PIP)
-			count++;
-		ptr_cmd = ptr_cmd->next;
+		pid = waitpid(-1, &status, WUNTRACED);
+		if (pid == -1)
+		{
+			perror("waitpid");
+			exit(EXIT_FAILURE);
+		}
+		i++;
 	}
-	return (count);
+	return (status);
 }
 
 void	single_execution_builtin(t_control *control)
@@ -40,7 +44,7 @@ void	single_execution_builtin(t_control *control)
 	int		old_stdout;
 
 	ptr_cmd = control->cmd;
-	if (handle_io(ptr_cmd, NULL, 0, 0))
+	if (handle_io(ptr_cmd, NULL, 0, FALSE))
 	{
 		old_stdin = dup(STDIN_FILENO);
 		old_stdout = dup(STDOUT_FILENO);
@@ -51,57 +55,38 @@ void	single_execution_builtin(t_control *control)
 		close_fd(old_stdin, old_stdout);
 	}
 }
-void free_pipes(int **pipes, int n_pipes)
+
+void children_exec(t_control *control,t_cmd *cmd, int index, int n_pipes)
 {
-	int i;
-	i = 0;
-	while (i < n_pipes + 1)
+	handle_io(cmd, control->pipe_fd, index, TRUE);
+	change_stdio(cmd, cmd->infile, cmd->outfile);
+	if (is_builtin(cmd->cmd))
 	{
-		free(pipes[i]);
-		i++;
+		handle_builtin(cmd->cmd_and_args, control);
+		close_pipes(control->pipe_fd, n_pipes);
+		exit(EXIT_SUCCESS);
 	}
-	free(pipes);
+	close_pipes(control->pipe_fd, n_pipes);
+	close_fd(control->cmd->infile, cmd->outfile);
+	execve(cmd->path_cmd, cmd->cmd_and_args, NULL);
+	perror("execve");
+	exit(EXIT_FAILURE);
 }
 
-int	**create_pipes(int n_pipes)
-{
-	int		**pipes;
-	int		i;
-
-	pipes = (int **)ft_calloc((n_pipes + 1), sizeof(int*));
-	if (!pipes)
-		return (NULL);
-	i = 0;
-	while (i < n_pipes + 1)
-	{
-		pipes[i] = (int *)ft_calloc(2, sizeof(int));
-		if (!pipes[i])
-			return (NULL);
-		if (pipe(pipes[i]) == -1)
-		{
-			perror("pipe");
-			exit(EXIT_FAILURE);
-		}
-		i++;
-	}
-	return (pipes);
-}
-
-void multi_execution(t_control *control, int n_pipes) {
+void multi_execution(t_control *control, int n_pipes)
+ {
 	t_cmd	*ptr_cmd;
-	int		**pipe_fd;
 	pid_t	pid;
 	int		i;
 
-	pipe_fd = create_pipes(n_pipes);
-	if (!pipe_fd)
+	control->pipe_fd = create_pipes(n_pipes);
+	if (!control->pipe_fd)
 	{
 		perror("pipe");
 		exit(EXIT_FAILURE);
 	}
 	ptr_cmd = control->cmd;
     i = 0;
-
 	while (ptr_cmd && i < n_pipes  + 1)
 	{
 		pid = fork();
@@ -111,39 +96,13 @@ void multi_execution(t_control *control, int n_pipes) {
 			exit(EXIT_FAILURE);
 		}
 		else if (pid == 0)
-		{
-			handle_io(ptr_cmd, pipe_fd, i, 1);
-			change_stdio(ptr_cmd, ptr_cmd->infile, ptr_cmd->outfile);
-			if (is_builtin(ptr_cmd->cmd))
-			{
-				handle_builtin(ptr_cmd->cmd_and_args, control);
-				for (int j = 0; j < n_pipes + 1; j++) {
-					close(pipe_fd[j][0]);
-					close(pipe_fd[j][1]);
-				}
-				exit(EXIT_SUCCESS);
-			}
-			for (int j = 0; j < n_pipes + 1; j++) {
-				close(pipe_fd[j][0]);
-				close(pipe_fd[j][1]);
-			}
-			close_fd(ptr_cmd->infile, ptr_cmd->outfile);
-			execve(ptr_cmd->path_cmd, ptr_cmd->cmd_and_args, NULL);
-			perror("execve");
-			exit(EXIT_FAILURE);
-		}		
+			children_exec(control, ptr_cmd, i, n_pipes);	
 		ptr_cmd = ptr_cmd->next;
 		i++;
 	}
-    for (int i = 0; i < n_pipes + 1; i++) {
-        close(pipe_fd[i][0]);
-        close(pipe_fd[i][1]);
-    }
-
-    for (int i = 0; i < n_pipes + 1; i++) {
-        wait(NULL);
-    }
-	free_pipes(pipe_fd, n_pipes);
+	close_pipes(control->pipe_fd, n_pipes);
+	handle_wait(n_pipes);
+	free_pipes(control->pipe_fd, n_pipes);
 }
 
 void	handle_execution(t_control *control)

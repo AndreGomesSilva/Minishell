@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/19 17:40:58 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/19 20:48:32 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int	ctrl_d_herdoc(t_control *control, char *eof)
 
 void	receive_sig_int(int sig)
 {
-	extern t_control	*g_control;
-
 	(void)sig;
 	printf("\n");
 	rl_on_new_line();
@@ -40,8 +38,6 @@ void	receive_sig_int(int sig)
 
 void	handle_signal(void)
 {
-	extern t_control	*g_control;
-
 	signal(SIGINT, receive_sig_int);
 	signal(SIGQUIT, SIG_IGN);
 }

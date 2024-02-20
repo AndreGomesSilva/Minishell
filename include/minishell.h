@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/19 18:59:55 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/19 21:35:06 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct s_control
 	char				*prompt;
 	struct s_cmd		*cmd_actual;
 	struct s_cmd		*cmd;
+	int					**pipe_fd;
 	int					fatal_err;
 }						t_control;
 
@@ -208,11 +209,15 @@ void					handle_echo_builtin(t_control *control, char **cmd);
 void					handle_pwd_builtin(t_control *control, char **cmd);
 
 // executor
+int						count_pipes(t_cmd *cmd);
+int						**create_pipes(int n_pipes);
+void					free_pipes(int **pipe_fd, int n_pipes);
+void 					close_pipes(int **pipe_fd, int n_pipes);
 void					handle_execution(t_control *control);
 char					*get_last_outfile(t_cmd *cmd);
-int						handle_io(t_cmd *cmd, int **pipe_fd, int index, int flag);
+int						handle_io(t_cmd *cmd, int **pipe_fd, int index, int multi_cmd);
 void					close_fd(int in, int out);
-void					change_stdio(t_cmd *cmd, int in, int out);
+void					change_stdio(t_cmd *cmd,int in, int out);
 
 #endif
 
