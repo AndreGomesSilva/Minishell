@@ -59,3 +59,9 @@ input = "echo" "hello"''"hi"there"'" | output = hellohithere'
 
 < arquivo1_não_existe < arquivo2_não_existe
 --------------------------------------------------------
+
+ech"o" ''"$"HOM"E$USER"
+
+ech"o" $"HOM"E$USER
+
+--------------------------------------------------------

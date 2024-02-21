@@ -132,9 +132,10 @@ void	handle_execution(t_control *control)
 		printf("FATAL ERROR \n");
 		control->fatal_err = 0;
 		free_cmd(control);
+		return ;
 	}
 	n_pipes = count_pipes(control->cmd);
-	if (ptr_cmd && !n_pipes && ptr_cmd->cmd_and_args 
+	if (ptr_cmd && !n_pipes && ptr_cmd->cmd_and_args
 		&& is_builtin(ptr_cmd->cmd_and_args[0]))
 		single_execution_builtin(control);
 	else

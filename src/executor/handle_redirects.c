@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 15:12:44 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/20 22:20:23 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:17:09 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	create_files(char *file, int type)
 {
 	int	fd;
 
+	fd = -1;
 	if (type == REDIRECT_OUTPUT)
 		fd = open(file, O_CREAT, 0666);
 	else if (type == REDIRECT_OUTPUT_APPEND)

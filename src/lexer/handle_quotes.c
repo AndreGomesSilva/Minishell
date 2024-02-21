@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 23:31:53 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/19 17:09:05 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:35:00ngomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,44 @@ char	*swap_string(char *str, char *sub_str)
 		result = str;
 	return (result);
 }
-
-char	*remove_quotes(char *str)
+char	*get_string_without_quotes(char *str, char *result, int i)
 {
-	int		i;
 	char	type_quote;
-	char	*ptr_str;
-	char	*result;
 
-	ptr_str = str;
-	result = NULL;
 	while (str && *str)
 	{
 		if (*str == '"' || *str == '\'')
 		{
+			result = swap_string(result, ft_substr(str - i, 0, i));
 			type_quote = *str++;
 			i = 0;
 			while (str[i] && str[i] != type_quote)
 				i++;
 			result = swap_string(result, ft_substr(str, 0, i));
 			str = &str[i + 1];
+			i = 0;
 		}
 		else if (*str)
+		{
 			str++;
+			i++;
+		}
 	}
+	if (i > 0 && !*str)
+		result = swap_string(result, ft_substr(str - i, 0, i));
+	return (result);
+}
+
+char	*remove_quotes(char *str)
+{
+	char	*ptr_str;
+	char	*result;
+	int		i;
+
+	i = 0;
+	ptr_str = str;
+	result = NULL;
+	result = get_string_without_quotes(str, result, i);
 	if (!result)
 		result = ft_strdup(ptr_str);
 	return (result);

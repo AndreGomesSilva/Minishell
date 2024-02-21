@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:22 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/20 20:24:42 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:46:44 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ char	*get_var_in_node(t_control *control, char *str)
 			new_str = ft_join_var(control, ft_substr(str, 0, i), var, &str[i + 1
 					+ j]);
 			if (new_str != NULL)
+			{
 				free(str);
+				str = NULL;
+			}
 			str = new_str;
 			i = 0;
 		}
