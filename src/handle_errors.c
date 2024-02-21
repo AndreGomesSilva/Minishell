@@ -6,12 +6,11 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/21 20:02:12 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/21 20:08:59 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <stdlib.h>
 
 void	print_simple_error(char *error)
 {
@@ -24,7 +23,13 @@ void	print_simple_error(char *error)
 	else if (!ft_strncmp(error, "CD_NO_EXIST", 12))
 		perror("cd");
 	else if (!ft_strncmp(error, "ENV", 4))
-		printf("%s","env: Syntax error\n");
+		ft_putstr_fd("env: Syntax error\n", 2);
+	else if (!ft_strncmp(error, "EXIT", 5))
+		ft_putstr_fd("exit: Syntax error\n", 1);
+	else if (!ft_strncmp(error, "EXIT_ERROR", 11))
+		ft_putstr_fd("exit: Syntax error\n", 2);
+	else if (!ft_strncmp(error, "EXIT_TWO", 9))
+		ft_putstr_fd("exit\n", 2);
 }
 
 void	print_error(t_cmd *ptr_cmd, enum e_type_error error)

@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/21 20:08:00 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/21 20:10:04 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ void					handle_cd_builtin(t_control *control, char **cmd);
 void					handle_export_builtin(t_control *control, char **cmd);
 void					handle_unset_builtin(t_control *control, char **cmd);
 void					handle_env_builtin(t_control *control, char **cmd);
-void					handle_exit_builtin(t_control *control);
+void					handle_exit_builtin(t_control *control, char **cmd);
 void					handle_echo_builtin(t_control *control, char **cmd);
 void					handle_pwd_builtin(t_control *control, char **cmd);
 

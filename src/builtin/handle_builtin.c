@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 23:49:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/20 19:55:12 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/20 20:22:46 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	handle_builtin(char **cmd, t_control *control)
 		else if (builtin == B_ECHO)
 			handle_echo_builtin(control, cmd);
 		else if (builtin == B_EXIT)
-			handle_exit_builtin(control);
+			handle_exit_builtin(control, cmd);
 		else if (builtin == B_ENV)
 			handle_env_builtin(control, cmd);
 		else if (builtin == B_EXPORT)
