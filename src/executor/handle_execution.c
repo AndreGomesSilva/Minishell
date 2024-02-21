@@ -41,6 +41,11 @@ void	single_execution_builtin(t_control *control)
 	ptr_cmd = control->cmd;
 	if (handle_io(ptr_cmd, NULL, 0, FALSE))
 	{
+		if (ptr_cmd->error_type)
+		{
+			close_fd(control->cmd->infile, control->cmd->outfile);
+			print_error(ptr_cmd, ptr_cmd->error_type);
+		}
 		if (ptr_cmd->infile == STDIN_FILENO
 			&& ptr_cmd->outfile == STDOUT_FILENO)
 			handle_builtin(ptr_cmd->cmd_and_args, control);
@@ -57,26 +62,28 @@ void	single_execution_builtin(t_control *control)
 
 void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 {
-	if (cmd->error_type)
+	handle_io(cmd, control->pipe_fd, index, TRUE);
+	if (cmd->error_type || !cmd->cmd_and_args)
 	{
 		close_pipes(control->pipe_fd, n_pipes);
 		close_fd(control->cmd->infile, cmd->outfile);
 		print_error(cmd, cmd->error_type);
 	}
-	handle_io(cmd, control->pipe_fd, index, TRUE);
 	change_stdio(cmd->infile, cmd->outfile);
-	if (is_builtin(cmd->cmd_and_args[0]))
+	if (cmd->cmd_and_args && is_builtin(cmd->cmd_and_args[0]))
 	{
 		handle_builtin(cmd->cmd_and_args, control);
 		close_pipes(control->pipe_fd, n_pipes);
 		close_fd(control->cmd->infile, cmd->outfile);
 		close(STDIN_FILENO);
 		close(STDOUT_FILENO);
+		free_control(control);
 		exit(EXIT_SUCCESS);
 	}
 	close_pipes(control->pipe_fd, n_pipes);
 	close_fd(control->cmd->infile, cmd->outfile);
 	execve(cmd->path_cmd, cmd->cmd_and_args, NULL);
+	free_control(control);
 	perror("execve");
 	exit(EXIT_FAILURE);
 }
@@ -125,10 +132,10 @@ void	handle_execution(t_control *control)
 		printf("FATAL ERROR \n");
 		control->fatal_err = 0;
 		free_cmd(control);
-		return ;
 	}
 	n_pipes = count_pipes(control->cmd);
-	if (ptr_cmd && !n_pipes && is_builtin(ptr_cmd->cmd_and_args[0]))
+	if (ptr_cmd && !n_pipes && ptr_cmd->cmd_and_args 
+		&& is_builtin(ptr_cmd->cmd_and_args[0]))
 		single_execution_builtin(control);
 	else
 		multi_execution(control, n_pipes);

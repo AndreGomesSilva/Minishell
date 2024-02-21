@@ -6,11 +6,12 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/20 19:42:10 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/21 00:02:01 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <stdlib.h>
 
 void	print_simple_error(char *error)
 {
@@ -47,8 +48,4 @@ void	print_error(t_cmd *ptr_cmd, enum e_type_error error)
 	}
 	else if (ptr_cmd->error_type == E_NO_ERROR)
 		exit(0);
-	else if (ptr_cmd->error_type == E_EXPORT)
-		print_simple_error(ptr_cmd->cmd_and_args[0]);
-	else if (ptr_cmd->error_type == E_UNSET)
-		print_simple_error(ptr_cmd->cmd_and_args[0]);
 }

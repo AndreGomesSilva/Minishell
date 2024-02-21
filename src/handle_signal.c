@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/19 20:48:32 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/20 23:40:38 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 int	receive_signal_ctrl_d(t_control *control)
 {
+	int exit_value;
+
+	exit_value = control->exit_value;
 	clear_history();
 	printf("\n");
 	free_control(control);
-	exit(0);
+	exit(exit_value);
 }
 
 int	ctrl_d_herdoc(t_control *control, char *eof)

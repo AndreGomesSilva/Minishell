@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/20 19:54:48 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/20 22:55:07 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	count_args(t_cmd *cmd)
 	ptr_cmd = cmd;
 	ptr_arg = ptr_cmd->list_args;
 	count = 0;
-	if (ptr_cmd->type < REDIRECT_HERD)
+	if (ptr_cmd && ptr_cmd->type < REDIRECT_HERD)
 		count++;
 	while (ptr_arg)
 	{
@@ -72,10 +72,10 @@ char	**create_full_cmd(t_cmd *cmd)
 	ptr_cmd = cmd;
 	args = NULL;
 	type_io_file(ptr_cmd);
-	if (ptr_cmd)
+	len = count_args(ptr_cmd);
+	if (ptr_cmd && len > 0)
 	{
 		i = 0;
-		len = count_args(ptr_cmd);
 		ptr_arg = ptr_cmd->list_args;
 		args = (char **)ft_calloc(len + 1, sizeof(char *));
 		if (ptr_cmd->cmd && ptr_cmd->type < REDIRECT_HERD)
@@ -130,16 +130,16 @@ void	handle_parser(t_control *control)
 	while (ptr_cmd)
 	{
 		ptr_cmd->cmd_and_args = create_full_cmd(ptr_cmd);
-		ptr_cmd->path_cmd = handle_bin_path(control, ptr_cmd->cmd_and_args[0]);
-		if (!is_builtin(ptr_cmd->cmd_and_args[0]) && !is_valid_cmd(ptr_cmd))
+		if (ptr_cmd->cmd_and_args)
 		{
-			type_io_file(ptr_cmd);
-			ptr_cmd->error_type = E_CMD_NO_FOUND;
-		}
-		else
-		{
-			if (is_absolute_path(ptr_cmd->cmd_and_args[0]))
-				ptr_cmd->cmd_and_args[0] = new_cmd_absolute_path(ptr_cmd->cmd_and_args);
+			ptr_cmd->path_cmd = handle_bin_path(control, ptr_cmd->cmd_and_args[0]);
+			if (!is_builtin(ptr_cmd->cmd_and_args[0]) && !is_valid_cmd(ptr_cmd))
+				ptr_cmd->error_type = E_CMD_NO_FOUND;
+			else
+			{
+				if (is_absolute_path(ptr_cmd->cmd_and_args[0]))
+					ptr_cmd->cmd_and_args[0] = new_cmd_absolute_path(ptr_cmd->cmd_and_args);
+			}
 		}
 		ptr_cmd = ptr_cmd->next;
 	}

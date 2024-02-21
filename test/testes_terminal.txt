@@ -54,3 +54,8 @@ input = "echo" "hello"''"hi"there"'" | output = hellohithere'
 
 < arq1 <arq2 cat
 --------------------------------------------------------
+
+< arquivo1_existe < arquivo2_existe
+
+< arquivo1_não_existe < arquivo2_não_existe
+--------------------------------------------------------

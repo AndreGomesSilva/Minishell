@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/20 22:22:54 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/21 00:01:46 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ typedef struct s_control
 	struct s_cmd		*cmd;
 	int					**pipe_fd;
 	int					fatal_err;
+	int					exit_value;
 }						t_control;
 
 //	common
