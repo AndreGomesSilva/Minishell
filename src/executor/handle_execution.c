@@ -11,12 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <complex.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
 
 int	handle_wait(int n_pipes)
 {
@@ -47,21 +41,21 @@ void	single_execution_builtin(t_control *control)
 	ptr_cmd = control->cmd;
 	if (handle_io(ptr_cmd, NULL, 0, FALSE))
 	{
-		if (ptr_cmd->infile == STDIN_FILENO && ptr_cmd->outfile == STDOUT_FILENO)
+		if (ptr_cmd->infile == STDIN_FILENO
+			&& ptr_cmd->outfile == STDOUT_FILENO)
 			handle_builtin(ptr_cmd->cmd_and_args, control);
 		else
-		 {
+		{
 			old_stdin = dup(STDIN_FILENO);
 			old_stdout = dup(STDOUT_FILENO);
 			change_stdio(ptr_cmd->infile, ptr_cmd->outfile);
 			handle_builtin(ptr_cmd->cmd_and_args, control);
 			change_stdio(old_stdin, old_stdout);
-		 };
-
+		};
 	}
 }
 
-void children_exec(t_control *control,t_cmd *cmd, int index, int n_pipes)
+void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 {
 	if (cmd->error_type)
 	{
@@ -87,8 +81,8 @@ void children_exec(t_control *control,t_cmd *cmd, int index, int n_pipes)
 	exit(EXIT_FAILURE);
 }
 
-void multi_execution(t_control *control, int n_pipes)
- {
+void	multi_execution(t_control *control, int n_pipes)
+{
 	t_cmd	*ptr_cmd;
 	pid_t	pid;
 	int		i;
@@ -100,8 +94,8 @@ void multi_execution(t_control *control, int n_pipes)
 		exit(EXIT_FAILURE);
 	}
 	ptr_cmd = control->cmd;
-    i = 0;
-	while (ptr_cmd && i < n_pipes  + 1)
+	i = 0;
+	while (ptr_cmd && i < n_pipes + 1)
 	{
 		pid = fork();
 		if (pid == -1)
@@ -110,7 +104,7 @@ void multi_execution(t_control *control, int n_pipes)
 			exit(EXIT_FAILURE);
 		}
 		else if (pid == 0)
-			children_exec(control, ptr_cmd, i, n_pipes);	
+			children_exec(control, ptr_cmd, i, n_pipes);
 		ptr_cmd = ptr_cmd->next;
 		i++;
 	}

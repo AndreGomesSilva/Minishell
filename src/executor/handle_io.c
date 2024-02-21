@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <unistd.h>
 
 int	get_outfile(t_cmd *cmd, int pipe_fd)
 {
@@ -35,7 +34,7 @@ int	get_outfile(t_cmd *cmd, int pipe_fd)
 int	get_infile(t_cmd *cmd, int pipe_fd)
 {
 	int		fd;
-	char 	*infile;
+	char	*infile;
 
 	fd = STDIN_FILENO;
 	infile = get_last_infile(cmd);
@@ -73,8 +72,6 @@ void	change_stdio(int in, int out)
 	}
 }
 
-
-
 int	handle_io(t_cmd *cmd, int **pipe_fd, int index, int multi_cmd)
 {
 	if (multi_cmd)
@@ -95,7 +92,8 @@ int	handle_io(t_cmd *cmd, int **pipe_fd, int index, int multi_cmd)
 			cmd->outfile = get_outfile(cmd, pipe_fd[index][1]);
 		}
 	}
-	else {
+	else
+	{
 		cmd->infile = get_infile(cmd, 0);
 		cmd->outfile = get_outfile(cmd, 1);
 	}
