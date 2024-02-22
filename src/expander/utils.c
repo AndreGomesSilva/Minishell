@@ -3,14 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:10 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/18 02:33:51 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/22 14:28:06 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	is_exit_variable(char *str)
+{
+	if (str[0] && str[1] && str[0] == '$' && str[1] == '?')
+		return (TRUE);
+	return (FALSE);
+}
+
+int	look_exit_variabel(t_cmd *cmd, int flag)
+{
+	t_arg *ptr_arg;
+	int 	i;
+
+	i = 0;
+	ptr_arg = cmd->list_args;	
+	if (flag)
+	{
+		while (cmd && cmd->cmd[i])
+		{
+			if (is_exit_variable(&cmd->cmd[i]))
+				return (TRUE);
+			i++;
+		}
+		return (FALSE);
+	}
+	i = 0;
+	while (ptr_arg && ptr_arg->arg[i])
+	{
+		if (is_exit_variable(&ptr_arg->arg[i]))
+			return (TRUE);
+		i++;
+	}
+	return (FALSE);
+}
+
+
 
 int	is_variable(char *str)
 {

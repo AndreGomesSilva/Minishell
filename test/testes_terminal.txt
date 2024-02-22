@@ -32,7 +32,8 @@ heredoc infinito com aspas quebrada.
 export ${ola}
 --------------------------------------------------------
 export "olaA"= "mundo"
---------------------------------------------------------bash
+--------------------------------------------------------
+bash
 clear
 
 command to clear terminal need evnterm;

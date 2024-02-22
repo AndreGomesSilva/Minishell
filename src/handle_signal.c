@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_signal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/21 23:15:46 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/22 14:07:45 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	receive_sig_int(int sig)
 	extern t_control	*g_control;
 
 	(void)sig;
-	update_env(g_control, ft_strdup("?"), ft_strdup("130"));
+	update_env(g_control, "?", ft_strdup("130"));
 	free_cmd(g_control);
 	printf("\n");
 	rl_on_new_line();
