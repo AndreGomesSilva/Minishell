@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/21 20:08:59 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/21 23:05:35 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	print_simple_error(char *error)
 {
 	if (!ft_strncmp(error, "EXPORT", 6))
-		perror("export");
+		ft_putstr_fd("export: Syntax error\n", 2);
 	else if (!ft_strncmp(error, "UNSET", 5))
-		perror("unset");
+		ft_putstr_fd("unset: Syntax error\n", 2);
 	else if (!ft_strncmp(error, "PWD", 4))
 		perror("pwd");
 	else if (!ft_strncmp(error, "CD_NO_EXIST", 12))

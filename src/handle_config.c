@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/18 14:22:42 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/21 23:04:46 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	handle_envp(t_control *control, char **env)
 	table = init_table(env);
 	control->env_table = table;
 	copy_env(control, env);
+	update_env(control, ft_strdup("?"), ft_strdup("0"));
 	return (TRUE);
 }
 

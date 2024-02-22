@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/21 20:10:04 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/21 23:00:51 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ typedef struct s_control
 	struct s_cmd		*cmd;
 	int					**pipe_fd;
 	int					fatal_err;
-	int					exit_value;
 }						t_control;
 
 //	common
@@ -156,6 +155,7 @@ int						handle_syntax_error(t_cmd *cmd);
 int						is_absolute_path(char *cmd);
 
 //	handle_lexer
+char					*swap_string(char *str, char *sub_str);
 int						verify_broken_quote(t_control *control);
 void					handle_quotes_parsing(t_control *control);
 int						str_compare(char *s1, char *s2);

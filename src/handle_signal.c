@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_signal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/20 23:40:38 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/21 23:15:46 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 
 int	receive_signal_ctrl_d(t_control *control)
 {
-	int exit_value;
-
-	exit_value = control->exit_value;
 	clear_history();
 	printf("\n");
 	free_control(control);
-	exit(exit_value);
+	exit(0);
 }
 
 int	ctrl_d_herdoc(t_control *control, char *eof)
@@ -32,7 +29,11 @@ int	ctrl_d_herdoc(t_control *control, char *eof)
 
 void	receive_sig_int(int sig)
 {
+	extern t_control	*g_control;
+
 	(void)sig;
+	update_env(g_control, ft_strdup("?"), ft_strdup("130"));
+	free_cmd(g_control);
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -44,5 +45,3 @@ void	handle_signal(void)
 	signal(SIGINT, receive_sig_int);
 	signal(SIGQUIT, SIG_IGN);
 }
-
-// FIXME: Ctrl + C = apaga o que esta no buffer e desenha uma nova linha

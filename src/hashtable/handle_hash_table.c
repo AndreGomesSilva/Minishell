@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_hash_table.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:59:18 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/15 14:02:37 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/21 23:13:21 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ void	print_env(t_table *table)
 	int			i;
 	t_ht_item	*items;
 
-	i = 0;
+	i = -1;
 	if (table)
 	{
-		while (i < table->size)
+		while (i++, i < table->size)
 		{
 			items = table->items[i];
 			if (items)
 			{
+				if (items->key[0] == '?')
+					continue ;
 				printf("%s", items->key);
 				printf("=%s\n", items->value);
 				if (items->next)
@@ -33,7 +35,6 @@ void	print_env(t_table *table)
 					printf("=%s\n", items->next->value);
 				}
 			}
-			i++;
 		}
 	}
 }
