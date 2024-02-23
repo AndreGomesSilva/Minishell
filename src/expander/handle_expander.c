@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:22 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/22 14:34:16 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/23 10:26:13by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,19 @@ static char	*ft_join_var(t_control *control, char *str, char *var, char *end)
 	return (result);
 }
 
-char	*get_var_in_node(t_control *control, char *str)
+char    *expand_var(t_control *control, int *i, char *str)
 {
-	char	*var;
 	char	*new_str;
-	int		i;
+	char	*var;
 	int		j;
-
-	i = 0;
-	while (str && str[i])
-	{
-		if (is_variable(&str[i]) || is_exit_variable(&str[i]))
+	
+	if (str[*i] && (is_variable(&str[*i]) || is_exit_variable(&str[*i])))
 		{
 			j = 0;
-			while (ft_isalnum(str[i + 1 + j]) || str[i + 1 + j] == '_' || str[i + 1 + j] == '?')
+			while (ft_isalnum(str[*i + 1 + j]) || str[*i + 1 + j] == '_' || str[*i + 1 + j] == '?')
 				j++;
-			var = ft_substr(&str[i + 1], 0, j);
-			new_str = ft_join_var(control, ft_substr(str, 0, i), var, &str[i + 1
+			var = ft_substr(&str[*i + 1], 0, j);
+			new_str = ft_join_var(control, ft_substr(str, 0, *i), var, &str[*i + 1
 					+ j]);
 			if (new_str != NULL)
 			{
@@ -63,10 +59,52 @@ char	*get_var_in_node(t_control *control, char *str)
 				str = NULL;
 			}
 			str = new_str;
-			i = 0;
+			*i = 0;
 		}
-		if (*str)
-			i++;
+		return (str);
+}
+
+char	*get_var_in_quotes(t_control * control, int	*i, char *str)
+{
+	char	type_quote;
+	
+	type_quote = str[*i];
+	if (type_quote == '\'')
+	{
+		*i = *i + 1;
+		while (str[*i] && str[*i] != type_quote)
+			*i = *i + 1;
+	}
+	if (type_quote == '"')
+	{
+		*i = *i + 1;
+		while (str[*i] && str[*i] != type_quote)
+		{
+			str = expand_var(control, i, str);
+			*i = *i + 1;
+		}	
+	}
+	*i = *i + 1;
+	return (str);			
+}
+
+char	*get_var_in_node(t_control *control, char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str && str[i])
+	{
+		if (str[i] && (str[i] == '"' || str[i] == '\''))
+			str = get_var_in_quotes(control, &i, str);
+		else
+		{
+			str = expand_var(control, &i, str);
+			if (*str)
+				i++;
+		}
+		if (str[i] && set_type(str) != VAR_EXPAND)
+			break;
 	}
 	return (str);
 }
