@@ -12,85 +12,64 @@
 
 #include "../../include/minishell.h"
 
-static char	*ft_join_var(t_control *control, char *str, char *var, char *end)
-{
-	char	*result;
-	char	*temp;
-	char	*expand_var;
-
-	result = NULL;
-	expand_var = get_var_env(control, var);
-	if (expand_var)
-	{
-		expand_var = ft_strdup(expand_var);
-		temp = ft_strjoin(str, expand_var);
-		result = ft_strjoin(temp, end);
-		free(str);
-		free(expand_var);
-		free(var);
-		free(temp);
-	}
-	else
-	{
-		result = ft_strjoin(str, end);
-		free(str);
-		free(var);
-	}
-	return (result);
-}
-
-char    *expand_var(t_control *control, int *i, char *str)
+char	*expand_var(t_control *control, int *i, char *str)
 {
 	char	*new_str;
 	char	*var;
+	char	*key;
 	int		j;
-	
+
 	if (str[*i] && (is_variable(&str[*i]) || is_exit_variable(&str[*i])))
+	{
+		j = 0;
+		while (ft_isalnum(str[*i + 1 + j]) || str[*i + 1 + j] == '_' || str[*i
+			+ 1 + j] == '?')
+			j++;
+		key = ft_substr(&str[*i + 1], 0, j);
+		var = ft_strdup(get_var_env(control, key));
+		free(key);
+		new_str = ft_join_var(i, ft_substr(str, 0, *i), var, &str[*i + 1 + j]);
+		if (new_str != NULL)
 		{
-			j = 0;
-			while (ft_isalnum(str[*i + 1 + j]) || str[*i + 1 + j] == '_' || str[*i + 1 + j] == '?')
-				j++;
-			var = ft_substr(&str[*i + 1], 0, j);
-			new_str = ft_join_var(control, ft_substr(str, 0, *i), var, &str[*i + 1
-					+ j]);
-			if (new_str != NULL)
-			{
-				free(str);
-				str = NULL;
-			}
-			str = new_str;
-			*i = 0;
+			free(str);
+			str = NULL;
 		}
-		return (str);
+		str = new_str;
+	}
+	else if (str[*i])
+		*i = *i + 1;
+	return (str);
 }
 
-char	*get_var_in_quotes(t_control * control, int	*i, char *str)
+char	*get_var_in_quotes(t_control *control, int *i, char *str)
 {
 	char	type_quote;
-	
+
 	type_quote = str[*i];
 	if (type_quote == '\'')
 	{
-		*i = *i + 1;
+		if (str[*i])
+			*i = *i + 1;
 		while (str[*i] && str[*i] != type_quote)
+			*i = *i + 1;
+		if (str[*i])
 			*i = *i + 1;
 	}
 	if (type_quote == '"')
 	{
-		*i = *i + 1;
-		while (str[*i] && str[*i] != type_quote)
-		{
-			str = expand_var(control, i, str);
+		if (str[*i])
 			*i = *i + 1;
-		}	
+		while (str[*i] && str[*i] != type_quote)
+			str = expand_var(control, i, str);
+		if (str[*i] == '"')
+			*i = *i + 1;
 	}
-	*i = *i + 1;
-	return (str);			
+	return (str);
 }
 
 char	*get_var_in_node(t_control *control, char *str)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (str && str[i])
@@ -98,13 +77,7 @@ char	*get_var_in_node(t_control *control, char *str)
 		if (str[i] && (str[i] == '"' || str[i] == '\''))
 			str = get_var_in_quotes(control, &i, str);
 		else
-		{
 			str = expand_var(control, &i, str);
-			if (*str)
-				i++;
-		}
-		if (str[i] && set_type(str) != VAR_EXPAND)
-			break;
 	}
 	return (str);
 }
@@ -119,7 +92,7 @@ static void	get_var_in_arg(t_control *control, t_cmd *cmd)
 	{
 		temp_arg_node = arg_node->next;
 		if (arg_node->type == VAR_EXPAND || look_exit_variabel(cmd, 0))
-				arg_node->arg = get_var_in_node(control, arg_node->arg);
+			arg_node->arg = get_var_in_node(control, arg_node->arg);
 		arg_node = temp_arg_node;
 	}
 }
