@@ -82,7 +82,7 @@ void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 	}
 	close_pipes(control->pipe_fd, n_pipes);
 	close_fd(control->cmd->infile, cmd->outfile);
-	execve(cmd->path_cmd, cmd->cmd_and_args, NULL);
+	execve(cmd->path_cmd, cmd->cmd_and_args, control->env);
 	free_control(control);
 	perror("execve");
 	exit(EXIT_FAILURE);

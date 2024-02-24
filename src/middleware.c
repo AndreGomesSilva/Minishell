@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:41 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/21 00:00:25 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/23 21:48:12 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	middleware(t_control *control, char *input)
 	control->fatal_err = verify_broken_quote(control);
 	if (!control->fatal_err)
 	{
+		update_env(control, "?", ft_strdup("0"));
 		handle_heredoc(control);
+		if (ft_atoi(get_var_env(control, "?")) == 130)
+			return ;
 		handle_expander(control);
 		handle_parser(control);
 	}

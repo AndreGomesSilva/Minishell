@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/23 20:33:32 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/23 22:04:19 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ int						receive_signal_ctrl_d(t_control *control);
 int						ctrl_d_herdoc(t_control *control, char *eof);
 void					get_input(t_control *control);
 void					set_path(t_control *control);
+void					ctrl_c_heredoc(int sig);
 
 // handle_nodes
 void					create_node_cmd(t_control *control, char *cmd);

@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:11:45 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/22 14:36:18 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/23 22:27:13y angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,33 +40,51 @@ int	create_heredoc_file(t_cmd *cmd, char *input, int action)
 	return (TRUE);
 }
 
-void	heredoc_input(t_control *control, t_cmd *cmd, char *eof, int action)
+int	get_input_heredoc(t_control *control, t_cmd *cmd, char *eof, int action)
 {
-	char	*input;
 	int		flux_ctrl;
 	char	*new_eof;
+	char	*input;
+
+	input = readline("> ");
+	if (input)
+	{
+		new_eof = remove_quotes(eof);
+		flux_ctrl = str_compare(new_eof, input);
+		if (flux_ctrl)
+		{
+			add_history(input);
+			if (handle_quote_eof(eof) == NORM)
+				input = get_var_in_node(control, input);
+			action = create_heredoc_file(cmd, input, action);
+		}
+		free(input);
+		free(new_eof);
+	}
+	else if (ft_atoi(get_var_env(control, "?")) == 130)
+			return (0);
+	else	
+		flux_ctrl = ctrl_d_herdoc(control, remove_quotes(eof));
+	return (flux_ctrl);
+}
+
+void	ctrl_flux_heredoc(t_control *control, t_cmd *cmd, char *eof, int action)
+{
+	int		flux_ctrl;
+	int		old_stdin;
 
 	flux_ctrl = 1;
-	while (flux_ctrl)
+	signal(SIGINT, ctrl_c_heredoc);
+	old_stdin = dup(STDIN_FILENO);
+	while (flux_ctrl && ft_atoi(get_var_env(control, "?")) != 130)
 	{
-		input = readline("> ");
-		if (input)
-		{
-			new_eof = remove_quotes(eof);
-			flux_ctrl = str_compare(new_eof, input);
-			if (flux_ctrl)
-			{
-				add_history(input);
-				if (handle_quote_eof(eof) == NORM)
-					input = get_var_in_node(control, input);
-				action = create_heredoc_file(cmd, input, action);
-			}
-			free(input);
-			free(new_eof);
-		}
-		else
-			flux_ctrl = ctrl_d_herdoc(control, remove_quotes(eof));
+		if (ft_atoi(get_var_env(control, "?")) == 130)
+			break;
+		flux_ctrl = get_input_heredoc(control, cmd, eof, action);
 	}
+	if (ft_atoi(get_var_env(control, "?")) == 130)
+		dup2(old_stdin, STDIN_FILENO);
+	close(old_stdin);
 }
 
 void	open_prompt(t_control *control, t_cmd *cmd)
@@ -78,7 +96,7 @@ void	open_prompt(t_control *control, t_cmd *cmd)
 	action = 0;
 	while (eof)
 	{
-		heredoc_input(control, cmd, eof, action);
+		ctrl_flux_heredoc(control, cmd, eof, action);
 		action = 0;
 		eof = get_next_eof(cmd);
 	}

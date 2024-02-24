@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/22 14:07:45 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/23 22:03:58 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,20 @@ int	receive_signal_ctrl_d(t_control *control)
 	exit(0);
 }
 
+void	ctrl_c_heredoc(int sig)
+{
+	extern t_control	*g_control;
+
+	(void)sig;
+	update_env(g_control, "?", ft_strdup("130"));
+	close (STDIN_FILENO);
+	printf("\n");
+}
+
 int	ctrl_d_herdoc(t_control *control, char *eof)
 {
 	(void)control;
+	
 	printf("heredoc: delimited by end-of-file (wanted `%s') \n", eof);
 	return (0);
 }
