@@ -70,18 +70,19 @@ void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 		print_error(cmd, cmd->error_type);
 	}
 	change_stdio(cmd->infile, cmd->outfile);
-	if (cmd->cmd_and_args && is_builtin(cmd->cmd_and_args[0]))
+	if (cmd->cmd_and_args && handle_builtin(cmd->cmd_and_args, control))
 	{
-		handle_builtin(cmd->cmd_and_args, control);
 		close_pipes(control->pipe_fd, n_pipes);
 		close_fd(control->cmd->infile, cmd->outfile);
 		close(STDIN_FILENO);
 		close(STDOUT_FILENO);
+		free_pipes(control->pipe_fd, n_pipes);
 		free_control(control);
 		exit(EXIT_SUCCESS);
 	}
 	close_pipes(control->pipe_fd, n_pipes);
 	close_fd(control->cmd->infile, cmd->outfile);
+	free_pipes(control->pipe_fd, n_pipes);
 	execve(cmd->path_cmd, cmd->cmd_and_args, control->env);
 	free_control(control);
 	perror("execve");

@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   handle_config.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/21 23:04:46 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/24 18:42:01 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#include <stdlib.h>
 
 int	handle_envp(t_control *control, char **env)
 {
 	t_table	*table;
 
-	table = init_table(env);
+	control->env = env;
+	table = init_table(control->env);
 	control->env_table = table;
-	copy_env(control, env);
+	copy_env(control, control->env);
 	update_env(control, ft_strdup("?"), ft_strdup("0"));
 	return (TRUE);
 }
