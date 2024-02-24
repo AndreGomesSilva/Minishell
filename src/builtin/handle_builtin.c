@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 23:49:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/20 20:22:46 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/24 19:20:02 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	handle_builtin(char **cmd, t_control *control)
 			handle_export_builtin(control, cmd);
 		else if (builtin == B_UNSET)
 			handle_unset_builtin(control, cmd);
-		else if (builtin == B_EXIT)
-			handle_pwd_builtin(control, cmd);
+		else if (builtin == B_PWD)
+			handle_pwd_builtin(control);
 		return (TRUE);
 	}
 	return (FALSE);

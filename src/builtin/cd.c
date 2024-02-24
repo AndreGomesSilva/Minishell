@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/18 14:25:24 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/24 19:11:44 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ void	handle_cd_builtin(t_control *control, char **cmd)
 	const char	*old_pwd = getcwd(NULL, 0);
 	int			result_relative;
 
-	if (!cmd[1])
-		return ;
-	if (chdir(cmd[1]) == 0)
+	if ((!cmd[1] && !chdir(get_var_env(control, "HOME"))) || !chdir(cmd[1]))
 	{
 		update_env(control, "OLDPWD", old_pwd);
 		update_env(control, "PWD", getcwd(NULL, 0));
