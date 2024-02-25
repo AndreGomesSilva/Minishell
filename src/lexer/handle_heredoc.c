@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-int	create_heredoc_file(t_cmd *cmd, char *input, int action)
+int	create_heredoc_file(t_cmd *cmd, char *input, int *action)
 {
 	int		fd;
 	char	*name;
@@ -20,7 +20,7 @@ int	create_heredoc_file(t_cmd *cmd, char *input, int action)
 
 	name = ft_itoa(cmd->cmd_number);
 	file = ft_strjoin("/tmp/", name);
-	if (action == 1)
+	if (*action == 1)
 		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0666);
 	else
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
@@ -40,7 +40,7 @@ int	create_heredoc_file(t_cmd *cmd, char *input, int action)
 	return (TRUE);
 }
 
-int	get_input_heredoc(t_control *control, t_cmd *cmd, char *eof, int action)
+int	get_input_heredoc(t_control *control, t_cmd *cmd, char *eof, int *action)
 {
 	int		flux_ctrl;
 	char	*new_eof;
@@ -56,7 +56,7 @@ int	get_input_heredoc(t_control *control, t_cmd *cmd, char *eof, int action)
 			add_history(input);
 			if (handle_quote_eof(eof) == NORM)
 				input = get_var_in_node(control, input);
-			action = create_heredoc_file(cmd, input, action);
+			*action = create_heredoc_file(cmd, input, action);
 		}
 		free(input);
 		free(new_eof);
@@ -68,7 +68,7 @@ int	get_input_heredoc(t_control *control, t_cmd *cmd, char *eof, int action)
 	return (flux_ctrl);
 }
 
-void	ctrl_flux_heredoc(t_control *control, t_cmd *cmd, char *eof, int action)
+void	ctrl_flux_heredoc(t_control *control, t_cmd *cmd, char *eof, int *action)
 {
 	int		flux_ctrl;
 	int		old_stdin;
@@ -96,7 +96,7 @@ void	open_prompt(t_control *control, t_cmd *cmd)
 	action = 0;
 	while (eof)
 	{
-		ctrl_flux_heredoc(control, cmd, eof, action);
+		ctrl_flux_heredoc(control, cmd, eof, &action);
 		action = 0;
 		eof = get_next_eof(cmd);
 	}
