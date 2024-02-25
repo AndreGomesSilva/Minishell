@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/25 17:42:39 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/25 21:29:14 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ typedef struct s_control
 void					free_control(t_control *control);
 t_ht_item				*free_node(t_ht_item *node);
 void					print_error(t_cmd *ptr_cmd, enum e_type_error error);
-void					print_simple_error(char *error);
 void					handle_config(t_control **control, char **env);
 void					handle_signal(void);
 int						receive_signal_ctrl_d(t_control *control);

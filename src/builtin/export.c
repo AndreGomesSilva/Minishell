@@ -35,7 +35,10 @@ void	handle_export_builtin(t_control *control, char **cmd)
 				ft_substr(cmd[i], position_equal + 1, ft_strlen(cmd[i])));
 		}
 		else
-			print_simple_error("EXPORT");
+		{
+			printf("%s%s%s\n", "export: `",cmd[i], "': not a valid identifier");
+			update_env(control, "?", ft_strdup("1"));
+		}
 		free(str);
 	}
 }

@@ -17,7 +17,7 @@ RUN apt-get install -y \
 	curl \
 	software-properties-common \
 	libreadline-dev \
-	# zsh \
+	zsh \
 	curl \
 	wget \
 	vim \
@@ -43,16 +43,16 @@ RUN apt-get clean
 RUN git clone https://github.com/google/googletest.git
 
 # Zsh
-# RUN git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-# RUN chsh -s $(which zsh)
-# RUN git clone https://github.com/denysdovhan/spaceship-prompt.git "$HOME/.oh-my-zsh/themes/spaceship-prompt" --depth=1
-# RUN ln -s "$HOME/.oh-my-zsh/themes/spaceship-prompt/spaceship.zsh-theme" "$HOME/.oh-my-zsh/themes/spaceship.zsh-theme"
-# COPY .zshrc /root/.zshrc
-# SHELL ["/bin/bash", "-c"]
+RUN git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+RUN chsh -s $(which zsh)
+RUN git clone https://github.com/denysdovhan/spaceship-prompt.git "$HOME/.oh-my-zsh/themes/spaceship-prompt" --depth=1
+RUN ln -s "$HOME/.oh-my-zsh/themes/spaceship-prompt/spaceship.zsh-theme" "$HOME/.oh-my-zsh/themes/spaceship.zsh-theme"
+COPY .zshrc /root/.zshrc
+# SHELL ["/bin/zsh", "-c"]
 
 # Plugins Zsh
-# RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-# RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 # Clang e clangd
 RUN wget https://apt.llvm.org/llvm.sh

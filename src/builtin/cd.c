@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/24 21:03:52 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/25 20:38:37 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,8 @@ void	handle_cd_builtin(t_control *control, char **cmd)
 	if (result_relative)
 		set_path(control);
 	else
-		print_simple_error("CD_NO_EXIST");
+	{
+		printf("%s%s%s\n", "cd: ", cmd[1], ": No such file or directory");
+		update_env(control, "?", ft_strdup("1"));
+	}
 }

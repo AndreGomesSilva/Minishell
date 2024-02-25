@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 23:49:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/24 19:20:02 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/25 21:22:46 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	handle_builtin(char **cmd, t_control *control)
 		|| builtin == B_UNSET || builtin == B_ENV || builtin == B_EXIT
 		|| builtin == B_PWD)
 	{
+		update_env(control, "?", ft_strdup("0"));
 		if (builtin == B_CD)
 			handle_cd_builtin(control, cmd);
 		else if (builtin == B_ECHO)

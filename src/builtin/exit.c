@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/24 21:00:47 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/25 21:17:38 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	close_fd_pipe(t_control *control)
 {
-	if(control->n_pipes > 0)
+	if (control->n_pipes > 0)
 		close_pipes(control->pipe_fd, control->n_pipes);
 	close_fd(control->cmd->infile, control->cmd->outfile);
 	close(STDIN_FILENO);
@@ -24,27 +24,28 @@ void	close_fd_pipe(t_control *control)
 
 void	handle_exit_builtin(t_control *control, char **cmd)
 {
-	int		return_exit;
-	
 	if ((!cmd[1]))
 	{
 		printf("exit\n");
 		close_fd_pipe(control);
 		exit(EXIT_SUCCESS);
 	}
-	if (ft_atoi((const char *)cmd[1]) && !cmd[2])
-	{
-		print_simple_error("EXIT_TWO");
-		return_exit = (int)ft_atoi((const char *)cmd[1]) % 256;
-		close_fd_pipe(control);
-		exit(return_exit);
-	}
-	if (!ft_atoi((const char *)cmd[1]) && cmd[2])
+	else if (ft_atoi((const char *)cmd[1]) && !cmd[2])
 	{
 		printf("%s", "exit\n");
-		update_env(control, "?", ft_strdup("2"));
-		print_simple_error("EXIT_ERROR");
+		close_fd_pipe(control);
+		exit((int)ft_atoi((const char *)cmd[1]) % 256);
 	}
-	printf("%s", "exit\n");
-	print_simple_error("EXIT");
+	else if (ft_atoi((const char *)cmd[1]) && !ft_atoi((const char *)cmd[1]))
+	{
+		printf("%s", "exit\n");
+		printf("%s%s%s\n", "exit: ", cmd[1], ": too many arguments");
+		update_env(control, "?", ft_strdup("1"));
+	}
+	else if (!ft_atoi((const char *)cmd[1]) && cmd[2])
+	{
+		printf("%s", "exit\n");
+		printf("%s%s%s\n", "exit: ", cmd[1], ": numeric argument required");
+		exit(2);
+	}
 }
