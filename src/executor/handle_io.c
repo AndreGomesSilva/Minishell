@@ -22,8 +22,6 @@ int	get_outfile(t_cmd *cmd, int pipe_fd)
 	if (outfile)
 	{
 		fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-		if (fd == -1)
-			print_error(cmd, E_NO_FILE);
 		return (fd);
 	}
 	if (cmd->next == NULL)
@@ -41,8 +39,6 @@ int	get_infile(t_cmd *cmd, int pipe_fd)
 	if (infile)
 	{
 		fd = open(infile, O_RDONLY);
-		if (fd == -1)
-			print_error(cmd, E_NO_FILE);
 		return (fd);
 	}
 	if (cmd->cmd_number == 1)

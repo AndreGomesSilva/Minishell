@@ -71,6 +71,8 @@ void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 	{
 		close_pipes(control->pipe_fd, n_pipes);
 		close_fd(control->cmd->infile, cmd->outfile);
+		if (cmd->type == REDIRECT_HERD)
+			exit(0);
 		print_error(cmd, cmd->error_type);
 	}
 	change_stdio(cmd->infile, cmd->outfile);
