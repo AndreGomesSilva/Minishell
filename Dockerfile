@@ -1,8 +1,11 @@
 # Escolha uma imagem base que tenha o cmake, g++ e make instalados
 FROM ubuntu:latest
 
+# Evite prompts do apt-get
+ARG DEBIAN_FRONTEND=noninteractive
+
 # Instale as dependências necessárias
-RUN apt-get update
+RUN apt-get update -y
 
 RUN apt-get install -y \
 	clang-format \
@@ -25,13 +28,16 @@ RUN apt-get install -y \
 	icu-devtools \
 	openssl
 
+RUN apt-get install -y \
+	valgrind 
+
 # Atualizo certificado para o SSH funcionar
 RUN update-ca-certificates
 
 # Instale o Python 3.8 e formatter automatico para 42 (42 C-Format)
 RUN add-apt-repository ppa:deadsnakes/ppa
-RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
+RUN apt-get update -y
+RUN apt-get install -y \
 	python3.8 \
 	python3-pip
 RUN pip3 install c_formatter_42
