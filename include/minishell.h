@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/24 19:19:56 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/24 21:15:45 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ typedef struct s_control
 	struct s_cmd		*cmd;
 	int					**pipe_fd;
 	int					fatal_err;
+	int					n_pipes;
 }						t_control;
 
 //	common

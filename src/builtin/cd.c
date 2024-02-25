@@ -6,13 +6,11 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/24 19:11:44 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/24 21:03:52 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 int	check_pwd_exist(t_control *control, char *pwd_relative, const char *old_pwd,
 		char *pwd)

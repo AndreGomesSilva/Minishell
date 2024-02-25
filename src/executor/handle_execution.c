@@ -123,11 +123,9 @@ void	multi_execution(t_control *control, int n_pipes)
 
 void	handle_execution(t_control *control)
 {
-	int		n_pipes;
 	t_cmd	*ptr_cmd;
 
 	ptr_cmd = control->cmd;
-	n_pipes = 0;
 	if (control->fatal_err)
 	{
 		printf("FATAL ERROR \n");
@@ -135,10 +133,10 @@ void	handle_execution(t_control *control)
 		free_cmd(control);
 		return ;
 	}
-	n_pipes = count_pipes(control->cmd);
-	if (ptr_cmd && !n_pipes && ptr_cmd->cmd_and_args
+	control->n_pipes = count_pipes(control->cmd);
+	if (ptr_cmd && !control->n_pipes && ptr_cmd->cmd_and_args
 		&& is_builtin(ptr_cmd->cmd_and_args[0]))
 		single_execution_builtin(control);
 	else
-		multi_execution(control, n_pipes);
+		multi_execution(control, control->n_pipes);
 }
