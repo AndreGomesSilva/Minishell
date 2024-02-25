@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:59:18 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/25 19:21:15 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/25 19:59:43 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,8 @@ void	update_env(t_control *control, const char *key, const char *value)
 	node = get_var_node(control, (char *)key);
 	if (node)
 	{
-		if (node->key)
-		{
-			free(node->key);
-			node->key = (char *)key;
-		}
+		free(node->key);
+		node->key = (char *)key;
 		free(node->value);
 		node->value = (char *)value;
 	}

@@ -46,7 +46,7 @@ void	handle_export_builtin(t_control *control, char **cmd)
 		{
 			printf("%s%s%s\n", "export: `", cmd[i],
 				"': not a valid identifier");
-			update_env(control, "?", ft_strdup("1"));
+			update_env(control, ft_strdup("?"), ft_strdup("1"));
 		}
 		free(str);
 	}

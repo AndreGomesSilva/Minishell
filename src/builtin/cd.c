@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/25 20:38:37 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/25 19:55:34 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	check_pwd_exist(t_control *control, char *pwd_relative, const char *old_pwd,
 {
 	if (chdir(pwd_relative) == 0)
 	{
-		update_env(control, "OLDPWD", old_pwd);
-		update_env(control, "PWD", pwd);
+		update_env(control, ft_strdup("OLDPWD"), old_pwd);
+		update_env(control, ft_strdup("PWD"), pwd);
 		free(pwd);
 		free(pwd_relative);
 		return (TRUE);
@@ -40,8 +40,8 @@ void	handle_cd_builtin(t_control *control, char **cmd)
 
 	if ((!cmd[1] && !chdir(get_var_env(control, "HOME"))) || !chdir(cmd[1]))
 	{
-		update_env(control, "OLDPWD", old_pwd);
-		update_env(control, "PWD", getcwd(NULL, 0));
+		update_env(control, ft_strdup("OLDPWD"), old_pwd);
+		update_env(control, ft_strdup("PWD"), getcwd(NULL, 0));
 		set_path(control);
 		return ;
 	}
@@ -53,6 +53,6 @@ void	handle_cd_builtin(t_control *control, char **cmd)
 	else
 	{
 		printf("%s%s%s\n", "cd: ", cmd[1], ": No such file or directory");
-		update_env(control, "?", ft_strdup("1"));
+		update_env(control, ft_strdup("?"), ft_strdup("1"));
 	}
 }

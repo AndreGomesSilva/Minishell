@@ -96,7 +96,7 @@ void	open_prompt(t_control *control, t_cmd *cmd)
 	char	*eof;
 
 	if (ft_atoi(get_var_env(control, "?")) == 130)
-		update_env(control, "?", ft_strdup("0"));
+		update_env(control, ft_strdup("?"), ft_strdup("0"));
 	eof = get_next_eof(cmd);
 	action = 0;
 	while (eof)
