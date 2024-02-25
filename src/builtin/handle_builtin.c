@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 23:49:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/25 19:57:26 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/25 23:17:45 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	handle_builtin(char **cmd, t_control *control)
 		|| builtin == B_PWD)
 	{
 		if (builtin != B_ECHO)
-			update_env(control, ft_strdup("?"), ft_strdup("0"));
+			update_env(control, ft_strdup("?"), ft_strdup("0"), FALSE);
 		if (builtin == B_CD)
 			handle_cd_builtin(control, cmd);
 		else if (builtin == B_ECHO)

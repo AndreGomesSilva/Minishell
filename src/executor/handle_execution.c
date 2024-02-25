@@ -123,7 +123,7 @@ void	multi_execution(t_control *control, int n_pipes)
 		i++;
 	}
 	close_pipes(control->pipe_fd, n_pipes);
-	update_env(control, ft_strdup("?"), ft_itoa(handle_wait(n_pipes)));
+	update_env(control, ft_strdup("?"), ft_itoa(handle_wait(n_pipes)), FALSE);
 	free_pipes(control->pipe_fd, n_pipes);
 }
 

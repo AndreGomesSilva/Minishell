@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_signal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/25 19:51:38 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/25 23:19:35 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ctrl_c_heredoc(int sig)
 	extern t_control	*g_control;
 
 	(void)sig;
-	update_env(g_control, ft_strdup("?"), ft_strdup("130"));
+	update_env(g_control, ft_strdup("?"), ft_strdup("130"), FALSE);
 	close (STDIN_FILENO);
 	printf("\n");
 }
@@ -43,7 +43,7 @@ void	receive_sig_int(int sig)
 	extern t_control	*g_control;
 
 	(void)sig;
-	update_env(g_control, ft_strdup("?"), ft_strdup("130"));
+	update_env(g_control, ft_strdup("?"), ft_strdup("130"), FALSE);
 	free_cmd(g_control);
 	printf("\n");
 	rl_on_new_line();

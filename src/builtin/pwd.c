@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:32:57 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/25 19:57:47 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/25 23:17:55 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	handle_pwd_builtin(t_control *control)
 	else
 	{
 		perror("pwd");
-		update_env(control, ft_strdup("?"), ft_strdup("1"));
+		update_env(control, ft_strdup("?"), ft_strdup("1"), FALSE);
 	}
 }

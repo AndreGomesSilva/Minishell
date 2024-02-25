@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/25 19:56:35 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/25 23:17:27 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	handle_exit_builtin(t_control *control, char **cmd)
 	{
 		printf("%s", "exit\n");
 		printf("%s%s%s\n", "exit: ", cmd[1], ": too many arguments");
-		update_env(control, ft_strdup("?"), ft_strdup("1"));
+		update_env(control, ft_strdup("?"), ft_strdup("1"), FALSE);
 	}
 	else if (!ft_atoi((const char *)cmd[1]) && cmd[2])
 	{

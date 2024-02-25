@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_hash_table.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:59:36 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/12 22:06:50 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/25 23:20:27 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	copy_env(t_control *control, char **env)
 	{
 		key = ft_substr(env[i], 0, get_size_env_key(env[i]));
 		value = ft_strdup(getenv(key));
-		update_env(control, key, value);
+		update_env(control, key, value, FALSE);
 		i++;
 	}
 }

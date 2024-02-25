@@ -17,10 +17,10 @@ void	export_valid(int *i, int position_equal, char **cmd, t_control *control)
 	if (position_equal != -1)
 		update_env(control, ft_substr(cmd[*i], 0, position_equal),
 			ft_substr(cmd[*i], position_equal + 1, ft_strlen(cmd[*i]
-					- position_equal)));
+					- position_equal)), FALSE);
 	else
 		update_env(control, ft_substr(cmd[*i], 0, position_equal),
-			ft_strdup(""));
+			ft_strdup(""), TRUE);
 }
 
 void	handle_export_builtin(t_control *control, char **cmd)
@@ -46,7 +46,7 @@ void	handle_export_builtin(t_control *control, char **cmd)
 		{
 			printf("%s%s%s\n", "export: `", cmd[i],
 				"': not a valid identifier");
-			update_env(control, ft_strdup("?"), ft_strdup("1"));
+			update_env(control, ft_strdup("?"), ft_strdup("1"), FALSE);
 		}
 		free(str);
 	}

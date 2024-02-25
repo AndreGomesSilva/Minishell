@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:32:36 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/25 19:55:52 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/25 23:17:05 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ void	handle_echo_builtin(t_control *control, char **cmd)
 	printf("%s", output_string);
 	if (new_line)
 		printf("\n");
-	update_env(control, ft_strdup("?"), ft_strdup("0"));
+	update_env(control, ft_strdup("?"), ft_strdup("0"), FALSE);
 	free(output_string);
 }
