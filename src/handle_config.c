@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/25 11:24:44 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/25 12:46:16 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	handle_envp(t_control *control, char **env)
 	table = init_table(env);
 	control->env_table = table;
 	copy_env(control, env);
-	control->env = update_matrix_env(control);
+	update_matrix_env(control);
 	update_env(control, ft_strdup("?"), ft_strdup("0"));
 	return (TRUE);
 }

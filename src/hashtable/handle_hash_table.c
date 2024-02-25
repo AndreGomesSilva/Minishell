@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:59:18 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/25 11:19:22 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/25 12:47:53 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,5 @@ void	update_env(t_control *control, const char *key, const char *value)
 		}
 		control->env_table->count++;
 	}
+	update_matrix_env(control);
 }

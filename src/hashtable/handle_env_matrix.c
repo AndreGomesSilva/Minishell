@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 10:59:19 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/25 11:57:03 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/25 12:47:00 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,19 @@ void	create_env_matrix(char **env_matrix, t_ht_item *items, int *j)
 	}
 }
 
-char	**update_matrix_env(t_control *control)
+void	update_matrix_env(t_control *control)
 {
-	char		**env_matrix;
 	t_ht_item	*items;
+	char		**env_matrix;
 	int			j;
 	int			i;
 
+	
 	i = -1;
 	j = 0;
+	env_matrix = NULL;
+	if (control->env)
+		free_matrix(control->env);
 	env_matrix = (char **)ft_calloc(control->env_table->count + 1,
 			sizeof(char *));
 	while (++i < control->env_table->size)
@@ -51,5 +55,5 @@ char	**update_matrix_env(t_control *control)
 		if (items)
 			create_env_matrix(env_matrix, items, &j);
 	}
-	return (env_matrix);
+	control->env = env_matrix;
 }
