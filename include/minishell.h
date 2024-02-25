@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/25 20:15:35 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/25 20:44:58 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,6 @@ int						is_variable(char *str);
 char					*handle_home_path(t_control *control, char *path);
 
 // hashtable
-
 void					update_matrix_env(t_control *control);
 int						handle_env(t_control *control, char **env);
 t_ht_item				*get_var_node(t_control *control, char *key);
@@ -207,7 +206,7 @@ void					print_env(t_table *table);
 void					print_sort_env(t_control *control);
 void					sort_matrix(char *arr[], int start, int end);
 void					update_env(t_control *control, const char *key,
-							const char *value);
+							const char *value, int type_print);
 void					remove_env(t_control *control, const char *key);
 t_ht_item				*create_hash_node(const char *key, const char *value);
 
