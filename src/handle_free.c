@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:17:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/20 19:40:34 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/25 11:15:41 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ void	free_env(t_table *table)
 			{
 				item = table->items[i];
 				while (item)
-				{
 					item = free_node(item);
-				}
 			}
 			free(items);
 			table->items = NULL;

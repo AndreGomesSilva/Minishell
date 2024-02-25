@@ -29,7 +29,7 @@ FILES_WITHOUT_MAIN = \
 	$(LEXER)/handle_quotes $(LEXER)/utils \
 	$(EXPANDER)/handle_expander $(EXPANDER)/utils \
 	$(HASHTABLE)/set_hash_table $(HASHTABLE)/aux_hash_function  \
-	$(HASHTABLE)/utils $(HASHTABLE)/handle_hash_table \
+	$(HASHTABLE)/utils $(HASHTABLE)/handle_hash_table $(HASHTABLE)/handle_env_matrix\
 	$(PARSER)/handle_matrix $(PARSER)/handle_parser \
 	$(PARSER)/handle_path $(PARSER)/utils \
 	$(PARSER)/handle_syntax_error \
