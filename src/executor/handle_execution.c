@@ -27,6 +27,10 @@ int	handle_wait(int n_pipes)
 			perror("waitpid");
 			exit(EXIT_FAILURE);
 		}
+		if (WIFEXITED(status))
+        	return (WEXITSTATUS(status));
+		else if (WIFSIGNALED(status)) 
+            return (WTERMSIG(status));
 		i++;
 	}
 	return (status);
@@ -117,7 +121,8 @@ void	multi_execution(t_control *control, int n_pipes)
 		i++;
 	}
 	close_pipes(control->pipe_fd, n_pipes);
-	handle_wait(n_pipes);
+	update_env(control, "?", ft_itoa(handle_wait(n_pipes)));
+	printf("%s \n", get_var_env(control, "?"));
 	free_pipes(control->pipe_fd, n_pipes);
 }
 

@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/25 12:47:06 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/25 17:42:39 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef struct s_control
 	struct s_cmd		*cmd_actual;
 	struct s_cmd		*cmd;
 	int					**pipe_fd;
+	int					status_heredoc;
 	int					fatal_err;
 	int					n_pipes;
 }						t_control;
@@ -167,7 +168,7 @@ void					infinit_prompt(t_control *control);
 int						handle_quote_eof(char *eof);
 int						find_heredoc_arg(t_cmd *cmd);
 int						find_heredoc_cmd(t_cmd *cmd);
-void					handle_heredoc(t_control *control);
+int						handle_heredoc(t_control *control);
 void					print_lst(t_cmd *cmd);
 int						is_space(char c);
 int						get_token_len(char *str, int type);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aux_hash_function.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/21 23:07:18 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/25 17:31:07 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	print_sort_env(t_control *control)
 		{
 			item = get_var_node(control, env[i]);
 			if (item && !((item->key[0] == '_' || item->key[0] == '?') && !item->key[1]))
-				printf("declare -x %s=%s\n", item->key, item->value);
+				printf("declare -x %s=\"%s\"\n", item->key, item->value);
 			i++;
 		}
 		free_matrix(env);
