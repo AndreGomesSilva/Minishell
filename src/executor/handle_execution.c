@@ -82,7 +82,7 @@ void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 		close(STDOUT_FILENO);
 		free_pipes(control->pipe_fd, n_pipes);
 		free_control(control);
-		exit(EXIT_SUCCESS);
+		exit((int)ft_atoi(get_var_env(control, "?")));
 	}
 	close_pipes(control->pipe_fd, n_pipes);
 	close_fd(control->cmd->infile, cmd->outfile);
@@ -122,7 +122,6 @@ void	multi_execution(t_control *control, int n_pipes)
 	}
 	close_pipes(control->pipe_fd, n_pipes);
 	update_env(control, "?", ft_itoa(handle_wait(n_pipes)));
-	printf("%s \n", get_var_env(control, "?"));
 	free_pipes(control->pipe_fd, n_pipes);
 }
 
