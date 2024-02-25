@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:32:36 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/20 18:45:55 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/25 21:39:44 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ void	handle_echo_builtin(t_control *control, char **cmd)
 	printf("%s", output_string);
 	if (new_line)
 		printf("\n");
+	update_env(control, "?", ft_strdup("0"));
 	free(output_string);
 }
