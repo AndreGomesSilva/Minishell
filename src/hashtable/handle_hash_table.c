@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:59:18 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/26 16:24:50 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/26 17:37:57 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,23 @@ void	print_env(t_table *table)
 	t_ht_item	*items;
 
 	i = -1;
-	if (table)
+	while (i++, table && i < table->size)
 	{
-		while (i++, i < table->size)
+		items = table->items[i];
+		if (items)
 		{
-			items = table->items[i];
-			if (items)
+			if (items->key[0] == '?')
+				continue ;
+			printf("%s", items->key);
+			if (items->type_print == FALSE)
+				printf("=%s", items->value);
+			printf("\n");
+			if (items->next)
 			{
-				if (items->key[0] == '?')
-					continue ;
-				printf("%s", items->key);
+				printf("%s", items->next->key);
 				if (items->type_print == FALSE)
-					printf("=%s", items->value);
+					printf("=%s", items->next->value);
 				printf("\n");
-				if (items->next)
-				{
-					printf("%s", items->next->key);
-					if (items->type_print == FALSE)
-						printf("=%s", items->next->value);
-					printf("\n");
-				}
 			}
 		}
 	}
@@ -84,11 +81,14 @@ void	remove_env(t_control *control, const char *key)
 		remove_node_env(control, previous_node, node, index);
 }
 
-void	create_new_env(int index, t_ht_item *node, int type_print, t_control *control,
-		const char *key, const char *value)
+void	create_new_env(int type_print, t_control *control, const char *key,
+		const char *value)
 {
+	int			index;
 	t_ht_item	*temp_node;
+	t_ht_item	*node;
 
+	index = hash_function(key, control->env_table->size);
 	node = create_hash_node(key, value);
 	if (control->env_table->items[index] == NULL)
 		control->env_table->items[index] = node;
@@ -109,10 +109,8 @@ void	create_new_env(int index, t_ht_item *node, int type_print, t_control *contr
 void	update_env(t_control *control, const char *key, const char *value,
 		int type_print)
 {
-	int			index;
 	t_ht_item	*node;
 
-	index = hash_function(key, control->env_table->size);
 	node = get_var_node(control, (char *)key);
 	if (node)
 	{
@@ -128,6 +126,6 @@ void	update_env(t_control *control, const char *key, const char *value,
 			free((char *)value);
 	}
 	else
-		create_new_env(index, node, type_print, control, (char *)key, (char *)value);
+		create_new_env(type_print, control, (char *)key, (char *)value);
 	update_matrix_env(control);
 }
