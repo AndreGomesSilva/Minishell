@@ -16,6 +16,7 @@ char	*expand_var(t_control *control, int *i, char *str)
 {
 	char	*new_str;
 	char	*var;
+	char 	*temp;
 	char	*key;
 	int		j;
 
@@ -26,7 +27,11 @@ char	*expand_var(t_control *control, int *i, char *str)
 			+ 1 + j] == '?')
 			j++;
 		key = ft_substr(&str[*i + 1], 0, j);
-		var = ft_strdup(get_var_env(control, key));
+		temp = get_var_env(control, key);
+		if (temp)
+			var = ft_strdup(temp);
+		else
+			var = ft_strdup("");
 		free(key);
 		new_str = ft_join_var(i, ft_substr(str, 0, *i), var, &str[*i + 1 + j]);
 		if (new_str != NULL)
