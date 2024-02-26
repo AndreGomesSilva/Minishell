@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 23:49:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/26 19:00:06 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/26 20:00:48 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	handle_builtin(char **cmd, t_control *control)
 {
 	const enum e_type_builtin	builtin = is_builtin(cmd[0]);
+	
 	if (builtin == B_CD || builtin == B_ECHO || builtin == B_EXPORT
 		|| builtin == B_UNSET || builtin == B_ENV || builtin == B_EXIT
 		|| builtin == B_PWD)
@@ -38,4 +39,22 @@ int	handle_builtin(char **cmd, t_control *control)
 		return (TRUE);
 	}
 	return (FALSE);
+}
+
+int	is_valid_env_name(char *str)
+{
+	int			i;
+
+	i = 0;
+	if (!str || !*str)
+		return (0);
+	if (!ft_isalpha(*str) && str[i] != '_')
+		return (0);
+	while (str[i])
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
 }

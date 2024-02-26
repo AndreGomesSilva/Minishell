@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/26 19:46:31 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/26 20:03:30 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,6 +218,7 @@ void					handle_env_builtin(t_control *control, char **cmd);
 void					handle_exit_builtin(t_control *control, char **cmd);
 void					handle_echo_builtin(t_control *control, char **cmd);
 void					handle_pwd_builtin(t_control *control);
+int						is_valid_env_name(char *str);
 
 // executor
 int						count_pipes(t_cmd *cmd);

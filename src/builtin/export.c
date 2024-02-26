@@ -49,8 +49,7 @@ void	handle_export_builtin(t_control *control, char **cmd)
 	{
 		position_equal = get_size_env_key(cmd[i]);
 		str = ft_substr(cmd[i], 0, position_equal);
-		str = swap_string(ft_strdup("$"), str);
-		if (is_variable(str) && position_equal != 0)
+		if (is_valid_env_name(str) && position_equal != 0)
 			export_valid(i, position_equal, cmd, control);
 		else
 		{
