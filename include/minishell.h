@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/25 20:44:58 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/26 18:51:55 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,8 @@ int						handle_quotes(char *str, int *iterator, int *n_quotes,
 							int *flag_var);
 
 // handle_expander
+
+char					*expand_var(t_control *control, int *i, char *str);
 char					*ft_join_var(int *i, char *str, char *var, char *end);
 int						is_exit_variable(char *str);
 int						look_exit_variabel(t_cmd *cmd, int flag);

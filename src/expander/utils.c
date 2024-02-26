@@ -6,28 +6,11 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:10 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/26 18:11:15 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/26 18:57:35 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-char	*ft_join_var(int *i, char *str, char *var, char *end)
-{
-	char	*result;
-	char	*temp;
-	int		len;
-
-	result = NULL;
-	temp = ft_strjoin(str, var);
-	len = ft_strlen(temp);
-	*i = len;
-	result = ft_strjoin(temp, end);
-	free(str);
-	free(var);
-	free(temp);
-	return (result);
-}
 
 int	is_exit_variable(char *str)
 {
