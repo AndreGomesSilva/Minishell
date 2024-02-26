@@ -84,7 +84,7 @@ void	ctrl_flux_heredoc(t_control *control, t_cmd *cmd, char *eof, int *action)
 	}
 	if (ft_atoi(get_var_env(control, "?")) == 130)
 	{
-		control->status_heredoc = 130;
+		control->status_cmd = 130;
 		dup2(old_stdin, STDIN_FILENO);
 	}
 	close(old_stdin);
@@ -113,7 +113,7 @@ int	handle_heredoc(t_control *control)
 	t_cmd	*next_cmd;
 
 	ptr_cmd = control->cmd;	
-	control->status_heredoc  = 0;
+	control->status_cmd  = 0;
 	while (ptr_cmd)
 	{
 		next_cmd = ptr_cmd->next;
@@ -121,7 +121,7 @@ int	handle_heredoc(t_control *control)
 			open_prompt(control, ptr_cmd);
 		ptr_cmd = next_cmd;
 	}
-	if (control->status_heredoc == 130)
+	if (control->status_cmd == 130)
 			return (FALSE);
 	return (TRUE);	
 }

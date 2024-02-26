@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 15:12:44 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/25 19:28:55 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/26 19:52:37 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ char	*get_last_infile_arg(t_cmd *cmd)
 			else
 			{
 				if (access(ptr_arg->next->arg, F_OK))
-					print_error(cmd, E_NO_FILE);
+				 	cmd->error_type = E_NO_FILE;
 				if (access(ptr_arg->next->arg, R_OK))
-					print_error(cmd, E_PERMISSION);
+					cmd->error_type = E_PERMISSION;
 				last_file = ptr_arg->next->arg;
 			}
 		}

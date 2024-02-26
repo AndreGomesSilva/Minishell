@@ -66,6 +66,9 @@ void	single_execution_builtin(t_control *control)
 
 void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 {
+	int status;
+
+	status = 0;
 	handle_io(cmd, control->pipe_fd, index, TRUE);
 	if (cmd->error_type || !cmd->cmd_and_args)
 	{
@@ -73,7 +76,10 @@ void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 		close_fd(control->cmd->infile, cmd->outfile);
 		if (cmd->type == REDIRECT_HERD)
 			exit(0);
-		print_error(cmd, cmd->error_type);
+		control->status_cmd = print_error(cmd, cmd->error_type);
+		status = control->status_cmd;
+		free_control(control);
+		exit(status);
 	}
 	change_stdio(cmd->infile, cmd->outfile);
 	if (cmd->cmd_and_args && handle_builtin(cmd->cmd_and_args, control))
@@ -83,8 +89,9 @@ void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 		close(STDIN_FILENO);
 		close(STDOUT_FILENO);
 		free_pipes(control->pipe_fd, n_pipes);
+		status = control->status_cmd;
 		free_control(control);
-		exit((int)ft_atoi(get_var_env(control, "?")));
+		exit(status);
 	}
 	close_pipes(control->pipe_fd, n_pipes);
 	close_fd(control->cmd->infile, cmd->outfile);
