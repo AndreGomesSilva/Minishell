@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_hash_table.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:59:18 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/25 20:42:32 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:24:50 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,32 @@ void	remove_env(t_control *control, const char *key)
 		remove_node_env(control, previous_node, node, index);
 }
 
-void	update_env(t_control *control, const char *key, const char *value, int type_print)
+void	create_new_env(int index, t_ht_item *node, int type_print, t_control *control,
+		const char *key, const char *value)
+{
+	t_ht_item	*temp_node;
+
+	node = create_hash_node(key, value);
+	if (control->env_table->items[index] == NULL)
+		control->env_table->items[index] = node;
+	else
+	{
+		temp_node = control->env_table->items[index];
+		while (temp_node->next)
+			temp_node = temp_node->next;
+		temp_node->next = node;
+	}
+	if (type_print)
+		node->type_print = type_print;
+	control->env_table->count++;
+	if (type_print)
+		node->type_print = type_print;
+}
+
+void	update_env(t_control *control, const char *key, const char *value,
+		int type_print)
 {
 	int			index;
-	t_ht_item	*temp_node;
 	t_ht_item	*node;
 
 	index = hash_function(key, control->env_table->size);
@@ -96,28 +118,16 @@ void	update_env(t_control *control, const char *key, const char *value, int type
 	{
 		free(node->key);
 		node->key = (char *)key;
-		free(node->value);
-		node->value = (char *)value;
 		if (type_print == FALSE)
+		{
+			free(node->value);
+			node->value = (char *)value;
 			node->type_print = FALSE;
+		}
+		else
+			free((char *)value);
 	}
 	else
-	{
-		node = create_hash_node(key, value);
-		if (control->env_table->items[index] == NULL)
-			control->env_table->items[index] = node;
-		else
-		{
-			temp_node = control->env_table->items[index];
-			while (temp_node->next)
-				temp_node = temp_node->next;
-			temp_node->next = node;
-		}
-		if (type_print)
-			node->type_print = type_print;
-		control->env_table->count++;
-		if (type_print)
-			node->type_print = type_print;
-	}
+		create_new_env(index, node, type_print, control, (char *)key, (char *)value);
 	update_matrix_env(control);
 }
