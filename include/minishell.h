@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/26 18:51:55 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/26 19:03:46 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,11 @@
 // extern "C" {
 // #endif
 
-# include <stdio.h>
 # include "../libft/include/libft.h"
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdlib.h>
-# include <unistd.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 
@@ -226,11 +223,12 @@ void					handle_pwd_builtin(t_control *control);
 int						count_pipes(t_cmd *cmd);
 int						**create_pipes(int n_pipes);
 void					free_pipes(int **pipe_fd, int n_pipes);
-void 					close_pipes(int **pipe_fd, int n_pipes);
+void					close_pipes(int **pipe_fd, int n_pipes);
 void					handle_execution(t_control *control);
 char					*get_last_outfile(t_cmd *cmd);
-char 					*get_last_infile(t_cmd *cmd);
-int						handle_io(t_cmd *cmd, int **pipe_fd, int index, int multi_cmd);
+char					*get_last_infile(t_cmd *cmd);
+int						handle_io(t_cmd *cmd, int **pipe_fd, int index,
+							int multi_cmd);
 void					close_fd(int in, int out);
 void					change_stdio(int in, int out);
 
