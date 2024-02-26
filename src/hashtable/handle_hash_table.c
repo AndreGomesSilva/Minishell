@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:59:18 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/26 16:24:50 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/26 17:22:46 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,14 @@ void	remove_env(t_control *control, const char *key)
 		remove_node_env(control, previous_node, node, index);
 }
 
-void	create_new_env(int index, t_ht_item *node, int type_print, t_control *control,
+void	create_new_env(int type_print, t_control *control,
 		const char *key, const char *value)
 {
+	int			index;
 	t_ht_item	*temp_node;
+	t_ht_item *node;
 
+	index = hash_function(key, control->env_table->size);
 	node = create_hash_node(key, value);
 	if (control->env_table->items[index] == NULL)
 		control->env_table->items[index] = node;
@@ -109,10 +112,8 @@ void	create_new_env(int index, t_ht_item *node, int type_print, t_control *contr
 void	update_env(t_control *control, const char *key, const char *value,
 		int type_print)
 {
-	int			index;
 	t_ht_item	*node;
 
-	index = hash_function(key, control->env_table->size);
 	node = get_var_node(control, (char *)key);
 	if (node)
 	{
@@ -128,6 +129,6 @@ void	update_env(t_control *control, const char *key, const char *value,
 			free((char *)value);
 	}
 	else
-		create_new_env(index, node, type_print, control, (char *)key, (char *)value);
+		create_new_env(type_print, control, (char *)key, (char *)value);
 	update_matrix_env(control);
 }
