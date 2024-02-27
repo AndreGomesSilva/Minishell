@@ -23,7 +23,7 @@ void	export_valid(int i, int position_equal, char **cmd, t_control *control)
 				TRUE);
 }
 
-void	print_error_message(char **cmd, int i)
+static void	print_error_message(char **cmd, int i)
 {
 	char	*error_message;
 
