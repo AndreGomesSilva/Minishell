@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/27 00:24:49 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:05:46 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 // extern "C" {
 // #endif
 
-# include <stdio.h>
 # include "../libft/include/libft.h"
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
+# include <stdio.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 
@@ -121,7 +121,7 @@ typedef struct s_control
 	struct s_cmd		*cmd_actual;
 	struct s_cmd		*cmd;
 	int					**pipe_fd;
-	pid_t 				*pid;
+	pid_t				*pid;
 	int					status_cmd;
 	int					fatal_err;
 	int					n_pipes;
@@ -152,7 +152,7 @@ int						is_valid_cmd(t_cmd *cmd);
 void					free_matrix(char **matrix);
 char					*handle_bin_path(t_control *control, char *cmd);
 int						is_builtin(char *cmd);
-void					handle_parser(t_control *control);
+void					handle_parser(t_control *control, t_cmd	*ptr_cmd);
 int						handle_syntax_error(t_cmd *cmd);
 int						is_absolute_path(char *cmd);
 
@@ -230,7 +230,9 @@ void					close_pipes(int **pipe_fd, int n_pipes);
 void					handle_execution(t_control *control);
 char					*get_last_outfile(t_cmd *cmd, int *type);
 char					*get_last_infile(t_cmd *cmd);
-int						handle_io(t_cmd *cmd, int **pipe_fd, int index,
+void					children_exec(t_control *control, t_cmd *cmd, int index,
+							int n_pipes);
+void					handle_io(t_cmd *cmd, int **pipe_fd, int index,
 							int multi_cmd);
 void					close_fd(int in, int out);
 void					change_stdio(int in, int out);

@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 13:37:50 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/27 13:37:52 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:29:58 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	change_stdio(int in, int out)
 	}
 }
 
-int	handle_io(t_cmd *cmd, int **pipe_fd, int index, int multi_cmd)
+void	handle_io(t_cmd *cmd, int **pipe_fd, int index, int multi_cmd)
 {
 	if (multi_cmd)
 	{
@@ -104,7 +104,4 @@ int	handle_io(t_cmd *cmd, int **pipe_fd, int index, int multi_cmd)
 		cmd->infile = get_infile(cmd, 0);
 		cmd->outfile = get_outfile(cmd, 1);
 	}
-	if (cmd->infile == -1 || cmd->outfile == -1)
-		return (FALSE);
-	return (TRUE);
 }
