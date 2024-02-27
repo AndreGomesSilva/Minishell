@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <stdio.h>
 
-int	handle_wait(int n_pipes)
+int	handle_wait(t_control *control, int n_pipes)
 {
 	int		status;
 	pid_t	pid;
@@ -22,16 +21,16 @@ int	handle_wait(int n_pipes)
 	i = 0;
 	while (i < n_pipes + 1)
 	{
-		pid = waitpid(-1, &status, WUNTRACED);
+		pid = waitpid(control->pid[i], &status, 0);
 		if (pid == -1)
 		{
 			perror("waitpid");
 			exit(EXIT_FAILURE);
 		}
 		if (WIFEXITED(status))
-        	return (WEXITSTATUS(status));
-		else if (WIFSIGNALED(status)) 
-            return (WTERMSIG(status));
+			return (WEXITSTATUS(status));
+		else if (WIFSIGNALED(status))
+			return (WTERMSIG(status));
 		i++;
 	}
 	return (status);
@@ -50,8 +49,7 @@ void	single_execution_builtin(t_control *control)
 		close_fd(control->cmd->infile, control->cmd->outfile);
 		control->status_cmd = print_error(ptr_cmd, ptr_cmd->error_type);
 	}
-	if (ptr_cmd->infile == STDIN_FILENO
-		&& ptr_cmd->outfile == STDOUT_FILENO)
+	if (ptr_cmd->infile == STDIN_FILENO && ptr_cmd->outfile == STDOUT_FILENO)
 		handle_builtin(ptr_cmd->cmd_and_args, control);
 	else
 	{
@@ -61,16 +59,16 @@ void	single_execution_builtin(t_control *control)
 		handle_builtin(ptr_cmd->cmd_and_args, control);
 		change_stdio(old_stdin, old_stdout);
 	}
-	update_env(control, ft_strdup("?"), ft_itoa(control->status_cmd), 0);
+	update_env(control, ft_strdup("?"), ft_itoa(control->status_cmd), FALSE);
 }
 
 void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 {
-	int status;
+	int	status;
 
 	status = 0;
 	handle_io(cmd, control->pipe_fd, index, TRUE);
-	// dprintf(2, " 1: exit value: %d\n", status);
+	dprintf(2, " 1: exit value: %d\n", status);
 	if (cmd->error_type || !cmd->cmd_and_args)
 	{
 		close_pipes(control->pipe_fd, n_pipes);
@@ -92,27 +90,39 @@ void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 		close(STDOUT_FILENO);
 		free_pipes(control->pipe_fd, n_pipes);
 		status = control->status_cmd;
-		// dprintf(2, " 3: exit value: %d\n", status);
+		dprintf(2, " 3: exit value: %d\n", status);
 		free_control(control);
 		exit(status);
 	}
-	close_pipes(control->pipe_fd, n_pipes);
 	close_fd(control->cmd->infile, cmd->outfile);
+	close_pipes(control->pipe_fd, n_pipes);
 	free_pipes(control->pipe_fd, n_pipes);
-	// dprintf(2, " 4: exit value: %d\n", status);
+	dprintf(2, " 4: exit value: %d\n", status);
 	execve(cmd->path_cmd, cmd->cmd_and_args, control->env);
 	free_control(control);
 	perror("execve");
 	exit(EXIT_FAILURE);
 }
 
+void	start_process(t_control *control, t_cmd *ptr_cmd, int i, int n_pipes)
+{
+	control->pid[i] = fork();
+	if (control->pid[i] == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	else if (control->pid[i] == 0)
+		children_exec(control, ptr_cmd, i, n_pipes);
+}
+
 void	multi_execution(t_control *control, int n_pipes)
 {
 	t_cmd	*ptr_cmd;
-	pid_t	pid;
 	int		i;
 
 	control->pipe_fd = create_pipes(n_pipes);
+	control->pid = (pid_t *)ft_calloc((n_pipes + 1), sizeof(pid_t));
 	if (!control->pipe_fd)
 	{
 		perror("pipe");
@@ -122,20 +132,15 @@ void	multi_execution(t_control *control, int n_pipes)
 	i = 0;
 	while (ptr_cmd && i < n_pipes + 1)
 	{
-		pid = fork();
-		if (pid == -1)
-		{
-			perror("fork");
-			exit(EXIT_FAILURE);
-		}
-		else if (pid == 0)
-			children_exec(control, ptr_cmd, i, n_pipes);
+		start_process(control, ptr_cmd, i, n_pipes);
 		ptr_cmd = ptr_cmd->next;
 		i++;
 	}
 	close_pipes(control->pipe_fd, n_pipes);
-	update_env(control, ft_strdup("?"), ft_itoa(handle_wait(n_pipes)), FALSE);
+	control->status_cmd = handle_wait(control, n_pipes);
+	update_env(control, ft_strdup("?"), ft_itoa(control->status_cmd), FALSE);
 	free_pipes(control->pipe_fd, n_pipes);
+	free(control->pid);
 }
 
 void	handle_execution(t_control *control)

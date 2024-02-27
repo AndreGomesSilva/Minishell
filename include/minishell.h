@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/26 21:23:52 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/27 00:24:49 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct s_control
 	struct s_cmd		*cmd_actual;
 	struct s_cmd		*cmd;
 	int					**pipe_fd;
+	pid_t 				*pid;
 	int					status_cmd;
 	int					fatal_err;
 	int					n_pipes;
