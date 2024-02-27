@@ -11,26 +11,18 @@
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <unistd.h>
 
-int	create_files(t_cmd *cmd, char *file, int type)
+void	create_files(t_cmd *cmd, char *file, int file_type, int *type)
 {
-	int	fd;
-
-	fd = -1;
 	if (!access(file, F_OK))
 	{
 		if (access(file, W_OK))
 			cmd->error_type = E_PERMISSION;
 	}
-	else if (type == REDIRECT_OUTPUT)
-		fd = open(file, O_CREAT | O_TRUNC, 0666);
-	else if (type == REDIRECT_OUTPUT_APPEND)
-		fd = open(file, O_CREAT | O_APPEND, 0666);
-	if (fd == -1)
-		return (FALSE);
-	close(fd);
-	return (TRUE);
+	if (file_type == REDIRECT_OUTPUT)
+		*type = 0;
+	if (file_type == REDIRECT_OUTPUT_APPEND)
+		*type = 1;
 }
 
 char	*get_last_infile_arg(t_cmd *cmd)
@@ -88,7 +80,7 @@ char	*get_last_infile(t_cmd *cmd)
 	return (last_file);
 }
 
-char	*get_last_outfile_cmd(t_cmd *cmd)
+char	*get_last_outfile_cmd(t_cmd *cmd, int *type)
 {
 	t_arg	*ptr_arg;
 	char	*last_file;
@@ -102,7 +94,7 @@ char	*get_last_outfile_cmd(t_cmd *cmd)
 		{
 			if (ptr_arg->next && ptr_arg->next->type == IOFILE)
 			{
-				create_files(cmd, ptr_arg->next->arg, ptr_arg->type);
+				create_files(cmd, ptr_arg->next->arg, ptr_arg->type, type);
 				last_file = ptr_arg->next->arg;
 			}
 		}
@@ -111,7 +103,7 @@ char	*get_last_outfile_cmd(t_cmd *cmd)
 	return (last_file);
 }
 
-char	*get_last_outfile(t_cmd *cmd)
+char	*get_last_outfile(t_cmd *cmd, int *type)
 {
 	t_arg	*ptr_arg;
 	char	*last_file;
@@ -123,11 +115,11 @@ char	*get_last_outfile(t_cmd *cmd)
 	{
 		if (ptr_arg && ptr_arg->type == IOFILE)
 		{
-			create_files(cmd, ptr_arg->arg, cmd->type);
+			create_files(cmd, ptr_arg->arg, cmd->type, type);
 			last_file = ptr_arg->arg;
 		}
 	}
-	temp = get_last_outfile_cmd(cmd);
+	temp = get_last_outfile_cmd(cmd, type);
 	if (temp)
 		last_file = temp;
 	return (last_file);

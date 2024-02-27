@@ -228,7 +228,7 @@ int						**create_pipes(int n_pipes);
 void					free_pipes(int **pipe_fd, int n_pipes);
 void					close_pipes(int **pipe_fd, int n_pipes);
 void					handle_execution(t_control *control);
-char					*get_last_outfile(t_cmd *cmd);
+char					*get_last_outfile(t_cmd *cmd, int *type);
 char					*get_last_infile(t_cmd *cmd);
 int						handle_io(t_cmd *cmd, int **pipe_fd, int index,
 							int multi_cmd);

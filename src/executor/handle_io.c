@@ -16,12 +16,17 @@ int	get_outfile(t_cmd *cmd, int pipe_fd)
 {
 	char	*outfile;
 	int		fd;
+	int		type;
 
 	fd = STDOUT_FILENO;
-	outfile = get_last_outfile(cmd);
+	type = 0;
+	outfile = get_last_outfile(cmd, &type);
 	if (outfile)
 	{
-		fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		if (type == 0)
+			fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+		else if (type == 1)
+			fd = open(outfile, O_WRONLY | O_CREAT | O_APPEND, 0666);
 		return (fd);
 	}
 	if (cmd->next == NULL)
@@ -74,16 +79,22 @@ int	handle_io(t_cmd *cmd, int **pipe_fd, int index, int multi_cmd)
 	{
 		if (cmd->cmd_number == 1)
 		{
+			close(pipe_fd[index][0]);
 			cmd->infile = get_infile(cmd, 0);
 			cmd->outfile = get_outfile(cmd, pipe_fd[index][1]);
 		}
 		else if (cmd->next == NULL)
 		{
+			close (pipe_fd[index - 1][1]);
+			close (pipe_fd[index][1]);
+			close (pipe_fd[index][0]);
 			cmd->infile = get_infile(cmd, pipe_fd[index - 1][0]);
 			cmd->outfile = get_outfile(cmd, 1);
 		}
 		else
 		{
+			close (pipe_fd[index - 1][1]);
+			close (pipe_fd[index][0]);
 			cmd->infile = get_infile(cmd, pipe_fd[index - 1][0]);
 			cmd->outfile = get_outfile(cmd, pipe_fd[index][1]);
 		}

@@ -62,35 +62,20 @@ void	single_execution_builtin(t_control *control)
 	}
 	if (!cmd_is_builtin)
 		update_env(control, ft_strdup("?"), ft_itoa(control->status_cmd),
-			FALSE);
+				FALSE);
 }
 
-void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
+void	children_exec(t_control *control, t_cmd *cmd, int n_pipes)
 {
 	int	status;
 
 	status = 0;
-	handle_io(cmd, control->pipe_fd, index, TRUE);
-	dprintf(2, " 1: exit value: %d\n", status);
-	if (cmd->error_type || !cmd->cmd_and_args)
-	{
-		close_pipes(control->pipe_fd, n_pipes);
-		close_fd(control->cmd->infile, cmd->outfile);
-		if (cmd->type == REDIRECT_HERD)
-			exit(0);
-		control->status_cmd = print_error(cmd, cmd->error_type);
-		status = control->status_cmd;
-		free_control(control);
-		exit(status);
-	}
-	change_stdio(cmd->infile, cmd->outfile);
 	if (cmd->cmd_and_args && handle_builtin(cmd->cmd_and_args, control))
 	{
+		// close_fd(control->cmd->infile, cmd->outfile);
 		close_pipes(control->pipe_fd, n_pipes);
-		close_fd(control->cmd->infile, cmd->outfile);
-		close(STDIN_FILENO);
-		close(STDOUT_FILENO);
 		free_pipes(control->pipe_fd, n_pipes);
+		free(control->pid);
 		status = control->status_cmd;
 		dprintf(2, " 3: exit value: %d\n", status);
 		free_control(control);
@@ -99,6 +84,7 @@ void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 	close_fd(control->cmd->infile, cmd->outfile);
 	close_pipes(control->pipe_fd, n_pipes);
 	free_pipes(control->pipe_fd, n_pipes);
+	free(control->pid);
 	dprintf(2, " 4: exit value: %d\n", status);
 	execve(cmd->path_cmd, cmd->cmd_and_args, control->env);
 	free_control(control);
@@ -108,6 +94,8 @@ void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 
 void	start_process(t_control *control, t_cmd *ptr_cmd, int i, int n_pipes)
 {
+		int status;
+
 	control->pid[i] = fork();
 	if (control->pid[i] == -1)
 	{
@@ -115,7 +103,26 @@ void	start_process(t_control *control, t_cmd *ptr_cmd, int i, int n_pipes)
 		exit(EXIT_FAILURE);
 	}
 	else if (control->pid[i] == 0)
-		children_exec(control, ptr_cmd, i, n_pipes);
+	{
+		status = 0;
+		handle_io(ptr_cmd, control->pipe_fd, i, TRUE);
+		dprintf(2, " 1: exit value: %d\n", status);
+		if (ptr_cmd->error_type || !ptr_cmd->cmd_and_args)
+		{
+			close_pipes(control->pipe_fd, n_pipes);
+			free_pipes(control->pipe_fd, n_pipes);
+			free(control->pid);
+			close_fd(control->cmd->infile, ptr_cmd->outfile);
+			if (ptr_cmd->type == REDIRECT_HERD)
+				exit(0);
+			control->status_cmd = print_error(ptr_cmd, ptr_cmd->error_type);
+			status = control->status_cmd;
+			free_control(control);
+			exit(status);
+		}
+		change_stdio(ptr_cmd->infile, ptr_cmd->outfile);
+		children_exec(control, ptr_cmd, n_pipes);
+	}
 }
 
 void	multi_execution(t_control *control, int n_pipes)
