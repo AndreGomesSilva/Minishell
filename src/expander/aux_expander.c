@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   aux_expander.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 18:44:21 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/26 18:57:26 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/27 13:43:48 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ char	*get_expander_var(t_control *control, char *str, int *i, int *j)
 
 char	*expand_var(t_control *control, int *i, char *str)
 {
-	char *new_str;
-	char *var;
-	int j;
+	char	*new_str;
+	char	*var;
+	int		j;
 
 	if (str[*i] && (is_variable(&str[*i]) || is_exit_variable(&str[*i])))
 	{

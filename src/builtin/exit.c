@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/26 21:21:31 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/27 13:46:29 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	print_error_message(char **cmd, int i)
 	printf("%s", "exit\n");
 	error_message = swap_string(ft_strdup("exit: `"), ft_strdup(cmd[i]));
 	error_message = swap_string(error_message,
-								ft_strdup("': numeric argument required\n"));
+			ft_strdup("': numeric argument required\n"));
 	ft_putstr_fd(error_message, 2);
 	free(error_message);
 	exit(2);
@@ -37,7 +37,9 @@ static void	print_error_message(char **cmd, int i)
 
 void	handle_exit_builtin(t_control *control, char **cmd)
 {
-	const int	retorno =(int)ft_atoi((const char *)cmd[1]);
+	int	retorno;
+
+	retorno = (int)ft_atoi((const char *)cmd[1]);
 	if ((!cmd[1]))
 	{
 		printf("exit\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/10 00:11:45 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/23 22:27:13y angomes-         ###   ########.fr       */
+/*   Created: 2024/02/27 16:09:04 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/02/27 16:09:07 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,17 @@ int	get_input_heredoc(t_control *control, t_cmd *cmd, char *eof, int *action)
 		free(new_eof);
 	}
 	else if (ft_atoi(get_var_env(control, "?")) == 130)
-			return (0);
-	else	
+		return (0);
+	else
 		flux_ctrl = ctrl_d_herdoc(control, remove_quotes(eof));
 	return (flux_ctrl);
 }
 
-void	ctrl_flux_heredoc(t_control *control, t_cmd *cmd, char *eof, int *action)
+void	ctrl_flux_heredoc(t_control *control, t_cmd *cmd, char *eof,
+		int *action)
 {
-	int		flux_ctrl;
-	int		old_stdin;
+	int	flux_ctrl;
+	int	old_stdin;
 
 	flux_ctrl = 1;
 	signal(SIGINT, ctrl_c_heredoc);
@@ -79,7 +80,7 @@ void	ctrl_flux_heredoc(t_control *control, t_cmd *cmd, char *eof, int *action)
 	while (flux_ctrl && ft_atoi(get_var_env(control, "?")) != 130)
 	{
 		if (ft_atoi(get_var_env(control, "?")) == 130)
-			break;
+			break ;
 		flux_ctrl = get_input_heredoc(control, cmd, eof, action);
 	}
 	if (ft_atoi(get_var_env(control, "?")) == 130)
@@ -112,8 +113,8 @@ int	handle_heredoc(t_control *control)
 	t_cmd	*ptr_cmd;
 	t_cmd	*next_cmd;
 
-	ptr_cmd = control->cmd;	
-	control->status_cmd  = 0;
+	ptr_cmd = control->cmd;
+	control->status_cmd = 0;
 	while (ptr_cmd)
 	{
 		next_cmd = ptr_cmd->next;
@@ -122,6 +123,6 @@ int	handle_heredoc(t_control *control)
 		ptr_cmd = next_cmd;
 	}
 	if (control->status_cmd == 130)
-			return (FALSE);
-	return (TRUE);	
+		return (FALSE);
+	return (TRUE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_execution.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 17:21:09 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/17 14:56:54by angomes-         ###   ########.fr       */
+/*   Created: 2024/02/27 13:40:48 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/02/27 13:41:39 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	single_execution_builtin(t_control *control)
 	t_cmd	*ptr_cmd;
 	int		old_stdin;
 	int		old_stdout;
+	int		cmd_is_builtin;
 
 	ptr_cmd = control->cmd;
 	handle_io(ptr_cmd, NULL, 0, FALSE);
@@ -50,16 +51,18 @@ void	single_execution_builtin(t_control *control)
 		control->status_cmd = print_error(ptr_cmd, ptr_cmd->error_type);
 	}
 	if (ptr_cmd->infile == STDIN_FILENO && ptr_cmd->outfile == STDOUT_FILENO)
-		handle_builtin(ptr_cmd->cmd_and_args, control);
+		cmd_is_builtin = handle_builtin(ptr_cmd->cmd_and_args, control);
 	else
 	{
 		old_stdin = dup(STDIN_FILENO);
 		old_stdout = dup(STDOUT_FILENO);
 		change_stdio(ptr_cmd->infile, ptr_cmd->outfile);
-		handle_builtin(ptr_cmd->cmd_and_args, control);
+		cmd_is_builtin = handle_builtin(ptr_cmd->cmd_and_args, control);
 		change_stdio(old_stdin, old_stdout);
 	}
-	update_env(control, ft_strdup("?"), ft_itoa(control->status_cmd), FALSE);
+	if (!cmd_is_builtin)
+		update_env(control, ft_strdup("?"), ft_itoa(control->status_cmd),
+			FALSE);
 }
 
 void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
@@ -78,7 +81,6 @@ void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 		control->status_cmd = print_error(cmd, cmd->error_type);
 		status = control->status_cmd;
 		free_control(control);
-		// dprintf(2, " 2: exit value: %d\n", status);
 		exit(status);
 	}
 	change_stdio(cmd->infile, cmd->outfile);

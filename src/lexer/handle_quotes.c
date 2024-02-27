@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/10 23:31:53 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/21 15:35:00ngomes-         ###   ########.fr       */
+/*   Created: 2024/02/27 16:10:41 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/02/27 16:11:09 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char	*swap_string(char *str, char *sub_str)
 		result = str;
 	return (result);
 }
+
 char	*get_string_without_quotes(char *str, char *result, int i)
 {
 	char	type_quote;

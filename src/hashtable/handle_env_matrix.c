@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_env_matrix.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 10:59:19 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/25 12:47:00 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/27 13:36:00 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	update_matrix_env(t_control *control)
 	int			j;
 	int			i;
 
-	
 	i = -1;
 	j = 0;
 	env_matrix = NULL;

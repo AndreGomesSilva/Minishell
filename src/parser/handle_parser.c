@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/21 14:33:05 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/27 13:32:03 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,7 @@ char	*new_cmd_absolute_path(char **matrix)
 		{
 			if (cmd[len] == '/')
 			{
-				result = ft_substr(&cmd[len], len,
-						ft_strlen(&cmd[len]));
+				result = ft_substr(&cmd[len], len, ft_strlen(&cmd[len]));
 				free(matrix[0]);
 				return (result);
 			}
@@ -132,7 +131,8 @@ void	handle_parser(t_control *control)
 		ptr_cmd->cmd_and_args = create_full_cmd(ptr_cmd);
 		if (ptr_cmd->cmd_and_args)
 		{
-			ptr_cmd->path_cmd = handle_bin_path(control, ptr_cmd->cmd_and_args[0]);
+			ptr_cmd->path_cmd = handle_bin_path(control,
+												ptr_cmd->cmd_and_args[0]);
 			if (!is_builtin(ptr_cmd->cmd_and_args[0]) && !is_valid_cmd(ptr_cmd))
 				ptr_cmd->error_type = E_CMD_NO_FOUND;
 			else

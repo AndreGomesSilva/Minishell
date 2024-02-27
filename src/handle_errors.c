@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/26 22:10:36 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/27 13:25:58 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ int	print_error(t_cmd *ptr_cmd, enum e_type_error error)
 	}
 	else if (ptr_cmd->error_type == E_NO_ERROR)
 		return (EXIT_SUCCESS);
-	else
-		return (EXIT_FAILURE);
+	return (EXIT_FAILURE);
 }

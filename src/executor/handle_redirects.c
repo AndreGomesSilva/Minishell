@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirects.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 15:12:44 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/26 22:37:39 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/27 13:37:26 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*get_last_infile_arg(t_cmd *cmd)
 			else
 			{
 				if (access(ptr_arg->next->arg, F_OK))
-				 	cmd->error_type = E_NO_FILE;
+					cmd->error_type = E_NO_FILE;
 				else if (access(ptr_arg->next->arg, R_OK))
 					cmd->error_type = E_PERMISSION;
 				last_file = ptr_arg->next->arg;

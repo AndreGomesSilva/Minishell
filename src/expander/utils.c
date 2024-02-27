@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:10 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/26 18:57:35 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:11:46 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	is_variable(char *str)
 	if (str[0] && str[1] && str[0] == '$' && ft_isdigit(str[1]))
 		return (0);
 	else if (str[0] && str[1] && str[0] == '$' && (ft_isalnum(str[1])
-				|| str[1] == '_'))
+			|| str[1] == '_'))
 		return (1);
 	return (0);
 }

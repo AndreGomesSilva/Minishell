@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/26 21:01:10 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:08:18 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	check_many_params(char **cmd, t_control *control)
 
 	if (cmd[2])
 	{
-		error_message = swap_string(ft_strdup("cd: "), ft_strdup("': too many arguments\n"));
+		error_message = swap_string(ft_strdup("cd: "),
+				ft_strdup("': too many arguments\n"));
 		update_env(control, ft_strdup("?"), ft_strdup("1"), FALSE);
 		ft_putstr_fd(error_message, 2);
 		free(error_message);
@@ -52,7 +53,7 @@ static void	print_error_message(char **cmd, int i)
 
 	error_message = swap_string(ft_strdup("cd: "), ft_strdup(cmd[i]));
 	error_message = swap_string(error_message,
-								ft_strdup(": No such file or directory\n"));
+			ft_strdup(": No such file or directory\n"));
 	ft_putstr_fd(error_message, 2);
 	free(error_message);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_pipes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 20:58:13 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/26 23:37:56 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/27 13:42:40 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ int	count_pipes(t_cmd *cmd)
 	return (count);
 }
 
-void free_pipes(int **pipes, int n_pipes)
+void	free_pipes(int **pipes, int n_pipes)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	while (i < n_pipes + 1)
 	{
@@ -42,10 +43,10 @@ void free_pipes(int **pipes, int n_pipes)
 
 int	**create_pipes(int n_pipes)
 {
-	int		**pipes;
-	int		i;
+	int	**pipes;
+	int	i;
 
-	pipes = (int **)ft_calloc((n_pipes + 1), sizeof(int*));
+	pipes = (int **)ft_calloc((n_pipes + 1), sizeof(int *));
 	if (!pipes)
 		return (NULL);
 	i = 0;
@@ -66,7 +67,7 @@ int	**create_pipes(int n_pipes)
 
 void	close_pipes(int **pipe_fd, int n_pipes)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (i < n_pipes + 1)
