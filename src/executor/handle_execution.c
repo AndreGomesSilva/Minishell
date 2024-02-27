@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <stdio.h>
 
 int	handle_wait(int n_pipes)
 {
@@ -48,7 +49,7 @@ void	single_execution_builtin(t_control *control)
 		if (ptr_cmd->error_type)
 		{
 			close_fd(control->cmd->infile, control->cmd->outfile);
-			print_error(ptr_cmd, ptr_cmd->error_type);
+			control->status_cmd = print_error(ptr_cmd, ptr_cmd->error_type);
 		}
 		if (ptr_cmd->infile == STDIN_FILENO
 			&& ptr_cmd->outfile == STDOUT_FILENO)
@@ -60,8 +61,14 @@ void	single_execution_builtin(t_control *control)
 			change_stdio(ptr_cmd->infile, ptr_cmd->outfile);
 			handle_builtin(ptr_cmd->cmd_and_args, control);
 			change_stdio(old_stdin, old_stdout);
-		};
+		}
 	}
+	else
+	{
+		close_fd(control->cmd->infile, control->cmd->outfile);
+		control->status_cmd = print_error(ptr_cmd, ptr_cmd->error_type);
+	}
+	update_env(control, ft_strdup("?"), ft_itoa(control->status_cmd), 0);
 }
 
 void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
@@ -70,6 +77,7 @@ void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 
 	status = 0;
 	handle_io(cmd, control->pipe_fd, index, TRUE);
+	// dprintf(2, " 1: exit value: %d\n", status);
 	if (cmd->error_type || !cmd->cmd_and_args)
 	{
 		close_pipes(control->pipe_fd, n_pipes);
@@ -79,6 +87,7 @@ void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 		control->status_cmd = print_error(cmd, cmd->error_type);
 		status = control->status_cmd;
 		free_control(control);
+		// dprintf(2, " 2: exit value: %d\n", status);
 		exit(status);
 	}
 	change_stdio(cmd->infile, cmd->outfile);
@@ -90,12 +99,14 @@ void	children_exec(t_control *control, t_cmd *cmd, int index, int n_pipes)
 		close(STDOUT_FILENO);
 		free_pipes(control->pipe_fd, n_pipes);
 		status = control->status_cmd;
+		// dprintf(2, " 3: exit value: %d\n", status);
 		free_control(control);
 		exit(status);
 	}
 	close_pipes(control->pipe_fd, n_pipes);
 	close_fd(control->cmd->infile, cmd->outfile);
 	free_pipes(control->pipe_fd, n_pipes);
+	// dprintf(2, " 4: exit value: %d\n", status);
 	execve(cmd->path_cmd, cmd->cmd_and_args, control->env);
 	free_control(control);
 	perror("execve");

@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/26 19:41:58 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/26 22:10:36 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	print_error(t_cmd *ptr_cmd, enum e_type_error error)
 	else if (ptr_cmd->error_type == E_NO_FILE)
 	{
 		ft_putstr_fd("Error: No such file or directory \n", 2);
-		return (127);
+		return (EXIT_FAILURE);
 	}
 	else if (ptr_cmd->error_type == E_PERMISSION)
 	{

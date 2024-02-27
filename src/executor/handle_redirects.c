@@ -6,19 +6,25 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 15:12:44 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/26 19:52:37 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/26 22:37:39 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <unistd.h>
 
-int	create_files(char *file, int type)
+int	create_files(t_cmd *cmd, char *file, int type)
 {
 	int	fd;
 
 	fd = -1;
-	if (type == REDIRECT_OUTPUT)
-		fd = open(file, O_CREAT, 0666);
+	if (!access(file, F_OK))
+	{
+		if (access(file, W_OK))
+			cmd->error_type = E_PERMISSION;
+	}
+	else if (type == REDIRECT_OUTPUT)
+		fd = open(file, O_CREAT | O_TRUNC, 0666);
 	else if (type == REDIRECT_OUTPUT_APPEND)
 		fd = open(file, O_CREAT | O_APPEND, 0666);
 	if (fd == -1)
@@ -45,7 +51,7 @@ char	*get_last_infile_arg(t_cmd *cmd)
 			{
 				if (access(ptr_arg->next->arg, F_OK))
 				 	cmd->error_type = E_NO_FILE;
-				if (access(ptr_arg->next->arg, R_OK))
+				else if (access(ptr_arg->next->arg, R_OK))
 					cmd->error_type = E_PERMISSION;
 				last_file = ptr_arg->next->arg;
 			}
@@ -71,7 +77,7 @@ char	*get_last_infile(t_cmd *cmd)
 		{
 			if (access(ptr_arg->arg, F_OK))
 				cmd->error_type = E_NO_FILE;
-			if (access(ptr_arg->arg, R_OK))
+			else if (access(ptr_arg->arg, R_OK))
 				cmd->error_type = E_PERMISSION;
 			last_file = ptr_arg->arg;
 		}
@@ -96,8 +102,7 @@ char	*get_last_outfile_cmd(t_cmd *cmd)
 		{
 			if (ptr_arg->next && ptr_arg->next->type == IOFILE)
 			{
-				if (!create_files(ptr_arg->next->arg, ptr_arg->type))
-					cmd->error_type = E_NO_FILE;
+				create_files(cmd, ptr_arg->next->arg, ptr_arg->type);
 				last_file = ptr_arg->next->arg;
 			}
 		}
@@ -118,8 +123,7 @@ char	*get_last_outfile(t_cmd *cmd)
 	{
 		if (ptr_arg && ptr_arg->type == IOFILE)
 		{
-			if (!create_files(ptr_arg->arg, cmd->type))
-				cmd->error_type = E_NO_FILE;
+			create_files(cmd, ptr_arg->arg, cmd->type);
 			last_file = ptr_arg->arg;
 		}
 	}
