@@ -44,29 +44,22 @@ void	single_execution_builtin(t_control *control)
 	int		old_stdout;
 
 	ptr_cmd = control->cmd;
-	if (handle_io(ptr_cmd, NULL, 0, FALSE))
-	{
-		if (ptr_cmd->error_type)
-		{
-			close_fd(control->cmd->infile, control->cmd->outfile);
-			control->status_cmd = print_error(ptr_cmd, ptr_cmd->error_type);
-		}
-		if (ptr_cmd->infile == STDIN_FILENO
-			&& ptr_cmd->outfile == STDOUT_FILENO)
-			handle_builtin(ptr_cmd->cmd_and_args, control);
-		else
-		{
-			old_stdin = dup(STDIN_FILENO);
-			old_stdout = dup(STDOUT_FILENO);
-			change_stdio(ptr_cmd->infile, ptr_cmd->outfile);
-			handle_builtin(ptr_cmd->cmd_and_args, control);
-			change_stdio(old_stdin, old_stdout);
-		}
-	}
-	else
+	handle_io(ptr_cmd, NULL, 0, FALSE);
+	if (ptr_cmd->error_type)
 	{
 		close_fd(control->cmd->infile, control->cmd->outfile);
 		control->status_cmd = print_error(ptr_cmd, ptr_cmd->error_type);
+	}
+	if (ptr_cmd->infile == STDIN_FILENO
+		&& ptr_cmd->outfile == STDOUT_FILENO)
+		handle_builtin(ptr_cmd->cmd_and_args, control);
+	else
+	{
+		old_stdin = dup(STDIN_FILENO);
+		old_stdout = dup(STDOUT_FILENO);
+		change_stdio(ptr_cmd->infile, ptr_cmd->outfile);
+		handle_builtin(ptr_cmd->cmd_and_args, control);
+		change_stdio(old_stdin, old_stdout);
 	}
 	update_env(control, ft_strdup("?"), ft_itoa(control->status_cmd), 0);
 }
