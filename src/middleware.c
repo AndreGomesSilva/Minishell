@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   middleware.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:41 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/25 18:40:28 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/27 18:07:51 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	middleware(t_control *control, char *input)
 {
+	t_cmd	*ptr_cmd;
+
+	ptr_cmd = NULL;
 	handle_token(control, input);
 	control->fatal_err = verify_broken_quote(control);
 	if (!control->fatal_err)
@@ -21,7 +24,7 @@ void	middleware(t_control *control, char *input)
 		if (handle_heredoc(control) == FALSE)
 			return ;
 		handle_expander(control);
-		handle_parser(control);
+		handle_parser(control, ptr_cmd);
 	}
 	handle_execution(control);
 }
