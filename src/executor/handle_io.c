@@ -79,22 +79,16 @@ void	handle_io(t_cmd *cmd, int **pipe_fd, int index, int multi_cmd)
 	{
 		if (cmd->cmd_number == 1)
 		{
-			close(pipe_fd[index][0]);
 			cmd->infile = get_infile(cmd, 0);
 			cmd->outfile = get_outfile(cmd, pipe_fd[index][1]);
 		}
 		else if (cmd->next == NULL)
 		{
-			close (pipe_fd[index - 1][1]);
-			close (pipe_fd[index][1]);
-			close (pipe_fd[index][0]);
 			cmd->infile = get_infile(cmd, pipe_fd[index - 1][0]);
 			cmd->outfile = get_outfile(cmd, 1);
 		}
 		else
 		{
-			close (pipe_fd[index - 1][1]);
-			close (pipe_fd[index][0]);
 			cmd->infile = get_infile(cmd, pipe_fd[index - 1][0]);
 			cmd->outfile = get_outfile(cmd, pipe_fd[index][1]);
 		}

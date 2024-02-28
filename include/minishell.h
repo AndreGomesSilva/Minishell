@@ -121,7 +121,6 @@ typedef struct s_control
 	struct s_cmd		*cmd_actual;
 	struct s_cmd		*cmd;
 	int					**pipe_fd;
-	pid_t				*pid;
 	int					status_cmd;
 	int					fatal_err;
 	int					n_pipes;
@@ -223,6 +222,8 @@ void					handle_pwd_builtin(t_control *control);
 int						is_valid_env_name(char *str);
 
 // executor
+void					multi_execution(t_control *control, int n_pipes);
+int						handle_wait(t_control *control);
 int						count_pipes(t_cmd *cmd);
 int						**create_pipes(int n_pipes);
 void					free_pipes(int **pipe_fd, int n_pipes);
@@ -230,8 +231,6 @@ void					close_pipes(int **pipe_fd, int n_pipes);
 void					handle_execution(t_control *control);
 char					*get_last_outfile(t_cmd *cmd, int *type);
 char					*get_last_infile(t_cmd *cmd);
-void					children_exec(t_control *control, t_cmd *cmd, int index,
-							int n_pipes);
 void					handle_io(t_cmd *cmd, int **pipe_fd, int index,
 							int multi_cmd);
 void					close_fd(int in, int out);

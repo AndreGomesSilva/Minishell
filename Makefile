@@ -32,9 +32,10 @@ FILES_WITHOUT_MAIN = \
 	$(HASHTABLE)/utils $(HASHTABLE)/handle_hash_table $(HASHTABLE)/handle_env_matrix\
 	$(PARSER)/handle_matrix $(PARSER)/handle_parser \
 	$(PARSER)/handle_path $(PARSER)/utils \
-	$(PARSER)/handle_syntax_error handle_path_without_command.c \
+	$(PARSER)/handle_syntax_error \
 	$(EXECUTOR)/handle_redirects $(EXECUTOR)/handle_execution\
 	$(EXECUTOR)/handle_io $(EXECUTOR)/handle_pipes \
+	$(EXECUTOR)/handle_multi_execution \
 	$(BUILTIN)/handle_builtin $(BUILTIN)/echo \
 	$(BUILTIN)/cd $(BUILTIN)/env \
 	$(BUILTIN)/exit $(BUILTIN)/export \
