@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:59 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/20 19:46:17 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/02/28 16:40:47 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,24 @@ char	*get_bin(char **split_path, char *cmd)
 	return (bin);
 }
 
-char	*get_cmd_path(t_control *control, char *cmd)
-{
-	char	*path_var;
-	char	*bin;
-	char	**split_path;
-
-	bin = NULL;
-	path_var = get_var_env(control, "PATH");
-	if (path_var)
-	{
-		split_path = ft_split(path_var, ':');
-		bin = get_bin(split_path, cmd);
-		free_matrix(split_path);
-	}
-	return (bin);
-}
-
 char	*handle_bin_path(t_control *control, char *cmd)
 {
 	char	*bin_path;
+	char	*path_var;
+	char	**split_path;
 
+	path_var = get_var_env(control, "PATH");
 	bin_path = NULL;
 	if (is_absolute_path(cmd))
 		bin_path = ft_strdup(cmd);
 	else if (!is_builtin(cmd))
-		bin_path = get_cmd_path(control, cmd);
+	{
+		if (path_var)
+		{
+			split_path = ft_split(path_var, ':');
+			bin_path = get_bin(split_path, cmd);
+			free_matrix(split_path);
+		}
+	}
 	return (bin_path);
 }

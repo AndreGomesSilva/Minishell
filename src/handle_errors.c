@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/27 13:25:58 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/28 16:20:59 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	print_error(t_cmd *ptr_cmd, enum e_type_error error)
 	else if (ptr_cmd->error_type == E_CMD_NO_FOUND)
 	{
 		ft_putstr_fd(ptr_cmd->cmd, 2);
-		ft_putstr_fd(": Command not found \n", 2);
+		ft_putstr_fd("Error: Command not found \n", 2);
 		return (127);
 	}
 	else if (ptr_cmd->error_type == E_NO_FILE)
@@ -34,6 +34,11 @@ int	print_error(t_cmd *ptr_cmd, enum e_type_error error)
 	else if (ptr_cmd->error_type == E_PERMISSION)
 	{
 		ft_putstr_fd("Error: Permission denied \n", 2);
+		return (126);
+	}
+	else if (ptr_cmd->error_type == E_IS_DIR)
+	{
+		ft_putstr_fd("Error: Is a directory \n", 2);
 		return (126);
 	}
 	else if (ptr_cmd->error_type == E_NO_ERROR)

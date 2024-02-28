@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/27 18:05:46 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:57:00 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <stdio.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <dirent.h>
 
 # define TRUE 1
 # define FALSE 0
@@ -71,7 +72,8 @@ enum					e_type_error
 	E_FATAL,
 	E_SYNTAX,
 	E_EXPORT,
-	E_UNSET
+	E_UNSET,
+	E_IS_DIR
 };
 
 typedef struct s_ht_item
@@ -151,9 +153,11 @@ int						is_valid_cmd(t_cmd *cmd);
 void					free_matrix(char **matrix);
 char					*handle_bin_path(t_control *control, char *cmd);
 int						is_builtin(char *cmd);
-void					handle_parser(t_control *control, t_cmd	*ptr_cmd);
+void					handle_parser(t_control *control, t_cmd *ptr_cmd);
 int						handle_syntax_error(t_cmd *cmd);
 int						is_absolute_path(char *cmd);
+int						count_args(t_cmd *cmd);
+void					type_io_file(t_cmd *cmd);
 
 //	handle_lexer
 char					*swap_string(char *str, char *sub_str);
