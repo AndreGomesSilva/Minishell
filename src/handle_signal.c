@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/27 13:17:58 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:08:41 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 int	receive_signal_ctrl_d(t_control *control)
 {
+	int status;
+
+	status = 0;
 	clear_history();
 	printf("\n");
+	status = ft_atoi(get_var_env(control, "?"));
 	free_control(control);
-	exit(0);
+	exit(status);
 }
 
 void	ctrl_c_heredoc(int sig)

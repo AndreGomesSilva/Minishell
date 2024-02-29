@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 15:12:44 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/27 13:37:26 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:06:42 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*get_last_infile(t_cmd *cmd)
 	ptr_arg = cmd->list_args;
 	if ((cmd->type == REDIRECT_HERD || cmd->type == REDIRECT_INPUT) && ptr_arg)
 	{
-		if (ptr_arg->type == REDIRECT_HERD)
+		if (cmd->type == REDIRECT_HERD)
 			last_file = cmd->heredoc_file;
 		else
 		{

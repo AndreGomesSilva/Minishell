@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/29 12:39:13 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/29 15:15:46 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	handle_command_not_found(t_cmd *cmd)
 			return (E_IS_DIR);
 		}
 		else if (!access(cmd->cmd, F_OK) && access(cmd->cmd, X_OK))
-			return (E_PERMISSION);
+			return (E_PERMISSION_2);
 		else if (access(cmd->cmd, F_OK))
 			return (E_NO_FILE_2);
 	}

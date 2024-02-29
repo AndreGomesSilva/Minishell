@@ -6,11 +6,38 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 13:40:48 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/28 19:08:37 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/29 15:46:48 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	multi_execution(t_control *control, int n_pipes)
+{
+	t_cmd	*ptr_cmd;
+	int		i;
+
+	control->pipe_fd = create_pipes(n_pipes);
+	control->pid = (int*) ft_calloc(n_pipes + 2, sizeof(pid_t));
+	if (!control->pipe_fd)
+	{
+		perror("pipe");
+		exit(EXIT_FAILURE);
+	}
+	ptr_cmd = control->cmd;
+	i = 0;
+	while (ptr_cmd && i < n_pipes + 1)
+	{
+		start_process(control, ptr_cmd, i);
+		ptr_cmd = ptr_cmd->next;
+		i++;
+	}
+	close_pipes(control->pipe_fd, n_pipes);
+	control->status_cmd = handle_wait(control);
+	update_env(control, ft_strdup("?"), ft_itoa(control->status_cmd), FALSE);
+	free_pipes(control->pipe_fd, control->n_pipes);
+	free(control->pid);
+}
 
 void	single_execution_builtin(t_control *control)
 {

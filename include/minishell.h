@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/29 12:38:51 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/29 15:15:01 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ enum					e_type_error
 	E_NO_FILE,
 	E_NO_FILE_2,
 	E_PERMISSION,
+	E_PERMISSION_2,
 	E_FATAL,
 	E_SYNTAX,
 	E_EXPORT,
@@ -228,7 +229,7 @@ void					handle_pwd_builtin(t_control *control);
 int						is_valid_env_name(char *str);
 
 // executor
-void					multi_execution(t_control *control, int n_pipes);
+void					start_process(t_control *control, t_cmd *ptr_cmd, int i);
 int						handle_wait(t_control *control);
 int						count_pipes(t_cmd *cmd);
 int						**create_pipes(int n_pipes);

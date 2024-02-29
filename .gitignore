@@ -4,3 +4,14 @@
 minishell_tester
 teste_files
 .devcontainer/devcontainer.json
+*.o
+empty
+file na with spaces
+infile
+infile_big
+invalid_permission
+loop
+out
+minishell
+.nfs000000000327e834000000a1
+libft.a
