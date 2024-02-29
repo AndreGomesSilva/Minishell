@@ -123,6 +123,7 @@ typedef struct s_control
 	struct s_cmd		*cmd_actual;
 	struct s_cmd		*cmd;
 	int					**pipe_fd;
+	int					*pid;
 	int					status_cmd;
 	int					fatal_err;
 	int					n_pipes;

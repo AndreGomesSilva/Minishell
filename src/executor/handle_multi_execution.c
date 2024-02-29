@@ -6,21 +6,26 @@ static void finish_execution(t_control *control, t_cmd *cmd)
 	close_fd(cmd->infile, cmd->outfile);
 	close_pipes(control->pipe_fd, control->n_pipes);
 	free_pipes(control->pipe_fd, control->n_pipes);
+	free(control->pid);
 }
 
 int	handle_wait(t_control *control)
 {
 	int		status;
+	int 	pid;
 	int		i;
 
 	i = 0;
-	while (i < control->n_pipes + 1)
+
+	pid = waitpid(control->pid[i++], &status, 0);
+	while (pid != -1)
 	{
-		waitpid(-1, &status, 0);
+
 		if (WIFEXITED(status))
 			status = (WEXITSTATUS(status));
 		else if (WIFSIGNALED(status))
 			status = (WTERMSIG(status));
+		pid = waitpid(control->pid[i], &status, 0);
 		i++;
 	}
 	return (status);
@@ -51,15 +56,14 @@ static void	children_exec(t_control *control, t_cmd *cmd)
 void	start_process(t_control *control, t_cmd *ptr_cmd, int i)
 {
 	int		status;
-	pid_t	pid;
 
-	pid = fork();
-	if (pid == -1)
+	control->pid[i] = fork();
+	if (control->pid[i] == -1)
 	{
 		perror("fork");
 		exit(EXIT_FAILURE);
 	}
-	else if (pid == 0)
+	else if (control->pid[i] == 0)
 	{
 		handle_io(ptr_cmd, control->pipe_fd, i, TRUE);
 		if (ptr_cmd->error_type || !ptr_cmd->cmd_and_args)
@@ -83,6 +87,7 @@ void	multi_execution(t_control *control, int n_pipes)
 	int		i;
 
 	control->pipe_fd = create_pipes(n_pipes);
+	control->pid = (int*) ft_calloc(n_pipes + 1, sizeof(pid_t));
 	if (!control->pipe_fd)
 	{
 		perror("pipe");
@@ -100,4 +105,5 @@ void	multi_execution(t_control *control, int n_pipes)
 	control->status_cmd = handle_wait(control);
 	update_env(control, ft_strdup("?"), ft_itoa(control->status_cmd), FALSE);
 	free_pipes(control->pipe_fd, control->n_pipes);
+	free(control->pid);
 }
