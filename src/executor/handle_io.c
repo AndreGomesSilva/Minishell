@@ -21,6 +21,8 @@ int	get_outfile(t_cmd *cmd, int pipe_fd)
 	fd = STDOUT_FILENO;
 	type = 0;
 	outfile = get_last_outfile(cmd, &type);
+	if (cmd->error_type != E_NO_ERROR)
+		return (fd);
 	if (outfile)
 	{
 		if (type == 0)
@@ -41,6 +43,8 @@ int	get_infile(t_cmd *cmd, int pipe_fd)
 
 	fd = STDIN_FILENO;
 	infile = get_last_infile(cmd);
+	if (cmd->error_type != E_NO_ERROR)
+		return (fd);
 	if (infile)
 	{
 		fd = open(infile, O_RDONLY);

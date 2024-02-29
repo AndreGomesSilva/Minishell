@@ -21,7 +21,7 @@ void	create_files(t_cmd *cmd, char *file, int file_type, int *type)
 		if (access(file, W_OK))
 			cmd->error_type = E_PERMISSION;
 	}
-	else
+	else if (cmd->error_type == E_NO_ERROR)
 	{
 		fd = open(file, O_CREAT, 0666);
 		close (fd);
