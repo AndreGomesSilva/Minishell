@@ -12,12 +12,11 @@ int	handle_wait(t_control *control)
 {
 	int		status;
 	int		i;
-	pid_t	pid;
 
 	i = 0;
-	while (i < control->n_pipes + 1 || pid > 0)
+	while (i < control->n_pipes + 1)
 	{
-		pid = waitpid(-1, &status, 2);
+		waitpid(-1, &status, 0);
 		if (WIFEXITED(status))
 			status = (WEXITSTATUS(status));
 		else if (WIFSIGNALED(status))

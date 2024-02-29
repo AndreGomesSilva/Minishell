@@ -29,11 +29,11 @@ char	**create_full_cmd(t_cmd *cmd)
 		i = 0;
 		ptr_arg = ptr_cmd->list_args;
 		args = (char **)ft_calloc(len + 1, sizeof(char *));
-		if (ptr_cmd->cmd && ptr_cmd->type < REDIRECT_HERD)
+		if (ptr_cmd->cmd && ptr_cmd->cmd[0] && ptr_cmd->type < REDIRECT_HERD)
 			args[i++] = ft_strdup(ptr_cmd->cmd);
 		while (ptr_arg)
 		{
-			if (ptr_arg->arg && ptr_arg->type < REDIRECT_HERD)
+			if (ptr_arg->arg && ptr_arg->arg[0] && ptr_arg->type < REDIRECT_HERD)
 				args[i++] = ft_strdup(ptr_arg->arg);
 			ptr_arg = ptr_arg->next;
 		}

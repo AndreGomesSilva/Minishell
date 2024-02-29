@@ -14,10 +14,17 @@
 
 void	create_files(t_cmd *cmd, char *file, int file_type, int *type)
 {
+	int fd;
+
 	if (!access(file, F_OK))
 	{
 		if (access(file, W_OK))
 			cmd->error_type = E_PERMISSION;
+	}
+	else
+	{
+		fd = open(file, O_CREAT, 0666);
+		close (fd);
 	}
 	if (file_type == REDIRECT_OUTPUT)
 		*type = 0;
