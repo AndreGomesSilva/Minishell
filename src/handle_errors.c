@@ -34,7 +34,7 @@ int	print_error(t_cmd *ptr_cmd, enum e_type_error error)
 	else if (ptr_cmd->error_type == E_PERMISSION)
 	{
 		ft_putstr_fd("Error: Permission denied \n", 2);
-		return (126);
+		return (1);
 	}
 	else if (ptr_cmd->error_type == E_IS_DIR)
 	{

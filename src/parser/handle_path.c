@@ -19,6 +19,7 @@ char	*get_bin(char **split_path, char *cmd)
 	int		i;
 
 	i = 0;
+	bin = NULL;
 	while (cmd && split_path[i])
 	{
 		temp_path = ft_strjoin(split_path[i], "/");

@@ -97,13 +97,14 @@ void	is_command_true(t_cmd *ptr_cmd, t_control *control)
 					ptr_cmd->cmd_and_args[0]);
 			if (!is_builtin(ptr_cmd->cmd_and_args[0]) && !is_valid_cmd(ptr_cmd))
 				ptr_cmd->error_type = E_CMD_NO_FOUND;
+			else if (handle_command_not_found(ptr_cmd))
+				control->cmd->error_type = handle_command_not_found(ptr_cmd);
 			else
 			{
 				if (is_absolute_path(ptr_cmd->cmd_and_args[0]))
 					ptr_cmd->cmd_and_args[0] = new_cmd_absolute_path(
 							ptr_cmd->cmd_and_args);
 			}
-			control->cmd->error_type = handle_command_not_found(ptr_cmd);
 		}
 		ptr_cmd = ptr_cmd->next;
 	}
