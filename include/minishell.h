@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/28 17:38:08 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/29 12:38:51 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ enum					e_type_error
 	E_NO_ERROR,
 	E_CMD_NO_FOUND,
 	E_NO_FILE,
+	E_NO_FILE_2,
 	E_PERMISSION,
 	E_FATAL,
 	E_SYNTAX,

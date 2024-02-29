@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/29 12:06:57 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/29 12:39:00 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ int	print_error(t_cmd *ptr_cmd)
 		error_msg = swap_string(ft_strdup(ptr_cmd->cmd_and_args[0]), ft_strdup(": No such file or directory \n"));
 		ft_putstr_fd(error_msg, 2);
 		return (EXIT_FAILURE);
+	}
+	else if (ptr_cmd->error_type == E_NO_FILE_2)
+	{
+		error_msg = swap_string(ft_strdup(ptr_cmd->cmd_and_args[0]), ft_strdup(": No such file or directory \n"));
+		ft_putstr_fd(error_msg, 2);
+		return (127);
 	}
 	else if (ptr_cmd->error_type == E_PERMISSION)
 	{
