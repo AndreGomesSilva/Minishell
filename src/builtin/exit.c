@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/27 13:46:29 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/29 15:22:46 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ static void	print_error_message(char **cmd, int i)
 
 void	handle_exit_builtin(t_control *control, char **cmd)
 {
-	int	retorno;
+	int	second_param;
 
-	retorno = (int)ft_atoi((const char *)cmd[1]);
 	if ((!cmd[1]))
 	{
 		printf("exit\n");
@@ -48,11 +47,12 @@ void	handle_exit_builtin(t_control *control, char **cmd)
 	}
 	else if (ft_atoi((const char *)cmd[1]) && !cmd[2])
 	{
+		second_param = (int)ft_atoi((const char *)cmd[1]);
 		printf("%s", "exit\n");
 		close_fd_pipe(control);
-		if (retorno < 255)
-			exit(retorno);
-		exit(retorno % 256);
+		if (second_param < 255)
+			exit(second_param);
+		exit(second_param % 256);
 	}
 	else if (ft_atoi((const char *)cmd[1]) && cmd[2])
 	{
