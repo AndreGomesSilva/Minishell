@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 13:40:48 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/27 13:41:39 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/28 19:08:37 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	single_execution_builtin(t_control *control)
 	cmd_is_builtin = 0;
 	handle_io(ptr_cmd, NULL, 0, FALSE);
 	if (ptr_cmd->error_type)
-		control->status_cmd = print_error(ptr_cmd, ptr_cmd->error_type);
+		control->status_cmd = print_error(ptr_cmd);
 	else if (ptr_cmd->infile == STDIN_FILENO && ptr_cmd->outfile == STDOUT_FILENO)
 		cmd_is_builtin = handle_builtin(ptr_cmd->cmd_and_args, control);
 	else

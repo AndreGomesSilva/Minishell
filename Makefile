@@ -1,5 +1,5 @@
 NAME = minishell
-CC = cc -g
+CC = cc -g3
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 INC = -I./include

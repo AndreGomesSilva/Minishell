@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:09:04 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/27 16:09:07 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/28 18:47:41 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ int	create_heredoc_file(t_cmd *cmd, char *input, int *action)
 	else
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (fd == -1)
-		print_error(cmd, E_NO_FILE);
+	{
+		cmd->error_type = E_NO_FILE;
+		print_error(cmd);
+	}
 	ft_putstr_fd(input, fd);
 	ft_putstr_fd("\n", fd);
 	close(fd);

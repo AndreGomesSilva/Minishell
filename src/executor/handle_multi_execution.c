@@ -71,7 +71,7 @@ void	start_process(t_control *control, t_cmd *ptr_cmd, int i)
 			finish_execution(control, ptr_cmd);
 			if (ptr_cmd->type == REDIRECT_HERD || (ptr_cmd->type == VAR_EXPAND && !ptr_cmd->cmd_and_args[0]))
 				exit(0);
-			control->status_cmd = print_error(ptr_cmd, ptr_cmd->error_type);
+			control->status_cmd = print_error(ptr_cmd);
 			status = control->status_cmd;
 			free_control(control);
 			exit(status);

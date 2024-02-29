@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/28 17:27:27 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/29 12:39:13 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	handle_command_not_found(t_cmd *cmd)
 		else if (!access(cmd->cmd, F_OK) && access(cmd->cmd, X_OK))
 			return (E_PERMISSION);
 		else if (access(cmd->cmd, F_OK))
-			return (E_NO_FILE);
+			return (E_NO_FILE_2);
 	}
 	return (E_NO_ERROR);
 }
@@ -97,7 +97,7 @@ void	is_command_true(t_cmd *ptr_cmd, t_control *control)
 					ptr_cmd->cmd_and_args[0]);
 			if (!is_builtin(ptr_cmd->cmd_and_args[0]) && !is_valid_cmd(ptr_cmd))
 				ptr_cmd->error_type = E_CMD_NO_FOUND;
-			else if (handle_command_not_found(ptr_cmd))
+			if (handle_command_not_found(ptr_cmd))
 				control->cmd->error_type = handle_command_not_found(ptr_cmd);
 			else
 			{
