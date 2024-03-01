@@ -18,7 +18,7 @@ void	multi_execution(t_control *control, int n_pipes)
 	int		i;
 
 	control->pipe_fd = create_pipes(n_pipes);
-	control->pid = (int*) ft_calloc(n_pipes + 2, sizeof(pid_t));
+	control->pid = (int *)ft_calloc(n_pipes + 2, sizeof(pid_t));
 	if (!control->pipe_fd)
 	{
 		perror("pipe");
@@ -52,7 +52,8 @@ void	single_execution_builtin(t_control *control)
 	handle_io(ptr_cmd, NULL, 0, FALSE);
 	if (ptr_cmd->error_type)
 		control->status_cmd = print_error(ptr_cmd);
-	else if (ptr_cmd->infile == STDIN_FILENO && ptr_cmd->outfile == STDOUT_FILENO)
+	else if (ptr_cmd->infile == STDIN_FILENO
+		&& ptr_cmd->outfile == STDOUT_FILENO)
 		cmd_is_builtin = handle_builtin(ptr_cmd->cmd_and_args, control);
 	else
 	{
@@ -65,7 +66,7 @@ void	single_execution_builtin(t_control *control)
 	close_fd(control->cmd->infile, control->cmd->outfile);
 	if (!cmd_is_builtin)
 		update_env(control, ft_strdup("?"), ft_itoa(control->status_cmd),
-				FALSE);
+			FALSE);
 }
 
 void	handle_execution(t_control *control)

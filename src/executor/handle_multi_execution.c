@@ -17,17 +17,14 @@ int	handle_wait(t_control *control)
 	int		i;
 
 	i = 0;
-	pid = waitpid(control->pid[i++], &status, 0);
+	pid = 0;
 	while (pid != -1)
 	{
+		pid = waitpid(control->pid[i++], &status, 0);
 		if (WIFEXITED(status))
 			status = (WEXITSTATUS(status));
-		if (WIFSIGNALED(status))
-			status = (WTERMSIG(status));
-		pid = waitpid(control->pid[i], &status, 0);
 		i++;
 	}
-	signal(SIGQUIT, SIG_IGN);
 	return (status);
 }
 
