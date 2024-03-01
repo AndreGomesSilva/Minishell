@@ -22,11 +22,12 @@ int	handle_wait(t_control *control)
 	{
 		if (WIFEXITED(status))
 			status = (WEXITSTATUS(status));
-		else if (WIFSIGNALED(status))
+		if (WIFSIGNALED(status))
 			status = (WTERMSIG(status));
 		pid = waitpid(control->pid[i], &status, 0);
 		i++;
 	}
+	signal(SIGQUIT, SIG_IGN);
 	return (status);
 }
 
@@ -69,7 +70,9 @@ void	start_process(t_control *control, t_cmd *ptr_cmd, int i)
 	int old_out;
 	int old_in;
 
+	control->in_execution = 1;
 	control->pid[i] = fork();
+	signal(SIGQUIT, ctrl_bar);
 	old_in = dup (STDIN_FILENO);
 	old_out = dup (STDOUT_FILENO);
 	if (control->pid[i] == -1)

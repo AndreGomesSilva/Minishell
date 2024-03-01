@@ -15,6 +15,7 @@ PARSER 		= parser
 HASHTABLE	= hashtable
 BUILTIN		= builtin
 EXECUTOR	= executor
+HEREDOC		= heredoc
 
 OBJS_DIR 	= obj/
 SRC_DIR_LIB	= ./libft
@@ -25,11 +26,10 @@ FILES_WITHOUT_MAIN = \
 	handle_errors handle_free \
 	$(LIST)/handle_list_cmd $(LIST)/handle_list_arg \
 	$(LEXER)/handle_token $(LEXER)/handle_type \
-	$(LEXER)/handle_heredoc $(LEXER)/heredoc_utils \
 	$(LEXER)/handle_quotes $(LEXER)/utils \
 	$(EXPANDER)/handle_expander $(EXPANDER)/utils $(EXPANDER)/aux_expander \
-	$(HASHTABLE)/set_hash_table $(HASHTABLE)/aux_hash_function  \
 	$(HASHTABLE)/utils $(HASHTABLE)/handle_hash_table $(HASHTABLE)/handle_env_matrix\
+	$(HASHTABLE)/set_hash_table $(HASHTABLE)/aux_hash_function  \
 	$(PARSER)/handle_matrix $(PARSER)/handle_parser \
 	$(PARSER)/handle_path $(PARSER)/utils \
 	$(PARSER)/handle_syntax_error $(PARSER)/handle_parser_cont \
@@ -41,6 +41,8 @@ FILES_WITHOUT_MAIN = \
 	$(BUILTIN)/exit $(BUILTIN)/export \
 	$(BUILTIN)/unset \
 	$(BUILTIN)/pwd \
+	$(HEREDOC)/handle_heredoc $(HEREDOC)/heredoc_utils
+
 
 FILES = \
 	main $(FILES_WITHOUT_MAIN)
@@ -73,6 +75,7 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)$(PARSER)
 	@mkdir -p $(OBJS_DIR)$(EXECUTOR)
 	@mkdir -p $(OBJS_DIR)$(BUILTIN)
+	@mkdir -p $(OBJS_DIR)$(HEREDOC)
 	@mkdir -p $(OBJS_DIR)handle_signal
 
 runTests:

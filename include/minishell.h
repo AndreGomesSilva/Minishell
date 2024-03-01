@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/29 15:15:01 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/29 20:02:38 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ typedef struct s_control
 	int					status_cmd;
 	int					fatal_err;
 	int					n_pipes;
+	int					in_execution;
 }						t_control;
 
 //	common
@@ -142,6 +143,7 @@ int						ctrl_d_herdoc(t_control *control, char *eof);
 void					get_input(t_control *control);
 void					set_path(t_control *control);
 void					ctrl_c_heredoc(int sig);
+void					ctrl_bar(int sig);
 
 // handle_nodes
 void					create_node_cmd(t_control *control, char *cmd);
@@ -187,7 +189,6 @@ int						handle_quotes(char *str, int *iterator, int *n_quotes,
 							int *flag_var);
 
 // handle_expander
-
 char					*expand_var(t_control *control, int *i, char *str);
 char					*ft_join_var(int *i, char *str, char *var, char *end);
 int						is_exit_variable(char *str);
@@ -243,8 +244,7 @@ void					handle_io(t_cmd *cmd, int **pipe_fd, int index,
 void					close_fd(int in, int out);
 void					change_stdio(int in, int out);
 
-#endif
+// heredoc
+int						create_heredoc_file(t_cmd *cmd, char *input, int *action);
 
-// #ifdef __cplusplus
-// } // extern "C"
-// #endif
+#endif

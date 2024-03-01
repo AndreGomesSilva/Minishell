@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/29 17:08:41 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/29 20:01:39 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,32 @@ int	receive_signal_ctrl_d(t_control *control)
 
 void	ctrl_c_heredoc(int sig)
 {
+	(void)sig;
 	extern t_control	*g_control;
 
-	(void)sig;
 	update_env(g_control, ft_strdup("?"), ft_strdup("130"), FALSE);
 	close(STDIN_FILENO);
 	printf("\n");
 }
 
-int	ctrl_d_herdoc(t_control *control, char *eof)
+void	ctrl_bar(int sig)
 {
-	(void)control;
-	printf("heredoc: delimited by end-of-file (wanted `%s') \n", eof);
-	return (0);
+	(void)sig;
+	extern t_control	*g_control;
+
+	if(g_control->in_execution == 1)
+	{
+		update_env(g_control, ft_strdup("?"), ft_strdup("131"), FALSE);
+		free_cmd(g_control);
+		printf("Quit\n");
+	}
 }
 
 void	receive_sig_int(int sig)
 {
+	(void)sig;
 	extern t_control	*g_control;
 
-	(void)sig;
 	update_env(g_control, ft_strdup("?"), ft_strdup("130"), FALSE);
 	free_cmd(g_control);
 	printf("\n");

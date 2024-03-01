@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:17 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/27 13:26:28 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/27 13:26:28by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int	is_valid_cmd(t_cmd *cmd)
 {
-	if (cmd->type >= REDIRECT_HERD || (cmd->path_cmd && (!access(cmd->path_cmd,
-					X_OK))))
+	if ((cmd->type >= REDIRECT_HERD && (cmd->cmd_and_args
+				&& !(access(cmd->cmd_and_args[0], X_OK)))) || (cmd->path_cmd
+			&& !access(cmd->path_cmd, X_OK)))
 		return (TRUE);
 	return (FALSE);
 }
