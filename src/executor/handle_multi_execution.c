@@ -20,7 +20,7 @@ int	handle_wait(t_control *control)
 	pid = 0;
 	while (pid != -1)
 	{
-		pid = waitpid(control->pid[i++], &status, 0);
+		pid = waitpid(control->pid[i], &status, 0);
 		if (WIFEXITED(status))
 			status = (WEXITSTATUS(status));
 		i++;
@@ -86,4 +86,6 @@ void	start_process(t_control *control, t_cmd *ptr_cmd, int i)
 		change_stdio(ptr_cmd->infile, ptr_cmd->outfile);
 		children_exec(control, ptr_cmd, old_in, old_out);
 	}
+	close (old_in);
+	close (old_out);
 }

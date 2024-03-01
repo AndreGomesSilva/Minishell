@@ -27,7 +27,10 @@ int	create_files(t_cmd *cmd, char *file, int file_type, int *type)
 	else
 	{
 		fd = open(file, O_CREAT, 0666);
-		close(fd);
+		if (fd == -1)
+			cmd->error_type = E_NO_FILE;
+		else
+			close(fd);
 	}
 	if (file_type == REDIRECT_OUTPUT)
 		*type = 0;

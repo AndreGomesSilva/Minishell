@@ -36,7 +36,7 @@ void	multi_execution(t_control *control, int n_pipes)
 	control->status_cmd = handle_wait(control);
 	control->in_execution = 0;
 	update_env(control, ft_strdup("?"), ft_itoa(control->status_cmd), FALSE);
-	free_pipes(control->pipe_fd, control->n_pipes);
+	free_pipes(control->pipe_fd, n_pipes);
 	free(control->pid);
 }
 

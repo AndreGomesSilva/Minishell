@@ -28,7 +28,9 @@ int	get_outfile(t_cmd *cmd, int pipe_fd)
 		if (type == 0)
 			fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 		else if (type == 1)
+		{
 			fd = open(outfile, O_WRONLY | O_CREAT | O_APPEND, 0666);
+		}
 		return (fd);
 	}
 	if (cmd->next == NULL)
@@ -80,4 +82,6 @@ void	handle_io(t_cmd *cmd, int **pipe_fd, int index, int multi_cmd)
 		cmd->infile = get_infile(cmd, 0);
 		cmd->outfile = get_outfile(cmd, 1);
 	}
+	if (cmd->infile == -1 || cmd->outfile == -1)
+		cmd->error_type = E_NO_FILE;
 }

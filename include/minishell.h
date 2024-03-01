@@ -134,6 +134,7 @@ typedef struct s_control
 }						t_control;
 
 //	common
+
 void					free_control(t_control *control);
 t_ht_item				*free_node(t_ht_item *node);
 int						print_error(t_cmd *ptr_cmd);

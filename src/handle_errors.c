@@ -17,6 +17,7 @@ int	print_error(t_cmd *ptr_cmd)
 	char	*error_msg;
 	int		error_code;
 	
+	error_msg = NULL;
 	error_code = EXIT_FAILURE;
 	if (ptr_cmd->error_type == E_SYNTAX)
 	{
@@ -63,5 +64,7 @@ int	print_error(t_cmd *ptr_cmd)
 	}
 	else if (ptr_cmd->error_type == E_NO_ERROR)
 		error_code = EXIT_SUCCESS;
+	if (error_msg)
+		free(error_msg);
 	return (error_code);
 }
