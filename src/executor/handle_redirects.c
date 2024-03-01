@@ -12,24 +12,28 @@
 
 #include "../../include/minishell.h"
 
-void	create_files(t_cmd *cmd, char *file, int file_type, int *type)
+int	create_files(t_cmd *cmd, char *file, int file_type, int *type)
 {
-	int fd;
+	int	fd;
 
 	if (!access(file, F_OK))
 	{
 		if (access(file, W_OK))
+		{
 			cmd->error_type = E_PERMISSION;
+			return (FALSE);
+		}
 	}
-	else if (cmd->error_type == E_NO_ERROR)
+	else
 	{
 		fd = open(file, O_CREAT, 0666);
-		close (fd);
+		close(fd);
 	}
 	if (file_type == REDIRECT_OUTPUT)
 		*type = 0;
 	if (file_type == REDIRECT_OUTPUT_APPEND)
 		*type = 1;
+	return (TRUE);
 }
 
 char	*get_last_infile_arg(t_cmd *cmd)
@@ -48,10 +52,8 @@ char	*get_last_infile_arg(t_cmd *cmd)
 				last_file = cmd->heredoc_file;
 			else
 			{
-				if (access(ptr_arg->next->arg, F_OK))
-					cmd->error_type = E_NO_FILE;
-				else if (access(ptr_arg->next->arg, R_OK))
-					cmd->error_type = E_PERMISSION;
+				if (!valid_file(cmd, ptr_arg))
+					return (last_file);
 				last_file = ptr_arg->next->arg;
 			}
 		}
@@ -74,10 +76,8 @@ char	*get_last_infile(t_cmd *cmd)
 			last_file = cmd->heredoc_file;
 		else
 		{
-			if (access(ptr_arg->arg, F_OK))
-				cmd->error_type = E_NO_FILE;
-			else if (access(ptr_arg->arg, R_OK))
-				cmd->error_type = E_PERMISSION;
+			if (!valid_file(cmd, ptr_arg))
+				return (last_file);
 			last_file = ptr_arg->arg;
 		}
 	}
@@ -96,12 +96,15 @@ char	*get_last_outfile_cmd(t_cmd *cmd, int *type)
 	last_file = NULL;
 	while (ptr_arg)
 	{
-		if (ptr_arg->type == REDIRECT_OUTPUT
+		if (ptr_arg->type == STOP)
+			return (last_file);
+		else if (ptr_arg->type == REDIRECT_OUTPUT
 			|| ptr_arg->type == REDIRECT_OUTPUT_APPEND)
 		{
 			if (ptr_arg->next && ptr_arg->next->type == IOFILE)
 			{
-				create_files(cmd, ptr_arg->next->arg, ptr_arg->type, type);
+				if (!create_files(cmd, ptr_arg->next->arg, ptr_arg->type, type))
+					return (last_file);
 				last_file = ptr_arg->next->arg;
 			}
 		}
@@ -122,7 +125,8 @@ char	*get_last_outfile(t_cmd *cmd, int *type)
 	{
 		if (ptr_arg && ptr_arg->type == IOFILE)
 		{
-			create_files(cmd, ptr_arg->arg, cmd->type, type);
+			if (!create_files(cmd, ptr_arg->arg, cmd->type, type))
+				return (last_file);
 			last_file = ptr_arg->arg;
 		}
 	}

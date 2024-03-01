@@ -35,13 +35,13 @@ FILES_WITHOUT_MAIN = \
 	$(PARSER)/handle_syntax_error $(PARSER)/handle_parser_cont \
 	$(EXECUTOR)/handle_redirects $(EXECUTOR)/handle_execution\
 	$(EXECUTOR)/handle_io $(EXECUTOR)/handle_pipes \
-	$(EXECUTOR)/handle_multi_execution \
+	$(EXECUTOR)/handle_multi_execution $(EXECUTOR)/utils \
 	$(BUILTIN)/handle_builtin $(BUILTIN)/echo \
 	$(BUILTIN)/cd $(BUILTIN)/env \
 	$(BUILTIN)/exit $(BUILTIN)/export \
 	$(BUILTIN)/unset \
 	$(BUILTIN)/pwd \
-	$(HEREDOC)/handle_heredoc $(HEREDOC)/heredoc_utils
+	$(HEREDOC)/handle_heredoc $(HEREDOC)/utils
 
 
 FILES = \

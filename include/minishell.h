@@ -17,12 +17,12 @@
 // extern "C" {
 // #endif
 
+# include <stdio.h>
 # include "../libft/include/libft.h"
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdio.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <dirent.h>
@@ -49,6 +49,7 @@ enum					e_type_arg
 	REDIRECT_OUTPUT_APPEND,
 	IOFILE,
 	DOC,
+	STOP,
 };
 
 enum					e_type_builtin
@@ -230,6 +231,8 @@ void					handle_pwd_builtin(t_control *control);
 int						is_valid_env_name(char *str);
 
 // executor
+
+int						valid_file(t_cmd *cmd, t_arg *ptr_arg);
 void					start_process(t_control *control, t_cmd *ptr_cmd, int i);
 int						handle_wait(t_control *control);
 int						count_pipes(t_cmd *cmd);

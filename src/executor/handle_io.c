@@ -55,28 +55,6 @@ int	get_infile(t_cmd *cmd, int pipe_fd)
 	return (pipe_fd);
 }
 
-void	close_fd(int in, int out)
-{
-	if (in != STDIN_FILENO)
-		close(in);
-	if (out != STDOUT_FILENO)
-		close(out);
-}
-
-void	change_stdio(int in, int out)
-{
-	if (in != STDIN_FILENO)
-	{
-		dup2(in, STDIN_FILENO);
-		close(in);
-	}
-	if (out != STDOUT_FILENO)
-	{
-		dup2(out, STDOUT_FILENO);
-		close(out);
-	}
-}
-
 void	handle_io(t_cmd *cmd, int **pipe_fd, int index, int multi_cmd)
 {
 	if (multi_cmd)
