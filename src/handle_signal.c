@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_signal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/29 20:01:39 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/01 20:37:16 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	receive_signal_ctrl_d(t_control *control)
 {
-	int status;
+	int	status;
 
 	status = 0;
 	clear_history();
@@ -26,9 +26,9 @@ int	receive_signal_ctrl_d(t_control *control)
 
 void	ctrl_c_heredoc(int sig)
 {
-	(void)sig;
 	extern t_control	*g_control;
 
+	(void)sig;
 	update_env(g_control, ft_strdup("?"), ft_strdup("130"), FALSE);
 	close(STDIN_FILENO);
 	printf("\n");
@@ -36,22 +36,22 @@ void	ctrl_c_heredoc(int sig)
 
 void	ctrl_bar(int sig)
 {
-	(void)sig;
 	extern t_control	*g_control;
 
-	if(g_control->in_execution == 1)
+	(void)sig;
+	if (g_control->in_execution == 1)
 	{
 		update_env(g_control, ft_strdup("?"), ft_strdup("131"), FALSE);
 		free_cmd(g_control);
-		printf("Quit\n");
+		printf("Quit (core dumped)\n");
 	}
 }
 
 void	receive_sig_int(int sig)
 {
-	(void)sig;
 	extern t_control	*g_control;
 
+	(void)sig;
 	update_env(g_control, ft_strdup("?"), ft_strdup("130"), FALSE);
 	free_cmd(g_control);
 	printf("\n");

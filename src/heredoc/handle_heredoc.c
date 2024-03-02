@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:09:04 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/29 19:32:25 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/01 20:20:18 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	get_input_heredoc(t_control *control, t_cmd *cmd, char *eof, int *action)
 		free(new_eof);
 	}
 	else if (ft_atoi(get_var_env(control, "?")) == 130)
-		return (0);
+		flux_ctrl = 0;
 	else
 		printf("heredoc: delimited by end-of-file (wanted `%s') \n", eof);
 	return (flux_ctrl);
@@ -55,6 +55,8 @@ void	ctrl_flux_heredoc(t_control *control, t_cmd *cmd, char *eof,
 		if (ft_atoi(get_var_env(control, "?")) == 130)
 			break ;
 		flux_ctrl = get_input_heredoc(control, cmd, eof, action);
+		if (!cmd->heredoc_file)
+			cmd->error_type = E_CTRL_D_HERE;
 	}
 	if (ft_atoi(get_var_env(control, "?")) == 130)
 	{
@@ -95,7 +97,7 @@ int	handle_heredoc(t_control *control)
 			open_prompt(control, ptr_cmd);
 		ptr_cmd = next_cmd;
 	}
-	if (control->status_cmd == 130)
+	if (control->status_cmd != 0)
 		return (FALSE);
 	return (TRUE);
 }

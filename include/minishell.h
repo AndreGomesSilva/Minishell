@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/29 20:02:38 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/01 20:03:32 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ enum					e_type_error
 	E_SYNTAX,
 	E_EXPORT,
 	E_UNSET,
-	E_IS_DIR
+	E_IS_DIR,
+	E_CTRL_D_HERE,
 };
 
 typedef struct s_ht_item

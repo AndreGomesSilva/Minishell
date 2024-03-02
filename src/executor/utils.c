@@ -1,7 +1,7 @@
 
 #include "../../include/minishell.h"
 
-int		valid_file(t_cmd *cmd, t_arg *ptr_arg)
+int	valid_file(t_cmd *cmd, t_arg *ptr_arg)
 {
 	if (access(ptr_arg->next->arg, F_OK))
 	{
