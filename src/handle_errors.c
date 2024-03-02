@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/01 19:23:46 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/02 15:05:55 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,54 +19,55 @@ int	print_error(t_cmd *ptr_cmd)
 
 	error_msg = NULL;
 	error_code = EXIT_FAILURE;
-	if (ptr_cmd->error_type == E_SYNTAX)
+	if (ptr_cmd->error_type == E_CMD_NO_FOUND)
 	{
 		error_msg = swap_string(ft_strdup(ptr_cmd->cmd_and_args[0]),
-								ft_strdup(": Syntax \n"));
-		ft_putstr_fd(error_msg, 2);
-		error_code = EXIT_FAILURE;
-	}
-	else if (ptr_cmd->error_type == E_CMD_NO_FOUND)
-	{
-		error_msg = swap_string(ft_strdup(ptr_cmd->cmd_and_args[0]),
-				ft_strdup(": Command not found \n"));
+								ft_strdup(": Command not found \n"));
 		ft_putstr_fd(error_msg, 2);
 		error_code = 127;
 	}
 	else if (ptr_cmd->error_type == E_NO_FILE)
 	{
-		error_msg = swap_string(ft_strdup(ptr_cmd->cmd_and_args[0]),
-				ft_strdup(": No such file or directory \n"));
+		error_msg = ft_strdup("Error: No such file or directory \n");
 		ft_putstr_fd(error_msg, 2);
 		error_code = EXIT_FAILURE;
 	}
 	else if (ptr_cmd->error_type == E_NO_FILE_2)
 	{
 		error_msg = swap_string(ft_strdup(ptr_cmd->cmd_and_args[0]),
-				ft_strdup(": No such file or directory \n"));
+								ft_strdup(": No such file or directory \n"));
 		ft_putstr_fd(error_msg, 2);
 		error_code = 127;
 	}
 	else if (ptr_cmd->error_type == E_PERMISSION)
 	{
-		error_msg = swap_string(ft_strdup(ptr_cmd->cmd_and_args[0]),
-				ft_strdup(": Permission denied \n"));
+		error_msg = ft_strdup("Error: Permission denied \n");
 		ft_putstr_fd(error_msg, 2);
 		error_code = 1;
 	}
 	else if (ptr_cmd->error_type == E_PERMISSION_2)
 	{
 		error_msg = swap_string(ft_strdup(ptr_cmd->cmd_and_args[0]),
-				ft_strdup(": Permission denied \n"));
+								ft_strdup(": Permission denied \n"));
 		ft_putstr_fd(error_msg, 2);
 		error_code = 126;
 	}
 	else if (ptr_cmd->error_type == E_IS_DIR)
 	{
 		error_msg = swap_string(ft_strdup(ptr_cmd->cmd_and_args[0]),
-				ft_strdup(": Is a directory \n"));
+								ft_strdup(": Is a directory \n"));
 		ft_putstr_fd(error_msg, 2);
 		error_code = 126;
+	}
+	else if (ptr_cmd->error_type == E_PIPE)
+	{
+		ft_putstr_fd("syntax error near unexpected token `|' \n", 2);
+		error_code = 2;
+	}
+	else if (ptr_cmd->error_type == E_REDIRECT)
+	{
+		ft_putstr_fd("syntax error near unexpected token `>' \n", 2);
+		error_code = 2;
 	}
 	else if (ptr_cmd->error_type == E_NO_ERROR)
 		error_code = EXIT_SUCCESS;

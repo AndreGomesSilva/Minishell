@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/01 20:03:32 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/02 14:17:27 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,12 @@ enum					e_type_error
 	E_NO_FILE_2,
 	E_PERMISSION,
 	E_PERMISSION_2,
-	E_FATAL,
-	E_SYNTAX,
 	E_EXPORT,
 	E_UNSET,
 	E_IS_DIR,
 	E_CTRL_D_HERE,
+	E_PIPE,
+	E_REDIRECT,
 };
 
 typedef struct s_ht_item
@@ -108,7 +108,7 @@ typedef struct s_cmd
 	char				**cmd_and_args;
 	char				*path_cmd;
 	enum e_type_arg		type;
-	enum e_type_cmd		delimiter_type;
+	enum e_type_cmd		type_cmd;
 	enum e_type_error	error_type;
 	int					infile;
 	int					outfile;

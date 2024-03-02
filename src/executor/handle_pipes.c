@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 20:58:13 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/27 13:42:40 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/02 14:28:46 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	count_pipes(t_cmd *cmd)
 	count = 0;
 	while (ptr_cmd)
 	{
-		if (ptr_cmd->delimiter_type == PIP)
+		if (ptr_cmd->type_cmd == PIP)
 			count++;
 		ptr_cmd = ptr_cmd->next;
 	}
