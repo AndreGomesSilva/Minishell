@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirects.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 15:12:44 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/29 17:06:42 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/02 17:07:40 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,12 @@ char	*get_last_infile_arg(t_cmd *cmd)
 				last_file = cmd->heredoc_file;
 			else
 			{
-				if (!valid_file(cmd, ptr_arg))
-					return (last_file);
-				last_file = ptr_arg->next->arg;
+				if (ptr_arg->next)
+				{
+					if (!valid_file(cmd, ptr_arg->next))
+						return (last_file);
+					last_file = ptr_arg->next->arg;
+				}
 			}
 		}
 		ptr_arg = ptr_arg->next;

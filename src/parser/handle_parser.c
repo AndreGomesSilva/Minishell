@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/03/02 16:05:04 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/02 16:51:18 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,10 @@ void	is_command_true(t_cmd *ptr_cmd, t_control *control)
 	}
 }
 
-void	handle_parser(t_control *control, t_cmd *ptr_cmd)
+void	handle_parser(t_control *control)
 {
+	t_cmd	*ptr_cmd;
+
 	ptr_cmd = control->cmd;
 	if (handle_syntax_error(ptr_cmd))
 	{

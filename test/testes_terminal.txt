@@ -71,3 +71,6 @@ export C D
 --------------------------------------------------------
 $ola echo kaka
 kaka
+
+--------------------------------------------------------
+ctrl + c when cat waiting for input, status return = 130;

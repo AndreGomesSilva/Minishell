@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 16:07:22 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/02 16:07:43 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/02 17:09:00 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 int	valid_file(t_cmd *cmd, t_arg *ptr_arg)
 {
-	if (access(ptr_arg->next->arg, F_OK))
-	{
-		cmd->error_type = E_NO_FILE;
-		ptr_arg->type = STOP;
-		return (FALSE);
-	}
-	else if (access(ptr_arg->next->arg, R_OK))
-	{
-		cmd->error_type = E_PERMISSION;
-		ptr_arg->type = STOP;
-		return (FALSE);
-	}
+		if (access(ptr_arg->arg, F_OK))
+		{
+			cmd->error_type = E_NO_FILE;
+			ptr_arg->type = STOP;
+			return (FALSE);
+		}
+		else if (access(ptr_arg->arg, R_OK))
+		{
+			cmd->error_type = E_PERMISSION;
+			ptr_arg->type = STOP;
+			return (FALSE);
+		}
 	return (TRUE);
 }
 
