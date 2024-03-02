@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/02 16:51:40 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/02 19:38:37 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-// #ifdef __cplusplus
-// extern "C" {
-// #endif
 
 # include "../libft/include/libft.h"
 # include <dirent.h>
@@ -134,8 +130,6 @@ typedef struct s_control
 	int					in_execution;
 }						t_control;
 
-//	common
-
 void					free_control(t_control *control);
 t_ht_item				*free_node(t_ht_item *node);
 int						print_error(t_cmd *ptr_cmd);
@@ -147,16 +141,12 @@ void					get_input(t_control *control);
 void					set_path(t_control *control);
 void					ctrl_c_heredoc(int sig);
 void					ctrl_bar(int sig);
-
-// handle_nodes
 void					create_node_cmd(t_control *control, char *cmd);
 void					create_node_arg(t_cmd *cmd_node, const char *arg);
 int						list_len(t_cmd *lst);
 t_cmd					*get_last_node_cmd(t_cmd *cmd);
 t_arg					*get_last_node_arg(t_arg *cmd);
 void					free_cmd(t_control *control);
-
-// handle_parser
 int						is_valid_cmd(t_cmd *cmd);
 void					free_matrix(char **matrix);
 char					*handle_bin_path(t_control *control, char *cmd);
@@ -166,8 +156,6 @@ int						handle_syntax_error(t_cmd *cmd);
 int						is_absolute_path(char *cmd);
 int						count_args(t_cmd *cmd);
 void					type_io_file(t_cmd *cmd);
-
-//	handle_lexer
 char					*swap_string(char *str, char *sub_str);
 int						verify_broken_quote(t_control *control);
 void					handle_quotes_parsing(t_control *control);
@@ -190,8 +178,6 @@ char					*create_cmd(t_control *control, char *actual);
 char					*create_arg(t_cmd *cmd, char *input);
 int						handle_quotes(char *str, int *iterator, int *n_quotes,
 							int *flag_var);
-
-// handle_expander
 char					*expand_var(t_control *control, int *i, char *str);
 char					*ft_join_var(int *i, char *str, char *var, char *end);
 int						is_exit_variable(char *str);
@@ -200,8 +186,6 @@ char					*get_var_in_node(t_control *control, char *str);
 int						handle_expander(t_control *control);
 int						is_variable(char *str);
 char					*handle_home_path(t_control *control, char *path);
-
-// hashtable
 void					update_matrix_env(t_control *control);
 int						handle_env(t_control *control, char **env);
 t_ht_item				*get_var_node(t_control *control, char *key);
@@ -220,8 +204,6 @@ void					update_env(t_control *control, const char *key,
 							const char *value, int type_print);
 void					remove_env(t_control *control, const char *key);
 t_ht_item				*create_hash_node(const char *key, const char *value);
-
-// builtin
 int						handle_builtin(char **cmd, t_control *control);
 void					handle_cd_builtin(t_control *control, char **cmd);
 void					handle_export_builtin(t_control *control, char **cmd);
@@ -231,9 +213,6 @@ void					handle_exit_builtin(t_control *control, char **cmd);
 void					handle_echo_builtin(t_control *control, char **cmd);
 void					handle_pwd_builtin(t_control *control);
 int						is_valid_env_name(char *str);
-
-// executor
-
 int						valid_file(t_cmd *cmd, t_arg *ptr_arg);
 void					start_process(t_control *control, t_cmd *ptr_cmd,
 							int i);
@@ -249,8 +228,6 @@ void					handle_io(t_cmd *cmd, int **pipe_fd, int index,
 							int multi_cmd);
 void					close_fd(int in, int out);
 void					change_stdio(int in, int out);
-
-// heredoc
 int						create_heredoc_file(t_cmd *cmd, char *input,
 							int *action);
 
