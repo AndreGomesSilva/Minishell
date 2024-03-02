@@ -29,13 +29,18 @@ int	handle_wait(t_control *control)
 	int	i;
 
 	i = 0;
-	pid = 0;
+	pid = waitpid(control->pid[i], &status, 0);
 	while (pid != -1)
 	{
-		pid = waitpid(control->pid[i], &status, 0);
 		if (WIFEXITED(status))
 			status = (WEXITSTATUS(status));
+		else if (WIFSIGNALED(status))
+		{
+			if (WTERMSIG(status) == SIGINT || WTERMSIG(status) == SIGQUIT)
+				status = 128 + WTERMSIG(status);
+		}
 		i++;
+		pid = waitpid(control->pid[i], &status, 0);
 	}
 	return (status);
 }
