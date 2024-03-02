@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:17 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/02 14:35:31 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/02 16:02:47 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,14 @@ int	check_end_redirect(t_cmd *cmd)
 int	check_end_pipe(t_cmd *cmd)
 {
 	t_arg	*ptr_arg;
-	
+
 	ptr_arg = cmd->list_args;
-	while(ptr_arg && ptr_arg->next && cmd->type_cmd)
+	while (ptr_arg && ptr_arg->next && cmd->type_cmd)
 		ptr_arg = ptr_arg->next;
-	if(ptr_arg &&ptr_arg->type >=REDIRECT_HERD && cmd->type_cmd && !ptr_arg->next)
+	if (ptr_arg && ptr_arg->type >= REDIRECT_HERD && cmd->type_cmd
+		&& !ptr_arg->next)
 		return (TRUE);
-	if (cmd->type_cmd && !cmd->next) 
+	if (cmd->type_cmd && !cmd->next)
 		return (TRUE);
 	return (FALSE);
 }
@@ -69,11 +70,11 @@ int	handle_syntax_error(t_cmd *cmd)
 		if (check_end_pipe(cmd) || check_end_redirect(cmd)
 			|| ptr_cmd->cmd == NULL)
 		{
-			if(check_end_pipe(cmd))
+			if (check_end_pipe(cmd))
 				cmd->error_type = E_PIPE;
 			else if (check_end_redirect(cmd))
 				cmd->error_type = E_REDIRECT;
-			return (TRUE);				
+			return (TRUE);
 		}
 		ptr_cmd = ptr_cmd->next;
 	}

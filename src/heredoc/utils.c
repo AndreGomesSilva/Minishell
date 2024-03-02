@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_utils.c                                    :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:07:24 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/29 19:10:57 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/02 16:06:39 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,7 @@ int	create_heredoc_file(t_cmd *cmd, char *input, int *action)
 	else
 		fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (fd == -1)
-	{
 		cmd->error_type = E_NO_FILE;
-		print_error(cmd);
-	}
 	ft_putstr_fd(input, fd);
 	ft_putstr_fd("\n", fd);
 	close(fd);
