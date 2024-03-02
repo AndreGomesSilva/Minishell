@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/02 16:02:02 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/02 19:29:01 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ int	print_error_2(t_cmd *ptr_cmd, int error_code)
 {
 	if (ptr_cmd->error_type == E_PIPE)
 	{
-		ft_putstr_fd("syntax error near unexpected token `|' \n", 2);
+		ft_putstr_fd("Error: syntax error near unexpected token `|' \n", 2);
 		error_code = 2;
 	}
 	else if (ptr_cmd->error_type == E_REDIRECT)
 	{
-		ft_putstr_fd("syntax error near unexpected token \n", 2);
+		ft_putstr_fd("Error: syntax error near unexpected token \n", 2);
 		error_code = 2;
 	}
 	return (error_code);
