@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 13:40:48 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/03 17:34:09 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/03 18:24:34 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	handle_execution(t_control *control)
 		control->status_cmd = print_error(control->cmd);
 		control->fatal_err = 0;
 		update_env(control, ft_strdup("?"), ft_itoa(control->status_cmd),
-		FALSE);
+			FALSE);
 		free_cmd(control);
 		return ;
 	}

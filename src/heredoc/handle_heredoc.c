@@ -6,11 +6,21 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:09:04 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/01 20:20:18 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/03 18:18:26 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+char	*get_heredoc_expand_var(t_control *control, char *input)
+{
+	int		i;
+
+	i = 0;
+	while (input && input[i])
+		input = expand_var(control, &i, input);
+	return (input);
+}
 
 int	get_input_heredoc(t_control *control, t_cmd *cmd, char *eof, int *action)
 {
@@ -28,7 +38,7 @@ int	get_input_heredoc(t_control *control, t_cmd *cmd, char *eof, int *action)
 		{
 			add_history(input);
 			if (handle_quote_eof(eof) == NORM)
-				input = get_var_in_node(control, input);
+				input = get_heredoc_expand_var(control, input);
 			*action = create_heredoc_file(cmd, input, action);
 		}
 		free(input);

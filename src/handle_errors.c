@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/03 17:28:12 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/03 18:25:38 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int	print_error_2(t_cmd *ptr_cmd, int error_code)
 	}
 	else if (ptr_cmd->error_type == E_QUOTE)
 	{
-		ft_putstr_fd("Error: syntax error near unexpected token `\"' or '`' \n", 2);
+		ft_putstr_fd(
+			"Error: syntax error near unexpected token `\"' or '`' \n", 2);
 		error_code = 2;
 	}
 	return (error_code);

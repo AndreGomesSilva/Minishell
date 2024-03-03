@@ -82,4 +82,4 @@ eof
 
 --------------------------------------------------------
 
-adicionar no print_error tipo:(E_BROKEN_QUOTE)
+leak passando:  cd asdasfasf
