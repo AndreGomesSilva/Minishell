@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:32:36 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/27 13:44:21 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/03 19:54:33 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,23 @@ char	*build_output_string(char **cmd, int *new_line)
 	char	*temp;
 	int		position;
 
+	buffer = NULL;
 	position = 1;
-	while (check_new_line(cmd, position, new_line))
+	while (cmd[position] && check_new_line(cmd, position, new_line))
 		position++;
 	if (cmd[position])
-		buffer = ft_strdup(cmd[position]);
-	while (position++, cmd[position])
 	{
-		temp = buffer;
-		buffer = ft_strjoin(buffer, " ");
-		free(temp);
-		temp = buffer;
-		buffer = ft_strjoin(buffer, cmd[position]);
-		free(temp);
+		buffer = ft_strdup(cmd[position]);
+		while (cmd[position])
+		{
+			temp = buffer;
+			buffer = ft_strjoin(buffer, " ");
+			free(temp);
+			temp = buffer;
+			buffer = ft_strjoin(buffer, cmd[position]);
+			free(temp);
+			position++;
+		}
 	}
 	return (buffer);
 }
@@ -51,11 +55,15 @@ void	handle_echo_builtin(t_control *control, char **cmd)
 	char	*output_string;
 
 	if (!cmd[1])
+	{
+		printf("\n");
 		return ;
+	}
 	(void)control;
 	new_line = 1;
 	output_string = build_output_string(cmd, &new_line);
-	printf("%s", output_string);
+	if (output_string)
+		printf("%s", output_string);
 	if (new_line)
 		printf("\n");
 	update_env(control, ft_strdup("?"), ft_strdup("0"), FALSE);
