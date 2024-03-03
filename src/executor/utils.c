@@ -14,18 +14,18 @@
 
 int	valid_file(t_cmd *cmd, t_arg *ptr_arg)
 {
-		if (access(ptr_arg->arg, F_OK))
-		{
-			cmd->error_type = E_NO_FILE;
-			ptr_arg->type = STOP;
-			return (FALSE);
-		}
-		else if (access(ptr_arg->arg, R_OK))
-		{
-			cmd->error_type = E_PERMISSION;
-			ptr_arg->type = STOP;
-			return (FALSE);
-		}
+	if (access(ptr_arg->arg, F_OK))
+	{
+		cmd->error_type = E_NO_FILE;
+		ptr_arg->type = STOP;
+		return (FALSE);
+	}
+	else if (access(ptr_arg->arg, R_OK))
+	{
+		cmd->error_type = E_PERMISSION;
+		ptr_arg->type = STOP;
+		return (FALSE);
+	}
 	return (TRUE);
 }
 

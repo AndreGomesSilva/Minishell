@@ -81,3 +81,5 @@ cat << eof
 eof
 
 --------------------------------------------------------
+
+adicionar no print_error tipo:(E_BROKEN_QUOTE)

@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/02 19:38:37 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/03 15:24:45 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdio.h>
 # include "../libft/include/libft.h"
 # include <dirent.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdio.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 
@@ -128,8 +128,10 @@ typedef struct s_control
 	int					fatal_err;
 	int					n_pipes;
 	int					in_execution;
+	char				*first_input;
 }						t_control;
 
+void					remove_dolar_follow_quotes(t_cmd *cmd);
 void					free_control(t_control *control);
 t_ht_item				*free_node(t_ht_item *node);
 int						print_error(t_cmd *ptr_cmd);

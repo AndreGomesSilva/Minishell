@@ -5,55 +5,78 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 16:15:24 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/02 19:43:34by angomes-         ###   ########.fr       */
+/*   Created: 2024/03/03 15:23:54 by angomes-          #+#    #+#             */
+/*   Updated: 2024/03/03 15:28:01 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// void	remove_dolar_arg(t_arg *arg)
-// {
+static char	*remove_dolar(char *str, int i)
+{
+	char	*tail;
+	char	*temp;
+	char	*result;
 
-// }
+	temp = ft_substr(str, 0, i - 1);
+	tail = ft_substr(str, i, ft_strlen(str));
+	result = swap_string(temp, tail);
+	free(str);
+	return (result);
+}
 
-// void	remove_dolar_cmd(t_cmd *cmd)
-// {
-// 	int i;
-// 	char *temp;
-// 	char *cmd_str;
-// 	char *result;
-// 	t_cmd *ptr_cmd;
+static char	*find_dolar(char *str)
+{
+	int		i;
+	char	*result;
+	char	quote;
 
-// 	ptr_cmd = cmd;
-// 	while (ptr_cmd)
-// 	{
-// 		cmd_str = ptr_cmd->cmd;
-// 		while (cmd_str[i])
-// 		{
-// 			if (cmd_str[i] == '\"' || cmd_str[i] == '\'')
-// 			{
-// 				if (i > 0 && cmd_str[i - 1] == '$')
-// 				{
-// 					if (i - 1 == 0)
-// 					{
-// 						result = ft_substr(cmd_str, 1, i);
-// 						free(cmd_str);
-// 					}
-// 					else
-// 					{
-// 						temp = ft_substr(ptr_cmd->cmd, 0, i - 2);
-// 						result = swap_string(temp, ptr_cmd->cmd + i);
-// 					}
-// 					ptr_cmd->cmd = result;
-// 				}
-// 			}
-// 			if (cmd_str[i])
-// 				i++;
-// 		}	
-// 		ptr_cmd = ptr_cmd->next;
-// 	}
-// }
+	i = 0;
+	result = NULL;
+	while (str[i])
+	{
+		if (str[i] == '"' || str[i] == '\'')
+		{
+			quote = str[i];
+			if (i > 0 && str[i - 1] == '$')
+			{
+				result = remove_dolar(str, i);
+				str = result;
+			}
+			else
+				i++;
+			while (str[i] && str[i] != quote)
+				i++;
+		}
+		if (str[i])
+			i++;
+	}
+	return (result);
+}
+
+void	remove_dolar_follow_quotes(t_cmd *cmd)
+{
+	t_cmd	*ptr_cmd;
+	char	*new_str;
+	t_arg	*ptr_arg;
+
+	ptr_cmd = cmd;
+	while (ptr_cmd)
+	{
+		new_str = find_dolar(ptr_cmd->cmd);
+		if (new_str)
+			ptr_cmd->cmd = new_str;
+		ptr_arg = ptr_cmd->list_args;
+		while (ptr_arg)
+		{
+			new_str = find_dolar(ptr_arg->arg);
+			if (new_str)
+				ptr_arg->arg = new_str;
+			ptr_arg = ptr_arg->next;
+		}
+		ptr_cmd = ptr_cmd->next;
+	}
+}
 
 int	is_absolute_path(char *cmd)
 {

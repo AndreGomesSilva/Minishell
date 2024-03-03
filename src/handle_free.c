@@ -91,6 +91,8 @@ void	free_cmd(t_control *control)
 
 void	free_control(t_control *control)
 {
+	if (control->first_input)
+		free(control->first_input);
 	if (control->env_table)
 		free_env(control->env_table);
 	if (control->env)

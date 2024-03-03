@@ -29,10 +29,9 @@ void	middleware(t_control *control, char *input)
 void	get_input(t_control *control)
 {
 	char	*input;
-	char	*first_input;
 
 	input = readline(control->prompt);
-	first_input = input;
+	control->first_input = input;
 	if (input)
 	{
 		if (*input)
@@ -42,7 +41,7 @@ void	get_input(t_control *control)
 				input++;
 			if (*input)
 				middleware(control, input);
-			free(first_input);
+			free(control->first_input);
 			free_cmd(control);
 		}
 	}

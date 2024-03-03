@@ -119,6 +119,7 @@ void	handle_parser(t_control *control)
 		control->fatal_err = 1;
 		return ;
 	}
+	remove_dolar_follow_quotes(ptr_cmd);
 	handle_quotes_parsing(control);
 	is_command_true(ptr_cmd, control);
 }
