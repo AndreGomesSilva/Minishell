@@ -3,45 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/27 16:08:18 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/03 20:11:32 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	check_pwd_exist(t_control *control, char *pwd_relative, const char *old_pwd,
+int	check_pwd_exist(t_control *control, char *pwd_relative, char *old_pwd,
 		char *pwd)
 {
 	if (chdir(pwd_relative) == 0)
 	{
 		update_env(control, ft_strdup("OLDPWD"), old_pwd, FALSE);
 		update_env(control, ft_strdup("PWD"), pwd, FALSE);
-		free(pwd);
 		free(pwd_relative);
 		return (TRUE);
 	}
 	else
 	{
+		free(old_pwd);
 		free(pwd);
 		free(pwd_relative);
 		return (FALSE);
 	}
 }
 
-int	check_many_params(char **cmd, t_control *control)
+int	check_many_params(char **cmd, t_control *control, char *old_pwd)
 {
 	char	*error_message;
 
-	if (cmd[2])
+	if (cmd && cmd[1] && cmd[2])
 	{
 		error_message = swap_string(ft_strdup("cd: "),
 				ft_strdup("': too many arguments\n"));
 		update_env(control, ft_strdup("?"), ft_strdup("1"), FALSE);
 		ft_putstr_fd(error_message, 2);
 		free(error_message);
+		free(old_pwd);
 		return (TRUE);
 	}
 	return (FALSE);
@@ -62,11 +63,11 @@ void	handle_cd_builtin(t_control *control, char **cmd)
 {
 	char		*pwd_relative;
 	char		*pwd;
-	const char	*old_pwd;
+	char		*old_pwd;
 	int			result_relative;
 
 	old_pwd = getcwd(NULL, 0);
-	if (check_many_params(cmd, control))
+	if (check_many_params(cmd, control, old_pwd))
 		return ;
 	if ((!cmd[1] && !chdir(get_var_env(control, "HOME"))) || !chdir(cmd[1]))
 	{

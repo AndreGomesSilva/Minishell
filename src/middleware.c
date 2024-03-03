@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:41 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/02 16:51:57 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/03 20:18:07 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	get_input(t_control *control)
 				input++;
 			if (*input)
 				middleware(control, input);
-			free(control->first_input);
 			free_cmd(control);
 		}
+		free(control->first_input);
 	}
 	else
 		receive_signal_ctrl_d(control);
