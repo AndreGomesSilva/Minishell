@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 00:07:24 by angomes-          #+#    #+#             */
-/*   Updated: 2024/03/02 16:06:39 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/03 17:27:10 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,20 @@ int	verify_broken_quote(t_control *control)
 
 	ptr_cmd = control->cmd;
 	if (ptr_cmd && ptr_cmd->type == BROKEN_QUOTES)
+	{
+		ptr_cmd->error_type = E_QUOTE;
 		return (TRUE);
+	}
 	while (ptr_cmd)
 	{
 		ptr_arg = ptr_cmd->list_args;
 		while (ptr_arg)
 		{
 			if (ptr_arg->type == BROKEN_QUOTES)
+			{
+				ptr_cmd->error_type = E_QUOTE;
 				return (TRUE);
+			}
 			ptr_arg = ptr_arg->next;
 		}
 		ptr_cmd = ptr_cmd->next;

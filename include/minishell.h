@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/03 15:24:45 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/03 17:26:11 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ enum					e_type_error
 	E_CTRL_D_HERE,
 	E_PIPE,
 	E_REDIRECT,
+	E_QUOTE,
 };
 
 typedef struct s_ht_item
