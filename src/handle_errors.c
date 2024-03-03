@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/03 18:25:38 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/03 18:43:03 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,25 @@ int	print_error_2(t_cmd *ptr_cmd, int error_code)
 	return (error_code);
 }
 
+int	print_error_1(t_cmd *ptr_cmd, int error_code)
+{
+	if (ptr_cmd->error_type == E_NO_FILE)
+	{
+		ft_putstr_fd("Error: No such file or directory \n", 2);
+		error_code = 1;
+	}
+	else if (ptr_cmd->error_type == E_PERMISSION)
+	{
+		ft_putstr_fd("Error: Permission denied \n", 2);
+		error_code = 1;
+	}
+	else if (ptr_cmd->error_type == E_AMBIGUOUS)
+	{
+		ft_putstr_fd("Error: Ambiguous redirect \n", 2);
+		error_code = 1;
+	}
+	return (error_code);
+}
 int	print_error(t_cmd *ptr_cmd)
 {
 	char	*error_msg;
@@ -81,18 +100,7 @@ int	print_error(t_cmd *ptr_cmd)
 	error_code = print_error_126(ptr_cmd, error_code, &error_msg);
 	error_code = print_error_127(ptr_cmd, error_code, &error_msg);
 	error_code = print_error_2(ptr_cmd, error_code);
-	if (ptr_cmd->error_type == E_NO_FILE)
-	{
-		error_msg = ft_strdup("Error: No such file or directory \n");
-		ft_putstr_fd(error_msg, 2);
-		error_code = 1;
-	}
-	else if (ptr_cmd->error_type == E_PERMISSION)
-	{
-		error_msg = ft_strdup("Error: Permission denied \n");
-		ft_putstr_fd(error_msg, 2);
-		error_code = 1;
-	}
+	error_code = print_error_1(ptr_cmd, error_code);
 	if (ptr_cmd->error_type == E_NO_ERROR)
 		error_code = EXIT_SUCCESS;
 	if (error_msg)
