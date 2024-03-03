@@ -35,7 +35,7 @@ char	*build_output_string(char **cmd, int *new_line)
 	if (cmd[position])
 	{
 		buffer = ft_strdup(cmd[position]);
-		while (cmd[position])
+		while (position++, cmd[position])
 		{
 			temp = buffer;
 			buffer = ft_strjoin(buffer, " ");
@@ -43,7 +43,6 @@ char	*build_output_string(char **cmd, int *new_line)
 			temp = buffer;
 			buffer = ft_strjoin(buffer, cmd[position]);
 			free(temp);
-			position++;
 		}
 	}
 	return (buffer);
