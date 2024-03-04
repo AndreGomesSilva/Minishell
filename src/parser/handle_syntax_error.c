@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_syntax_error.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:17 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/02 16:02:47 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/04 12:00:00 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,14 @@ int	handle_syntax_error(t_cmd *cmd)
 	ptr_cmd = cmd;
 	while (ptr_cmd)
 	{
-		if (check_end_pipe(cmd) || check_end_redirect(cmd)
+		if (check_end_pipe(ptr_cmd) || check_end_redirect(ptr_cmd)
 			|| ptr_cmd->cmd == NULL)
 		{
-			if (check_end_pipe(cmd))
+			if (check_end_pipe(ptr_cmd))
 				cmd->error_type = E_PIPE;
-			else if (check_end_redirect(cmd))
+			if (check_end_redirect(ptr_cmd))
+				cmd->error_type = E_REDIRECT;
+			else if (ptr_cmd->cmd == NULL)
 				cmd->error_type = E_REDIRECT;
 			return (TRUE);
 		}

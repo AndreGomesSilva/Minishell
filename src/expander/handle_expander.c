@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_expander.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:22 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/27 16:11:32 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/04 11:39:05 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	handle_expander(t_control *control)
 	t_cmd	*cmd_node;
 
 	cmd_node = control->cmd;
-	while (cmd_node)
+	while (cmd_node && cmd_node->cmd)
 	{
 		cmd_node_temp = cmd_node->next;
 		if (cmd_node->type == VAR_EXPAND || look_exit_variabel(cmd_node, 1))

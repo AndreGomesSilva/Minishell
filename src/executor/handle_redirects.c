@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 15:12:44 by angomes-          #+#    #+#             */
-/*   Updated: 2024/03/03 18:51:32 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/03 18:51:32by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,20 @@ int	create_files(t_cmd *cmd, char *file, int file_type, int *type)
 {
 	int	fd;
 
-	if (!access(file, F_OK) && access(file, W_OK))
+	fd = open(file, O_CREAT, 0666);
+	if (fd == -1)
+	{
+		if (!*file)
+			cmd->error_type = E_AMBIGUOUS;
+		else
+			cmd->error_type = E_NO_FILE;
+	}
+	else
+		close(fd);
+	if (access(file, W_OK))
 	{
 		cmd->error_type = E_PERMISSION;
 		return (FALSE);
-	}
-	else
-	{
-		fd = open(file, O_CREAT, 0666);
-		if (fd == -1)
-		{
-			if (!*file)
-				cmd->error_type = E_AMBIGUOUS;
-			else
-				cmd->error_type = E_NO_FILE;
-		}
-		else
-			close(fd);
 	}
 	if (file_type == REDIRECT_OUTPUT)
 		*type = 0;
