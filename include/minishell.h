@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/03 18:38:20 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/04 12:08:20 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void					handle_signal(void);
 int						receive_signal_ctrl_d(t_control *control);
 int						ctrl_d_herdoc(t_control *control, char *eof);
 void					get_input(t_control *control);
-void					set_path(t_control *control);
+int						set_path(t_control *control);
 void					ctrl_c_heredoc(int sig);
 void					ctrl_bar(int sig);
 void					create_node_cmd(t_control *control, char *cmd);

@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:10 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/04 11:36:43 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/04 12:08:02 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	is_variable(char *str)
 	return (0);
 }
 
-void	set_path(t_control *control)
+int	set_path(t_control *control)
 {
 	char	*pwd;
 	char	*temp_pwd;
@@ -68,4 +68,5 @@ void	set_path(t_control *control)
 	free(temp_pwd);
 	control->prompt = ft_strjoin(pwd, " > ");
 	free(pwd);
+	return (1);
 }

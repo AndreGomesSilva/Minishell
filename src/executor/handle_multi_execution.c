@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_multi_execution.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:24:18 by angomes-          #+#    #+#             */
-/*   Updated: 2024/03/03 18:25:07 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/04 12:30:07 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	handle_wait(t_control *control)
 		i++;
 		pid = waitpid(control->pid[i], &status, 0);
 	}
+	if (status == 131)
+		printf("Quit (core dumped)\n");
 	return (status);
 }
 

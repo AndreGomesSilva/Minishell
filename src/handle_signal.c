@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/02 12:41:08 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/04 12:30:03 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	ctrl_bar(int sig)
 	{
 		update_env(g_control, ft_strdup("?"), ft_strdup("131"), FALSE);
 		free_cmd(g_control);
-		printf("Quit (core dumped)\n");
 	}
 }
 
