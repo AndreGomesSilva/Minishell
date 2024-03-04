@@ -20,13 +20,13 @@ void	handle_env_builtin(t_control *control, char **cmd)
 	{
 		if (access(cmd[1], F_OK) == FALSE)
 		{
-			printf("%s%s%s\n", "env: `", cmd[1], "': Permission denied");
+			printf("%s%s%s\n", "env: ", cmd[1], ": Permission denied");
 			update_env(control, ft_strdup("?"), ft_strdup("126"), FALSE);
 		}
 		else
 		{
-			printf("%s%s%s\n", "env: `", cmd[1],
-				"': No such file or directory");
+			printf("%s%s%s\n", "env: ", cmd[1],
+				": No such file or directory");
 			update_env(control, ft_strdup("?"), ft_strdup("127"), FALSE);
 		}
 	}

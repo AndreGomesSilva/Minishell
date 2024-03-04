@@ -31,7 +31,7 @@ char	**create_full_cmd(t_cmd *cmd)
 			args[i++] = ft_strdup(cmd->cmd);
 		while (ptr_arg)
 		{
-			if (ptr_arg->arg && ptr_arg->arg[0]
+			if (ptr_arg->arg && (ptr_arg->arg[0] || !ft_strncmp(cmd->cmd,"echo", 5))
 				&& ptr_arg->type < REDIRECT_HERD)
 				args[i++] = ft_strdup(ptr_arg->arg);
 			ptr_arg = ptr_arg->next;
