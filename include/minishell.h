@@ -131,6 +131,7 @@ typedef struct s_control
 	int					n_pipes;
 	int					in_execution;
 	char				*first_input;
+	int					exit_fd[2];
 }						t_control;
 
 void					remove_dolar_follow_quotes(t_cmd *cmd);

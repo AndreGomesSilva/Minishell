@@ -53,6 +53,8 @@ static void	children_exec(t_control *control, t_cmd *cmd, int old_in,
 	int	status;
 
 	status = 0;
+	control->exit_fd[0] = old_in;
+	control->exit_fd[1] = old_out;
 	if (cmd->cmd_and_args && handle_builtin(cmd->cmd_and_args, control))
 	{
 		status = ft_atoi(get_var_env(control, "?"));
