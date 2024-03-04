@@ -49,11 +49,11 @@ int	check_many_params(char **cmd, t_control *control, char **old_pwd)
 	if (cmd && cmd[1] && cmd[2])
 	{
 		error_message = swap_string(ft_strdup("cd: "),
-				ft_strdup("': too many arguments\n"));
+				ft_strdup("too many arguments\n"));
 		update_env(control, ft_strdup("?"), ft_strdup("1"), FALSE);
 		ft_putstr_fd(error_message, 2);
 		free(error_message);
-		free(old_pwd);
+		free(*old_pwd);
 		return (TRUE);
 	}
 	return (FALSE);
