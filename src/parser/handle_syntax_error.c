@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:17 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/04 12:00:00 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/04 14:41:22 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	check_end_pipe(t_cmd *cmd)
 	ptr_arg = cmd->list_args;
 	while (ptr_arg && ptr_arg->next && cmd->type_cmd)
 		ptr_arg = ptr_arg->next;
-	if (ptr_arg && ptr_arg->type >= REDIRECT_HERD && cmd->type_cmd
+	if (ptr_arg && (ptr_arg->type >= REDIRECT_HERD
+		&& ptr_arg->type <= REDIRECT_OUTPUT_APPEND) && cmd->type_cmd
 		&& !ptr_arg->next)
 		return (TRUE);
 	if (cmd->type_cmd && !cmd->next)
