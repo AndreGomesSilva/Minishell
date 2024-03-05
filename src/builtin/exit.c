@@ -30,9 +30,9 @@ void	close_fd_pipe(t_control *control)
 
 static void	print_exit(t_control *control)
 {
-	if(!control->n_pipes)
+	if (!control->n_pipes)
 		printf("exit\n");
-}	
+}
 
 static void	print_error_message(t_control *control, char **cmd, int i)
 {
@@ -57,12 +57,19 @@ long	is_valid_number(char *str)
 		return (FALSE);
 	while (i++, str[i])
 	{
-		if (!ft_isdigit(str[i]))
-			return (FALSE);
+		if (i == 0)
+		{
+			if (str[i] != '-' && str[i] != '+' && !ft_isdigit(str[i]))
+				return (FALSE);
+		}
+		else
+		{
+			if (!ft_isdigit(str[i]))
+				return (FALSE);
+		}
 	}
 	return (TRUE);
 }
-
 
 void	handle_exit_builtin(t_control *control, char **cmd)
 {
