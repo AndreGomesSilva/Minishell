@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_syntax_error.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:17 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/04 14:41:22 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/05 19:17:59 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int	check_end_pipe(t_cmd *cmd)
 	while (ptr_arg && ptr_arg->next && cmd->type_cmd)
 		ptr_arg = ptr_arg->next;
 	if (ptr_arg && (ptr_arg->type >= REDIRECT_HERD
-		&& ptr_arg->type <= REDIRECT_OUTPUT_APPEND) && cmd->type_cmd
-		&& !ptr_arg->next)
+			&& ptr_arg->type <= REDIRECT_OUTPUT_APPEND) && cmd->type_cmd
+		&& !cmd->next && !ptr_arg->next)
 		return (TRUE);
 	if (cmd->type_cmd && !cmd->next)
 		return (TRUE);

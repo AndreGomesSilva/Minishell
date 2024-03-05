@@ -50,7 +50,7 @@ int	check_many_params(char **cmd, t_control *control, char **old_pwd)
 	if (cmd && cmd[1] && cmd[2])
 	{
 		error_message = swap_string(ft_strdup("cd: "),
-									ft_strdup("too many arguments\n"));
+				ft_strdup("too many arguments\n"));
 		update_env(control, ft_strdup("?"), ft_strdup("1"), FALSE);
 		ft_putstr_fd(error_message, 2);
 		free(error_message);
@@ -68,14 +68,14 @@ static void	print_error_message(char **cmd, int i, int type)
 	{
 		error_message = swap_string(ft_strdup("cd: "), ft_strdup(cmd[i]));
 		error_message = swap_string(error_message,
-									ft_strdup(": No such file or directory\n"));
+				ft_strdup(": No such file or directory\n"));
 		ft_putstr_fd(error_message, 2);
 	}
 	else if (type == 2)
 	{
 		error_message = swap_string(ft_strdup("cd: "), ft_strdup(cmd[i]));
 		error_message = swap_string(error_message,
-									ft_strdup(": Permission denied\n"));
+				ft_strdup(": Permission denied\n"));
 		ft_putstr_fd(error_message, 2);
 	}
 	else

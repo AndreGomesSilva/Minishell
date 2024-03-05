@@ -41,7 +41,7 @@ static void	print_error_message(t_control *control, char **cmd, int i)
 	print_exit(control);
 	error_message = swap_string(ft_strdup("exit: "), ft_strdup(cmd[i]));
 	error_message = swap_string(error_message,
-								ft_strdup(": numeric argument required\n"));
+			ft_strdup(": numeric argument required\n"));
 	ft_putstr_fd(error_message, 2);
 	free(error_message);
 	close_fd_pipe(control);
