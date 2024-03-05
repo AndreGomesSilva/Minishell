@@ -3,58 +3,84 @@
 /*                                                        :::      ::::::::   */
 /*   handle_io.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 13:37:50 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/27 16:29:58 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/04 23:52:17 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	get_outfile(t_cmd *cmd, int pipe_fd)
+void	set_fds(t_cmd *cmd, int in, int out, int *type)
 {
-	char	*outfile;
-	int		fd;
-	int		type;
-
-	fd = STDOUT_FILENO;
-	type = 0;
-	outfile = get_last_outfile(cmd, &type);
-	if (cmd->error_type != E_NO_ERROR)
-		return (fd);
-	if (outfile)
+	if (cmd && cmd->error_type == E_NO_ERROR)
 	{
-		if (type == 0)
-			fd = open(outfile, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-		else if (type == 1)
+		if (cmd->redirec_in_file)
+			cmd->infile = open(cmd->redirec_in_file, O_RDONLY);
+		else
 		{
-			fd = open(outfile, O_WRONLY | O_CREAT | O_APPEND, 0666);
+			if (cmd->cmd_number == 1)
+				cmd->infile = STDIN_FILENO;
+			else
+				cmd->infile = in;
 		}
-		return (fd);
+		if (cmd->redirec_out_file)
+		{
+			if (type == 0)
+				cmd->outfile = open(cmd->redirec_out_file,
+						O_WRONLY | O_CREAT | O_TRUNC, 0666);
+			else
+				cmd->outfile = open(cmd->redirec_out_file,
+						O_WRONLY | O_CREAT | O_APPEND, 0666);
+		}
+		else
+		{
+			if (cmd->next == NULL)
+				cmd->outfile = STDOUT_FILENO;
+			else
+				cmd->outfile = out;
+		}
 	}
-	if (cmd->next == NULL)
-		return (fd);
-	return (pipe_fd);
+	else
+	{
+		cmd->infile = STDIN_FILENO;
+		cmd->outfile = STDOUT_FILENO;
+	}
 }
 
-int	get_infile(t_cmd *cmd, int pipe_fd)
+void	get_file_arg(t_cmd *cmd, t_arg *arg, int *type)
 {
-	int		fd;
-	char	*infile;
+	if (cmd->error_type == E_NO_ERROR && (arg->type == REDIRECT_INPUT || arg->type == REDIRECT_HERD))
+		cmd->redirec_in_file = get_infile_arg(cmd, arg);
+	else if (cmd->error_type == E_NO_ERROR && (arg->type == REDIRECT_OUTPUT
+		|| arg->type == REDIRECT_OUTPUT_APPEND))
+		cmd->redirec_out_file = get_outfile_arg(cmd, type, arg);
+}
 
-	fd = STDIN_FILENO;
-	infile = get_last_infile(cmd);
-	if (cmd->error_type != E_NO_ERROR)
-		return (fd);
-	if (infile)
+void	get_file_cmd(t_cmd *cmd, int *type)
+{
+	if (cmd->error_type == E_NO_ERROR && (cmd->type == REDIRECT_INPUT || cmd->type == REDIRECT_HERD))
+		cmd->redirec_in_file = get_infile_cmd(cmd);
+	else if (cmd->error_type == E_NO_ERROR && (cmd->type == REDIRECT_OUTPUT
+		|| cmd->type == REDIRECT_OUTPUT_APPEND))
+		cmd->redirec_out_file = get_outfile_cmd(cmd, type);
+}
+
+void	get_fds(t_cmd *cmd, int in, int out)
+{
+	t_arg	*ptr_arg;
+	int		type;
+
+	ptr_arg = cmd->list_args;
+	if (cmd)
+		get_file_cmd(cmd, &type);
+	while (ptr_arg)
 	{
-		fd = open(infile, O_RDONLY);
-		return (fd);
+		get_file_arg(cmd, ptr_arg, &type);
+		ptr_arg = ptr_arg->next;
 	}
-	if (cmd->cmd_number == 1)
-		return (fd);
-	return (pipe_fd);
+	set_fds(cmd, in, out, &type);
 }
 
 void	handle_io(t_cmd *cmd, int **pipe_fd, int index, int multi_cmd)
@@ -62,26 +88,14 @@ void	handle_io(t_cmd *cmd, int **pipe_fd, int index, int multi_cmd)
 	if (multi_cmd)
 	{
 		if (cmd->cmd_number == 1)
-		{
-			cmd->infile = get_infile(cmd, 0);
-			cmd->outfile = get_outfile(cmd, pipe_fd[index][1]);
-		}
+			get_fds(cmd, 0, pipe_fd[index][1]);
 		else if (cmd->next == NULL)
-		{
-			cmd->infile = get_infile(cmd, pipe_fd[index - 1][0]);
-			cmd->outfile = get_outfile(cmd, 1);
-		}
+			get_fds(cmd, pipe_fd[index - 1][0], 1);
 		else
-		{
-			cmd->infile = get_infile(cmd, pipe_fd[index - 1][0]);
-			cmd->outfile = get_outfile(cmd, pipe_fd[index][1]);
-		}
+			get_fds(cmd, pipe_fd[index - 1][0], pipe_fd[index][1]);
 	}
 	else
-	{
-		cmd->infile = get_infile(cmd, 0);
-		cmd->outfile = get_outfile(cmd, 1);
-	}
+		get_fds(cmd, 0, 1);
 	if (cmd->infile == -1 || cmd->outfile == -1)
 		cmd->error_type = E_NO_FILE;
 }

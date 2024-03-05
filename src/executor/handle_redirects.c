@@ -15,7 +15,7 @@
 int	create_files(t_cmd *cmd, char *file, int file_type, int *type)
 {
 	int	fd;
-
+	
 	fd = open(file, O_CREAT, 0666);
 	if (fd == -1)
 	{
@@ -38,105 +38,91 @@ int	create_files(t_cmd *cmd, char *file, int file_type, int *type)
 	return (TRUE);
 }
 
-char	*get_last_infile_arg(t_cmd *cmd)
+char	*get_infile_arg(t_cmd *cmd, t_arg *ptr_arg)
 {
-	t_arg	*ptr_arg;
-	char	*last_file;
+	char	*file;
 
-	last_file = NULL;
-	ptr_arg = cmd->list_args;
-	while (ptr_arg)
+	file = NULL;
+	if (ptr_arg)
 	{
 		if ((ptr_arg->type == REDIRECT_INPUT || ptr_arg->type == REDIRECT_HERD)
 			&& ptr_arg->next && ptr_arg->next->type == IOFILE)
 		{
 			if (ptr_arg->type == REDIRECT_HERD)
-				last_file = cmd->heredoc_file;
+				file = cmd->heredoc_file;
 			else
 			{
 				if (ptr_arg->next)
 				{
 					if (!valid_file(cmd, ptr_arg->next))
-						return (last_file);
-					last_file = ptr_arg->next->arg;
+						return (file);
+					file = ptr_arg->next->arg;
 				}
 			}
 		}
-		ptr_arg = ptr_arg->next;
 	}
-	return (last_file);
+	return (file);
 }
 
-char	*get_last_infile(t_cmd *cmd)
+char	*get_infile_cmd(t_cmd *cmd)
 {
 	t_arg	*ptr_arg;
-	char	*last_file;
-	char	*temp;
+	char	*file;
 
-	last_file = NULL;
+	file = NULL;
 	ptr_arg = cmd->list_args;
 	if ((cmd->type == REDIRECT_HERD || cmd->type == REDIRECT_INPUT) && ptr_arg)
 	{
 		if (cmd->type == REDIRECT_HERD)
-			last_file = cmd->heredoc_file;
+			file = cmd->heredoc_file;
 		else
 		{
 			if (!valid_file(cmd, ptr_arg))
-				return (last_file);
-			last_file = ptr_arg->arg;
+				return (file);
+			file = ptr_arg->arg;
 		}
 	}
-	temp = get_last_infile_arg(cmd);
-	if (temp)
-		last_file = temp;
-	return (last_file);
+	return (file);
 }
 
-char	*get_last_outfile_cmd(t_cmd *cmd, int *type)
+char	*get_outfile_arg(t_cmd *cmd, int *type, t_arg *ptr_arg)
 {
-	t_arg	*ptr_arg;
-	char	*last_file;
+	char	*file;
 
-	ptr_arg = cmd->list_args;
-	last_file = NULL;
-	while (ptr_arg)
+	file = NULL;
+	if (ptr_arg)
 	{
 		if (ptr_arg->type == STOP)
-			return (last_file);
+			return (file);
 		else if (ptr_arg->type == REDIRECT_OUTPUT
 			|| ptr_arg->type == REDIRECT_OUTPUT_APPEND)
 		{
 			if (ptr_arg->next && ptr_arg->next->type == IOFILE)
 			{
 				if (!create_files(cmd, ptr_arg->next->arg, ptr_arg->type, type))
-					return (last_file);
-				last_file = ptr_arg->next->arg;
+					return (file);
+				file = ptr_arg->next->arg;
 			}
 		}
-		ptr_arg = ptr_arg->next;
 	}
-	return (last_file);
+	return (file);
 }
 
-char	*get_last_outfile(t_cmd *cmd, int *type)
+char	*get_outfile_cmd(t_cmd *cmd, int *type)
 {
 	t_arg	*ptr_arg;
-	char	*last_file;
-	char	*temp;
+	char	*file;
 
-	last_file = NULL;
+	file = NULL;
 	ptr_arg = cmd->list_args;
 	if (cmd->type == REDIRECT_OUTPUT || cmd->type == REDIRECT_OUTPUT_APPEND)
 	{
 		if (ptr_arg && ptr_arg->type == IOFILE)
 		{
 			if (!create_files(cmd, ptr_arg->arg, cmd->type, type))
-				return (last_file);
-			last_file = ptr_arg->arg;
+				return (file);
+			file = ptr_arg->arg;
 		}
 	}
-	temp = get_last_outfile_cmd(cmd, type);
-	if (temp)
-		last_file = temp;
-	return (last_file);
+	return (file);
 }

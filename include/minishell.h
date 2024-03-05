@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/04 12:08:20 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/04 22:36:11 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ typedef struct s_cmd
 	int					outfile;
 	int					cmd_number;
 	char				*heredoc_file;
+	char				*redirec_in_file;
+	char				*redirec_out_file;
 	struct s_arg		*list_args;
 	struct s_cmd		*next;
 	struct s_cmd		*prev;
@@ -227,8 +229,10 @@ int						**create_pipes(int n_pipes);
 void					free_pipes(int **pipe_fd, int n_pipes);
 void					close_pipes(int **pipe_fd, int n_pipes);
 void					handle_execution(t_control *control);
-char					*get_last_outfile(t_cmd *cmd, int *type);
-char					*get_last_infile(t_cmd *cmd);
+char					*get_outfile_cmd(t_cmd *cmd, int *type);
+char					*get_outfile_arg(t_cmd *cmd, int *type, t_arg *ptr_arg);
+char					*get_infile_cmd(t_cmd *cmd);
+char					*get_infile_arg(t_cmd *cmd, t_arg *ptr_arg);
 void					handle_io(t_cmd *cmd, int **pipe_fd, int index,
 							int multi_cmd);
 void					close_fd(int in, int out);
