@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirects.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/11 15:12:44 by angomes-          #+#    #+#             */
-/*   Updated: 2024/03/03 18:51:32by angomes-         ###   ########.fr       */
+/*   Created: 2024/03/05 19:16:11 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/03/05 19:16:15 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	create_files(t_cmd *cmd, char *file, int file_type, int *type)
 {
 	int	fd;
-	
+
 	fd = open(file, O_CREAT, 0666);
 	if (fd == -1)
 	{
