@@ -26,7 +26,8 @@ int	create_files(t_cmd *cmd, char *file, int file_type, int *type)
 	}
 	else
 		close(fd);
-	if (access(file, W_OK))
+	if ((!access(file, F_OK) && access(file, W_OK))
+		|| (access(file, F_OK) && *file && access(file, W_OK)))
 	{
 		cmd->error_type = E_PERMISSION;
 		return (FALSE);

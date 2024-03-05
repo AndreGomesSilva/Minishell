@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 13:37:50 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/04 23:52:17 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:22:31 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	set_fds(t_cmd *cmd, int in, int out, int *type)
 		}
 		if (cmd->redirec_out_file)
 		{
-			if (type == 0)
+			if (*type == 0)
 				cmd->outfile = open(cmd->redirec_out_file,
 						O_WRONLY | O_CREAT | O_TRUNC, 0666);
 			else
