@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:09:04 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/03 18:18:26 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:00:24 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	handle_heredoc(t_control *control)
 
 	ptr_cmd = control->cmd;
 	control->status_cmd = 0;
-	while (ptr_cmd)
+	while (ptr_cmd && !handle_syntax_error_heredoc(ptr_cmd))
 	{
 		next_cmd = ptr_cmd->next;
 		if (find_heredoc_cmd(ptr_cmd))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/03 19:55:47 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/05 19:19:48 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	print_error(t_cmd *ptr_cmd)
 
 	error_msg = NULL;
 	error_code = 0;
-	if(ptr_cmd->cmd_and_args[0] != NULL)
+	if(ptr_cmd->cmd_and_args[0] == NULL)
 		ptr_cmd->cmd_and_args[0] = ft_strdup("Error");
 	error_code = print_error_126(ptr_cmd, error_code, &error_msg);
 	error_code = print_error_127(ptr_cmd, error_code, &error_msg);

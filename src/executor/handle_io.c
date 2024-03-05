@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 13:37:50 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/05 15:22:31 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:37:18 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,18 @@ void	set_fds(t_cmd *cmd, int in, int out, int *type)
 
 void	get_file_arg(t_cmd *cmd, t_arg *arg, int *type)
 {
-	if (cmd->error_type == E_NO_ERROR && (arg->type == REDIRECT_INPUT || arg->type == REDIRECT_HERD))
+	if (cmd->error_type <= E_CMD_NO_FOUND && (arg->type == REDIRECT_INPUT || arg->type == REDIRECT_HERD))
 		cmd->redirec_in_file = get_infile_arg(cmd, arg);
-	else if (cmd->error_type == E_NO_ERROR && (arg->type == REDIRECT_OUTPUT
+	else if (cmd->error_type <= E_CMD_NO_FOUND && (arg->type == REDIRECT_OUTPUT
 		|| arg->type == REDIRECT_OUTPUT_APPEND))
 		cmd->redirec_out_file = get_outfile_arg(cmd, type, arg);
 }
 
 void	get_file_cmd(t_cmd *cmd, int *type)
 {
-	if (cmd->error_type == E_NO_ERROR && (cmd->type == REDIRECT_INPUT || cmd->type == REDIRECT_HERD))
+	if (cmd->error_type <= E_CMD_NO_FOUND && (cmd->type == REDIRECT_INPUT || cmd->type == REDIRECT_HERD))
 		cmd->redirec_in_file = get_infile_cmd(cmd);
-	else if (cmd->error_type == E_NO_ERROR && (cmd->type == REDIRECT_OUTPUT
+	else if (cmd->error_type <= E_CMD_NO_FOUND && (cmd->type == REDIRECT_OUTPUT
 		|| cmd->type == REDIRECT_OUTPUT_APPEND))
 		cmd->redirec_out_file = get_outfile_cmd(cmd, type);
 }

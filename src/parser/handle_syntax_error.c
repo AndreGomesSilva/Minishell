@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:17 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/04 14:41:22 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:59:48 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int	check_end_redirect(t_cmd *cmd)
 	{
 		ptr_arg = ptr_cmd->list_args;
 		if ((ptr_cmd->type >= REDIRECT_HERD
-				&& ptr_cmd->type <= REDIRECT_OUTPUT_APPEND) && !ptr_arg)
+				&& ptr_cmd->type <= REDIRECT_OUTPUT_APPEND) && (!ptr_arg || (ptr_arg->type >= REDIRECT_HERD && ptr_arg->type <= REDIRECT_OUTPUT_APPEND)))
 			return (TRUE);
 		while (ptr_arg)
 		{
 			if ((ptr_arg->type >= REDIRECT_HERD
 					&& ptr_arg->type <= REDIRECT_OUTPUT_APPEND)
-				&& !ptr_arg->next)
+				&& (!ptr_arg->next || (ptr_arg->next->type >= REDIRECT_HERD && ptr_arg->next->type <= REDIRECT_OUTPUT_APPEND)))
 				return (TRUE);
 			ptr_arg = ptr_arg->next;
 		}
@@ -58,6 +58,28 @@ int	check_end_pipe(t_cmd *cmd)
 		return (TRUE);
 	if (cmd->type_cmd && !cmd->next)
 		return (TRUE);
+	return (FALSE);
+}
+
+int	handle_syntax_error_heredoc(t_cmd *cmd)
+{
+	t_cmd	*ptr_cmd;
+
+	ptr_cmd = cmd;
+	if (ptr_cmd)
+	{
+		if (check_end_pipe(ptr_cmd) || check_end_redirect(ptr_cmd)
+			|| ptr_cmd->cmd == NULL)
+		{
+			if (check_end_pipe(ptr_cmd))
+				cmd->error_type = E_PIPE;
+			if (check_end_redirect(ptr_cmd))
+				cmd->error_type = E_REDIRECT;
+			else if (ptr_cmd->cmd == NULL)
+				cmd->error_type = E_REDIRECT;
+			return (TRUE);
+		}
+	}
 	return (FALSE);
 }
 
