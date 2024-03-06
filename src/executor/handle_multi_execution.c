@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_multi_execution.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 19:24:18 by angomes-          #+#    #+#             */
-/*   Updated: 2024/03/04 12:30:07 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/05 23:59:01 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ void	catch_error(t_control *control, t_cmd *ptr_cmd, int old_in, int old_out)
 	status = 0;
 	close_and_free(control, ptr_cmd, old_in, old_out);
 	if ((ptr_cmd->type == REDIRECT_HERD && !ptr_cmd->cmd_and_args)
-		|| (ptr_cmd->type == VAR_EXPAND && !ptr_cmd->cmd_and_args[0])
+		|| (ptr_cmd->type == VAR_EXPAND && ptr_cmd->cmd_and_args
+			&& ptr_cmd->cmd_and_args[0] && ptr_cmd->cmd_and_args[0][0] == '\0')
 		|| ptr_cmd->error_type == E_CTRL_D_HERE)
 	{
 		free_control(control);

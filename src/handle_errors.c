@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/05 22:53:22 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/05 23:57:39 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,15 @@ int	print_error_127(t_cmd *ptr_cmd, int error_code, char **error_msg)
 {
 	if (ptr_cmd->error_type == E_CMD_NO_FOUND)
 	{
-		*error_msg = swap_string(ft_strdup("Error:"),
-				ft_strdup(": Command not found \n"));
-		ft_putstr_fd(*error_msg, 2);
+		if (ptr_cmd->cmd_and_args && ptr_cmd->cmd_and_args[0]
+			&& ptr_cmd->cmd_and_args[0][0] == '\0')
+			return (127);
+		else
+		{
+			*error_msg = swap_string(ft_strdup("Error:"),
+					ft_strdup(": Command not found \n"));
+			ft_putstr_fd(*error_msg, 2);
+		};
 		error_code = 127;
 	}
 	else if (ptr_cmd->error_type == E_NO_FILE_2)
@@ -98,7 +104,7 @@ int	print_error(t_cmd *ptr_cmd)
 
 	error_msg = NULL;
 	error_code = 0;
-	if (ptr_cmd->cmd_and_args[0] == NULL)
+	if (ptr_cmd->cmd_and_args && ptr_cmd->cmd_and_args[0] == NULL)
 		ptr_cmd->cmd_and_args[0] = ft_strdup("Error");
 	error_code = print_error_126(ptr_cmd, error_code, &error_msg);
 	error_code = print_error_127(ptr_cmd, error_code, &error_msg);

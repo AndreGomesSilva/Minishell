@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/03/05 19:16:50 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/06 00:27:11 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**create_full_cmd(t_cmd *cmd)
 		i = 0;
 		ptr_arg = cmd->list_args;
 		args = (char **)ft_calloc(len + 1, sizeof(char *));
-		if (cmd->cmd && cmd->cmd[0] && cmd->type < REDIRECT_HERD)
+		if (cmd->cmd && cmd->type < REDIRECT_HERD && !(cmd->type == VAR_EXPAND && cmd->cmd[0] == '\0'))
 			args[i++] = ft_strdup(cmd->cmd);
 		while (ptr_arg)
 		{
