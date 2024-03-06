@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:17 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/05 19:25:50 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/05 22:51:18 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,16 @@ int	check_end_redirect(t_cmd *cmd)
 	{
 		ptr_arg = ptr_cmd->list_args;
 		if ((ptr_cmd->type >= REDIRECT_HERD
-				&& ptr_cmd->type <= REDIRECT_OUTPUT_APPEND) && (!ptr_arg || (ptr_arg->type >= REDIRECT_HERD && ptr_arg->type <= REDIRECT_OUTPUT_APPEND)))
+				&& ptr_cmd->type <= REDIRECT_OUTPUT_APPEND) && (!ptr_arg
+				|| (ptr_arg->type >= REDIRECT_HERD
+					&& ptr_arg->type <= REDIRECT_OUTPUT_APPEND)))
 			return (TRUE);
 		while (ptr_arg)
 		{
 			if ((ptr_arg->type >= REDIRECT_HERD
 					&& ptr_arg->type <= REDIRECT_OUTPUT_APPEND)
-				&& (!ptr_arg->next || (ptr_arg->next->type >= REDIRECT_HERD && ptr_arg->next->type <= REDIRECT_OUTPUT_APPEND)))
+				&& (!ptr_arg->next || (ptr_arg->next->type >= REDIRECT_HERD
+						&& ptr_arg->next->type <= REDIRECT_OUTPUT_APPEND)))
 				return (TRUE);
 			ptr_arg = ptr_arg->next;
 		}

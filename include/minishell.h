@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/05 17:00:06 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/05 22:53:59 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,8 @@ typedef struct s_control
 	int					exit_fd[2];
 }						t_control;
 
-
+void					set_in_fds(t_cmd *cmd, int in);
+void					set_out_fds(t_cmd *cmd, int out, int *type);
 int						handle_syntax_error_heredoc(t_cmd *cmd);
 void					remove_dolar_follow_quotes(t_cmd *cmd);
 void					free_control(t_control *control);

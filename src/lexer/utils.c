@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:17:54 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/05 20:35:00 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/05 22:54:40 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	len_string_token(char *str)
 			while (str[++i] && n_quote % 2 != 0)
 			{
 				if (str[i] == type_of_quote && n_quote++)
-					break;
+					break ;
 			}
 		}
 		if (!str[i] || str[i] == ' ' || str[i] == '|'
