@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/05 23:57:39 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:19:53 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	print_error_126(t_cmd *ptr_cmd, int error_code, char **error_msg)
 		ft_putstr_fd(*error_msg, 2);
 		error_code = 126;
 	}
-	else if (ptr_cmd->error_type == E_IS_DIR)
+	else if (ptr_cmd->error_type == E_IS_DIR_2)
 	{
 		*error_msg = swap_string(ft_strdup(ptr_cmd->cmd_and_args[0]),
 				ft_strdup(": Is a directory \n"));
@@ -92,6 +92,11 @@ int	print_error_1(t_cmd *ptr_cmd, int error_code)
 	else if (ptr_cmd->error_type == E_AMBIGUOUS)
 	{
 		ft_putstr_fd("Error: Ambiguous redirect \n", 2);
+		error_code = 1;
+	}
+	else if (ptr_cmd->error_type == E_IS_DIR)
+	{
+		ft_putstr_fd("Error: Is a directory \n", 2);
 		error_code = 1;
 	}
 	return (error_code);

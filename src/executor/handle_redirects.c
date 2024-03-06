@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirects.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:16:11 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/05 19:16:15 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:35:22 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	create_files(t_cmd *cmd, char *file, int file_type, int *type)
 	{
 		if (!*file)
 			cmd->error_type = E_AMBIGUOUS;
+		else if (opendir(file))
+			cmd->error_type = E_IS_DIR;
 		else
 			cmd->error_type = E_NO_FILE;
 	}

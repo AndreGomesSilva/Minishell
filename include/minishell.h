@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/06 01:12:52 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:40:16 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ enum					e_type_error
 	E_EXPORT,
 	E_UNSET,
 	E_IS_DIR,
+	E_IS_DIR_2,
 	E_CTRL_D_HERE,
 	E_PIPE,
 	E_REDIRECT,

@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:17 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/06 00:18:21 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:13:27 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int	is_valid_cmd(t_cmd *cmd)
 {
-	if (cmd->cmd_and_args && cmd->cmd_and_args[0] && cmd->cmd_and_args[0][0] == '\0')
-		return(FALSE);
+	if (cmd->cmd_and_args && cmd->cmd_and_args[0]
+		&& cmd->cmd_and_args[0][0] == '\0')
+		return (FALSE);
 	if ((cmd->type >= REDIRECT_HERD && (cmd->cmd_and_args
 				&& !(access(cmd->cmd_and_args[0], X_OK)))) || (cmd->path_cmd
 			&& !access(cmd->path_cmd, X_OK)))

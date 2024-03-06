@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/03/06 00:27:11 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:33:18 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ char	**create_full_cmd(t_cmd *cmd)
 		i = 0;
 		ptr_arg = cmd->list_args;
 		args = (char **)ft_calloc(len + 1, sizeof(char *));
-		if (cmd->cmd && cmd->type < REDIRECT_HERD && !(cmd->type == VAR_EXPAND && cmd->cmd[0] == '\0'))
+		if (cmd->cmd && cmd->type < REDIRECT_HERD && !(cmd->type == VAR_EXPAND
+				&& cmd->cmd[0] == '\0' && len > 1))
 			args[i++] = ft_strdup(cmd->cmd);
 		while (ptr_arg)
 		{
-			if (ptr_arg->arg && (ptr_arg->arg[0] || !ft_strncmp(cmd->cmd,
-						"echo", 5)) && ptr_arg->type < REDIRECT_HERD)
+			if (ptr_arg->arg && ptr_arg->type < REDIRECT_HERD
+				&& !(ptr_arg->type == VAR_EXPAND && ptr_arg->arg[0] == '\0'))
 				args[i++] = ft_strdup(ptr_arg->arg);
 			ptr_arg = ptr_arg->next;
 		}
@@ -75,7 +76,7 @@ int	handle_command_not_found(t_cmd *cmd)
 		if (directory)
 		{
 			closedir(directory);
-			return (E_IS_DIR);
+			return (E_IS_DIR_2);
 		}
 		else if (!access(cmd->cmd, F_OK) && access(cmd->cmd, X_OK))
 			return (E_PERMISSION_2);
@@ -93,7 +94,7 @@ void	is_command_true(t_cmd *ptr_cmd, t_control *control)
 		if (ptr_cmd->cmd_and_args)
 		{
 			ptr_cmd->path_cmd = handle_bin_path(control,
-					ptr_cmd->cmd_and_args[0]);
+												ptr_cmd->cmd_and_args[0]);
 			if (!is_builtin(ptr_cmd->cmd_and_args[0]) && !is_valid_cmd(ptr_cmd))
 				ptr_cmd->error_type = E_CMD_NO_FOUND;
 			if (handle_command_not_found(ptr_cmd))
@@ -102,7 +103,7 @@ void	is_command_true(t_cmd *ptr_cmd, t_control *control)
 			{
 				if (is_absolute_path(ptr_cmd->cmd_and_args[0]))
 					ptr_cmd->cmd_and_args[0] = new_cmd_absolute_path(
-							ptr_cmd->cmd_and_args);
+						ptr_cmd->cmd_and_args);
 			}
 		}
 		ptr_cmd = ptr_cmd->next;
