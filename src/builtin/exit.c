@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/04 22:58:53 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:41:00 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ long	is_valid_number(char *str)
 	int	i;
 
 	i = -1;
-	if (!ft_atoi(str))
+	if (!ft_atoi(str) && str[0] != '0')
 		return (FALSE);
 	while (i++, str[i])
 	{
@@ -92,7 +92,7 @@ void	handle_exit_builtin(t_control *control, char **cmd)
 			exit(second_param);
 		exit(second_param % 256);
 	}
-	else if (ft_atoi((const char *)cmd[1]) && cmd[2])
+	else
 	{
 		print_exit(control);
 		ft_putstr_fd("exit: too many arguments\n", 2);

@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 14:32:36 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/03 19:54:33 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:06:28 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 int	check_new_line(char **cmd, int position, int *new_line)
 {
-	if (ft_strncmp(cmd[position], "-n", 3) == 0)
+	int index;
+
+	index = 2;
+	if (ft_strncmp(cmd[position], "-n", 2) == 0)
 	{
+		while(cmd[position][index] == 'n')
+			index++;
+		if(cmd[position][index] != '\0')
+			return (0);
 		*new_line = 0;
 		return (1);
 	}
