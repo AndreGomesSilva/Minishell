@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/06 15:19:53 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:40:48 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ int	print_error_2(t_cmd *ptr_cmd, int error_code)
 	else if (ptr_cmd->error_type == E_QUOTE)
 	{
 		ft_putstr_fd("Error: syntax error near unexpected token `\"' or '`' \n",
+			2);
+		error_code = 2;
+	}
+	else if (ptr_cmd->error_type == E_IS_DOT)
+	{
+		ft_putstr_fd("Error: is a builtin \n",
 			2);
 		error_code = 2;
 	}

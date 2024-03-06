@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:23:54 by angomes-          #+#    #+#             */
-/*   Updated: 2024/03/03 15:28:01 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:24:54 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,10 @@ void	remove_dolar_follow_quotes(t_cmd *cmd)
 	}
 }
 
-int	is_absolute_path(char *cmd)
+int	is_a_directory(char *cmd)
 {
+	if(*cmd == '/')
+		return (TRUE);
 	while (cmd && *cmd && cmd++)
 		if (*cmd == '/')
 			return (TRUE);

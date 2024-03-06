@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/03/06 15:33:18 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:22:03 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,21 +66,23 @@ char	*new_cmd_absolute_path(char **matrix)
 	return (result);
 }
 
-int	handle_command_not_found(t_cmd *cmd)
+int	handle_command_not_found(char *cmd)
 {
 	DIR	*directory;
 
-	if (is_absolute_path(cmd->cmd))
+	if((cmd[0] == '.' && !cmd[1]))
+		return (E_IS_DOT);
+	else if (is_a_directory(cmd) || !ft_strncmp(cmd, "/", 2))
 	{
-		directory = opendir(cmd->cmd);
+		directory = opendir(cmd);
 		if (directory)
 		{
 			closedir(directory);
 			return (E_IS_DIR_2);
 		}
-		else if (!access(cmd->cmd, F_OK) && access(cmd->cmd, X_OK))
+		else if (!access(cmd, F_OK) && access(cmd, X_OK))
 			return (E_PERMISSION_2);
-		else if (access(cmd->cmd, F_OK))
+		else if (access(cmd, F_OK))
 			return (E_NO_FILE_2);
 	}
 	return (E_NO_ERROR);
@@ -97,11 +99,11 @@ void	is_command_true(t_cmd *ptr_cmd, t_control *control)
 												ptr_cmd->cmd_and_args[0]);
 			if (!is_builtin(ptr_cmd->cmd_and_args[0]) && !is_valid_cmd(ptr_cmd))
 				ptr_cmd->error_type = E_CMD_NO_FOUND;
-			if (handle_command_not_found(ptr_cmd))
-				control->cmd->error_type = handle_command_not_found(ptr_cmd);
+			if (handle_command_not_found(ptr_cmd->cmd_and_args[0]))
+				control->cmd->error_type = handle_command_not_found(ptr_cmd->cmd_and_args[0]);
 			else
 			{
-				if (is_absolute_path(ptr_cmd->cmd_and_args[0]))
+				if (is_a_directory(ptr_cmd->cmd_and_args[0]))
 					ptr_cmd->cmd_and_args[0] = new_cmd_absolute_path(
 						ptr_cmd->cmd_and_args);
 			}

@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:59 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/28 16:40:47 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:22:03 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*handle_bin_path(t_control *control, char *cmd)
 
 	path_var = get_var_env(control, "PATH");
 	bin_path = NULL;
-	if (is_absolute_path(cmd))
+	if (is_a_directory(cmd))
 		bin_path = ft_strdup(cmd);
 	else if (!is_builtin(cmd))
 	{

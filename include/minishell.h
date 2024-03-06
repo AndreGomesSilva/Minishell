@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/06 14:40:16 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/06 18:22:19 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ enum					e_type_error
 	E_PIPE,
 	E_REDIRECT,
 	E_QUOTE,
-	E_AMBIGUOUS
+	E_AMBIGUOUS,
+	E_IS_DOT
 };
 
 typedef struct s_ht_item
@@ -165,7 +166,7 @@ char					*handle_bin_path(t_control *control, char *cmd);
 int						is_builtin(char *cmd);
 void					handle_parser(t_control *control);
 int						handle_syntax_error(t_cmd *cmd);
-int						is_absolute_path(char *cmd);
+int						is_a_directory(char *cmd);
 int						count_args(t_cmd *cmd);
 void					type_io_file(t_cmd *cmd);
 char					*swap_string(char *str, char *sub_str);
