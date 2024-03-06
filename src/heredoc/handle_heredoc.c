@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 16:09:04 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/05 17:00:24 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/06 01:13:35 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	get_input_heredoc(t_control *control, t_cmd *cmd, char *eof, int *action)
 	else if (ft_atoi(get_var_env(control, "?")) == 130)
 		flux_ctrl = 0;
 	else
-		printf("heredoc: delimited by end-of-file (wanted `%s') \n", eof);
+		print_error_heredoc(eof);
 	return (flux_ctrl);
 }
 

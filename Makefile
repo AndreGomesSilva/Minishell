@@ -41,7 +41,8 @@ FILES_WITHOUT_MAIN = \
 	$(BUILTIN)/exit $(BUILTIN)/export \
 	$(BUILTIN)/unset \
 	$(BUILTIN)/pwd \
-	$(HEREDOC)/handle_heredoc $(HEREDOC)/utils
+	$(HEREDOC)/handle_heredoc $(HEREDOC)/utils $(HEREDOC)/print_heredoc_error \
+	
 
 
 FILES = \
