@@ -37,7 +37,7 @@ FILES_WITHOUT_MAIN = \
 	$(EXECUTOR)/handle_multi_execution $(EXECUTOR)/utils \
 	$(BUILTIN)/handle_builtin $(BUILTIN)/echo \
 	$(BUILTIN)/cd $(BUILTIN)/env \
-	$(BUILTIN)/exit $(BUILTIN)/export \
+	$(BUILTIN)/exit $(BUILTIN)/export  $(BUILTIN)/exit_util \
 	$(BUILTIN)/unset \
 	$(BUILTIN)/pwd \
 	$(HEREDOC)/handle_heredoc $(HEREDOC)/utils $(HEREDOC)/print_heredoc_error \

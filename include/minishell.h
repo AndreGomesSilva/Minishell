@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/07 14:07:26 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/07 20:37:01 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define FALSE 0
 # define INT_MAX 2147483647
 # define INT_MIN (-2147483648)
+# define LONG_MAX "9223372036854775807"
+# define LONG_MIN "-9223372036854775808"
 
 enum					e_type_cmd
 {
@@ -150,6 +152,7 @@ void					free_control(t_control *control);
 t_ht_item				*free_node(t_ht_item *node);
 int						print_error(t_cmd *ptr_cmd);
 void					handle_config(t_control **control, char **env);
+long					is_valid_number(char *str);
 void					handle_signal(void);
 int						receive_signal_ctrl_d(t_control *control);
 int						ctrl_d_herdoc(t_control *control, char *eof);

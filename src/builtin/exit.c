@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: @student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/07 16:47:14 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/07 20:32:46 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	close_fd_pipe(t_control *control)
+void	close_fd_pipe(t_control *control, int *status_code)
 {
 	if (control->n_pipes > 0)
 	{
@@ -25,6 +25,8 @@ void	close_fd_pipe(t_control *control)
 	close_fd(control->cmd->infile, control->cmd->outfile);
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
+	clear_history();
+	*status_code = ft_atoi((const char *)get_var_env(control, "?"));
 	free_control(control);
 }
 
@@ -34,7 +36,7 @@ static void	print_exit(t_control *control)
 		printf("exit\n");
 }
 
-static void	print_error_message(t_control *control, char **cmd, int i)
+static void	print_error_message(t_control *control, char **cmd, int i, int *status_code)
 {
 	char	*error_message;
 
@@ -44,52 +46,30 @@ static void	print_error_message(t_control *control, char **cmd, int i)
 			ft_strdup(": numeric argument required\n"));
 	ft_putstr_fd(error_message, 2);
 	free(error_message);
-	close_fd_pipe(control);
+	close_fd_pipe(control, status_code);
 	exit(2);
-}
-
-long	is_valid_number(char *str)
-{
-	int	i;
-
-	i = -1;
-	if (!ft_atoi(str) && str[0] != '0')
-		return (FALSE);
-	while (i++, str[i])
-	{
-		if (i == 0)
-		{
-			if (str[i] != '-' && str[i] != '+' && !ft_isdigit(str[i]))
-				return (FALSE);
-		}
-		else
-		{
-			if (!ft_isdigit(str[i]))
-				return (FALSE);
-		}
-	}
-	return (TRUE);
 }
 
 void	handle_exit_builtin(t_control *control, char **cmd)
 {
-	const long error_code = ft_atoi((const char *)get_var_env(control, "?"));  
-
-	if ((!cmd[1]))
+	int		status_code;
+	
+	if (!cmd[1])
 	{
+		status_code = ft_atoi((const char *)get_var_env(control, "?"));
 		print_exit(control);
-		close_fd_pipe(control);
-		exit(error_code);
+		close_fd_pipe(control, &status_code);
+		exit(status_code);
 	}
-	else if (!is_valid_number(cmd[1]))
-		print_error_message(control, cmd, 1);
+	if (!is_valid_number(cmd[1]))
+		print_error_message(control, cmd, 1, &status_code);
 	else if (is_valid_number(cmd[1]) && !cmd[2])
 	{
 		print_exit(control);
-		close_fd_pipe(control);
-		if (ft_atoi((const char *)cmd[1]) < 255)
-			exit(ft_atoi((const char *)cmd[1]));
-		exit(ft_atoi((const char *)cmd[1]) % 256);
+		close_fd_pipe(control, &status_code);
+		if (status_code < 255)
+			exit(status_code);
+		exit(status_code % 256);
 	}
 	else
 	{
