@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/03/06 18:22:03 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/07 00:29:33 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	handle_command_not_found(char *cmd)
 {
 	DIR	*directory;
 
-	if((cmd[0] == '.' && !cmd[1]))
+	if ((cmd[0] == '.' && !cmd[1]))
 		return (E_IS_DOT);
 	else if (is_a_directory(cmd) || !ft_strncmp(cmd, "/", 2))
 	{
@@ -96,7 +96,7 @@ void	is_command_true(t_cmd *ptr_cmd, t_control *control)
 		if (ptr_cmd->cmd_and_args)
 		{
 			ptr_cmd->path_cmd = handle_bin_path(control,
-												ptr_cmd->cmd_and_args[0]);
+					ptr_cmd->cmd_and_args[0]);
 			if (!is_builtin(ptr_cmd->cmd_and_args[0]) && !is_valid_cmd(ptr_cmd))
 				ptr_cmd->error_type = E_CMD_NO_FOUND;
 			if (handle_command_not_found(ptr_cmd->cmd_and_args[0]))
@@ -104,8 +104,7 @@ void	is_command_true(t_cmd *ptr_cmd, t_control *control)
 			else
 			{
 				if (is_a_directory(ptr_cmd->cmd_and_args[0]))
-					ptr_cmd->cmd_and_args[0] = new_cmd_absolute_path(
-						ptr_cmd->cmd_and_args);
+					ptr_cmd->cmd_and_args[0] = new_cmd_absolute_path(ptr_cmd->cmd_and_args);
 			}
 		}
 		ptr_cmd = ptr_cmd->next;

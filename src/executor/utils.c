@@ -6,11 +6,24 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 16:07:22 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/03 18:39:33 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/07 00:29:15 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	type_outfile_error(t_cmd *cmd, t_arg *ptr_arg, char *file)
+{
+	if (!*file && ptr_arg->prev_type == VAR_EXPAND)
+		cmd->error_type = E_AMBIGUOUS;
+	else if (opendir(file))
+		cmd->error_type = E_IS_DIR;
+	else
+		cmd->error_type = E_NO_FILE;
+	if ((!access(file, F_OK) && access(file, W_OK)) || (access(file, F_OK)
+			&& *file && access(file, W_OK)))
+		cmd->error_type = E_PERMISSION;
+}
 
 int	valid_file(t_cmd *cmd, t_arg *ptr_arg)
 {

@@ -6,38 +6,33 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 19:16:11 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/06 14:35:22 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/07 00:30:13 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	create_files(t_cmd *cmd, char *file, int file_type, int *type)
+int	create_files(t_cmd *cmd, t_arg *ptr_arg, int file_type, int *type)
 {
-	int	fd;
+	int		fd;
+	char	*file;
 
-	fd = open(file, O_CREAT, 0666);
+	file = ptr_arg->arg;
+	if (file_type == REDIRECT_OUTPUT)
+		*type = 0;
+	else if (file_type == REDIRECT_OUTPUT_APPEND)
+		*type = 1;
+	if (*type == 0)
+		fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	else
+		fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0666);
 	if (fd == -1)
 	{
-		if (!*file)
-			cmd->error_type = E_AMBIGUOUS;
-		else if (opendir(file))
-			cmd->error_type = E_IS_DIR;
-		else
-			cmd->error_type = E_NO_FILE;
+		type_outfile_error(cmd, ptr_arg, file);
+		return (FALSE);
 	}
 	else
 		close(fd);
-	if ((!access(file, F_OK) && access(file, W_OK))
-		|| (access(file, F_OK) && *file && access(file, W_OK)))
-	{
-		cmd->error_type = E_PERMISSION;
-		return (FALSE);
-	}
-	if (file_type == REDIRECT_OUTPUT)
-		*type = 0;
-	if (file_type == REDIRECT_OUTPUT_APPEND)
-		*type = 1;
 	return (TRUE);
 }
 
@@ -91,20 +86,23 @@ char	*get_infile_cmd(t_cmd *cmd)
 char	*get_outfile_arg(t_cmd *cmd, int *type, t_arg *ptr_arg)
 {
 	char	*file;
+	int		file_type;
 
 	file = NULL;
 	if (ptr_arg)
 	{
 		if (ptr_arg->type == STOP)
 			return (file);
-		else if (ptr_arg->type == REDIRECT_OUTPUT
-			|| ptr_arg->type == REDIRECT_OUTPUT_APPEND)
+		else if ((ptr_arg->type == REDIRECT_OUTPUT
+				|| ptr_arg->type == REDIRECT_OUTPUT_APPEND) && ptr_arg->next)
 		{
-			if (ptr_arg->next && ptr_arg->next->type == IOFILE)
+			file_type = ptr_arg->type;
+			ptr_arg = ptr_arg->next;
+			if (ptr_arg->type == IOFILE)
 			{
-				if (!create_files(cmd, ptr_arg->next->arg, ptr_arg->type, type))
+				if (!create_files(cmd, ptr_arg, file_type, type))
 					return (file);
-				file = ptr_arg->next->arg;
+				file = ptr_arg->arg;
 			}
 		}
 	}
@@ -122,7 +120,7 @@ char	*get_outfile_cmd(t_cmd *cmd, int *type)
 	{
 		if (ptr_arg && ptr_arg->type == IOFILE)
 		{
-			if (!create_files(cmd, ptr_arg->arg, cmd->type, type))
+			if (!create_files(cmd, ptr_arg, cmd->type, type))
 				return (file);
 			file = ptr_arg->arg;
 		}

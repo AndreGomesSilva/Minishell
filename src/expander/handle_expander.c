@@ -6,7 +6,7 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:22 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/04 11:39:05 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/07 00:01:34 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ static void	get_var_in_arg(t_control *control, t_cmd *cmd)
 	{
 		temp_arg_node = arg_node->next;
 		if (arg_node->type == VAR_EXPAND || look_exit_variabel(cmd, 0))
+		{
+			arg_node->prev_type = VAR_EXPAND;
 			arg_node->arg = get_var_in_node(control, arg_node->arg);
+		}
 		arg_node = temp_arg_node;
 	}
 }
