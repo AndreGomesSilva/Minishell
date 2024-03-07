@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/06 19:50:23 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:49:56 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	check_many_params(char **cmd, t_control *control, char **old_pwd)
 {
 	char	*error_message;
 
+	*old_pwd = getcwd(NULL, 0);
 	if (!*old_pwd)
 		*old_pwd = ft_strdup(get_var_env(control, "PWD"));
 	if (cmd && cmd[1] && cmd[2])
@@ -60,34 +61,27 @@ int	check_many_params(char **cmd, t_control *control, char **old_pwd)
 	return (FALSE);
 }
 
-static void	print_error_message(char **cmd, int i, int type)
+void	print_error_message(char **cmd, int i, int type)
 {
 	char	*error_message;
-	
+
 	if (type == 1)
 	{
 		error_message = swap_string(ft_strdup("cd: "), ft_strdup(cmd[i]));
 		error_message = swap_string(error_message,
 				ft_strdup(": No such file or directory\n"));
-		ft_putstr_fd(error_message, 2);
 	}
 	else if (type == 2)
 	{
 		error_message = swap_string(ft_strdup("cd: "), ft_strdup(cmd[i]));
 		error_message = swap_string(error_message,
 				ft_strdup(": Permission denied\n"));
-		ft_putstr_fd(error_message, 2);
 	}
 	else if (type == 3)
-	{
 		error_message = ft_strdup("cd: No such file or directory \n");
-		ft_putstr_fd(error_message, 2);	
-	}
 	else
-	{
 		error_message = ft_strdup("cd: HOME not set \n");
-		ft_putstr_fd(error_message, 2);	
-	}
+	ft_putstr_fd(error_message, 2);
 	free(error_message);
 }
 
@@ -120,17 +114,16 @@ void	handle_cd_builtin(t_control *control, char **cmd)
 		update_env(control, ft_strdup("?"), ft_strdup("1"), FALSE);
 		return ;
 	}
-	old_pwd = getcwd(NULL, 0);
 	if (check_many_params(cmd, control, &old_pwd))
 		return ;
-	if ((!cmd[1] && !chdir(get_var_env(control, "HOME"))) || !chdir(cmd[1]))
+	else if ((!cmd[1] && !chdir(get_var_env(control, "HOME")))
+		|| !chdir(cmd[1]))
 	{
 		update_env(control, ft_strdup("OLDPWD"), old_pwd, FALSE);
 		update_env(control, ft_strdup("PWD"), getcwd(NULL, 0), FALSE);
 		set_path(control);
-		return ;
 	}
-	if(ft_strncmp(cmd[1], "/", 2))
+	else if (ft_strncmp(cmd[1], "/", 2))
 	{
 		print_error_message(cmd, 1, 3);
 		update_env(control, ft_strdup("?"), ft_strdup("1"), FALSE);

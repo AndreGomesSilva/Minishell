@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/06 17:40:48 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:24:07 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	print_error_127(t_cmd *ptr_cmd, int error_code, char **error_msg)
 			*error_msg = swap_string(ft_strdup("Error:"),
 					ft_strdup(": Command not found \n"));
 			ft_putstr_fd(*error_msg, 2);
-		};
+		}
 		error_code = 127;
 	}
 	else if (ptr_cmd->error_type == E_NO_FILE_2)

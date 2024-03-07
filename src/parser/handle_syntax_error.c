@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:17 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/06 17:51:01 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:00:54 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	is_valid_cmd(t_cmd *cmd)
 {
-	if(cmd->cmd_and_args && cmd->cmd_and_args[0] && !ft_strncmp(cmd->cmd_and_args[0], "..", 3))
+	if (cmd->cmd_and_args && cmd->cmd_and_args[0]
+		&& !ft_strncmp(cmd->cmd_and_args[0], "..", 3))
 		return (FALSE);
 	else if (cmd->cmd_and_args && cmd->cmd_and_args[0]
 		&& cmd->cmd_and_args[0][0] == '\0')

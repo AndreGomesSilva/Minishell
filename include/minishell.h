@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/06 23:35:54 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:07:26 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
 # include "../libft/include/libft.h"
 # include <dirent.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
+# include <stdio.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 
@@ -99,7 +99,7 @@ typedef struct s_arg
 {
 	char				*arg;
 	enum e_type_arg		type;
-	enum e_type_arg     prev_type;
+	enum e_type_arg		prev_type;
 	struct s_arg		*next;
 }						t_arg;
 
@@ -139,7 +139,8 @@ typedef struct s_control
 	int					exit_fd[2];
 }						t_control;
 
-void					type_outfile_error(t_cmd *cmd, t_arg *ptr_arg, char *file);
+void					type_outfile_error(t_cmd *cmd, t_arg *ptr_arg,
+							char *file);
 void					print_error_heredoc(char *eof);
 void					set_in_fds(t_cmd *cmd, int in);
 void					set_out_fds(t_cmd *cmd, int out, int *type);
