@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/07 13:51:41 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/07 16:47:14 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,24 +73,23 @@ long	is_valid_number(char *str)
 
 void	handle_exit_builtin(t_control *control, char **cmd)
 {
-	int	second_param;
+	const long error_code = ft_atoi((const char *)get_var_env(control, "?"));  
 
 	if ((!cmd[1]))
 	{
 		print_exit(control);
 		close_fd_pipe(control);
-		exit(EXIT_SUCCESS);
+		exit(error_code);
 	}
 	else if (!is_valid_number(cmd[1]))
 		print_error_message(control, cmd, 1);
 	else if (is_valid_number(cmd[1]) && !cmd[2])
 	{
-		second_param = (int)ft_atoi((const char *)cmd[1]);
 		print_exit(control);
 		close_fd_pipe(control);
-		if (second_param < 255)
-			exit(second_param);
-		exit(second_param % 256);
+		if (ft_atoi((const char *)cmd[1]) < 255)
+			exit(ft_atoi((const char *)cmd[1]));
+		exit(ft_atoi((const char *)cmd[1]) % 256);
 	}
 	else
 	{

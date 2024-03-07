@@ -4,7 +4,6 @@ CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 INC = -I./include
 
-# file path #
 SRCS_DIR 	= src/
 TEST_DIR 	= test/
 LIST 		= list
@@ -42,15 +41,12 @@ FILES_WITHOUT_MAIN = \
 	$(BUILTIN)/unset \
 	$(BUILTIN)/pwd \
 	$(HEREDOC)/handle_heredoc $(HEREDOC)/utils $(HEREDOC)/print_heredoc_error \
-	
-
 
 FILES = \
 	main $(FILES_WITHOUT_MAIN)
 
 FILE_T = \
 	main_test $(LEXER)/*
-#	main_test $(LEXER)/* $(EXPANDER)/* $(HASHTABLE)/* $(PARSER)/* $(LIST)/*
 
 FILE_TESTE 		= $(addprefix $(TEST_DIR), $(addsuffix .cpp, $(FILE_T)))
 FILE_TESTE_PROG	= $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES_WITHOUT_MAIN)))
