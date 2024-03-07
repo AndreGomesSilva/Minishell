@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_config.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/02 15:50:36 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/07 00:58:20 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ void	handle_config(t_control **control, char **env)
 	temp_pwd = pwd;
 	pwd = ft_strjoin("Minishell:", pwd);
 	free(temp_pwd);
-	(*(control))->prompt = ft_strjoin(pwd, " > ");
+	(*(control))->prompt = ft_strjoin(pwd, "$ ");
 	free(pwd);
 }
