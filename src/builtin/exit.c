@@ -12,8 +12,9 @@
 
 #include "../../include/minishell.h"
 
-void	close_fd_pipe(t_control *control, int *status_code)
+void	close_fd_pipe(t_control *control, long *status_code)
 {
+	*status_code = ft_atoi((const char *)get_var_env(control, "?"));
 	if (control->n_pipes > 0)
 	{
 		close(control->exit_fd[0]);
@@ -26,7 +27,6 @@ void	close_fd_pipe(t_control *control, int *status_code)
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	clear_history();
-	*status_code = ft_atoi((const char *)get_var_env(control, "?"));
 	free_control(control);
 }
 
@@ -36,7 +36,7 @@ static void	print_exit(t_control *control)
 		printf("exit\n");
 }
 
-static void	print_error_message(t_control *control, char **cmd, int i, int *status_code)
+static void	print_error_message(t_control *control, char **cmd, int i, long *status_code)
 {
 	char	*error_message;
 
@@ -50,15 +50,26 @@ static void	print_error_message(t_control *control, char **cmd, int i, int *stat
 	exit(2);
 }
 
+void	write_return_close_pipes(t_control *control, long *status_code, int type, char *cmd)
+{
+	if(type == 1)
+		close_fd_pipe(control, status_code);
+	else if (type == 2)
+	{
+		*status_code = ft_atoi(cmd);
+		close_fd_pipe(control, status_code);
+	}
+}
+
 void	handle_exit_builtin(t_control *control, char **cmd)
 {
-	int		status_code;
+	long		status_code;
 	
 	if (!cmd[1])
 	{
 		status_code = ft_atoi((const char *)get_var_env(control, "?"));
 		print_exit(control);
-		close_fd_pipe(control, &status_code);
+		write_return_close_pipes(control, &status_code, 1, "");
 		exit(status_code);
 	}
 	if (!is_valid_number(cmd[1]))
@@ -66,7 +77,7 @@ void	handle_exit_builtin(t_control *control, char **cmd)
 	else if (is_valid_number(cmd[1]) && !cmd[2])
 	{
 		print_exit(control);
-		close_fd_pipe(control, &status_code);
+		write_return_close_pipes(control, &status_code, 2, cmd[1]);
 		if (status_code < 255)
 			exit(status_code);
 		exit(status_code % 256);
