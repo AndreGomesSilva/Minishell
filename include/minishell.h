@@ -6,20 +6,20 @@
 /*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/07 21:41:48 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/09 19:44:23 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdio.h>
 # include "../libft/include/libft.h"
 # include <dirent.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-# include <stdio.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
@@ -69,7 +69,6 @@ enum					e_type_error
 	E_CMD_NO_FOUND,
 	E_NO_FILE,
 	E_NO_FILE_2,
-	E_PERMISSION,
 	E_PERMISSION_2,
 	E_EXPORT,
 	E_UNSET,

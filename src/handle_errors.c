@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/07 14:24:07 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/09 19:44:09 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,25 +86,14 @@ int	print_error_2(t_cmd *ptr_cmd, int error_code)
 int	print_error_1(t_cmd *ptr_cmd, int error_code)
 {
 	if (ptr_cmd->error_type == E_NO_FILE)
-	{
-		ft_putstr_fd("Error: No such file or directory \n", 2);
 		error_code = 1;
-	}
-	else if (ptr_cmd->error_type == E_PERMISSION)
-	{
-		ft_putstr_fd("Error: Permission denied \n", 2);
-		error_code = 1;
-	}
 	else if (ptr_cmd->error_type == E_AMBIGUOUS)
 	{
 		ft_putstr_fd("Error: Ambiguous redirect \n", 2);
 		error_code = 1;
 	}
 	else if (ptr_cmd->error_type == E_IS_DIR)
-	{
-		ft_putstr_fd("Error: Is a directory \n", 2);
 		error_code = 1;
-	}
 	return (error_code);
 }
 
