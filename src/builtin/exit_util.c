@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 18:25:56 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/09 18:25:59 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/09 21:35:08 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	is_big_number(char *str)
 	{
 		if (!negative && ft_strlen(str) > ft_strlen(LONG_MAX))
 			return (TRUE);
-		if (negative && ft_strlen(str) < ft_strlen(LONG_MIN))
+		if (negative && ft_strlen(str) > ft_strlen(LONG_MIN))
 			return (TRUE);
 	}
 	return (FALSE);
