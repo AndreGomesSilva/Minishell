@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: @student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/07 20:59:35 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/07 20:32:46 by angomes-         ###   ########.fr       */
+/*   Created: 2024/03/09 18:24:03 by r-afonso          #+#    #+#             */
+/*   Updated: 2024/03/09 18:24:12 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static void	print_exit(t_control *control)
 		printf("exit\n");
 }
 
-static void	print_error_message(t_control *control, char **cmd, int i, long *status_code)
+static void	print_error_message(t_control *control, char **cmd, int i,
+		long *status_code)
 {
 	char	*error_message;
 
@@ -50,21 +51,25 @@ static void	print_error_message(t_control *control, char **cmd, int i, long *sta
 	exit(2);
 }
 
-void	write_return_close_pipes(t_control *control, long *status_code, int type, char *cmd)
+void	write_return_close_pipes(t_control *control, long *status_code,
+		int type, char *cmd)
 {
-	if(type == 1)
+	if (type == 1)
+	{
+		update_env(control, ft_strdup("?"), ft_strdup(cmd), FALSE);
 		close_fd_pipe(control, status_code);
+	}
 	else if (type == 2)
 	{
-		*status_code = ft_atoi(cmd);
+		update_env(control, ft_strdup("?"), ft_strdup(cmd), FALSE);
 		close_fd_pipe(control, status_code);
 	}
 }
 
 void	handle_exit_builtin(t_control *control, char **cmd)
 {
-	long		status_code;
-	
+	long	status_code;
+
 	if (!cmd[1])
 	{
 		status_code = ft_atoi((const char *)get_var_env(control, "?"));

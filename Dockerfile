@@ -28,8 +28,13 @@ RUN apt-get install -y \
 	icu-devtools \
 	openssl
 
+# Instala tmux e copia o arquivo de configuração do tmux para o container
 RUN apt-get install -y \
-	valgrind 
+	tmux
+COPY .tmux.conf /root/.tmux.conf
+
+RUN apt-get update && \ 
+	apt-get install -y valgrind
 
 # Atualizo certificado para o SSH funcionar
 RUN update-ca-certificates

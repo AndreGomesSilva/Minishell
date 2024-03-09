@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 16:07:22 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/07 20:47:30by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:24:59 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	type_outfile_error(t_cmd *cmd, t_arg *ptr_arg, char *file)
 {
-	struct stat path_stat;	
-	
+	struct stat	path_stat;	
+
 	if (!*file && ptr_arg->prev_type == VAR_EXPAND)
 		cmd->error_type = E_AMBIGUOUS;
 	else if (stat(file, &path_stat) == 0 && S_ISDIR(path_stat.st_mode))
