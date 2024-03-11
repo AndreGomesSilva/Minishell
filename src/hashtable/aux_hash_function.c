@@ -6,13 +6,13 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:24:25 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/27 13:36:48 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*get_var(t_control *control, const char *key)
+char	*get_var_env(t_control *control, const char *key)
 {
 	int			index;
 	char		*result;
@@ -89,14 +89,20 @@ void	print_sort_env(t_control *control)
 
 	i = 0;
 	env = get_matrix_env(control);
-	matrix_quicksort(env, 0, control->env_table->count - 1);
+	sort_matrix(env, 0, control->env_table->count - 1);
 	if (env)
 	{
 		while (env[i])
 		{
 			item = get_var_node(control, env[i]);
-			if (item && !(item->key[0] == '_' && !item->key[1]))
-				printf("declare -x %s=%s\n", item->key, item->value);
+			if (item && !((item->key[0] == '_' || item->key[0] == '?')
+					&& !item->key[1]))
+			{
+				if (item->type_print)
+					printf("declare -x %s\n", item->key);
+				else
+					printf("declare -x %s=\"%s\"\n", item->key, item->value);
+			}
 			i++;
 		}
 		free_matrix(env);

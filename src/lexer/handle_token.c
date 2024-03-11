@@ -6,35 +6,11 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:20:56 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:21:32 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/02 14:28:31 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-// FIX: retirar posteriormente, função auxiliar
-void	print_lst(t_cmd *cmd)
-{
-	t_cmd	*ptr_cmd;
-	t_arg	*ptr_arg;
-
-	ptr_cmd = cmd;
-	printf("number of nodes: %d\n", list_len(cmd));
-	printf("\n---------------------------------\n");
-	while (ptr_cmd)
-	{
-		ptr_arg = ptr_cmd->list_args;
-		printf("CMD: %s --- type: %d -- delimiter_type: %d \n", ptr_cmd->cmd,
-			ptr_cmd->type, ptr_cmd->delimiter_type);
-		while (ptr_arg)
-		{
-			printf("ARG: %s --- type: %d \n", ptr_arg->arg, ptr_arg->type);
-			ptr_arg = ptr_arg->next;
-		}
-		printf("\n---------------------------------\n");
-		ptr_cmd = ptr_cmd->next;
-	}
-}
 
 char	*create_arg(t_cmd *cmd, char *input)
 {
@@ -94,7 +70,7 @@ void	handle_token(t_control *control, char *input)
 		{
 			if (*actual == '|')
 			{
-				get_last_node_cmd(control->cmd)->delimiter_type = PIP;
+				get_last_node_cmd(control->cmd)->type_cmd = PIP;
 				actual++;
 				break ;
 			}

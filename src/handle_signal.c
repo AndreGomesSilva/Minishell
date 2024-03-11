@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:00 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:39:05 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/04 12:30:03 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,36 @@
 
 int	receive_signal_ctrl_d(t_control *control)
 {
+	int	status;
+
+	status = 0;
 	clear_history();
+	printf("\n");
+	status = ft_atoi(get_var_env(control, "?"));
 	free_control(control);
-	exit(0);
+	exit(status);
+}
+
+void	ctrl_c_heredoc(int sig)
+{
+	extern t_control	*g_control;
+
+	(void)sig;
+	update_env(g_control, ft_strdup("?"), ft_strdup("130"), FALSE);
+	close(STDIN_FILENO);
+	printf("\n");
+}
+
+void	ctrl_bar(int sig)
+{
+	extern t_control	*g_control;
+
+	(void)sig;
+	if (g_control->in_execution == 1)
+	{
+		update_env(g_control, ft_strdup("?"), ft_strdup("131"), FALSE);
+		free_cmd(g_control);
+	}
 }
 
 void	receive_sig_int(int sig)
@@ -24,19 +51,19 @@ void	receive_sig_int(int sig)
 	extern t_control	*g_control;
 
 	(void)sig;
+	update_env(g_control, ft_strdup("?"), ft_strdup("130"), FALSE);
 	free_cmd(g_control);
 	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+	if (g_control->in_execution == 0)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
 void	handle_signal(void)
 {
-	extern t_control	*g_control;
-
 	signal(SIGINT, receive_sig_int);
 	signal(SIGQUIT, SIG_IGN);
 }
-
-// FIXME: Ctrl + C = apaga o que esta no buffer e desenha uma nova linha

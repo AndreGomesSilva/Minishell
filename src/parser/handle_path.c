@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:59 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:40:30 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:38:23 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*get_bin(char **split_path, char *cmd)
 	int		i;
 
 	i = 0;
+	bin = NULL;
 	while (cmd && split_path[i])
 	{
 		temp_path = ft_strjoin(split_path[i], "/");
@@ -33,33 +34,26 @@ char	*get_bin(char **split_path, char *cmd)
 	return (bin);
 }
 
-char	*get_cmd_path(t_control *control, char *cmd)
+char	*handle_bin_path(t_control *control, char **cmd)
 {
+	char	*bin_path;
 	char	*path_var;
-	char	*bin;
 	char	**split_path;
 
-	bin = NULL;
-	path_var = get_var(control, "PATH");
-	if (path_var)
-	{
-		split_path = ft_split(path_var, ':');
-		bin = get_bin(split_path, cmd);
-		free_matrix(split_path);
-	}
-	return (bin);
-}
-
-char	*handle_bin_path(t_control *control, t_cmd *cmd)
-{
-	t_cmd	*ptr_cmd;
-	char	*bin_path;
-
-	ptr_cmd = cmd;
+	path_var = get_var_env(control, "PATH");
 	bin_path = NULL;
-	if (is_absolute_path(ptr_cmd->cmd))
-		bin_path = ft_strdup(ptr_cmd->cmd);
-	else if (!is_builtin(ptr_cmd->cmd))
-		bin_path = get_cmd_path(control, ptr_cmd->cmd);
+	if (is_a_directory(*cmd))
+		bin_path = ft_strdup(*cmd);
+	else if (!is_builtin(*cmd))
+	{
+		if (path_var)
+		{
+			split_path = ft_split(path_var, ':');
+			bin_path = get_bin(split_path, *cmd);
+			free_matrix(split_path);
+		}
+		else
+			*cmd = swap_string(ft_strdup("./"), *cmd);
+	}
 	return (bin_path);
 }

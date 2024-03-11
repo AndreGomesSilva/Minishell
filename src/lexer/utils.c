@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:17:54 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:20:27 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/05 22:54:40 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,22 @@ int	is_space(char c)
 	if (c != 0 && (c == ' ' || c == '\t'))
 		return (TRUE);
 	return (FALSE);
+}
+
+int	str_compare(char *s1, char *s2)
+{
+	int	len1;
+	int	len2;
+	int	result;
+
+	result = 0;
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	if (len2 > len1)
+		result = ft_strncmp(s1, s2, len2);
+	else
+		result = ft_strncmp(s1, s2, len1);
+	return (result);
 }
 
 enum e_type_arg	is_arg(char *actual)
@@ -54,12 +70,10 @@ int	len_string_token(char *str)
 		{
 			type_of_quote = str[i];
 			n_quote++;
-			i++;
-			while (str[i] && n_quote % 2 != 0)
+			while (str[++i] && n_quote % 2 != 0)
 			{
-				if (str[i] == type_of_quote)
-					n_quote++;
-				i++;
+				if (str[i] == type_of_quote && n_quote++)
+					break ;
 			}
 		}
 		if (!str[i] || str[i] == ' ' || str[i] == '|'

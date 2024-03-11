@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_free.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:17:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 18:26:11 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/25 11:15:41 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_ht_item	*free_node(t_ht_item *node)
 	return (next_node);
 }
 
-void	free_hash_table(t_table *table)
+void	free_env(t_table *table)
 {
 	int			i;
 	t_ht_item	**items;
@@ -41,9 +41,7 @@ void	free_hash_table(t_table *table)
 			{
 				item = table->items[i];
 				while (item)
-				{
 					item = free_node(item);
-				}
 			}
 			free(items);
 			table->items = NULL;
@@ -83,6 +81,8 @@ void	free_cmd(t_control *control)
 			free_arg(node->list_args);
 		if (node->cmd)
 			free(node->cmd);
+		if (node->heredoc_file)
+			free(node->heredoc_file);
 		free(node);
 		node = temp_node;
 	}
@@ -91,8 +91,10 @@ void	free_cmd(t_control *control)
 
 void	free_control(t_control *control)
 {
+	if (control->first_input)
+		free(control->first_input);
 	if (control->env_table)
-		free_hash_table(control->env_table);
+		free_env(control->env_table);
 	if (control->env)
 		free_matrix(control->env);
 	if (control->prompt)

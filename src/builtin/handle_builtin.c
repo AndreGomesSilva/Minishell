@@ -3,29 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 23:49:12 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 18:43:52 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/07 17:27:21 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../../include/minishell.h"
-//
-//void handle_builtin(char **cmd, int fd)
-//{
-//	if (ft_strncmp(cmd[0], "echo", 5) == 0)
-//		handle_echo(cmd, fd);
-//	else if (ft_strncmp(cmd[0], "exit", 5) == 0)
-//		handle_exit(cmd, fd);
-//	else if (ft_strncmp(cmd[0], "env", 4) == 0)
-//		handle_env(cmd, fd);
-//	else if (ft_strncmp(cmd[0], "export", 7) == 0)
-//		handle_export(cmd, fd);
-//	else if (ft_strncmp(cmd[0], "unset", 6) == 0)
-//		handle_unset(cmd, fd);
-//	else if (ft_strncmp(cmd[0], "cd", 3) == 0)
-//		handle_cd(cmd, fd);
-//	else if (ft_strncmp(cmd[0], "pwd", 4) == 0)
-//		handle_pwd(cmd, fd);
-//}
+#include "../../include/minishell.h"
+
+int	handle_builtin(char **cmd, t_control *control)
+{
+	const enum e_type_builtin	builtin = is_builtin(cmd[0]);
+
+	if (builtin == B_CD || builtin == B_ECHO || builtin == B_EXPORT
+		|| builtin == B_UNSET || builtin == B_ENV || builtin == B_EXIT
+		|| builtin == B_PWD)
+	{
+		if (builtin != B_ECHO && builtin != B_EXIT)
+			update_env(control, ft_strdup("?"), ft_strdup("0"), FALSE);
+		if (builtin == B_CD)
+			handle_cd_builtin(control, cmd);
+		else if (builtin == B_ECHO)
+			handle_echo_builtin(control, cmd);
+		else if (builtin == B_EXIT)
+			handle_exit_builtin(control, cmd);
+		else if (builtin == B_ENV)
+			handle_env_builtin(control, cmd);
+		else if (builtin == B_EXPORT)
+			handle_export_builtin(control, cmd);
+		else if (builtin == B_UNSET)
+			handle_unset_builtin(control, cmd);
+		else if (builtin == B_PWD)
+			handle_pwd_builtin(control);
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
+int	is_valid_env_name(char *str)
+{
+	int			i;
+
+	i = 0;
+	if (!str || !*str)
+		return (0);
+	if (!ft_isalpha(*str) && str[i] != '_')
+		return (0);
+	while (str[i])
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
+}

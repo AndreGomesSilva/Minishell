@@ -6,11 +6,42 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:10 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:23:41 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:19:03 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+int	is_exit_variable(char *str)
+{
+	if (str[0] && str[1] && str[0] == '$' && str[1] == '?')
+		return (TRUE);
+	return (FALSE);
+}
+
+int	look_exit_variabel(t_cmd *cmd, t_arg *ptr_arg)
+{
+	int		i;
+
+	i = 0;
+	if (cmd)
+	{
+		while (cmd && cmd->cmd[i])
+		{
+			if (is_exit_variable(&cmd->cmd[i]))
+				return (TRUE);
+			i++;
+		}
+		return (FALSE);
+	}
+	while (ptr_arg && ptr_arg->arg[i])
+	{
+		if (is_exit_variable(&ptr_arg->arg[i]))
+			return (TRUE);
+		i++;
+	}
+	return (FALSE);
+}
 
 int	is_variable(char *str)
 {
@@ -22,42 +53,17 @@ int	is_variable(char *str)
 	return (0);
 }
 
-char	*convert_home_path(char *path, int len)
+int	set_path(t_control *control)
 {
-	char	*result;
-	char	*sign;
-	char	*cut_path;
+	char	*pwd;
+	char	*temp_pwd;
 
-	sign = ft_strdup("~");
-	result = NULL;
-	if (path)
-	{
-		cut_path = ft_substr(path, len, ft_strlen(path));
-		result = ft_strjoin(sign, cut_path);
-		free(cut_path);
-		free(sign);
-	}
-	return (result);
-}
-
-char	*handle_home_path(t_control *control, char *path)
-{
-	int		i;
-	char	*home;
-	char	*new_path;
-
-	i = 0;
-	home = NULL;
-	new_path = NULL;
-	home = get_var(control, "HOME");
-	while (path && path[i] && home[i])
-	{
-		if (!ft_strncmp(&path[i], &home[i], ft_strlen(home)))
-		{
-			new_path = convert_home_path(&path[i], (int)ft_strlen(home));
-			return (new_path);
-		}
-		i++;
-	}
-	return (path);
+	free(control->prompt);
+	pwd = ft_strdup(get_var_env(control, "PWD"));
+	temp_pwd = pwd;
+	pwd = ft_strjoin("Minishell:", pwd);
+	free(temp_pwd);
+	control->prompt = ft_strjoin(pwd, "$ ");
+	free(pwd);
+	return (1);
 }

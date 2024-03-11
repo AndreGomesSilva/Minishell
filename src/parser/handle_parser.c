@@ -6,83 +6,34 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/02/08 18:24:45 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:27:13 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	type_io_file(t_cmd *cmd)
-{
-	t_cmd	*ptr_cmd;
-	t_arg	*ptr_arg;
-
-	ptr_cmd = cmd;
-	while (ptr_cmd)
-	{
-		ptr_arg = ptr_cmd->list_args;
-		if (ptr_cmd->type >= REDIRECT_HERD && ptr_arg && (ptr_arg->type == NORM
-				|| ptr_arg->type == VAR_EXPAND))
-		{
-			ptr_arg->type = IOFILE;
-			ptr_arg = ptr_arg->next;
-		}
-		while (ptr_arg)
-		{
-			if (ptr_arg->type >= REDIRECT_HERD && ptr_arg->next
-				&& (ptr_arg->next->type == NORM
-					|| ptr_arg->next->type == VAR_EXPAND))
-				ptr_arg->next->type = IOFILE;
-			ptr_arg = ptr_arg->next;
-		}
-		ptr_cmd = ptr_cmd->next;
-	}
-}
-
-int	count_args(t_cmd *cmd)
-{
-	int		count;
-	t_cmd	*ptr_cmd;
-	t_arg	*ptr_arg;
-
-	ptr_cmd = cmd;
-	ptr_arg = ptr_cmd->list_args;
-	count = 0;
-	if (ptr_cmd->type < REDIRECT_HERD)
-		count++;
-	while (ptr_arg)
-	{
-		if (ptr_arg->type < REDIRECT_HERD)
-			count++;
-		ptr_arg = ptr_arg->next;
-	}
-	if (count < 0)
-		return (0);
-	return (count);
-}
 
 char	**create_full_cmd(t_cmd *cmd)
 {
 	int		len;
 	char	**args;
 	int		i;
-	t_cmd	*ptr_cmd;
 	t_arg	*ptr_arg;
 
-	ptr_cmd = cmd;
 	args = NULL;
-	type_io_file(ptr_cmd);
-	if (ptr_cmd)
+	type_io_file(cmd);
+	len = count_args(cmd);
+	if (cmd && len > 0)
 	{
 		i = 0;
-		len = count_args(ptr_cmd);
-		ptr_arg = ptr_cmd->list_args;
+		ptr_arg = cmd->list_args;
 		args = (char **)ft_calloc(len + 1, sizeof(char *));
-		if (ptr_cmd->type < REDIRECT_HERD)
-			args[i++] = ft_strdup(ptr_cmd->cmd);
+		if (cmd->cmd && cmd->type < REDIRECT_HERD && !(cmd->type == VAR_EXPAND
+				&& cmd->cmd[0] == '\0' && len > 1))
+			args[i++] = ft_strdup(cmd->cmd);
 		while (ptr_arg)
 		{
-			if (ptr_arg->type < REDIRECT_HERD)
+			if (ptr_arg->arg && ptr_arg->type < REDIRECT_HERD
+				&& !(ptr_arg->type == VAR_EXPAND && ptr_arg->arg[0] == '\0'))
 				args[i++] = ft_strdup(ptr_arg->arg);
 			ptr_arg = ptr_arg->next;
 		}
@@ -90,25 +41,24 @@ char	**create_full_cmd(t_cmd *cmd)
 	return (args);
 }
 
-char	*new_cmd_absolute_path(t_cmd *cmd)
+char	*new_cmd_absolute_path(char **matrix)
 {
-	char	*ptr_cmd;
 	char	*result;
 	int		len;
+	char	*cmd;
 
+	cmd = matrix[0];
 	len = 0;
-	ptr_cmd = cmd->cmd;
 	result = NULL;
-	len = (int)ft_strlen(ptr_cmd);
+	len = (int)ft_strlen(cmd);
 	if (len > 0)
 	{
-		while (--len, ptr_cmd[len])
+		while (--len, cmd[len])
 		{
-			if (ptr_cmd[len] == '/')
+			if (cmd[len] == '/')
 			{
-				result = ft_substr(&ptr_cmd[len], len,
-						ft_strlen(&ptr_cmd[len]));
-				free(cmd->cmd);
+				result = ft_substr(&cmd[len], len, ft_strlen(&cmd[len]));
+				free(matrix[0]);
 				return (result);
 			}
 		}
@@ -116,28 +66,64 @@ char	*new_cmd_absolute_path(t_cmd *cmd)
 	return (result);
 }
 
-int	handle_parser(t_control *control)
+int	handle_cmd_n_found(char *cmd)
+{
+	DIR	*directory;
+
+	if ((cmd[0] == '.' && !cmd[1]))
+		return (E_IS_DOT);
+	else if (is_a_directory(cmd) || !ft_strncmp(cmd, "/", 2))
+	{
+		directory = opendir(cmd);
+		if (directory)
+		{
+			closedir(directory);
+			return (E_IS_DIR_2);
+		}
+		else if (!access(cmd, F_OK) && access(cmd, X_OK))
+			return (E_PERMISSION_2);
+		else if (access(cmd, F_OK))
+			return (E_NO_FILE_2);
+	}
+	return (E_NO_ERROR);
+}
+
+void	is_command_true(t_cmd *ptr_cmd, t_control *control)
+{
+	while (ptr_cmd)
+	{
+		ptr_cmd->cmd_and_args = create_full_cmd(ptr_cmd);
+		if (ptr_cmd->cmd_and_args)
+		{
+			ptr_cmd->path_cmd = handle_bin_path(control,
+					&ptr_cmd->cmd_and_args[0]);
+			if (!is_builtin(ptr_cmd->cmd_and_args[0]) && !is_valid_cmd(ptr_cmd))
+				ptr_cmd->error_type = E_CMD_NO_FOUND;
+			if (handle_cmd_n_found(ptr_cmd->cmd_and_args[0]))
+				control->cmd->error_type
+					= handle_cmd_n_found(ptr_cmd->cmd_and_args[0]);
+			else
+			{
+				if (is_a_directory(ptr_cmd->cmd_and_args[0]))
+					ptr_cmd->cmd_and_args[0]
+						= new_cmd_absolute_path(ptr_cmd->cmd_and_args);
+			}
+		}
+		ptr_cmd = ptr_cmd->next;
+	}
+}
+
+void	handle_parser(t_control *control)
 {
 	t_cmd	*ptr_cmd;
-	int		result;
 
 	ptr_cmd = control->cmd;
-	result = 0;
 	if (handle_syntax_error(ptr_cmd))
 	{
-		print_errors("syntax", 1);
-		result = TRUE;
+		control->fatal_err = 1;
+		return ;
 	}
-	else
-	{
-		while (ptr_cmd)
-		{
-			ptr_cmd->path_cmd = handle_bin_path(control, ptr_cmd);
-			if (is_absolute_path(ptr_cmd->cmd))
-				ptr_cmd->cmd = new_cmd_absolute_path(ptr_cmd);
-			ptr_cmd->cmd_and_args = create_full_cmd(ptr_cmd);
-			ptr_cmd = ptr_cmd->next;
-		}
-	}
-	return (result);
+	remove_dolar_follow_quotes(ptr_cmd);
+	handle_quotes_parsing(control);
+	is_command_true(ptr_cmd, control);
 }

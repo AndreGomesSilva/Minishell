@@ -1,3 +1,10 @@
+flags vlagind
+
+valgrind --trace-children=yes --track-fds=yes --log-fd=2 --error-limit=no \
+         --leak-check=full --show-possibly-lost=yes --track-origins=yes \
+         --show-reachable=yes
+--------------------------------------------------------		 
+
 echo "hello " " | "
 echo 'ola'"hello
 echo '"ola'"hello"
@@ -18,5 +25,68 @@ Caso algum arquivo do meio nao tenha permissao para ser alterado/acessado, a exe
 --------------------------------------------------------
 Comandos sem PIP devem ser rodados no pai, sem fork.
 --------------------------------------------------------
+cat << eo"f
 
+heredoc infinito com aspas quebrada.
+--------------------------------------------------------
+export ${ola}
+--------------------------------------------------------
+export "olaA"= "mundo"
+--------------------------------------------------------
+bash
+clear
+
+command to clear terminal need evnterm;
+--------------------------------------------------------
+^C 
+^D 
+
+Teste de sinal, ctrl+c e depois ctrl+d dentro da readline.
+--------------------------------------------------------
+
+ctrl + D depois de usar o comando CD. -> segfault
+--------------------------------------------------------
+
+input = "echo" "hello"''"hi"there"'" | output = hellohithere'
+--------------------------------------------------------
+
+< arq1 <arq2 echo hello
+----------------------------------
+----------------------
+
+< arq1 <arq2 cat
+--------------------------------------------------------
+
+< arquivo1_existe < arquivo2_existe
+
+< arquivo1_não_existe < arquivo2_não_existe
+--------------------------------------------------------
+
+ech"o" ''"$"HOM"E$USER"
+
+ech"o" $"HOM"E$USER
+
+--------------------------------------------------------
+
+export C D
+--------------------------------------------------------
+$ola echo kaka
+kaka
+
+--------------------------------------------------------
+ctrl + c when cat waiting for input, status return = 130;
+
+--------------------------------------------------------
+cat << eof
+'$USER'
+eof
+
+--------------------------------------------------------
+
+leak passando:  cd asdasfasf
+
+--------------------------------------------------------
+cria arquivo text.txt com conteudo
+
+echo oi > text.txt > /etc/passwd
 --------------------------------------------------------

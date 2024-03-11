@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:15:51 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:27:01 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/15 22:24:09 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	partition(char *arr[], int start, int end)
 	j = start;
 	while (j < end)
 	{
-		j++;
 		if (ft_strncmp(arr[j], pivot, ft_strlen(arr[j])) < 0)
 		{
 			i++;
@@ -32,6 +31,7 @@ int	partition(char *arr[], int start, int end)
 			arr[i] = arr[j];
 			arr[j] = temp;
 		}
+		j++;
 	}
 	temp = arr[i + 1];
 	arr[i + 1] = arr[end];
@@ -39,15 +39,15 @@ int	partition(char *arr[], int start, int end)
 	return (i + 1);
 }
 
-void	matrix_quicksort(char *arr[], int start, int end)
+void	sort_matrix(char *arr[], int start, int end)
 {
 	int	pivot;
 
 	if (start < end)
 	{
 		pivot = partition(arr, start, end);
-		matrix_quicksort(arr, start, pivot - 1);
-		matrix_quicksort(arr, pivot + 1, end);
+		sort_matrix(arr, start, pivot - 1);
+		sort_matrix(arr, pivot + 1, end);
 	}
 }
 
@@ -68,7 +68,7 @@ int	ft_pow(int base, int exponent)
 	return (result);
 }
 
-int	len_env(char **env)
+int	get_size_matrix(char **env)
 {
 	int	i;
 
@@ -78,12 +78,14 @@ int	len_env(char **env)
 	return (i);
 }
 
-int	strlen_var_name(const char *str)
+int	get_size_env_key(const char *str)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (str[i] && str[i] != '=')
 		i++;
+	if (ft_strlen(str) == i)
+		return (-1);
 	return (i);
 }

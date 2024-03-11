@@ -1,4 +1,23 @@
 .idea
 .zshrc
 .vscode
+minishell_tester
+teste_files
 .devcontainer/devcontainer.json
+*.o
+empty
+file na with spaces
+infile
+infile_big
+invalid_permission
+loop
+out
+minishell
+.nfs0000000003278c270000004d
+.nfs0000000003278c2000000042
+.nfs0000000003278c9900000041
+.nfs000000000327e834000000a1
+.nfs0000000003278c6a000000ca
+.nfs0000000003278c1f0000022a
+.nfs0000000003278c7800000047
+libft.a

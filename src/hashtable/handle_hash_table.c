@@ -6,59 +6,61 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:59:18 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 18:23:52 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/26 17:37:57 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	print_hash_table(t_table *table)
+void	print_env(t_table *table)
 {
 	int			i;
 	t_ht_item	*items;
 
-	i = 0;
-	if (table)
+	i = -1;
+	while (i++, table && i < table->size)
 	{
-		while (i < table->size)
+		items = table->items[i];
+		if (items)
 		{
-			items = table->items[i];
-			if (items)
+			if (items->key[0] == '?')
+				continue ;
+			printf("%s", items->key);
+			if (items->type_print == FALSE)
+				printf("=%s", items->value);
+			printf("\n");
+			if (items->next)
 			{
-				printf("%s", items->key);
-				printf("=%s\n", items->value);
-				if (items->next)
-				{
-					printf("%s", items->next->key);
-					printf("=%s\n", items->next->value);
-				}
+				printf("%s", items->next->key);
+				if (items->type_print == FALSE)
+					printf("=%s", items->next->value);
+				printf("\n");
 			}
-			i++;
 		}
 	}
 }
 
-void	remove_env_var(t_control *control, char *key)
+void	remove_node_env(t_control *control, t_ht_item *previous_node,
+		t_ht_item *node, int index)
 {
-	t_ht_item	*node;
-	t_ht_item	*previous_node;
-	int			index;
-
-	index = hash_function(key, control->env_table->size);
-	node = get_var_node(control, key);
-	previous_node = control->env_table->items[index];
-	if (previous_node == node && previous_node->next)
+	if (previous_node == node && !previous_node->next)
 	{
 		control->env_table->items[index] = previous_node->next;
+		control->env_table->count--;
 		free_node(node);
 	}
 	else
 	{
-		while (previous_node && previous_node->next)
+		while (previous_node)
 		{
 			if (previous_node->next == node)
 			{
-				previous_node->next = free_node(node);
+				if (previous_node->next->next)
+					previous_node->next = previous_node->next->next;
+				else
+					previous_node->next = NULL;
+				control->env_table->count--;
+				free_node(node);
 				break ;
 			}
 			previous_node = previous_node->next;
@@ -66,31 +68,64 @@ void	remove_env_var(t_control *control, char *key)
 	}
 }
 
-void	update_env_var(t_control *control, char *key, char *value)
+void	remove_env(t_control *control, const char *key)
+{
+	t_ht_item	*node;
+	t_ht_item	*previous_node;
+	int			index;
+
+	index = hash_function(key, control->env_table->size);
+	node = get_var_node(control, (char *)key);
+	previous_node = control->env_table->items[index];
+	if (node)
+		remove_node_env(control, previous_node, node, index);
+}
+
+void	create_new_env(int type_print, t_control *control, const char *key,
+		const char *value)
 {
 	int			index;
 	t_ht_item	*temp_node;
 	t_ht_item	*node;
 
 	index = hash_function(key, control->env_table->size);
-	node = get_var_node(control, key);
-	if (node)
-	{
-		free(node->value);
-		node->value = value;
-	}
+	node = create_hash_node(key, value);
+	if (control->env_table->items[index] == NULL)
+		control->env_table->items[index] = node;
 	else
 	{
-		node = create_hash_node(key, value);
-		if (control->env_table->items[index] == NULL)
-			control->env_table->items[index] = node;
-		else
-		{
-			temp_node = control->env_table->items[index];
-			while (temp_node->next)
-				temp_node = temp_node->next;
-			temp_node->next = node;
-		}
-		control->env_table->count++;
+		temp_node = control->env_table->items[index];
+		while (temp_node->next)
+			temp_node = temp_node->next;
+		temp_node->next = node;
 	}
+	if (type_print)
+		node->type_print = type_print;
+	control->env_table->count++;
+	if (type_print)
+		node->type_print = type_print;
+}
+
+void	update_env(t_control *control, const char *key, const char *value,
+		int type_print)
+{
+	t_ht_item	*node;
+
+	node = get_var_node(control, (char *)key);
+	if (node)
+	{
+		free(node->key);
+		node->key = (char *)key;
+		if (type_print == FALSE)
+		{
+			free(node->value);
+			node->value = (char *)value;
+			node->type_print = FALSE;
+		}
+		else
+			free((char *)value);
+	}
+	else
+		create_new_env(type_print, control, (char *)key, (char *)value);
+	update_matrix_env(control);
 }

@@ -3,37 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   middleware.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:41 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 21:58:58 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/03 20:18:07 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	middleware(t_control *control)
+void	middleware(t_control *control, char *input)
 {
-	char	*input;
-	char	*first_input;
-
-	input = readline(control->prompt);
-	first_input = input;
-	if (input)
+	handle_token(control, input);
+	control->fatal_err = verify_broken_quote(control);
+	if (!control->fatal_err)
 	{
-		add_history(input);
-		while (is_space(*input))
-			input++;
-		if (*input)
-			handle_token(control, input);
+		if (handle_heredoc(control) == FALSE)
+			return ;
 		handle_expander(control);
 		handle_parser(control);
-		print_lst(control->cmd);
-		free(first_input);
-		free_cmd(control);
-		return (TRUE);
+	}
+	handle_execution(control);
+}
+
+void	get_input(t_control *control)
+{
+	char	*input;
+
+	input = readline(control->prompt);
+	control->first_input = input;
+	if (input)
+	{
+		if (*input)
+		{
+			add_history(input);
+			while (is_space(*input))
+				input++;
+			if (*input)
+				middleware(control, input);
+			free_cmd(control);
+		}
+		free(control->first_input);
 	}
 	else
 		receive_signal_ctrl_d(control);
-	return (FALSE);
 }

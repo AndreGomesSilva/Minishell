@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 17:59:36 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 17:59:37 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/25 23:20:27 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,27 @@ int	hash_function(const char *str, int size)
 	return ((int)hash);
 }
 
-t_ht_item	*create_hash_node(char *key, char *value)
+t_ht_item	*create_hash_node(const char *key, const char *value)
 {
 	t_ht_item	*node;
 
 	node = (t_ht_item *)ft_calloc(1, sizeof(t_ht_item));
-	node->key = key;
-	node->value = value;
+	node->key = (char *)key;
+	node->value = (char *)value;
 	node->next = NULL;
 	return (node);
 }
 
-t_table	*init_table(t_control *control, char **env)
+t_table	*init_table(char **env)
 {
 	t_table	*table;
 	int		arr_size;
 
-	arr_size = len_env(env) * 3;
+	arr_size = get_size_matrix(env) * 3;
 	table = (t_table *)malloc(sizeof(t_table));
 	table->count = 0;
 	table->size = arr_size;
 	table->items = (t_ht_item **)ft_calloc(table->size, sizeof(t_ht_item *));
-	control->env_table = table;
 	return (table);
 }
 
@@ -64,9 +63,9 @@ void	copy_env(t_control *control, char **env)
 	i = 0;
 	while (env[i])
 	{
-		key = ft_substr(env[i], 0, strlen_var_name(env[i]));
+		key = ft_substr(env[i], 0, get_size_env_key(env[i]));
 		value = ft_strdup(getenv(key));
-		update_env_var(control, key, value);
+		update_env(control, key, value, FALSE);
 		i++;
 	}
 }

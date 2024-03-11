@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
+/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:33:31 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/02/08 16:33:32 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/02/25 12:49:49 by angomes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **env)
 	handle_config(&g_control, env);
 	handle_signal();
 	while (1)
-		middleware(g_control);
+		get_input(g_control);
 	clear_history();
 	free_control(g_control);
 	return (0);
