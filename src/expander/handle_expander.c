@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_expander.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:22 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/07 00:01:34 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:19:40 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	get_var_in_arg(t_control *control, t_cmd *cmd)
 	while (arg_node)
 	{
 		temp_arg_node = arg_node->next;
-		if (arg_node->type == VAR_EXPAND || look_exit_variabel(cmd, 0))
+		if (arg_node->type == VAR_EXPAND || look_exit_variabel(NULL, arg_node))
 		{
 			arg_node->prev_type = VAR_EXPAND;
 			arg_node->arg = get_var_in_node(control, arg_node->arg);
@@ -80,7 +80,7 @@ int	handle_expander(t_control *control)
 	while (cmd_node && cmd_node->cmd)
 	{
 		cmd_node_temp = cmd_node->next;
-		if (cmd_node->type == VAR_EXPAND || look_exit_variabel(cmd_node, 1))
+		if (cmd_node->type == VAR_EXPAND || look_exit_variabel(cmd_node, NULL))
 			cmd_node->cmd = get_var_in_node(control, cmd_node->cmd);
 		get_var_in_arg(control, cmd_node);
 		cmd_node = cmd_node_temp;

@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:16:10 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/07 16:00:56 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:19:03 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ int	is_exit_variable(char *str)
 	return (FALSE);
 }
 
-int	look_exit_variabel(t_cmd *cmd, int flag)
+int	look_exit_variabel(t_cmd *cmd, t_arg *ptr_arg)
 {
-	t_arg	*ptr_arg;
 	int		i;
 
 	i = 0;
-	ptr_arg = cmd->list_args;
-	if (flag)
+	if (cmd)
 	{
 		while (cmd && cmd->cmd[i])
 		{
@@ -36,7 +34,6 @@ int	look_exit_variabel(t_cmd *cmd, int flag)
 		}
 		return (FALSE);
 	}
-	i = 0;
 	while (ptr_arg && ptr_arg->arg[i])
 	{
 		if (is_exit_variable(&ptr_arg->arg[i]))

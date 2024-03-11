@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/09 19:44:23 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:18:22 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ int						handle_quotes(char *str, int *iterator, int *n_quotes,
 char					*expand_var(t_control *control, int *i, char *str);
 char					*ft_join_var(int *i, char *str, char *var, char *end);
 int						is_exit_variable(char *str);
-int						look_exit_variabel(t_cmd *cmd, int flag);
+int						look_exit_variabel(t_cmd *cmd, t_arg *ptr_arg);
 char					*get_var_in_node(t_control *control, char *str);
 int						handle_expander(t_control *control);
 int						is_variable(char *str);
