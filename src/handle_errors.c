@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angomes- <angomes-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:29 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/09 19:44:09 by angomes-         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:35:24 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	print_error_127(t_cmd *ptr_cmd, int error_code, char **error_msg)
 			return (127);
 		else
 		{
-			*error_msg = swap_string(ft_strdup("Error:"),
+			*error_msg = swap_string(ft_strdup("Error"),
 					ft_strdup(": Command not found \n"));
 			ft_putstr_fd(*error_msg, 2);
 		}
@@ -48,7 +48,7 @@ int	print_error_127(t_cmd *ptr_cmd, int error_code, char **error_msg)
 	}
 	else if (ptr_cmd->error_type == E_NO_FILE_2)
 	{
-		*error_msg = swap_string(ft_strdup(ptr_cmd->cmd_and_args[0]),
+		*error_msg = swap_string(ft_strdup("Error"),
 				ft_strdup(": No such file or directory \n"));
 		ft_putstr_fd(*error_msg, 2);
 		error_code = 127;

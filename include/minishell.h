@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 18:10:02 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/11 16:18:22 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:27:56 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ t_arg					*get_last_node_arg(t_arg *cmd);
 void					free_cmd(t_control *control);
 int						is_valid_cmd(t_cmd *cmd);
 void					free_matrix(char **matrix);
-char					*handle_bin_path(t_control *control, char *cmd);
+char					*handle_bin_path(t_control *control, char **cmd);
 int						is_builtin(char *cmd);
 void					handle_parser(t_control *control);
 int						handle_syntax_error(t_cmd *cmd);

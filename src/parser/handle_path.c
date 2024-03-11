@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:14:59 by r-afonso          #+#    #+#             */
-/*   Updated: 2024/03/06 18:22:03 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:38:23 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_bin(char **split_path, char *cmd)
 	return (bin);
 }
 
-char	*handle_bin_path(t_control *control, char *cmd)
+char	*handle_bin_path(t_control *control, char **cmd)
 {
 	char	*bin_path;
 	char	*path_var;
@@ -42,16 +42,18 @@ char	*handle_bin_path(t_control *control, char *cmd)
 
 	path_var = get_var_env(control, "PATH");
 	bin_path = NULL;
-	if (is_a_directory(cmd))
-		bin_path = ft_strdup(cmd);
-	else if (!is_builtin(cmd))
+	if (is_a_directory(*cmd))
+		bin_path = ft_strdup(*cmd);
+	else if (!is_builtin(*cmd))
 	{
 		if (path_var)
 		{
 			split_path = ft_split(path_var, ':');
-			bin_path = get_bin(split_path, cmd);
+			bin_path = get_bin(split_path, *cmd);
 			free_matrix(split_path);
 		}
+		else
+			*cmd = swap_string(ft_strdup("./"), *cmd);
 	}
 	return (bin_path);
 }

@@ -6,7 +6,7 @@
 /*   By: r-afonso < r-afonso@student.42sp.org.br    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 13:33:41 by angomes-          #+#    #+#             */
-/*   Updated: 2024/03/07 14:55:54 by r-afonso         ###   ########.fr       */
+/*   Updated: 2024/03/11 17:27:13 by r-afonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	is_command_true(t_cmd *ptr_cmd, t_control *control)
 		if (ptr_cmd->cmd_and_args)
 		{
 			ptr_cmd->path_cmd = handle_bin_path(control,
-					ptr_cmd->cmd_and_args[0]);
+					&ptr_cmd->cmd_and_args[0]);
 			if (!is_builtin(ptr_cmd->cmd_and_args[0]) && !is_valid_cmd(ptr_cmd))
 				ptr_cmd->error_type = E_CMD_NO_FOUND;
 			if (handle_cmd_n_found(ptr_cmd->cmd_and_args[0]))
