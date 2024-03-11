@@ -1,5 +1,5 @@
 NAME = minishell
-CC = cc -g3
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 INC = -I./include
@@ -90,7 +90,6 @@ clean:
 fclean: clean
 	$(MAKE) fclean -C $(SRC_DIR_LIB)
 	$(RM) $(NAME)
-	$(RM) testRun
 
 re: fclean all
 
